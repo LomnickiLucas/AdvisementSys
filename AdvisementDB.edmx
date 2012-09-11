@@ -1,0 +1,1945 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="applicationForReadmission" EntityType="Model.Store.applicationForReadmission" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="applicationForTermOrCompleteProgramWithdrawal" EntityType="Model.Store.applicationForTermOrCompleteProgramWithdrawal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="appointment" EntityType="Model.Store.appointment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="campus" EntityType="Model.Store.campus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="coordinator" EntityType="Model.Store.coordinator" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="coordinator/course" EntityType="Model.Store.coordinator/course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="course" EntityType="Model.Store.course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="course/program" EntityType="Model.Store.course/program" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="designation" EntityType="Model.Store.designation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="employee" EntityType="Model.Store.employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="faculty" EntityType="Model.Store.faculty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="issue" EntityType="Model.Store.issue" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="location" EntityType="Model.Store.location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="note" EntityType="Model.Store.note" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="part-timeAnd/orAdditionalCourseRegistrationForm" EntityType="Model.Store.part-timeAnd/orAdditionalCourseRegistrationForm" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="probationaryContractPlan" EntityType="Model.Store.probationaryContractPlan" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="professor" EntityType="Model.Store.professor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="professor/course" EntityType="Model.Store.professor/course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="program" EntityType="Model.Store.program" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="requestForLateEnrolment" EntityType="Model.Store.requestForLateEnrolment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="requiredcourse" EntityType="Model.Store.requiredcourse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="role" EntityType="Model.Store.role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="startdate" EntityType="Model.Store.startdate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="student" EntityType="Model.Store.student" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_applicationForReadmission_issue" Association="Model.Store.FK_applicationForReadmission_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="applicationForReadmission" EntitySet="applicationForReadmission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_applicationForTermOrCompleteProgramWithdrawal_issue" Association="Model.Store.FK_applicationForTermOrCompleteProgramWithdrawal_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="applicationForTermOrCompleteProgramWithdrawal" EntitySet="applicationForTermOrCompleteProgramWithdrawal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_appointment_employee" Association="Model.Store.FK_appointment_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="appointment" EntitySet="appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_appointment_student" Association="Model.Store.FK_appointment_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="appointment" EntitySet="appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_coordinator/course_coordinator" Association="Model.Store.FK_coordinator/course_coordinator">
+            <End Role="coordinator" EntitySet="coordinator" />
+            <End Role="coordinator/course" EntitySet="coordinator/course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_coordinator/course_course" Association="Model.Store.FK_coordinator/course_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="coordinator/course" EntitySet="coordinator/course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_coordinator_campus" Association="Model.Store.FK_coordinator_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="coordinator" EntitySet="coordinator" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course/program_course" Association="Model.Store.FK_course/program_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="course/program" EntitySet="course/program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course/program_program" Association="Model.Store.FK_course/program_program">
+            <End Role="program" EntitySet="program" />
+            <End Role="course/program" EntitySet="course/program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_role1" Association="Model.Store.FK_employee_role1">
+            <End Role="role" EntitySet="role" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issue_student" Association="Model.Store.FK_issue_student">
+            <End Role="student" EntitySet="student" />
+            <End Role="issue" EntitySet="issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_location_campus" Association="Model.Store.FK_location_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="location" EntitySet="location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_location_program" Association="Model.Store.FK_location_program">
+            <End Role="program" EntitySet="program" />
+            <End Role="location" EntitySet="location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_note_employee" Association="Model.Store.FK_note_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="note" EntitySet="note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_note_issue" Association="Model.Store.FK_note_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="note" EntitySet="note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_part-timeAnd/orAdditionalCourseRegistrationForm_issue" Association="Model.Store.FK_part-timeAnd/orAdditionalCourseRegistrationForm_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="part-timeAnd/orAdditionalCourseRegistrationForm" EntitySet="part-timeAnd/orAdditionalCourseRegistrationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_probationaryContractPlan_issue" Association="Model.Store.FK_probationaryContractPlan_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="probationaryContractPlan" EntitySet="probationaryContractPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_professor/course_course" Association="Model.Store.FK_professor/course_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="professor/course" EntitySet="professor/course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_professor/course_professor" Association="Model.Store.FK_professor/course_professor">
+            <End Role="professor" EntitySet="professor" />
+            <End Role="professor/course" EntitySet="professor/course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_professor_campus" Association="Model.Store.FK_professor_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="professor" EntitySet="professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_designation" Association="Model.Store.FK_program_designation">
+            <End Role="designation" EntitySet="designation" />
+            <End Role="program" EntitySet="program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_employee" Association="Model.Store.FK_program_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="program" EntitySet="program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_faculty" Association="Model.Store.FK_program_faculty">
+            <End Role="faculty" EntitySet="faculty" />
+            <End Role="program" EntitySet="program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requestForLateEnrolment_issue" Association="Model.Store.FK_requestForLateEnrolment_issue">
+            <End Role="issue" EntitySet="issue" />
+            <End Role="requestForLateEnrolment" EntitySet="requestForLateEnrolment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requiredcourse_course" Association="Model.Store.FK_requiredcourse_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="requiredcourse" EntitySet="requiredcourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requiredcourse_course1" Association="Model.Store.FK_requiredcourse_course1">
+            <End Role="course" EntitySet="course" />
+            <End Role="requiredcourse" EntitySet="requiredcourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_startdate_program" Association="Model.Store.FK_startdate_program">
+            <End Role="program" EntitySet="program" />
+            <End Role="startdate" EntitySet="startdate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_campus" Association="Model.Store.FK_student_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_program" Association="Model.Store.FK_student_program">
+            <End Role="program" EntitySet="program" />
+            <End Role="student" EntitySet="student" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="applicationForReadmission">
+          <Key>
+            <PropertyRef Name="readmissionid" />
+          </Key>
+          <Property Name="readmissionid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="oldprogram" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="oldfulltime" Type="bit" Nullable="false" />
+          <Property Name="oldsemyear" Type="nchar" Nullable="false" MaxLength="11" />
+          <Property Name="oldcampus" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="newprogram" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="newfulltime" Type="bit" Nullable="false" />
+          <Property Name="newsemyear" Type="nchar" Nullable="false" MaxLength="11" />
+          <Property Name="newcampus" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="recamendedprogram" Type="char" MaxLength="5" />
+          <Property Name="recamendedfulltime" Type="bit" />
+          <Property Name="recamendedsemyear" Type="nchar" MaxLength="11" />
+          <Property Name="recamendedcampus" Type="nvarchar" MaxLength="30" />
+          <Property Name="approved" Type="bit" Nullable="false" />
+          <Property Name="acceptableconditional" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="term" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="conditions" Type="nvarchar" MaxLength="50" />
+          <Property Name="probation" Type="nvarchar" MaxLength="50" />
+          <Property Name="special" Type="bit" Nullable="false" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="purpose" Type="nchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="applicationForTermOrCompleteProgramWithdrawal">
+          <Key>
+            <PropertyRef Name="withdrawid" />
+          </Key>
+          <Property Name="withdrawid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="withdrawalterm" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="returnterm" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="reasonwithdrawal" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="continuingedcoursecode" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="refundapproved" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="appointment">
+          <Key>
+            <PropertyRef Name="appointmentid" />
+          </Key>
+          <Property Name="appointmentid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="starttime" Type="datetime" Nullable="false" />
+          <Property Name="endtime" Type="datetime" Nullable="false" />
+          <Property Name="subject" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="confirmed" Type="bit" Nullable="false" />
+          <Property Name="reasonForCancelation" Type="text" />
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="campus">
+          <Key>
+            <PropertyRef Name="cname" />
+          </Key>
+          <Property Name="cname" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="street" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="city" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="province" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="postalcode" Type="char" Nullable="false" MaxLength="7" />
+          <Property Name="archived" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="coordinator">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="lname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="phonenum" Type="nchar" Nullable="false" MaxLength="4" />
+          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="campus" Type="nvarchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="coordinator/course">
+          <Key>
+            <PropertyRef Name="employeeid" />
+            <PropertyRef Name="coursecode" />
+          </Key>
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="coursecode" />
+          </Key>
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="creditvalue" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="pla" Type="bit" Nullable="false" />
+          <Property Name="version" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="totalhours" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="effectivedate" Type="datetime" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course/program">
+          <Key>
+            <PropertyRef Name="coursecode" />
+            <PropertyRef Name="programcode" />
+          </Key>
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="title" />
+          </Key>
+          <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="duration" Type="nvarchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="lname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="phonenum" Type="char" Nullable="false" MaxLength="12" />
+          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="role" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="passhint" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="permcode" Type="char" MaxLength="10" />
+          <Property Name="archived" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="faculty">
+          <Key>
+            <PropertyRef Name="fname" />
+          </Key>
+          <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="issue">
+          <Key>
+            <PropertyRef Name="issueid" />
+          </Key>
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="urgency" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="locationcode" />
+          </Key>
+          <Property Name="locationcode" Type="numeric" Nullable="false" Precision="9" StoreGeneratedPattern="Identity" />
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="campus" Type="nvarchar" Nullable="false" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="note">
+          <Key>
+            <PropertyRef Name="noteid" />
+          </Key>
+          <Property Name="noteid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="dates" Type="datetime" Nullable="false" />
+          <Property Name="notes" Type="text" Nullable="false" />
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="issueid" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="part-timeAnd/orAdditionalCourseRegistrationForm">
+          <Key>
+            <PropertyRef Name="registrationid" />
+          </Key>
+          <Property Name="registrationid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="coursecharges" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="matfees" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="compcharges" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="probationaryContractPlan">
+          <Key>
+            <PropertyRef Name="advisementid" />
+          </Key>
+          <Property Name="advisementid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="particulers" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="conditions" Type="text" Nullable="false" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="professor">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="lname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="phonenum" Type="char" MaxLength="4" />
+          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="campus" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="professor/course">
+          <Key>
+            <PropertyRef Name="employeeid" />
+            <PropertyRef Name="coursecode" />
+          </Key>
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="program">
+          <Key>
+            <PropertyRef Name="programcode" />
+          </Key>
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="programname" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="designation" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="requirements" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="requestForLateEnrolment">
+          <Key>
+            <PropertyRef Name="enrolementid" />
+          </Key>
+          <Property Name="enrolementid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requiredcourse">
+          <Key>
+            <PropertyRef Name="unique" />
+          </Key>
+          <Property Name="unique" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="coursecode" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="reqcoursecode" Type="char" Nullable="false" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="permcode" />
+          </Key>
+          <Property Name="permcode" Type="char" Nullable="false" MaxLength="10" />
+          <Property Name="role" Type="nvarchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="startdate">
+          <Key>
+            <PropertyRef Name="datecode" />
+          </Key>
+          <Property Name="datecode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="startdate" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="lname" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="campus" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="phonenum" Type="char" Nullable="false" MaxLength="12" />
+          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="street" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="appartmentnum" Type="char" MaxLength="10" />
+          <Property Name="city" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="province" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="postalcode" Type="char" Nullable="false" MaxLength="7" />
+          <Property Name="acadprobation" Type="bit" Nullable="false" />
+          <Property Name="fulltimestatus" Type="bit" Nullable="false" />
+          <Property Name="enrolled" Type="bit" Nullable="false" />
+          <Property Name="international" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_applicationForReadmission_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
+          <End Role="applicationForReadmission" Type="Model.Store.applicationForReadmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="applicationForReadmission">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_applicationForTermOrCompleteProgramWithdrawal_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
+          <End Role="applicationForTermOrCompleteProgramWithdrawal" Type="Model.Store.applicationForTermOrCompleteProgramWithdrawal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="applicationForTermOrCompleteProgramWithdrawal">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_appointment_employee">
+          <End Role="employee" Type="Model.Store.employee" Multiplicity="1" />
+          <End Role="appointment" Type="Model.Store.appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_appointment_student">
+          <End Role="student" Type="Model.Store.student" Multiplicity="1" />
+          <End Role="appointment" Type="Model.Store.appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_coordinator/course_coordinator">
+          <End Role="coordinator" Type="Model.Store.coordinator" Multiplicity="1" />
+          <End Role="coordinator/course" Type="Model.Store.coordinator/course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coordinator">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="coordinator/course">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_coordinator/course_course">
+          <End Role="course" Type="Model.Store.course" Multiplicity="1" />
+          <End Role="coordinator/course" Type="Model.Store.coordinator/course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="coordinator/course">
+              <PropertyRef Name="coursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_coordinator_campus">
+          <End Role="campus" Type="Model.Store.campus" Multiplicity="1" />
+          <End Role="coordinator" Type="Model.Store.coordinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="coordinator">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course/program_course">
+          <End Role="course" Type="Model.Store.course" Multiplicity="1" />
+          <End Role="course/program" Type="Model.Store.course/program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="course/program">
+              <PropertyRef Name="coursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course/program_program">
+          <End Role="program" Type="Model.Store.program" Multiplicity="1" />
+          <End Role="course/program" Type="Model.Store.course/program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="course/program">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_role1">
+          <End Role="role" Type="Model.Store.role" Multiplicity="0..1" />
+          <End Role="employee" Type="Model.Store.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="permcode" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="permcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issue_student">
+          <End Role="student" Type="Model.Store.student" Multiplicity="1" />
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="issue">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_location_campus">
+          <End Role="campus" Type="Model.Store.campus" Multiplicity="1" />
+          <End Role="location" Type="Model.Store.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_location_program">
+          <End Role="program" Type="Model.Store.program" Multiplicity="1" />
+          <End Role="location" Type="Model.Store.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_note_employee">
+          <End Role="employee" Type="Model.Store.employee" Multiplicity="1" />
+          <End Role="note" Type="Model.Store.note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="note">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_note_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="0..1" />
+          <End Role="note" Type="Model.Store.note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="note">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_part-timeAnd/orAdditionalCourseRegistrationForm_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
+          <End Role="part-timeAnd/orAdditionalCourseRegistrationForm" Type="Model.Store.part-timeAnd/orAdditionalCourseRegistrationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="part-timeAnd/orAdditionalCourseRegistrationForm">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_probationaryContractPlan_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
+          <End Role="probationaryContractPlan" Type="Model.Store.probationaryContractPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="probationaryContractPlan">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_professor/course_course">
+          <End Role="course" Type="Model.Store.course" Multiplicity="1" />
+          <End Role="professor/course" Type="Model.Store.professor/course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="professor/course">
+              <PropertyRef Name="coursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_professor/course_professor">
+          <End Role="professor" Type="Model.Store.professor" Multiplicity="1" />
+          <End Role="professor/course" Type="Model.Store.professor/course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="professor">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="professor/course">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_professor_campus">
+          <End Role="campus" Type="Model.Store.campus" Multiplicity="0..1" />
+          <End Role="professor" Type="Model.Store.professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="professor">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_designation">
+          <End Role="designation" Type="Model.Store.designation" Multiplicity="1" />
+          <End Role="program" Type="Model.Store.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="title" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="designation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_employee">
+          <End Role="employee" Type="Model.Store.employee" Multiplicity="1" />
+          <End Role="program" Type="Model.Store.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_faculty">
+          <End Role="faculty" Type="Model.Store.faculty" Multiplicity="1" />
+          <End Role="program" Type="Model.Store.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculty">
+              <PropertyRef Name="fname" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requestForLateEnrolment_issue">
+          <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
+          <End Role="requestForLateEnrolment" Type="Model.Store.requestForLateEnrolment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="requestForLateEnrolment">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requiredcourse_course">
+          <End Role="course" Type="Model.Store.course" Multiplicity="1" />
+          <End Role="requiredcourse" Type="Model.Store.requiredcourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="requiredcourse">
+              <PropertyRef Name="coursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requiredcourse_course1">
+          <End Role="course" Type="Model.Store.course" Multiplicity="1" />
+          <End Role="requiredcourse" Type="Model.Store.requiredcourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="requiredcourse">
+              <PropertyRef Name="reqcoursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_startdate_program">
+          <End Role="program" Type="Model.Store.program" Multiplicity="1" />
+          <End Role="startdate" Type="Model.Store.startdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="startdate">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_student_campus">
+          <End Role="campus" Type="Model.Store.campus" Multiplicity="1" />
+          <End Role="student" Type="Model.Store.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_student_program">
+          <End Role="program" Type="Model.Store.program" Multiplicity="1" />
+          <End Role="student" Type="Model.Store.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="applicationForReadmissions" EntityType="Model.applicationForReadmission" />
+          <EntitySet Name="applicationForTermOrCompleteProgramWithdrawals" EntityType="Model.applicationForTermOrCompleteProgramWithdrawal" />
+          <EntitySet Name="appointments" EntityType="Model.appointment" />
+          <EntitySet Name="campus" EntityType="Model.campu" />
+          <EntitySet Name="coordinators" EntityType="Model.coordinator" />
+          <EntitySet Name="courses" EntityType="Model.course" />
+          <EntitySet Name="designations" EntityType="Model.designation" />
+          <EntitySet Name="employees" EntityType="Model.employee" />
+          <EntitySet Name="faculties" EntityType="Model.faculty" />
+          <EntitySet Name="issues" EntityType="Model.issue" />
+          <EntitySet Name="locations" EntityType="Model.location" />
+          <EntitySet Name="notes" EntityType="Model.note" />
+          <EntitySet Name="part_timeAnd_orAdditionalCourseRegistrationForm" EntityType="Model.part_timeAnd_orAdditionalCourseRegistrationForm" />
+          <EntitySet Name="probationaryContractPlans" EntityType="Model.probationaryContractPlan" />
+          <EntitySet Name="professors" EntityType="Model.professor" />
+          <EntitySet Name="programs" EntityType="Model.program" />
+          <EntitySet Name="requestForLateEnrolments" EntityType="Model.requestForLateEnrolment" />
+          <EntitySet Name="requiredcourses" EntityType="Model.requiredcourse" />
+          <EntitySet Name="roles" EntityType="Model.role" />
+          <EntitySet Name="startdates" EntityType="Model.startdate" />
+          <EntitySet Name="students" EntityType="Model.student" />
+          <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagram" />
+          <AssociationSet Name="FK_applicationForReadmission_issue" Association="Model.FK_applicationForReadmission_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="applicationForReadmission" EntitySet="applicationForReadmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_applicationForTermOrCompleteProgramWithdrawal_issue" Association="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="applicationForTermOrCompleteProgramWithdrawal" EntitySet="applicationForTermOrCompleteProgramWithdrawals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_appointment_employee" Association="Model.FK_appointment_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="appointment" EntitySet="appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_appointment_student" Association="Model.FK_appointment_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="appointment" EntitySet="appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_coordinator_campus" Association="Model.FK_coordinator_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="coordinator" EntitySet="coordinators" />
+          </AssociationSet>
+          <AssociationSet Name="FK_location_campus" Association="Model.FK_location_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="location" EntitySet="locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_professor_campus" Association="Model.FK_professor_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="professor" EntitySet="professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_campus" Association="Model.FK_student_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requiredcourse_course" Association="Model.FK_requiredcourse_course">
+            <End Role="course" EntitySet="courses" />
+            <End Role="requiredcourse" EntitySet="requiredcourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requiredcourse_course1" Association="Model.FK_requiredcourse_course1">
+            <End Role="course" EntitySet="courses" />
+            <End Role="requiredcourse" EntitySet="requiredcourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_designation" Association="Model.FK_program_designation">
+            <End Role="designation" EntitySet="designations" />
+            <End Role="program" EntitySet="programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employee_role1" Association="Model.FK_employee_role1">
+            <End Role="role" EntitySet="roles" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_note_employee" Association="Model.FK_note_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="note" EntitySet="notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_employee" Association="Model.FK_program_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="program" EntitySet="programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_program_faculty" Association="Model.FK_program_faculty">
+            <End Role="faculty" EntitySet="faculties" />
+            <End Role="program" EntitySet="programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_issue_student" Association="Model.FK_issue_student">
+            <End Role="student" EntitySet="students" />
+            <End Role="issue" EntitySet="issues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_note_issue" Association="Model.FK_note_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="note" EntitySet="notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" Association="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="part_timeAnd_orAdditionalCourseRegistrationForm" EntitySet="part_timeAnd_orAdditionalCourseRegistrationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_probationaryContractPlan_issue" Association="Model.FK_probationaryContractPlan_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="probationaryContractPlan" EntitySet="probationaryContractPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_requestForLateEnrolment_issue" Association="Model.FK_requestForLateEnrolment_issue">
+            <End Role="issue" EntitySet="issues" />
+            <End Role="requestForLateEnrolment" EntitySet="requestForLateEnrolments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_location_program" Association="Model.FK_location_program">
+            <End Role="program" EntitySet="programs" />
+            <End Role="location" EntitySet="locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_startdate_program" Association="Model.FK_startdate_program">
+            <End Role="program" EntitySet="programs" />
+            <End Role="startdate" EntitySet="startdates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_student_program" Association="Model.FK_student_program">
+            <End Role="program" EntitySet="programs" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <AssociationSet Name="coordinator_course" Association="Model.coordinator_course">
+            <End Role="coordinator" EntitySet="coordinators" />
+            <End Role="course" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="course_program" Association="Model.course_program">
+            <End Role="course" EntitySet="courses" />
+            <End Role="program" EntitySet="programs" />
+          </AssociationSet>
+          <AssociationSet Name="professor_course" Association="Model.professor_course">
+            <End Role="course" EntitySet="courses" />
+            <End Role="professor" EntitySet="professors" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="applicationForReadmission">
+          <Key>
+            <PropertyRef Name="readmissionid" />
+          </Key>
+          <Property Name="readmissionid" Type="Guid" Nullable="false" />
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="oldprogram" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="oldfulltime" Type="Boolean" Nullable="false" />
+          <Property Name="oldsemyear" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="oldcampus" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="newprogram" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="newfulltime" Type="Boolean" Nullable="false" />
+          <Property Name="newsemyear" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="newcampus" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="recamendedprogram" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="recamendedfulltime" Type="Boolean" />
+          <Property Name="recamendedsemyear" Type="String" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="recamendedcampus" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="approved" Type="Boolean" Nullable="false" />
+          <Property Name="acceptableconditional" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="term" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="conditions" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="probation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="special" Type="Boolean" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="purpose" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_applicationForReadmission_issue" FromRole="applicationForReadmission" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="applicationForTermOrCompleteProgramWithdrawal">
+          <Key>
+            <PropertyRef Name="withdrawid" />
+          </Key>
+          <Property Name="withdrawid" Type="Guid" Nullable="false" />
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="withdrawalterm" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="returnterm" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="reasonwithdrawal" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="continuingedcoursecode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="refundapproved" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" FromRole="applicationForTermOrCompleteProgramWithdrawal" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="appointment">
+          <Key>
+            <PropertyRef Name="appointmentid" />
+          </Key>
+          <Property Name="appointmentid" Type="Guid" Nullable="false" />
+          <Property Name="starttime" Type="DateTime" Nullable="false" />
+          <Property Name="endtime" Type="DateTime" Nullable="false" />
+          <Property Name="subject" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="confirmed" Type="Boolean" Nullable="false" />
+          <Property Name="reasonForCancelation" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="studentid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="employee" Relationship="Model.FK_appointment_employee" FromRole="appointment" ToRole="employee" />
+          <NavigationProperty Name="student" Relationship="Model.FK_appointment_student" FromRole="appointment" ToRole="student" />
+        </EntityType>
+        <EntityType Name="campu">
+          <Key>
+            <PropertyRef Name="cname" />
+          </Key>
+          <Property Name="cname" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
+          <Property Name="postalcode" Type="String" Nullable="false" MaxLength="7" Unicode="false" FixedLength="true" />
+          <Property Name="archived" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="coordinators" Relationship="Model.FK_coordinator_campus" FromRole="campus" ToRole="coordinator" />
+          <NavigationProperty Name="locations" Relationship="Model.FK_location_campus" FromRole="campus" ToRole="location" />
+          <NavigationProperty Name="professors" Relationship="Model.FK_professor_campus" FromRole="campus" ToRole="professor" />
+          <NavigationProperty Name="students" Relationship="Model.FK_student_campus" FromRole="campus" ToRole="student" />
+        </EntityType>
+        <EntityType Name="coordinator">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="phonenum" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="faculty" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="campus" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="campu" Relationship="Model.FK_coordinator_campus" FromRole="coordinator" ToRole="campus" />
+          <NavigationProperty Name="courses" Relationship="Model.coordinator_course" FromRole="coordinator" ToRole="course" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="coursecode" />
+          </Key>
+          <Property Name="coursecode" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="creditvalue" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="pla" Type="Boolean" Nullable="false" />
+          <Property Name="version" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="totalhours" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="effectivedate" Type="DateTime" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="requiredcourses" Relationship="Model.FK_requiredcourse_course" FromRole="course" ToRole="requiredcourse" />
+          <NavigationProperty Name="requiredcourses1" Relationship="Model.FK_requiredcourse_course1" FromRole="course" ToRole="requiredcourse" />
+          <NavigationProperty Name="coordinators" Relationship="Model.coordinator_course" FromRole="course" ToRole="coordinator" />
+          <NavigationProperty Name="programs" Relationship="Model.course_program" FromRole="course" ToRole="program" />
+          <NavigationProperty Name="professors" Relationship="Model.professor_course" FromRole="course" ToRole="professor" />
+        </EntityType>
+        <EntityType Name="designation">
+          <Key>
+            <PropertyRef Name="title" />
+          </Key>
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="duration" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="programs" Relationship="Model.FK_program_designation" FromRole="designation" ToRole="program" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="phonenum" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="faculty" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="role" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="passhint" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="permcode" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="archived" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="appointments" Relationship="Model.FK_appointment_employee" FromRole="employee" ToRole="appointment" />
+          <NavigationProperty Name="role1" Relationship="Model.FK_employee_role1" FromRole="employee" ToRole="role" />
+          <NavigationProperty Name="notes" Relationship="Model.FK_note_employee" FromRole="employee" ToRole="note" />
+          <NavigationProperty Name="programs" Relationship="Model.FK_program_employee" FromRole="employee" ToRole="program" />
+        </EntityType>
+        <EntityType Name="faculty">
+          <Key>
+            <PropertyRef Name="fname" />
+          </Key>
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="programs" Relationship="Model.FK_program_faculty" FromRole="faculty" ToRole="program" />
+        </EntityType>
+        <EntityType Name="issue">
+          <Key>
+            <PropertyRef Name="issueid" />
+          </Key>
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <Property Name="studentid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="urgency" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="applicationForReadmissions" Relationship="Model.FK_applicationForReadmission_issue" FromRole="issue" ToRole="applicationForReadmission" />
+          <NavigationProperty Name="applicationForTermOrCompleteProgramWithdrawals" Relationship="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" FromRole="issue" ToRole="applicationForTermOrCompleteProgramWithdrawal" />
+          <NavigationProperty Name="student" Relationship="Model.FK_issue_student" FromRole="issue" ToRole="student" />
+          <NavigationProperty Name="notes" Relationship="Model.FK_note_issue" FromRole="issue" ToRole="note" />
+          <NavigationProperty Name="part_timeAnd_orAdditionalCourseRegistrationForm" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="issue" ToRole="part_timeAnd_orAdditionalCourseRegistrationForm" />
+          <NavigationProperty Name="probationaryContractPlans" Relationship="Model.FK_probationaryContractPlan_issue" FromRole="issue" ToRole="probationaryContractPlan" />
+          <NavigationProperty Name="requestForLateEnrolments" Relationship="Model.FK_requestForLateEnrolment_issue" FromRole="issue" ToRole="requestForLateEnrolment" />
+        </EntityType>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="locationcode" />
+          </Key>
+          <Property Name="locationcode" Type="Decimal" Nullable="false" Precision="9" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programcode" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="campus" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="campu" Relationship="Model.FK_location_campus" FromRole="location" ToRole="campus" />
+          <NavigationProperty Name="program" Relationship="Model.FK_location_program" FromRole="location" ToRole="program" />
+        </EntityType>
+        <EntityType Name="note">
+          <Key>
+            <PropertyRef Name="noteid" />
+          </Key>
+          <Property Name="noteid" Type="Guid" Nullable="false" />
+          <Property Name="dates" Type="DateTime" Nullable="false" />
+          <Property Name="notes" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="issueid" Type="Guid" />
+          <NavigationProperty Name="employee" Relationship="Model.FK_note_employee" FromRole="note" ToRole="employee" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_note_issue" FromRole="note" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="part_timeAnd_orAdditionalCourseRegistrationForm">
+          <Key>
+            <PropertyRef Name="registrationid" />
+          </Key>
+          <Property Name="registrationid" Type="Guid" Nullable="false" />
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="coursecode" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="coursecharges" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="matfees" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="compcharges" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="part_timeAnd_orAdditionalCourseRegistrationForm" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="probationaryContractPlan">
+          <Key>
+            <PropertyRef Name="advisementid" />
+          </Key>
+          <Property Name="advisementid" Type="Guid" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="particulers" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="conditions" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_probationaryContractPlan_issue" FromRole="probationaryContractPlan" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="professor">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="phonenum" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="faculty" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="campus" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="campu" Relationship="Model.FK_professor_campus" FromRole="professor" ToRole="campus" />
+          <NavigationProperty Name="courses" Relationship="Model.professor_course" FromRole="professor" ToRole="course" />
+        </EntityType>
+        <EntityType Name="program">
+          <Key>
+            <PropertyRef Name="programcode" />
+          </Key>
+          <Property Name="programcode" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="programname" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="faculty" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="employeeid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="requirements" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="designation1" Relationship="Model.FK_program_designation" FromRole="program" ToRole="designation" />
+          <NavigationProperty Name="employee" Relationship="Model.FK_program_employee" FromRole="program" ToRole="employee" />
+          <NavigationProperty Name="faculty1" Relationship="Model.FK_program_faculty" FromRole="program" ToRole="faculty" />
+          <NavigationProperty Name="locations" Relationship="Model.FK_location_program" FromRole="program" ToRole="location" />
+          <NavigationProperty Name="startdates" Relationship="Model.FK_startdate_program" FromRole="program" ToRole="startdate" />
+          <NavigationProperty Name="students" Relationship="Model.FK_student_program" FromRole="program" ToRole="student" />
+          <NavigationProperty Name="courses" Relationship="Model.course_program" FromRole="program" ToRole="course" />
+        </EntityType>
+        <EntityType Name="requestForLateEnrolment">
+          <Key>
+            <PropertyRef Name="enrolementid" />
+          </Key>
+          <Property Name="enrolementid" Type="Guid" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="coursecode" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="programcode" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="issueid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="issue" Relationship="Model.FK_requestForLateEnrolment_issue" FromRole="requestForLateEnrolment" ToRole="issue" />
+        </EntityType>
+        <EntityType Name="requiredcourse">
+          <Key>
+            <PropertyRef Name="unique" />
+          </Key>
+          <Property Name="unique" Type="Guid" Nullable="false" />
+          <Property Name="coursecode" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="reqcoursecode" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="course" Relationship="Model.FK_requiredcourse_course" FromRole="requiredcourse" ToRole="course" />
+          <NavigationProperty Name="course1" Relationship="Model.FK_requiredcourse_course1" FromRole="requiredcourse" ToRole="course" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="permcode" />
+          </Key>
+          <Property Name="permcode" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="role1" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="employees" Relationship="Model.FK_employee_role1" FromRole="role" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="startdate">
+          <Key>
+            <PropertyRef Name="datecode" />
+          </Key>
+          <Property Name="datecode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programcode" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="startdate1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="program" Relationship="Model.FK_startdate_program" FromRole="startdate" ToRole="program" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="programcode" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="campus" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="phonenum" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="appartmentnum" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
+          <Property Name="postalcode" Type="String" Nullable="false" MaxLength="7" Unicode="false" FixedLength="true" />
+          <Property Name="acadprobation" Type="Boolean" Nullable="false" />
+          <Property Name="fulltimestatus" Type="Boolean" Nullable="false" />
+          <Property Name="enrolled" Type="Boolean" Nullable="false" />
+          <Property Name="international" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="appointments" Relationship="Model.FK_appointment_student" FromRole="student" ToRole="appointment" />
+          <NavigationProperty Name="campu" Relationship="Model.FK_student_campus" FromRole="student" ToRole="campus" />
+          <NavigationProperty Name="issues" Relationship="Model.FK_issue_student" FromRole="student" ToRole="issue" />
+          <NavigationProperty Name="program" Relationship="Model.FK_student_program" FromRole="student" ToRole="program" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_applicationForReadmission_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="1" />
+          <End Role="applicationForReadmission" Type="Model.applicationForReadmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="applicationForReadmission">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_applicationForTermOrCompleteProgramWithdrawal_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="1" />
+          <End Role="applicationForTermOrCompleteProgramWithdrawal" Type="Model.applicationForTermOrCompleteProgramWithdrawal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="applicationForTermOrCompleteProgramWithdrawal">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_appointment_employee">
+          <End Role="employee" Type="Model.employee" Multiplicity="1" />
+          <End Role="appointment" Type="Model.appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_appointment_student">
+          <End Role="student" Type="Model.student" Multiplicity="1" />
+          <End Role="appointment" Type="Model.appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_coordinator_campus">
+          <End Role="campus" Type="Model.campu" Multiplicity="1" />
+          <End Role="coordinator" Type="Model.coordinator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="coordinator">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_location_campus">
+          <End Role="campus" Type="Model.campu" Multiplicity="1" />
+          <End Role="location" Type="Model.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_professor_campus">
+          <End Role="campus" Type="Model.campu" Multiplicity="0..1" />
+          <End Role="professor" Type="Model.professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="professor">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_student_campus">
+          <End Role="campus" Type="Model.campu" Multiplicity="1" />
+          <End Role="student" Type="Model.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="campus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requiredcourse_course">
+          <End Role="course" Type="Model.course" Multiplicity="1" />
+          <End Role="requiredcourse" Type="Model.requiredcourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="requiredcourse">
+              <PropertyRef Name="coursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requiredcourse_course1">
+          <End Role="course" Type="Model.course" Multiplicity="1" />
+          <End Role="requiredcourse" Type="Model.requiredcourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="coursecode" />
+            </Principal>
+            <Dependent Role="requiredcourse">
+              <PropertyRef Name="reqcoursecode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_designation">
+          <End Role="designation" Type="Model.designation" Multiplicity="1" />
+          <End Role="program" Type="Model.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="designation">
+              <PropertyRef Name="title" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="designation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employee_role1">
+          <End Role="role" Type="Model.role" Multiplicity="0..1" />
+          <End Role="employee" Type="Model.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="permcode" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="permcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_note_employee">
+          <End Role="employee" Type="Model.employee" Multiplicity="1" />
+          <End Role="note" Type="Model.note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="note">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_employee">
+          <End Role="employee" Type="Model.employee" Multiplicity="1" />
+          <End Role="program" Type="Model.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_program_faculty">
+          <End Role="faculty" Type="Model.faculty" Multiplicity="1" />
+          <End Role="program" Type="Model.program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculty">
+              <PropertyRef Name="fname" />
+            </Principal>
+            <Dependent Role="program">
+              <PropertyRef Name="faculty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_issue_student">
+          <End Role="student" Type="Model.student" Multiplicity="1" />
+          <End Role="issue" Type="Model.issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentid" />
+            </Principal>
+            <Dependent Role="issue">
+              <PropertyRef Name="studentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_note_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="0..1" />
+          <End Role="note" Type="Model.note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="note">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="1" />
+          <End Role="part_timeAnd_orAdditionalCourseRegistrationForm" Type="Model.part_timeAnd_orAdditionalCourseRegistrationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="part_timeAnd_orAdditionalCourseRegistrationForm">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_probationaryContractPlan_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="1" />
+          <End Role="probationaryContractPlan" Type="Model.probationaryContractPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="probationaryContractPlan">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_requestForLateEnrolment_issue">
+          <End Role="issue" Type="Model.issue" Multiplicity="1" />
+          <End Role="requestForLateEnrolment" Type="Model.requestForLateEnrolment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="issue">
+              <PropertyRef Name="issueid" />
+            </Principal>
+            <Dependent Role="requestForLateEnrolment">
+              <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_location_program">
+          <End Role="program" Type="Model.program" Multiplicity="1" />
+          <End Role="location" Type="Model.location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="location">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_startdate_program">
+          <End Role="program" Type="Model.program" Multiplicity="1" />
+          <End Role="startdate" Type="Model.startdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="startdate">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_student_program">
+          <End Role="program" Type="Model.program" Multiplicity="1" />
+          <End Role="student" Type="Model.student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="program">
+              <PropertyRef Name="programcode" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="programcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="coordinator_course">
+          <End Role="coordinator" Type="Model.coordinator" Multiplicity="*" />
+          <End Role="course" Type="Model.course" Multiplicity="*" />
+        </Association>
+        <Association Name="course_program">
+          <End Role="course" Type="Model.course" Multiplicity="*" />
+          <End Role="program" Type="Model.program" Multiplicity="*" />
+        </Association>
+        <Association Name="professor_course">
+          <End Role="course" Type="Model.course" Multiplicity="*" />
+          <End Role="professor" Type="Model.professor" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="applicationForReadmissions"><EntityTypeMapping TypeName="Model.applicationForReadmission"><MappingFragment StoreEntitySet="applicationForReadmission">
+            <ScalarProperty Name="readmissionid" ColumnName="readmissionid" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="oldprogram" ColumnName="oldprogram" />
+            <ScalarProperty Name="oldfulltime" ColumnName="oldfulltime" />
+            <ScalarProperty Name="oldsemyear" ColumnName="oldsemyear" />
+            <ScalarProperty Name="oldcampus" ColumnName="oldcampus" />
+            <ScalarProperty Name="newprogram" ColumnName="newprogram" />
+            <ScalarProperty Name="newfulltime" ColumnName="newfulltime" />
+            <ScalarProperty Name="newsemyear" ColumnName="newsemyear" />
+            <ScalarProperty Name="newcampus" ColumnName="newcampus" />
+            <ScalarProperty Name="recamendedprogram" ColumnName="recamendedprogram" />
+            <ScalarProperty Name="recamendedfulltime" ColumnName="recamendedfulltime" />
+            <ScalarProperty Name="recamendedsemyear" ColumnName="recamendedsemyear" />
+            <ScalarProperty Name="recamendedcampus" ColumnName="recamendedcampus" />
+            <ScalarProperty Name="approved" ColumnName="approved" />
+            <ScalarProperty Name="acceptableconditional" ColumnName="acceptableconditional" />
+            <ScalarProperty Name="term" ColumnName="term" />
+            <ScalarProperty Name="conditions" ColumnName="conditions" />
+            <ScalarProperty Name="probation" ColumnName="probation" />
+            <ScalarProperty Name="special" ColumnName="special" />
+            <ScalarProperty Name="status" ColumnName="status" />
+            <ScalarProperty Name="purpose" ColumnName="purpose" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="applicationForTermOrCompleteProgramWithdrawals"><EntityTypeMapping TypeName="Model.applicationForTermOrCompleteProgramWithdrawal"><MappingFragment StoreEntitySet="applicationForTermOrCompleteProgramWithdrawal">
+            <ScalarProperty Name="withdrawid" ColumnName="withdrawid" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="withdrawalterm" ColumnName="withdrawalterm" />
+            <ScalarProperty Name="returnterm" ColumnName="returnterm" />
+            <ScalarProperty Name="reasonwithdrawal" ColumnName="reasonwithdrawal" />
+            <ScalarProperty Name="continuingedcoursecode" ColumnName="continuingedcoursecode" />
+            <ScalarProperty Name="refundapproved" ColumnName="refundapproved" />
+            <ScalarProperty Name="status" ColumnName="status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="appointments"><EntityTypeMapping TypeName="Model.appointment"><MappingFragment StoreEntitySet="appointment">
+            <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
+            <ScalarProperty Name="starttime" ColumnName="starttime" />
+            <ScalarProperty Name="endtime" ColumnName="endtime" />
+            <ScalarProperty Name="subject" ColumnName="subject" />
+            <ScalarProperty Name="confirmed" ColumnName="confirmed" />
+            <ScalarProperty Name="reasonForCancelation" ColumnName="reasonForCancelation" />
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="studentid" ColumnName="studentid" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="campus"><EntityTypeMapping TypeName="Model.campu"><MappingFragment StoreEntitySet="campus">
+            <ScalarProperty Name="cname" ColumnName="cname" />
+            <ScalarProperty Name="street" ColumnName="street" />
+            <ScalarProperty Name="city" ColumnName="city" />
+            <ScalarProperty Name="province" ColumnName="province" />
+            <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+            <ScalarProperty Name="archived" ColumnName="archived" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="coordinators"><EntityTypeMapping TypeName="Model.coordinator"><MappingFragment StoreEntitySet="coordinator">
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="fname" ColumnName="fname" />
+            <ScalarProperty Name="lname" ColumnName="lname" />
+            <ScalarProperty Name="phonenum" ColumnName="phonenum" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="faculty" ColumnName="faculty" />
+            <ScalarProperty Name="campus" ColumnName="campus" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="courses"><EntityTypeMapping TypeName="Model.course"><MappingFragment StoreEntitySet="course">
+            <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="creditvalue" ColumnName="creditvalue" />
+            <ScalarProperty Name="pla" ColumnName="pla" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="status" ColumnName="status" />
+            <ScalarProperty Name="totalhours" ColumnName="totalhours" />
+            <ScalarProperty Name="effectivedate" ColumnName="effectivedate" />
+            <ScalarProperty Name="description" ColumnName="description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="designations"><EntityTypeMapping TypeName="Model.designation"><MappingFragment StoreEntitySet="designation">
+            <ScalarProperty Name="title" ColumnName="title" />
+            <ScalarProperty Name="duration" ColumnName="duration" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="employees"><EntityTypeMapping TypeName="Model.employee"><MappingFragment StoreEntitySet="employee">
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="fname" ColumnName="fname" />
+            <ScalarProperty Name="lname" ColumnName="lname" />
+            <ScalarProperty Name="phonenum" ColumnName="phonenum" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="faculty" ColumnName="faculty" />
+            <ScalarProperty Name="role" ColumnName="role" />
+            <ScalarProperty Name="password" ColumnName="password" />
+            <ScalarProperty Name="passhint" ColumnName="passhint" />
+            <ScalarProperty Name="permcode" ColumnName="permcode" />
+            <ScalarProperty Name="archived" ColumnName="archived" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="faculties"><EntityTypeMapping TypeName="Model.faculty"><MappingFragment StoreEntitySet="faculty">
+            <ScalarProperty Name="fname" ColumnName="fname" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="issues"><EntityTypeMapping TypeName="Model.issue"><MappingFragment StoreEntitySet="issue">
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="studentid" ColumnName="studentid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="status" ColumnName="status" />
+            <ScalarProperty Name="urgency" ColumnName="urgency" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="locations"><EntityTypeMapping TypeName="Model.location"><MappingFragment StoreEntitySet="location">
+            <ScalarProperty Name="locationcode" ColumnName="locationcode" />
+            <ScalarProperty Name="programcode" ColumnName="programcode" />
+            <ScalarProperty Name="campus" ColumnName="campus" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="notes"><EntityTypeMapping TypeName="Model.note"><MappingFragment StoreEntitySet="note">
+            <ScalarProperty Name="noteid" ColumnName="noteid" />
+            <ScalarProperty Name="dates" ColumnName="dates" />
+            <ScalarProperty Name="notes" ColumnName="notes" />
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="part_timeAnd_orAdditionalCourseRegistrationForm"><EntityTypeMapping TypeName="Model.part_timeAnd_orAdditionalCourseRegistrationForm"><MappingFragment StoreEntitySet="part-timeAnd/orAdditionalCourseRegistrationForm">
+            <ScalarProperty Name="registrationid" ColumnName="registrationid" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            <ScalarProperty Name="coursecharges" ColumnName="coursecharges" />
+            <ScalarProperty Name="matfees" ColumnName="matfees" />
+            <ScalarProperty Name="compcharges" ColumnName="compcharges" />
+            <ScalarProperty Name="status" ColumnName="status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="probationaryContractPlans"><EntityTypeMapping TypeName="Model.probationaryContractPlan"><MappingFragment StoreEntitySet="probationaryContractPlan">
+            <ScalarProperty Name="advisementid" ColumnName="advisementid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="particulers" ColumnName="particulers" />
+            <ScalarProperty Name="conditions" ColumnName="conditions" />
+            <ScalarProperty Name="status" ColumnName="status" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="professors"><EntityTypeMapping TypeName="Model.professor"><MappingFragment StoreEntitySet="professor">
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="fname" ColumnName="fname" />
+            <ScalarProperty Name="lname" ColumnName="lname" />
+            <ScalarProperty Name="phonenum" ColumnName="phonenum" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="faculty" ColumnName="faculty" />
+            <ScalarProperty Name="campus" ColumnName="campus" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="programs"><EntityTypeMapping TypeName="Model.program"><MappingFragment StoreEntitySet="program">
+            <ScalarProperty Name="programcode" ColumnName="programcode" />
+            <ScalarProperty Name="programname" ColumnName="programname" />
+            <ScalarProperty Name="faculty" ColumnName="faculty" />
+            <ScalarProperty Name="designation" ColumnName="designation" />
+            <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            <ScalarProperty Name="description" ColumnName="description" />
+            <ScalarProperty Name="requirements" ColumnName="requirements" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="requestForLateEnrolments"><EntityTypeMapping TypeName="Model.requestForLateEnrolment"><MappingFragment StoreEntitySet="requestForLateEnrolment">
+            <ScalarProperty Name="enrolementid" ColumnName="enrolementid" />
+            <ScalarProperty Name="date" ColumnName="date" />
+            <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            <ScalarProperty Name="programcode" ColumnName="programcode" />
+            <ScalarProperty Name="status" ColumnName="status" />
+            <ScalarProperty Name="issueid" ColumnName="issueid" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="requiredcourses"><EntityTypeMapping TypeName="Model.requiredcourse"><MappingFragment StoreEntitySet="requiredcourse">
+            <ScalarProperty Name="unique" ColumnName="unique" />
+            <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            <ScalarProperty Name="reqcoursecode" ColumnName="reqcoursecode" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="roles"><EntityTypeMapping TypeName="Model.role"><MappingFragment StoreEntitySet="role">
+            <ScalarProperty Name="permcode" ColumnName="permcode" />
+            <ScalarProperty Name="role1" ColumnName="role" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="startdates"><EntityTypeMapping TypeName="Model.startdate"><MappingFragment StoreEntitySet="startdate">
+            <ScalarProperty Name="datecode" ColumnName="datecode" />
+            <ScalarProperty Name="programcode" ColumnName="programcode" />
+            <ScalarProperty Name="startdate1" ColumnName="startdate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="students"><EntityTypeMapping TypeName="Model.student"><MappingFragment StoreEntitySet="student">
+            <ScalarProperty Name="studentid" ColumnName="studentid" />
+            <ScalarProperty Name="fname" ColumnName="fname" />
+            <ScalarProperty Name="lname" ColumnName="lname" />
+            <ScalarProperty Name="programcode" ColumnName="programcode" />
+            <ScalarProperty Name="campus" ColumnName="campus" />
+            <ScalarProperty Name="phonenum" ColumnName="phonenum" />
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="street" ColumnName="street" />
+            <ScalarProperty Name="appartmentnum" ColumnName="appartmentnum" />
+            <ScalarProperty Name="city" ColumnName="city" />
+            <ScalarProperty Name="province" ColumnName="province" />
+            <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+            <ScalarProperty Name="acadprobation" ColumnName="acadprobation" />
+            <ScalarProperty Name="fulltimestatus" ColumnName="fulltimestatus" />
+            <ScalarProperty Name="enrolled" ColumnName="enrolled" />
+            <ScalarProperty Name="international" ColumnName="international" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="Model.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="coordinator_course" TypeName="Model.coordinator_course" StoreEntitySet="coordinator/course">
+            <EndProperty Name="coordinator">
+              <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            </EndProperty>
+            <EndProperty Name="course">
+              <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="course_program" TypeName="Model.course_program" StoreEntitySet="course/program">
+            <EndProperty Name="course">
+              <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            </EndProperty>
+            <EndProperty Name="program">
+              <ScalarProperty Name="programcode" ColumnName="programcode" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="professor_course" TypeName="Model.professor_course" StoreEntitySet="professor/course">
+            <EndProperty Name="course">
+              <ScalarProperty Name="coursecode" ColumnName="coursecode" />
+            </EndProperty>
+            <EndProperty Name="professor">
+              <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="AdvisementDB" ZoomLevel="80">
+        <EntityTypeShape EntityType="Model.applicationForReadmission" Width="1.5" PointX="20.25" PointY="19.25" Height="5.634013671874996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.applicationForTermOrCompleteProgramWithdrawal" Width="1.5" PointX="20.25" PointY="15.5" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.appointment" Width="1.5" PointX="18" PointY="18.875" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.campu" Width="1.5" PointX="0.75" PointY="19.875" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.coordinator" Width="1.5" PointX="3" PointY="20" Height="2.7494921875000031" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.course" Width="1.5" PointX="5.25" PointY="19.5" Height="3.7109993489583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.designation" Width="1.5" PointX="8.25" PointY="17.125" Height="1.595683593749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.employee" Width="1.5" PointX="8.25" PointY="12.5" Height="3.9033007812499978" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.faculty" Width="1.5" PointX="8.25" PointY="24.125" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.issue" Width="1.5" PointX="18" PointY="23.375" Height="3.3263964843750031" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.location" Width="1.5" PointX="12.75" PointY="20.375" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.note" Width="1.5" PointX="23.25" PointY="23.875" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.part_timeAnd_orAdditionalCourseRegistrationForm" Width="1.5" PointX="20.25" PointY="28.75" Height="2.7494921875000031" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.probationaryContractPlan" Width="1.5" PointX="20.25" PointY="32.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.professor" Width="1.5" PointX="7.5" PointY="20" Height="2.749492187499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.program" Width="1.5" PointX="10.5" PointY="19.5" Height="3.7109993489583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.requestForLateEnrolment" Width="1.5" PointX="20.25" PointY="35.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.requiredcourse" Width="1.5" PointX="7.5" PointY="28.375" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="6" PointY="13.625" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.startdate" Width="1.5" PointX="12.75" PointY="23.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.student" Width="1.5" PointX="15.75" PointY="19" Height="4.8648079427083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333282" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_applicationForReadmission_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="19.5" PointY="24.129506835937498" />
+          <ConnectorPoint PointX="20.25" PointY="24.129506835937498" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="19.5" PointY="23.375" />
+          <ConnectorPoint PointX="19.875" PointY="23" />
+          <ConnectorPoint PointX="19.875" PointY="16.970896809895834" />
+          <ConnectorPoint PointX="20.25" PointY="16.970896809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_appointment_employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="14.451650390624998" />
+          <ConnectorPoint PointX="18.75" PointY="14.451650390624998" />
+          <ConnectorPoint PointX="18.75" PointY="18.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_appointment_student" ManuallyRouted="false">
+          <ConnectorPoint PointX="17.25" PointY="20.408396809895834" />
+          <ConnectorPoint PointX="18" PointY="20.408396809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_coordinator_campus" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="21.37474609375" />
+          <ConnectorPoint PointX="3" PointY="21.37474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_location_campus" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="22.816793619791667" />
+          <ConnectorPoint PointX="1.5" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="6.3229191666666669" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="6.4895858333333329" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="9.4947916666666661" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="9.6614583333333339" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="12.375" PointY="23.460999348958339" />
+          <ConnectorPoint PointX="12.375" PointY="21.365143229166666" />
+          <ConnectorPoint PointX="12.75" PointY="21.365143229166666" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_professor_campus" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="19.875" />
+          <ConnectorPoint PointX="1.5" PointY="19.625" />
+          <ConnectorPoint PointX="1.8229191666666667" PointY="19.625" />
+          <ConnectorPoint PointX="1.9895858333333332" PointY="19.625" />
+          <ConnectorPoint PointX="5" PointY="19.625" />
+          <ConnectorPoint PointX="5" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="6.3229191666666669" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="6.4895858333333329" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="7.125" PointY="23.710999348958332" />
+          <ConnectorPoint PointX="7.125" PointY="21.374746093749998" />
+          <ConnectorPoint PointX="7.5" PointY="21.374746093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_student_campus" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9062525" PointY="19.875" />
+          <ConnectorPoint PointX="1.9062525" PointY="19.21875" />
+          <ConnectorPoint PointX="9.3229166666666661" PointY="19.21875" />
+          <ConnectorPoint PointX="9.4895833333333339" PointY="19.21875" />
+          <ConnectorPoint PointX="11.166666666666666" PointY="19.21875" />
+          <ConnectorPoint PointX="11.333333333333334" PointY="19.21875" />
+          <ConnectorPoint PointX="15.75" PointY="19.21875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_requiredcourse_course" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="23.210999348958332" />
+          <ConnectorPoint PointX="6" PointY="29.365143229166669" />
+          <ConnectorPoint PointX="7.5" PointY="29.365143229166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_requiredcourse_course1" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.4062525" PointY="23.210999348958332" />
+          <ConnectorPoint PointX="6.4062525" PointY="28.838819114583334" />
+          <ConnectorPoint PointX="7.5" PointY="28.838819114583334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_program_designation" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.40625" PointY="18.720683593749996" />
+          <ConnectorPoint PointX="9.40625" PointY="19.71875" />
+          <ConnectorPoint PointX="10.5" PointY="19.71875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_employee_role1" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="14.422841796875002" />
+          <ConnectorPoint PointX="8.25" PointY="14.422841796875002" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_note_employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="13.444572695312498" />
+          <ConnectorPoint PointX="24" PointY="13.444572695312498" />
+          <ConnectorPoint PointX="24" PointY="23.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_program_employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="15.458728085937498" />
+          <ConnectorPoint PointX="11.25" PointY="15.458728085937498" />
+          <ConnectorPoint PointX="11.25" PointY="19.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_program_faculty" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.578125" PointY="24.125" />
+          <ConnectorPoint PointX="9.578125" PointY="23.011495768229167" />
+          <ConnectorPoint PointX="10.5" PointY="23.011495768229167" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_issue_student" ManuallyRouted="false">
+          <ConnectorPoint PointX="17.25" PointY="23.619903971354166" />
+          <ConnectorPoint PointX="18" PointY="23.619903971354166" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_note_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="19.5" PointY="25.593201497395832" />
+          <ConnectorPoint PointX="23.25" PointY="25.593201497395832" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="18.75" PointY="26.701396484375003" />
+          <ConnectorPoint PointX="18.75" PointY="30.12474609375" />
+          <ConnectorPoint PointX="19.072919166666669" PointY="30.12474609375" />
+          <ConnectorPoint PointX="19.239585833333333" PointY="30.12474609375" />
+          <ConnectorPoint PointX="20.25" PointY="30.12474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_probationaryContractPlan_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="19.1562525" PointY="26.701396484375003" />
+          <ConnectorPoint PointX="19.1562525" PointY="33.432444661458334" />
+          <ConnectorPoint PointX="20.25" PointY="33.432444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_requestForLateEnrolment_issue" ManuallyRouted="false">
+          <ConnectorPoint PointX="18.3437475" PointY="26.701396484375003" />
+          <ConnectorPoint PointX="18.3437475" PointY="36.557444661458334" />
+          <ConnectorPoint PointX="20.25" PointY="36.557444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_location_program" ManuallyRouted="false">
+          <ConnectorPoint PointX="12" PointY="20.807571614583331" />
+          <ConnectorPoint PointX="12.75" PointY="20.807571614583331" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_startdate_program" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.25" PointY="23.210999348958339" />
+          <ConnectorPoint PointX="11.25" PointY="24.249492187500003" />
+          <ConnectorPoint PointX="12.75" PointY="24.249492187500003" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_student_program" ManuallyRouted="false">
+          <ConnectorPoint PointX="12" PointY="19.90625" />
+          <ConnectorPoint PointX="15.75" PointY="19.90625" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.coordinator_course" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="21.37474609375" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="21.37474609375" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="21.37474609375" />
+          <ConnectorPoint PointX="5.25" PointY="21.37474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.course_program" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="19.890625" />
+          <ConnectorPoint PointX="10.5" PointY="19.890625" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.professor_course" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="20.624873046875" />
+          <ConnectorPoint PointX="7.5" PointY="20.624873046875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
