@@ -20,7 +20,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     public static class SelfTrackingEntitiesContextExtensions
     {

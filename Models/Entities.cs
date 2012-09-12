@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     // Helper class that captures most of the change tracking work that needs to be done
     // for self tracking entities.

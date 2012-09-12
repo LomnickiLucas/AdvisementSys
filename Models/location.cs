@@ -15,62 +15,33 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(issue))]
-    public partial class requestForLateEnrolment: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(campu))]
+    [KnownType(typeof(program))]
+    public partial class location: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public System.Guid enrolementid
+        public decimal locationcode
         {
-            get { return _enrolementid; }
+            get { return _locationcode; }
             set
             {
-                if (_enrolementid != value)
+                if (_locationcode != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'enrolementid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'locationcode' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _enrolementid = value;
-                    OnPropertyChanged("enrolementid");
+                    _locationcode = value;
+                    OnPropertyChanged("locationcode");
                 }
             }
         }
-        private System.Guid _enrolementid;
-    
-        [DataMember]
-        public System.DateTime date
-        {
-            get { return _date; }
-            set
-            {
-                if (_date != value)
-                {
-                    _date = value;
-                    OnPropertyChanged("date");
-                }
-            }
-        }
-        private System.DateTime _date;
-    
-        [DataMember]
-        public string coursecode
-        {
-            get { return _coursecode; }
-            set
-            {
-                if (_coursecode != value)
-                {
-                    _coursecode = value;
-                    OnPropertyChanged("coursecode");
-                }
-            }
-        }
-        private string _coursecode;
+        private decimal _locationcode;
     
         [DataMember]
         public string programcode
@@ -80,6 +51,14 @@ namespace AdvisementSys
             {
                 if (_programcode != value)
                 {
+                    ChangeTracker.RecordOriginalValue("programcode", _programcode);
+                    if (!IsDeserializing)
+                    {
+                        if (program != null && program.programcode != value)
+                        {
+                            program = null;
+                        }
+                    }
                     _programcode = value;
                     OnPropertyChanged("programcode");
                 }
@@ -88,62 +67,64 @@ namespace AdvisementSys
         private string _programcode;
     
         [DataMember]
-        public string status
+        public string campus
         {
-            get { return _status; }
+            get { return _campus; }
             set
             {
-                if (_status != value)
+                if (_campus != value)
                 {
-                    _status = value;
-                    OnPropertyChanged("status");
-                }
-            }
-        }
-        private string _status;
-    
-        [DataMember]
-        public System.Guid issueid
-        {
-            get { return _issueid; }
-            set
-            {
-                if (_issueid != value)
-                {
-                    ChangeTracker.RecordOriginalValue("issueid", _issueid);
+                    ChangeTracker.RecordOriginalValue("campus", _campus);
                     if (!IsDeserializing)
                     {
-                        if (issue != null && issue.issueid != value)
+                        if (campu != null && campu.cname != value)
                         {
-                            issue = null;
+                            campu = null;
                         }
                     }
-                    _issueid = value;
-                    OnPropertyChanged("issueid");
+                    _campus = value;
+                    OnPropertyChanged("campus");
                 }
             }
         }
-        private System.Guid _issueid;
+        private string _campus;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public issue issue
+        public campu campu
         {
-            get { return _issue; }
+            get { return _campu; }
             set
             {
-                if (!ReferenceEquals(_issue, value))
+                if (!ReferenceEquals(_campu, value))
                 {
-                    var previousValue = _issue;
-                    _issue = value;
-                    Fixupissue(previousValue);
-                    OnNavigationPropertyChanged("issue");
+                    var previousValue = _campu;
+                    _campu = value;
+                    Fixupcampu(previousValue);
+                    OnNavigationPropertyChanged("campu");
                 }
             }
         }
-        private issue _issue;
+        private campu _campu;
+    
+        [DataMember]
+        public program program
+        {
+            get { return _program; }
+            set
+            {
+                if (!ReferenceEquals(_program, value))
+                {
+                    var previousValue = _program;
+                    _program = value;
+                    Fixupprogram(previousValue);
+                    OnNavigationPropertyChanged("program");
+                }
+            }
+        }
+        private program _program;
 
         #endregion
         #region ChangeTracking
@@ -223,47 +204,87 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            issue = null;
+            campu = null;
+            program = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupissue(issue previousValue)
+        private void Fixupcampu(campu previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.requestForLateEnrolments.Contains(this))
+            if (previousValue != null && previousValue.locations.Contains(this))
             {
-                previousValue.requestForLateEnrolments.Remove(this);
+                previousValue.locations.Remove(this);
             }
     
-            if (issue != null)
+            if (campu != null)
             {
-                if (!issue.requestForLateEnrolments.Contains(this))
+                if (!campu.locations.Contains(this))
                 {
-                    issue.requestForLateEnrolments.Add(this);
+                    campu.locations.Add(this);
                 }
     
-                issueid = issue.issueid;
+                campus = campu.cname;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("issue")
-                    && (ChangeTracker.OriginalValues["issue"] == issue))
+                if (ChangeTracker.OriginalValues.ContainsKey("campu")
+                    && (ChangeTracker.OriginalValues["campu"] == campu))
                 {
-                    ChangeTracker.OriginalValues.Remove("issue");
+                    ChangeTracker.OriginalValues.Remove("campu");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("issue", previousValue);
+                    ChangeTracker.RecordOriginalValue("campu", previousValue);
                 }
-                if (issue != null && !issue.ChangeTracker.ChangeTrackingEnabled)
+                if (campu != null && !campu.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    issue.StartTracking();
+                    campu.StartTracking();
+                }
+            }
+        }
+    
+        private void Fixupprogram(program previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.locations.Contains(this))
+            {
+                previousValue.locations.Remove(this);
+            }
+    
+            if (program != null)
+            {
+                if (!program.locations.Contains(this))
+                {
+                    program.locations.Add(this);
+                }
+    
+                programcode = program.programcode;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("program")
+                    && (ChangeTracker.OriginalValues["program"] == program))
+                {
+                    ChangeTracker.OriginalValues.Remove("program");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("program", previousValue);
+                }
+                if (program != null && !program.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    program.StartTracking();
                 }
             }
         }

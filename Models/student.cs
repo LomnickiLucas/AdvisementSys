@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(appointment))]
@@ -285,6 +285,21 @@ namespace AdvisementSys
             }
         }
         private bool _international;
+    
+        [DataMember]
+        public string cellnum
+        {
+            get { return _cellnum; }
+            set
+            {
+                if (_cellnum != value)
+                {
+                    _cellnum = value;
+                    OnPropertyChanged("cellnum");
+                }
+            }
+        }
+        private string _cellnum;
 
         #endregion
         #region Navigation Properties

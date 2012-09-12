@@ -15,89 +15,35 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(employee))]
     [KnownType(typeof(issue))]
-    public partial class note: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class part_timeAnd_orAdditionalCourseRegistrationForm: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public System.Guid noteid
+        public System.Guid registrationid
         {
-            get { return _noteid; }
+            get { return _registrationid; }
             set
             {
-                if (_noteid != value)
+                if (_registrationid != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'noteid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'registrationid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _noteid = value;
-                    OnPropertyChanged("noteid");
+                    _registrationid = value;
+                    OnPropertyChanged("registrationid");
                 }
             }
         }
-        private System.Guid _noteid;
+        private System.Guid _registrationid;
     
         [DataMember]
-        public System.DateTime dates
-        {
-            get { return _dates; }
-            set
-            {
-                if (_dates != value)
-                {
-                    _dates = value;
-                    OnPropertyChanged("dates");
-                }
-            }
-        }
-        private System.DateTime _dates;
-    
-        [DataMember]
-        public string notes
-        {
-            get { return _notes; }
-            set
-            {
-                if (_notes != value)
-                {
-                    _notes = value;
-                    OnPropertyChanged("notes");
-                }
-            }
-        }
-        private string _notes;
-    
-        [DataMember]
-        public string employeeid
-        {
-            get { return _employeeid; }
-            set
-            {
-                if (_employeeid != value)
-                {
-                    ChangeTracker.RecordOriginalValue("employeeid", _employeeid);
-                    if (!IsDeserializing)
-                    {
-                        if (employee != null && employee.employeeid != value)
-                        {
-                            employee = null;
-                        }
-                    }
-                    _employeeid = value;
-                    OnPropertyChanged("employeeid");
-                }
-            }
-        }
-        private string _employeeid;
-    
-        [DataMember]
-        public Nullable<System.Guid> issueid
+        public System.Guid issueid
         {
             get { return _issueid; }
             set
@@ -117,27 +63,100 @@ namespace AdvisementSys
                 }
             }
         }
-        private Nullable<System.Guid> _issueid;
-
-        #endregion
-        #region Navigation Properties
+        private System.Guid _issueid;
     
         [DataMember]
-        public employee employee
+        public System.DateTime date
         {
-            get { return _employee; }
+            get { return _date; }
             set
             {
-                if (!ReferenceEquals(_employee, value))
+                if (_date != value)
                 {
-                    var previousValue = _employee;
-                    _employee = value;
-                    Fixupemployee(previousValue);
-                    OnNavigationPropertyChanged("employee");
+                    _date = value;
+                    OnPropertyChanged("date");
                 }
             }
         }
-        private employee _employee;
+        private System.DateTime _date;
+    
+        [DataMember]
+        public string coursecode
+        {
+            get { return _coursecode; }
+            set
+            {
+                if (_coursecode != value)
+                {
+                    _coursecode = value;
+                    OnPropertyChanged("coursecode");
+                }
+            }
+        }
+        private string _coursecode;
+    
+        [DataMember]
+        public decimal coursecharges
+        {
+            get { return _coursecharges; }
+            set
+            {
+                if (_coursecharges != value)
+                {
+                    _coursecharges = value;
+                    OnPropertyChanged("coursecharges");
+                }
+            }
+        }
+        private decimal _coursecharges;
+    
+        [DataMember]
+        public decimal matfees
+        {
+            get { return _matfees; }
+            set
+            {
+                if (_matfees != value)
+                {
+                    _matfees = value;
+                    OnPropertyChanged("matfees");
+                }
+            }
+        }
+        private decimal _matfees;
+    
+        [DataMember]
+        public decimal compcharges
+        {
+            get { return _compcharges; }
+            set
+            {
+                if (_compcharges != value)
+                {
+                    _compcharges = value;
+                    OnPropertyChanged("compcharges");
+                }
+            }
+        }
+        private decimal _compcharges;
+    
+        [DataMember]
+        public string status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("status");
+                }
+            }
+        }
+        private string _status;
+
+        #endregion
+        #region Navigation Properties
     
         [DataMember]
         public issue issue
@@ -234,78 +253,33 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            employee = null;
             issue = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupemployee(employee previousValue)
+        private void Fixupissue(issue previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.notes.Contains(this))
+            if (previousValue != null && previousValue.part_timeAnd_orAdditionalCourseRegistrationForm.Contains(this))
             {
-                previousValue.notes.Remove(this);
-            }
-    
-            if (employee != null)
-            {
-                if (!employee.notes.Contains(this))
-                {
-                    employee.notes.Add(this);
-                }
-    
-                employeeid = employee.employeeid;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("employee")
-                    && (ChangeTracker.OriginalValues["employee"] == employee))
-                {
-                    ChangeTracker.OriginalValues.Remove("employee");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("employee", previousValue);
-                }
-                if (employee != null && !employee.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    employee.StartTracking();
-                }
-            }
-        }
-    
-        private void Fixupissue(issue previousValue, bool skipKeys = false)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.notes.Contains(this))
-            {
-                previousValue.notes.Remove(this);
+                previousValue.part_timeAnd_orAdditionalCourseRegistrationForm.Remove(this);
             }
     
             if (issue != null)
             {
-                if (!issue.notes.Contains(this))
+                if (!issue.part_timeAnd_orAdditionalCourseRegistrationForm.Contains(this))
                 {
-                    issue.notes.Add(this);
+                    issue.part_timeAnd_orAdditionalCourseRegistrationForm.Add(this);
                 }
     
                 issueid = issue.issueid;
             }
-            else if (!skipKeys)
-            {
-                issueid = null;
-            }
-    
             if (ChangeTracker.ChangeTrackingEnabled)
             {
                 if (ChangeTracker.OriginalValues.ContainsKey("issue")

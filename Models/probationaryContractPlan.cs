@@ -15,32 +15,92 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(issue))]
-    public partial class part_timeAnd_orAdditionalCourseRegistrationForm: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class probationaryContractPlan: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public System.Guid registrationid
+        public System.Guid advisementid
         {
-            get { return _registrationid; }
+            get { return _advisementid; }
             set
             {
-                if (_registrationid != value)
+                if (_advisementid != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'registrationid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'advisementid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _registrationid = value;
-                    OnPropertyChanged("registrationid");
+                    _advisementid = value;
+                    OnPropertyChanged("advisementid");
                 }
             }
         }
-        private System.Guid _registrationid;
+        private System.Guid _advisementid;
+    
+        [DataMember]
+        public System.DateTime date
+        {
+            get { return _date; }
+            set
+            {
+                if (_date != value)
+                {
+                    _date = value;
+                    OnPropertyChanged("date");
+                }
+            }
+        }
+        private System.DateTime _date;
+    
+        [DataMember]
+        public string particulers
+        {
+            get { return _particulers; }
+            set
+            {
+                if (_particulers != value)
+                {
+                    _particulers = value;
+                    OnPropertyChanged("particulers");
+                }
+            }
+        }
+        private string _particulers;
+    
+        [DataMember]
+        public string conditions
+        {
+            get { return _conditions; }
+            set
+            {
+                if (_conditions != value)
+                {
+                    _conditions = value;
+                    OnPropertyChanged("conditions");
+                }
+            }
+        }
+        private string _conditions;
+    
+        [DataMember]
+        public string status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("status");
+                }
+            }
+        }
+        private string _status;
     
         [DataMember]
         public System.Guid issueid
@@ -64,96 +124,6 @@ namespace AdvisementSys
             }
         }
         private System.Guid _issueid;
-    
-        [DataMember]
-        public System.DateTime date
-        {
-            get { return _date; }
-            set
-            {
-                if (_date != value)
-                {
-                    _date = value;
-                    OnPropertyChanged("date");
-                }
-            }
-        }
-        private System.DateTime _date;
-    
-        [DataMember]
-        public string coursecode
-        {
-            get { return _coursecode; }
-            set
-            {
-                if (_coursecode != value)
-                {
-                    _coursecode = value;
-                    OnPropertyChanged("coursecode");
-                }
-            }
-        }
-        private string _coursecode;
-    
-        [DataMember]
-        public decimal coursecharges
-        {
-            get { return _coursecharges; }
-            set
-            {
-                if (_coursecharges != value)
-                {
-                    _coursecharges = value;
-                    OnPropertyChanged("coursecharges");
-                }
-            }
-        }
-        private decimal _coursecharges;
-    
-        [DataMember]
-        public decimal matfees
-        {
-            get { return _matfees; }
-            set
-            {
-                if (_matfees != value)
-                {
-                    _matfees = value;
-                    OnPropertyChanged("matfees");
-                }
-            }
-        }
-        private decimal _matfees;
-    
-        [DataMember]
-        public decimal compcharges
-        {
-            get { return _compcharges; }
-            set
-            {
-                if (_compcharges != value)
-                {
-                    _compcharges = value;
-                    OnPropertyChanged("compcharges");
-                }
-            }
-        }
-        private decimal _compcharges;
-    
-        [DataMember]
-        public string status
-        {
-            get { return _status; }
-            set
-            {
-                if (_status != value)
-                {
-                    _status = value;
-                    OnPropertyChanged("status");
-                }
-            }
-        }
-        private string _status;
 
         #endregion
         #region Navigation Properties
@@ -266,16 +236,16 @@ namespace AdvisementSys
                 return;
             }
     
-            if (previousValue != null && previousValue.part_timeAnd_orAdditionalCourseRegistrationForm.Contains(this))
+            if (previousValue != null && previousValue.probationaryContractPlans.Contains(this))
             {
-                previousValue.part_timeAnd_orAdditionalCourseRegistrationForm.Remove(this);
+                previousValue.probationaryContractPlans.Remove(this);
             }
     
             if (issue != null)
             {
-                if (!issue.part_timeAnd_orAdditionalCourseRegistrationForm.Contains(this))
+                if (!issue.probationaryContractPlans.Contains(this))
                 {
-                    issue.part_timeAnd_orAdditionalCourseRegistrationForm.Add(this);
+                    issue.probationaryContractPlans.Add(this);
                 }
     
                 issueid = issue.issueid;

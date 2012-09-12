@@ -15,12 +15,13 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(campu))]
     [KnownType(typeof(course))]
-    public partial class professor: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(faculty))]
+    public partial class coordinator: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
@@ -111,6 +112,14 @@ namespace AdvisementSys
             {
                 if (_faculty != value)
                 {
+                    ChangeTracker.RecordOriginalValue("faculty", _faculty);
+                    if (!IsDeserializing)
+                    {
+                        if (faculty1 != null && faculty1.fname != value)
+                        {
+                            faculty1 = null;
+                        }
+                    }
                     _faculty = value;
                     OnPropertyChanged("faculty");
                 }
@@ -195,6 +204,23 @@ namespace AdvisementSys
             }
         }
         private TrackableCollection<course> _courses;
+    
+        [DataMember]
+        public faculty faculty1
+        {
+            get { return _faculty1; }
+            set
+            {
+                if (!ReferenceEquals(_faculty1, value))
+                {
+                    var previousValue = _faculty1;
+                    _faculty1 = value;
+                    Fixupfaculty1(previousValue);
+                    OnNavigationPropertyChanged("faculty1");
+                }
+            }
+        }
+        private faculty _faculty1;
 
         #endregion
         #region ChangeTracking
@@ -276,37 +302,33 @@ namespace AdvisementSys
         {
             campu = null;
             courses.Clear();
+            faculty1 = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupcampu(campu previousValue, bool skipKeys = false)
+        private void Fixupcampu(campu previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.professors.Contains(this))
+            if (previousValue != null && previousValue.coordinators.Contains(this))
             {
-                previousValue.professors.Remove(this);
+                previousValue.coordinators.Remove(this);
             }
     
             if (campu != null)
             {
-                if (!campu.professors.Contains(this))
+                if (!campu.coordinators.Contains(this))
                 {
-                    campu.professors.Add(this);
+                    campu.coordinators.Add(this);
                 }
     
                 campus = campu.cname;
             }
-            else if (!skipKeys)
-            {
-                campus = null;
-            }
-    
             if (ChangeTracker.ChangeTrackingEnabled)
             {
                 if (ChangeTracker.OriginalValues.ContainsKey("campu")
@@ -325,6 +347,45 @@ namespace AdvisementSys
             }
         }
     
+        private void Fixupfaculty1(faculty previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.coordinators.Contains(this))
+            {
+                previousValue.coordinators.Remove(this);
+            }
+    
+            if (faculty1 != null)
+            {
+                if (!faculty1.coordinators.Contains(this))
+                {
+                    faculty1.coordinators.Add(this);
+                }
+    
+                faculty = faculty1.fname;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("faculty1")
+                    && (ChangeTracker.OriginalValues["faculty1"] == faculty1))
+                {
+                    ChangeTracker.OriginalValues.Remove("faculty1");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("faculty1", previousValue);
+                }
+                if (faculty1 != null && !faculty1.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    faculty1.StartTracking();
+                }
+            }
+        }
+    
         private void Fixupcourses(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
@@ -336,9 +397,9 @@ namespace AdvisementSys
             {
                 foreach (course item in e.NewItems)
                 {
-                    if (!item.professors.Contains(this))
+                    if (!item.coordinators.Contains(this))
                     {
-                        item.professors.Add(this);
+                        item.coordinators.Add(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
@@ -355,9 +416,9 @@ namespace AdvisementSys
             {
                 foreach (course item in e.OldItems)
                 {
-                    if (item.professors.Contains(this))
+                    if (item.coordinators.Contains(this))
                     {
-                        item.professors.Remove(this);
+                        item.coordinators.Remove(this);
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {

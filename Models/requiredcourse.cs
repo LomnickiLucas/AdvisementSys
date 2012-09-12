@@ -15,116 +15,115 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(campu))]
-    [KnownType(typeof(program))]
-    public partial class location: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(course))]
+    public partial class requiredcourse: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public decimal locationcode
+        public System.Guid unique
         {
-            get { return _locationcode; }
+            get { return _unique; }
             set
             {
-                if (_locationcode != value)
+                if (_unique != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'locationcode' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'unique' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _locationcode = value;
-                    OnPropertyChanged("locationcode");
+                    _unique = value;
+                    OnPropertyChanged("unique");
                 }
             }
         }
-        private decimal _locationcode;
+        private System.Guid _unique;
     
         [DataMember]
-        public string programcode
+        public string coursecode
         {
-            get { return _programcode; }
+            get { return _coursecode; }
             set
             {
-                if (_programcode != value)
+                if (_coursecode != value)
                 {
-                    ChangeTracker.RecordOriginalValue("programcode", _programcode);
+                    ChangeTracker.RecordOriginalValue("coursecode", _coursecode);
                     if (!IsDeserializing)
                     {
-                        if (program != null && program.programcode != value)
+                        if (course != null && course.coursecode != value)
                         {
-                            program = null;
+                            course = null;
                         }
                     }
-                    _programcode = value;
-                    OnPropertyChanged("programcode");
+                    _coursecode = value;
+                    OnPropertyChanged("coursecode");
                 }
             }
         }
-        private string _programcode;
+        private string _coursecode;
     
         [DataMember]
-        public string campus
+        public string reqcoursecode
         {
-            get { return _campus; }
+            get { return _reqcoursecode; }
             set
             {
-                if (_campus != value)
+                if (_reqcoursecode != value)
                 {
-                    ChangeTracker.RecordOriginalValue("campus", _campus);
+                    ChangeTracker.RecordOriginalValue("reqcoursecode", _reqcoursecode);
                     if (!IsDeserializing)
                     {
-                        if (campu != null && campu.cname != value)
+                        if (course1 != null && course1.coursecode != value)
                         {
-                            campu = null;
+                            course1 = null;
                         }
                     }
-                    _campus = value;
-                    OnPropertyChanged("campus");
+                    _reqcoursecode = value;
+                    OnPropertyChanged("reqcoursecode");
                 }
             }
         }
-        private string _campus;
+        private string _reqcoursecode;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public campu campu
+        public course course
         {
-            get { return _campu; }
+            get { return _course; }
             set
             {
-                if (!ReferenceEquals(_campu, value))
+                if (!ReferenceEquals(_course, value))
                 {
-                    var previousValue = _campu;
-                    _campu = value;
-                    Fixupcampu(previousValue);
-                    OnNavigationPropertyChanged("campu");
+                    var previousValue = _course;
+                    _course = value;
+                    Fixupcourse(previousValue);
+                    OnNavigationPropertyChanged("course");
                 }
             }
         }
-        private campu _campu;
+        private course _course;
     
         [DataMember]
-        public program program
+        public course course1
         {
-            get { return _program; }
+            get { return _course1; }
             set
             {
-                if (!ReferenceEquals(_program, value))
+                if (!ReferenceEquals(_course1, value))
                 {
-                    var previousValue = _program;
-                    _program = value;
-                    Fixupprogram(previousValue);
-                    OnNavigationPropertyChanged("program");
+                    var previousValue = _course1;
+                    _course1 = value;
+                    Fixupcourse1(previousValue);
+                    OnNavigationPropertyChanged("course1");
                 }
             }
         }
-        private program _program;
+        private course _course1;
 
         #endregion
         #region ChangeTracking
@@ -204,87 +203,87 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            campu = null;
-            program = null;
+            course = null;
+            course1 = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupcampu(campu previousValue)
+        private void Fixupcourse(course previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.locations.Contains(this))
+            if (previousValue != null && previousValue.requiredcourses.Contains(this))
             {
-                previousValue.locations.Remove(this);
+                previousValue.requiredcourses.Remove(this);
             }
     
-            if (campu != null)
+            if (course != null)
             {
-                if (!campu.locations.Contains(this))
+                if (!course.requiredcourses.Contains(this))
                 {
-                    campu.locations.Add(this);
+                    course.requiredcourses.Add(this);
                 }
     
-                campus = campu.cname;
+                coursecode = course.coursecode;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("campu")
-                    && (ChangeTracker.OriginalValues["campu"] == campu))
+                if (ChangeTracker.OriginalValues.ContainsKey("course")
+                    && (ChangeTracker.OriginalValues["course"] == course))
                 {
-                    ChangeTracker.OriginalValues.Remove("campu");
+                    ChangeTracker.OriginalValues.Remove("course");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("campu", previousValue);
+                    ChangeTracker.RecordOriginalValue("course", previousValue);
                 }
-                if (campu != null && !campu.ChangeTracker.ChangeTrackingEnabled)
+                if (course != null && !course.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    campu.StartTracking();
+                    course.StartTracking();
                 }
             }
         }
     
-        private void Fixupprogram(program previousValue)
+        private void Fixupcourse1(course previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.locations.Contains(this))
+            if (previousValue != null && previousValue.requiredcourses1.Contains(this))
             {
-                previousValue.locations.Remove(this);
+                previousValue.requiredcourses1.Remove(this);
             }
     
-            if (program != null)
+            if (course1 != null)
             {
-                if (!program.locations.Contains(this))
+                if (!course1.requiredcourses1.Contains(this))
                 {
-                    program.locations.Add(this);
+                    course1.requiredcourses1.Add(this);
                 }
     
-                programcode = program.programcode;
+                reqcoursecode = course1.coursecode;
             }
             if (ChangeTracker.ChangeTrackingEnabled)
             {
-                if (ChangeTracker.OriginalValues.ContainsKey("program")
-                    && (ChangeTracker.OriginalValues["program"] == program))
+                if (ChangeTracker.OriginalValues.ContainsKey("course1")
+                    && (ChangeTracker.OriginalValues["course1"] == course1))
                 {
-                    ChangeTracker.OriginalValues.Remove("program");
+                    ChangeTracker.OriginalValues.Remove("course1");
                 }
                 else
                 {
-                    ChangeTracker.RecordOriginalValue("program", previousValue);
+                    ChangeTracker.RecordOriginalValue("course1", previousValue);
                 }
-                if (program != null && !program.ChangeTracker.ChangeTrackingEnabled)
+                if (course1 != null && !course1.ChangeTracker.ChangeTrackingEnabled)
                 {
-                    program.StartTracking();
+                    course1.StartTracking();
                 }
             }
         }

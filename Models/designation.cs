@@ -15,91 +15,85 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    public partial class sysdiagram: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(program))]
+    public partial class designation: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public string name
+        public string title
         {
-            get { return _name; }
+            get { return _title; }
             set
             {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged("name");
-                }
-            }
-        }
-        private string _name;
-    
-        [DataMember]
-        public int principal_id
-        {
-            get { return _principal_id; }
-            set
-            {
-                if (_principal_id != value)
-                {
-                    _principal_id = value;
-                    OnPropertyChanged("principal_id");
-                }
-            }
-        }
-        private int _principal_id;
-    
-        [DataMember]
-        public int diagram_id
-        {
-            get { return _diagram_id; }
-            set
-            {
-                if (_diagram_id != value)
+                if (_title != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'diagram_id' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'title' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _diagram_id = value;
-                    OnPropertyChanged("diagram_id");
+                    _title = value;
+                    OnPropertyChanged("title");
                 }
             }
         }
-        private int _diagram_id;
+        private string _title;
     
         [DataMember]
-        public Nullable<int> version
+        public string duration
         {
-            get { return _version; }
+            get { return _duration; }
             set
             {
-                if (_version != value)
+                if (_duration != value)
                 {
-                    _version = value;
-                    OnPropertyChanged("version");
+                    _duration = value;
+                    OnPropertyChanged("duration");
                 }
             }
         }
-        private Nullable<int> _version;
+        private string _duration;
+
+        #endregion
+        #region Navigation Properties
     
         [DataMember]
-        public byte[] definition
+        public TrackableCollection<program> programs
         {
-            get { return _definition; }
+            get
+            {
+                if (_programs == null)
+                {
+                    _programs = new TrackableCollection<program>();
+                    _programs.CollectionChanged += Fixupprograms;
+                }
+                return _programs;
+            }
             set
             {
-                if (_definition != value)
+                if (!ReferenceEquals(_programs, value))
                 {
-                    _definition = value;
-                    OnPropertyChanged("definition");
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged -= Fixupprograms;
+                    }
+                    _programs = value;
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged += Fixupprograms;
+                    }
+                    OnNavigationPropertyChanged("programs");
                 }
             }
         }
-        private byte[] _definition;
+        private TrackableCollection<program> _programs;
 
         #endregion
         #region ChangeTracking
@@ -179,6 +173,49 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
+            programs.Clear();
+        }
+
+        #endregion
+        #region Association Fixup
+    
+        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (program item in e.NewItems)
+                {
+                    item.designation1 = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (program item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.designation1, this))
+                    {
+                        item.designation1 = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
+                    }
+                }
+            }
         }
 
         #endregion

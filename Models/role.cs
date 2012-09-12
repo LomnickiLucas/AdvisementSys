@@ -15,70 +15,85 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(program))]
-    public partial class faculty: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(employee))]
+    public partial class role: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public string fname
+        public string permcode
         {
-            get { return _fname; }
+            get { return _permcode; }
             set
             {
-                if (_fname != value)
+                if (_permcode != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'fname' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'permcode' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _fname = value;
-                    OnPropertyChanged("fname");
+                    _permcode = value;
+                    OnPropertyChanged("permcode");
                 }
             }
         }
-        private string _fname;
+        private string _permcode;
+    
+        [DataMember]
+        public string role1
+        {
+            get { return _role1; }
+            set
+            {
+                if (_role1 != value)
+                {
+                    _role1 = value;
+                    OnPropertyChanged("role1");
+                }
+            }
+        }
+        private string _role1;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<program> programs
+        public TrackableCollection<employee> employees
         {
             get
             {
-                if (_programs == null)
+                if (_employees == null)
                 {
-                    _programs = new TrackableCollection<program>();
-                    _programs.CollectionChanged += Fixupprograms;
+                    _employees = new TrackableCollection<employee>();
+                    _employees.CollectionChanged += Fixupemployees;
                 }
-                return _programs;
+                return _employees;
             }
             set
             {
-                if (!ReferenceEquals(_programs, value))
+                if (!ReferenceEquals(_employees, value))
                 {
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
                     }
-                    if (_programs != null)
+                    if (_employees != null)
                     {
-                        _programs.CollectionChanged -= Fixupprograms;
+                        _employees.CollectionChanged -= Fixupemployees;
                     }
-                    _programs = value;
-                    if (_programs != null)
+                    _employees = value;
+                    if (_employees != null)
                     {
-                        _programs.CollectionChanged += Fixupprograms;
+                        _employees.CollectionChanged += Fixupemployees;
                     }
-                    OnNavigationPropertyChanged("programs");
+                    OnNavigationPropertyChanged("employees");
                 }
             }
         }
-        private TrackableCollection<program> _programs;
+        private TrackableCollection<employee> _employees;
 
         #endregion
         #region ChangeTracking
@@ -158,13 +173,13 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            programs.Clear();
+            employees.Clear();
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
+        private void Fixupemployees(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
@@ -173,31 +188,31 @@ namespace AdvisementSys
     
             if (e.NewItems != null)
             {
-                foreach (program item in e.NewItems)
+                foreach (employee item in e.NewItems)
                 {
-                    item.faculty1 = this;
+                    item.role1 = this;
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         if (!item.ChangeTracker.ChangeTrackingEnabled)
                         {
                             item.StartTracking();
                         }
-                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
+                        ChangeTracker.RecordAdditionToCollectionProperties("employees", item);
                     }
                 }
             }
     
             if (e.OldItems != null)
             {
-                foreach (program item in e.OldItems)
+                foreach (employee item in e.OldItems)
                 {
-                    if (ReferenceEquals(item.faculty1, this))
+                    if (ReferenceEquals(item.role1, this))
                     {
-                        item.faculty1 = null;
+                        item.role1 = null;
                     }
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
+                        ChangeTracker.RecordRemovalFromCollectionProperties("employees", item);
                     }
                 }
             }

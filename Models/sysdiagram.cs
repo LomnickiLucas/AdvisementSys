@@ -15,85 +15,91 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(employee))]
-    public partial class role: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class sysdiagram: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public string permcode
+        public string name
         {
-            get { return _permcode; }
+            get { return _name; }
             set
             {
-                if (_permcode != value)
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged("name");
+                }
+            }
+        }
+        private string _name;
+    
+        [DataMember]
+        public int principal_id
+        {
+            get { return _principal_id; }
+            set
+            {
+                if (_principal_id != value)
+                {
+                    _principal_id = value;
+                    OnPropertyChanged("principal_id");
+                }
+            }
+        }
+        private int _principal_id;
+    
+        [DataMember]
+        public int diagram_id
+        {
+            get { return _diagram_id; }
+            set
+            {
+                if (_diagram_id != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'permcode' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'diagram_id' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _permcode = value;
-                    OnPropertyChanged("permcode");
+                    _diagram_id = value;
+                    OnPropertyChanged("diagram_id");
                 }
             }
         }
-        private string _permcode;
+        private int _diagram_id;
     
         [DataMember]
-        public string role1
+        public Nullable<int> version
         {
-            get { return _role1; }
+            get { return _version; }
             set
             {
-                if (_role1 != value)
+                if (_version != value)
                 {
-                    _role1 = value;
-                    OnPropertyChanged("role1");
+                    _version = value;
+                    OnPropertyChanged("version");
                 }
             }
         }
-        private string _role1;
-
-        #endregion
-        #region Navigation Properties
+        private Nullable<int> _version;
     
         [DataMember]
-        public TrackableCollection<employee> employees
+        public byte[] definition
         {
-            get
-            {
-                if (_employees == null)
-                {
-                    _employees = new TrackableCollection<employee>();
-                    _employees.CollectionChanged += Fixupemployees;
-                }
-                return _employees;
-            }
+            get { return _definition; }
             set
             {
-                if (!ReferenceEquals(_employees, value))
+                if (_definition != value)
                 {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_employees != null)
-                    {
-                        _employees.CollectionChanged -= Fixupemployees;
-                    }
-                    _employees = value;
-                    if (_employees != null)
-                    {
-                        _employees.CollectionChanged += Fixupemployees;
-                    }
-                    OnNavigationPropertyChanged("employees");
+                    _definition = value;
+                    OnPropertyChanged("definition");
                 }
             }
         }
-        private TrackableCollection<employee> _employees;
+        private byte[] _definition;
 
         #endregion
         #region ChangeTracking
@@ -173,49 +179,6 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            employees.Clear();
-        }
-
-        #endregion
-        #region Association Fixup
-    
-        private void Fixupemployees(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (employee item in e.NewItems)
-                {
-                    item.role1 = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("employees", item);
-                    }
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (employee item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.role1, this))
-                    {
-                        item.role1 = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("employees", item);
-                    }
-                }
-            }
         }
 
         #endregion

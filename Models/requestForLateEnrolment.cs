@@ -15,85 +15,135 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace AdvisementSys
+namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(program))]
-    public partial class designation: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(issue))]
+    public partial class requestForLateEnrolment: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public string title
+        public System.Guid enrolementid
         {
-            get { return _title; }
+            get { return _enrolementid; }
             set
             {
-                if (_title != value)
+                if (_enrolementid != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'title' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'enrolementid' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _title = value;
-                    OnPropertyChanged("title");
+                    _enrolementid = value;
+                    OnPropertyChanged("enrolementid");
                 }
             }
         }
-        private string _title;
+        private System.Guid _enrolementid;
     
         [DataMember]
-        public string duration
+        public System.DateTime date
         {
-            get { return _duration; }
+            get { return _date; }
             set
             {
-                if (_duration != value)
+                if (_date != value)
                 {
-                    _duration = value;
-                    OnPropertyChanged("duration");
+                    _date = value;
+                    OnPropertyChanged("date");
                 }
             }
         }
-        private string _duration;
+        private System.DateTime _date;
+    
+        [DataMember]
+        public string coursecode
+        {
+            get { return _coursecode; }
+            set
+            {
+                if (_coursecode != value)
+                {
+                    _coursecode = value;
+                    OnPropertyChanged("coursecode");
+                }
+            }
+        }
+        private string _coursecode;
+    
+        [DataMember]
+        public string programcode
+        {
+            get { return _programcode; }
+            set
+            {
+                if (_programcode != value)
+                {
+                    _programcode = value;
+                    OnPropertyChanged("programcode");
+                }
+            }
+        }
+        private string _programcode;
+    
+        [DataMember]
+        public string status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("status");
+                }
+            }
+        }
+        private string _status;
+    
+        [DataMember]
+        public System.Guid issueid
+        {
+            get { return _issueid; }
+            set
+            {
+                if (_issueid != value)
+                {
+                    ChangeTracker.RecordOriginalValue("issueid", _issueid);
+                    if (!IsDeserializing)
+                    {
+                        if (issue != null && issue.issueid != value)
+                        {
+                            issue = null;
+                        }
+                    }
+                    _issueid = value;
+                    OnPropertyChanged("issueid");
+                }
+            }
+        }
+        private System.Guid _issueid;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<program> programs
+        public issue issue
         {
-            get
-            {
-                if (_programs == null)
-                {
-                    _programs = new TrackableCollection<program>();
-                    _programs.CollectionChanged += Fixupprograms;
-                }
-                return _programs;
-            }
+            get { return _issue; }
             set
             {
-                if (!ReferenceEquals(_programs, value))
+                if (!ReferenceEquals(_issue, value))
                 {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_programs != null)
-                    {
-                        _programs.CollectionChanged -= Fixupprograms;
-                    }
-                    _programs = value;
-                    if (_programs != null)
-                    {
-                        _programs.CollectionChanged += Fixupprograms;
-                    }
-                    OnNavigationPropertyChanged("programs");
+                    var previousValue = _issue;
+                    _issue = value;
+                    Fixupissue(previousValue);
+                    OnNavigationPropertyChanged("issue");
                 }
             }
         }
-        private TrackableCollection<program> _programs;
+        private issue _issue;
 
         #endregion
         #region ChangeTracking
@@ -173,47 +223,47 @@ namespace AdvisementSys
     
         protected virtual void ClearNavigationProperties()
         {
-            programs.Clear();
+            issue = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
+        private void Fixupissue(issue previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (e.NewItems != null)
+            if (previousValue != null && previousValue.requestForLateEnrolments.Contains(this))
             {
-                foreach (program item in e.NewItems)
-                {
-                    item.designation1 = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
-                    }
-                }
+                previousValue.requestForLateEnrolments.Remove(this);
             }
     
-            if (e.OldItems != null)
+            if (issue != null)
             {
-                foreach (program item in e.OldItems)
+                if (!issue.requestForLateEnrolments.Contains(this))
                 {
-                    if (ReferenceEquals(item.designation1, this))
-                    {
-                        item.designation1 = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
-                    }
+                    issue.requestForLateEnrolments.Add(this);
+                }
+    
+                issueid = issue.issueid;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("issue")
+                    && (ChangeTracker.OriginalValues["issue"] == issue))
+                {
+                    ChangeTracker.OriginalValues.Remove("issue");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("issue", previousValue);
+                }
+                if (issue != null && !issue.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    issue.StartTracking();
                 }
             }
         }

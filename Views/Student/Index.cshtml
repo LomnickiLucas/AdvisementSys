@@ -1,0 +1,124 @@
+﻿@model IEnumerable<AdvisementSys.Models.student>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            fname
+        </th>
+        <th>
+            lname
+        </th>
+        <th>
+            program
+        </th>
+        <th>
+            campu
+        </th>
+        <th>
+            phonenum
+        </th>
+        <th>
+            email
+        </th>
+        <th>
+            street
+        </th>
+        <th>
+            appartmentnum
+        </th>
+        <th>
+            city
+        </th>
+        <th>
+            province
+        </th>
+        <th>
+            postalcode
+        </th>
+        <th>
+            acadprobation
+        </th>
+        <th>
+            fulltimestatus
+        </th>
+        <th>
+            enrolled
+        </th>
+        <th>
+            international
+        </th>
+        <th>
+            cellnum
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.program.programname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.campu.street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phonenum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.appartmentnum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.postalcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.acadprobation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fulltimestatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.enrolled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.international)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cellnum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.studentid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.studentid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.studentid })
+        </td>
+    </tr>
+}
+
+</table>
