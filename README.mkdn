@@ -1,0 +1,10 @@
+<h2>READ ME</h2>
+
+<p>This project is the capstone project of Primetech Experts for Sheridan College and will require MVC 3 and Entity Framework to be supported by your version of Visual Studio. The project has been created in Visual Studio 2010 and the .MDF file is being held on dropbox so that so that a script does not have to be generated for populating dummy data.</p>
+
+<p>The project is a advisement system for for tracking student profiles, documents, and notes. It will also have a program/course lookup feature and a Calender/Agenda feature for the advisors in order to provide enviroment that encompases all the needs of the advisors.</p>
+
+<p>For any further question feel free to email me at LucasLomnicki@gmail.com.</p>
+<div class="footer">
+        &copy; 2012 Primetech Experts
+    </div>
