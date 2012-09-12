@@ -65,9 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\AdvisementDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +110,9 @@
     <Compile Include="Models\faculty.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Models\issue.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -134,6 +134,8 @@
     <Compile Include="Models\program.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentResponseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\requestForLateEnrolment.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -149,11 +151,9 @@
     <Compile Include="Models\student.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StudentResponseModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\AdvisementDB.edmx.sql" />
@@ -230,18 +230,15 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <Content Include="sheridan logo.ashx" />
-    <Content Include="Content\themes\base\images\sheridan_logo.ashx" />
-    <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Student\Details.cshtml" />
-    <Content Include="Views\Student\Create.cshtml" />
-    <Content Include="Views\Student\Edit.cshtml" />
-    <Content Include="Views\Student\Delete.cshtml" />
     <EntityDeploy Include="Models\AdvisementDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AdvisementDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <Content Include="sheridan logo.ashx" />
+    <Content Include="Content\themes\base\images\sheridan_logo.ashx" />
     <None Include="Models\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entities.Context.cs</LastGenOutput>
@@ -250,6 +247,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entities.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
     <None Include="README.mkdn" />
     <Content Include="Views\Shared\Test.Master" />
   </ItemGroup>
