@@ -156,6 +156,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\AdvisementDB.edmx.sql" />
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
@@ -250,6 +251,7 @@
       <LastGenOutput>Entities.cs</LastGenOutput>
     </None>
     <None Include="README.mkdn" />
+    <Content Include="Views\Shared\Test.Master" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
