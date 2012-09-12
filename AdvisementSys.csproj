@@ -134,6 +134,7 @@
     <Compile Include="Models\program.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\requestForLateEnrolment.cs">
       <DependentUpon>Entities.tt</DependentUpon>
@@ -155,6 +156,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\arial.js" />
+    <Content Include="Scripts\cufon-yui.js" />
+    <Content Include="Scripts\cuf_run.js" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\images\header_bg.jpg" />
+    <Content Include="Content\themes\base\images\logo.jpg" />
+    <Content Include="Content\themes\base\images\menu_a.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -228,6 +236,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <Content Include="sheridan logo.ashx" />
+    <Content Include="Content\themes\base\images\sheridan_logo.ashx" />
     <None Include="Models\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entities.Context.cs</LastGenOutput>
