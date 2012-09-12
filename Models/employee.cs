@@ -19,10 +19,10 @@ namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(appointment))]
+    [KnownType(typeof(faculty))]
     [KnownType(typeof(role))]
     [KnownType(typeof(note))]
     [KnownType(typeof(program))]
-    [KnownType(typeof(faculty))]
     public partial class employee: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -251,6 +251,23 @@ namespace AdvisementSys.Models
         private TrackableCollection<appointment> _appointments;
     
         [DataMember]
+        public faculty faculty1
+        {
+            get { return _faculty1; }
+            set
+            {
+                if (!ReferenceEquals(_faculty1, value))
+                {
+                    var previousValue = _faculty1;
+                    _faculty1 = value;
+                    Fixupfaculty1(previousValue);
+                    OnNavigationPropertyChanged("faculty1");
+                }
+            }
+        }
+        private faculty _faculty1;
+    
+        [DataMember]
         public role role1
         {
             get { return _role1; }
@@ -336,23 +353,6 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<program> _programs;
-    
-        [DataMember]
-        public faculty faculty1
-        {
-            get { return _faculty1; }
-            set
-            {
-                if (!ReferenceEquals(_faculty1, value))
-                {
-                    var previousValue = _faculty1;
-                    _faculty1 = value;
-                    Fixupfaculty1(previousValue);
-                    OnNavigationPropertyChanged("faculty1");
-                }
-            }
-        }
-        private faculty _faculty1;
 
         #endregion
         #region ChangeTracking
@@ -433,14 +433,53 @@ namespace AdvisementSys.Models
         protected virtual void ClearNavigationProperties()
         {
             appointments.Clear();
+            faculty1 = null;
             role1 = null;
             notes.Clear();
             programs.Clear();
-            faculty1 = null;
         }
 
         #endregion
         #region Association Fixup
+    
+        private void Fixupfaculty1(faculty previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.employees.Contains(this))
+            {
+                previousValue.employees.Remove(this);
+            }
+    
+            if (faculty1 != null)
+            {
+                if (!faculty1.employees.Contains(this))
+                {
+                    faculty1.employees.Add(this);
+                }
+    
+                faculty = faculty1.fname;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("faculty1")
+                    && (ChangeTracker.OriginalValues["faculty1"] == faculty1))
+                {
+                    ChangeTracker.OriginalValues.Remove("faculty1");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("faculty1", previousValue);
+                }
+                if (faculty1 != null && !faculty1.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    faculty1.StartTracking();
+                }
+            }
+        }
     
         private void Fixuprole1(role previousValue, bool skipKeys = false)
         {
@@ -482,45 +521,6 @@ namespace AdvisementSys.Models
                 if (role1 != null && !role1.ChangeTracker.ChangeTrackingEnabled)
                 {
                     role1.StartTracking();
-                }
-            }
-        }
-    
-        private void Fixupfaculty1(faculty previousValue)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.employees.Contains(this))
-            {
-                previousValue.employees.Remove(this);
-            }
-    
-            if (faculty1 != null)
-            {
-                if (!faculty1.employees.Contains(this))
-                {
-                    faculty1.employees.Add(this);
-                }
-    
-                faculty = faculty1.fname;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("faculty1")
-                    && (ChangeTracker.OriginalValues["faculty1"] == faculty1))
-                {
-                    ChangeTracker.OriginalValues.Remove("faculty1");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("faculty1", previousValue);
-                }
-                if (faculty1 != null && !faculty1.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    faculty1.StartTracking();
                 }
             }
         }

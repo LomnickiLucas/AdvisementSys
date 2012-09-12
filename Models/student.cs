@@ -137,6 +137,21 @@ namespace AdvisementSys.Models
         private string _phonenum;
     
         [DataMember]
+        public string cellnum
+        {
+            get { return _cellnum; }
+            set
+            {
+                if (_cellnum != value)
+                {
+                    _cellnum = value;
+                    OnPropertyChanged("cellnum");
+                }
+            }
+        }
+        private string _cellnum;
+    
+        [DataMember]
         public string email
         {
             get { return _email; }
@@ -285,21 +300,6 @@ namespace AdvisementSys.Models
             }
         }
         private bool _international;
-    
-        [DataMember]
-        public string cellnum
-        {
-            get { return _cellnum; }
-            set
-            {
-                if (_cellnum != value)
-                {
-                    _cellnum = value;
-                    OnPropertyChanged("cellnum");
-                }
-            }
-        }
-        private string _cellnum;
 
         #endregion
         #region Navigation Properties
