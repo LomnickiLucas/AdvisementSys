@@ -40,6 +40,10 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
+*.edmx
+*.tt
+*.Context.tt
+*.config
 
 # Build results
 [Dd]ebug/
