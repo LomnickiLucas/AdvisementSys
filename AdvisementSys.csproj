@@ -156,7 +156,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\AdvisementDB.edmx.sql" />
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
@@ -236,7 +235,6 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <Content Include="sheridan logo.ashx" />
     <Content Include="Content\themes\base\images\sheridan_logo.ashx" />
     <None Include="Models\Entities.Context.tt">
@@ -253,7 +251,6 @@
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Delete.cshtml" />
     <None Include="README.mkdn" />
-    <Content Include="Views\Shared\Test.Master" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
