@@ -1,0 +1,44 @@
+﻿@model AdvisementSys.Models.issue
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>issue</legend>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.fname)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">urgency</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.urgency)
+    </div>
+
+    <div class="display-label">issuename</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issuename)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

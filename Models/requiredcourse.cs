@@ -43,7 +43,7 @@ namespace AdvisementSys.Models
         private System.Guid _unique;
     
         [DataMember]
-        public string coursecode
+        public int coursecode
         {
             get { return _coursecode; }
             set
@@ -63,10 +63,10 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private string _coursecode;
+        private int _coursecode;
     
         [DataMember]
-        public string reqcoursecode
+        public int reqcoursecode
         {
             get { return _reqcoursecode; }
             set
@@ -86,7 +86,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private string _reqcoursecode;
+        private int _reqcoursecode;
 
         #endregion
         #region Navigation Properties

@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using AdvisementSys.Models;
+
+namespace AdvisementSys.Controllers
+{ 
+    public class IssueController : Controller
+    {
+        private Entities db = new Entities();
+
+        //
+        // GET: /Issue/
+
+        public ViewResult Index()
+        {
+            var issues = db.issues.Include("student");
+            return View(issues.ToList());
+        }
+
+        //
+        // GET: /Issue/Details/5
+
+        public ViewResult Details(Guid id)
+        {
+            issue issue = db.issues.Single(i => i.issueid == id);
+            return View(issue);
+        }
+
+        //
+        // GET: /Issue/Create
+
+        public ActionResult Create()
+        {
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname");
+            return View();
+        } 
+
+        //
+        // POST: /Issue/Create
+
+        [HttpPost]
+        public ActionResult Create(issue issue)
+        {
+            if (ModelState.IsValid)
+            {
+                issue.issueid = Guid.NewGuid();
+                db.issues.AddObject(issue);
+                db.SaveChanges();
+                return RedirectToAction("Index");  
+            }
+
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
+            return View(issue);
+        }
+        
+        //
+        // GET: /Issue/Edit/5
+ 
+        public ActionResult Edit(Guid id)
+        {
+            issue issue = db.issues.Single(i => i.issueid == id);
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
+            return View(issue);
+        }
+
+        //
+        // POST: /Issue/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(issue issue)
+        {
+            if (ModelState.IsValid)
+            {
+                db.issues.Attach(issue);
+                db.ObjectStateManager.ChangeObjectState(issue, EntityState.Modified);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
+            return View(issue);
+        }
+
+        //
+        // GET: /Issue/Delete/5
+ 
+        public ActionResult Delete(Guid id)
+        {
+            issue issue = db.issues.Single(i => i.issueid == id);
+            return View(issue);
+        }
+
+        //
+        // POST: /Issue/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(Guid id)
+        {            
+            issue issue = db.issues.Single(i => i.issueid == id);
+            db.issues.DeleteObject(issue);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}

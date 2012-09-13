@@ -18,10 +18,10 @@ using System.Runtime.Serialization;
 namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(program))]
     [KnownType(typeof(coordinator))]
     [KnownType(typeof(employee))]
     [KnownType(typeof(professor))]
+    [KnownType(typeof(program))]
     public partial class faculty: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -47,41 +47,6 @@ namespace AdvisementSys.Models
 
         #endregion
         #region Navigation Properties
-    
-        [DataMember]
-        public TrackableCollection<program> programs
-        {
-            get
-            {
-                if (_programs == null)
-                {
-                    _programs = new TrackableCollection<program>();
-                    _programs.CollectionChanged += Fixupprograms;
-                }
-                return _programs;
-            }
-            set
-            {
-                if (!ReferenceEquals(_programs, value))
-                {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_programs != null)
-                    {
-                        _programs.CollectionChanged -= Fixupprograms;
-                    }
-                    _programs = value;
-                    if (_programs != null)
-                    {
-                        _programs.CollectionChanged += Fixupprograms;
-                    }
-                    OnNavigationPropertyChanged("programs");
-                }
-            }
-        }
-        private TrackableCollection<program> _programs;
     
         [DataMember]
         public TrackableCollection<coordinator> coordinators
@@ -187,6 +152,41 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<professor> _professors;
+    
+        [DataMember]
+        public TrackableCollection<program> programs
+        {
+            get
+            {
+                if (_programs == null)
+                {
+                    _programs = new TrackableCollection<program>();
+                    _programs.CollectionChanged += Fixupprograms;
+                }
+                return _programs;
+            }
+            set
+            {
+                if (!ReferenceEquals(_programs, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged -= Fixupprograms;
+                    }
+                    _programs = value;
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged += Fixupprograms;
+                    }
+                    OnNavigationPropertyChanged("programs");
+                }
+            }
+        }
+        private TrackableCollection<program> _programs;
 
         #endregion
         #region ChangeTracking
@@ -266,53 +266,14 @@ namespace AdvisementSys.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            programs.Clear();
             coordinators.Clear();
             employees.Clear();
             professors.Clear();
+            programs.Clear();
         }
 
         #endregion
         #region Association Fixup
-    
-        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (program item in e.NewItems)
-                {
-                    item.faculty1 = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
-                    }
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (program item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.faculty1, this))
-                    {
-                        item.faculty1 = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
-                    }
-                }
-            }
-        }
     
         private void Fixupcoordinators(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -426,6 +387,45 @@ namespace AdvisementSys.Models
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         ChangeTracker.RecordRemovalFromCollectionProperties("professors", item);
+                    }
+                }
+            }
+        }
+    
+        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (program item in e.NewItems)
+                {
+                    item.faculty1 = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (program item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.faculty1, this))
+                    {
+                        item.faculty1 = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
                     }
                 }
             }

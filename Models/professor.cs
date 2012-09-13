@@ -19,8 +19,8 @@ namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(campu))]
-    [KnownType(typeof(course))]
     [KnownType(typeof(faculty))]
+    [KnownType(typeof(course))]
     public partial class professor: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -171,6 +171,23 @@ namespace AdvisementSys.Models
         private campu _campu;
     
         [DataMember]
+        public faculty faculty1
+        {
+            get { return _faculty1; }
+            set
+            {
+                if (!ReferenceEquals(_faculty1, value))
+                {
+                    var previousValue = _faculty1;
+                    _faculty1 = value;
+                    Fixupfaculty1(previousValue);
+                    OnNavigationPropertyChanged("faculty1");
+                }
+            }
+        }
+        private faculty _faculty1;
+    
+        [DataMember]
         public TrackableCollection<course> courses
         {
             get
@@ -204,23 +221,6 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<course> _courses;
-    
-        [DataMember]
-        public faculty faculty1
-        {
-            get { return _faculty1; }
-            set
-            {
-                if (!ReferenceEquals(_faculty1, value))
-                {
-                    var previousValue = _faculty1;
-                    _faculty1 = value;
-                    Fixupfaculty1(previousValue);
-                    OnNavigationPropertyChanged("faculty1");
-                }
-            }
-        }
-        private faculty _faculty1;
 
         #endregion
         #region ChangeTracking
@@ -301,8 +301,8 @@ namespace AdvisementSys.Models
         protected virtual void ClearNavigationProperties()
         {
             campu = null;
-            courses.Clear();
             faculty1 = null;
+            courses.Clear();
         }
 
         #endregion

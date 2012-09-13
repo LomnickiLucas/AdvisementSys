@@ -94,3 +94,31 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.studentid }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@foreach (var item in Model.issues) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.student.fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.urgency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuename)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.issueid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.issueid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.issueid })
+        </td>
+    </tr>
+}
+
+</table>
+

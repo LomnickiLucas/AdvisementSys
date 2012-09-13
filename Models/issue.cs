@@ -72,6 +72,21 @@ namespace AdvisementSys.Models
         private string _studentid;
     
         [DataMember]
+        public string issuename
+        {
+            get { return _issuename; }
+            set
+            {
+                if (_issuename != value)
+                {
+                    _issuename = value;
+                    OnPropertyChanged("issuename");
+                }
+            }
+        }
+        private string _issuename;
+    
+        [DataMember]
         public System.DateTime date
         {
             get { return _date; }
@@ -115,21 +130,6 @@ namespace AdvisementSys.Models
             }
         }
         private string _urgency;
-    
-        [DataMember]
-        public string issuename
-        {
-            get { return _issuename; }
-            set
-            {
-                if (_issuename != value)
-                {
-                    _issuename = value;
-                    OnPropertyChanged("issuename");
-                }
-            }
-        }
-        private string _issuename;
 
         #endregion
         #region Navigation Properties
