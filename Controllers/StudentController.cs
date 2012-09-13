@@ -60,12 +60,19 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Details(string id)
         {
-            if (id != null)
+            try
             {
-                student student = db.students.Include("program").Single(s => s.studentid == id);
-                return View(student);
+                if (id != null)
+                {
+                    student student = db.students.Include("program").Single(s => s.studentid == id);
+                    return View(student);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Student");
+                }
             }
-            else
+            catch (InvalidOperationException)
             {
                 return RedirectToAction("Index", "Student");
             }
@@ -101,13 +108,27 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /Student/Edit/5
- 
+
         public ActionResult Edit(string id)
         {
-            student student = db.students.Single(s => s.studentid == id);
-            ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);
-            ViewBag.programcode = new SelectList(db.programs, "programcode", "programname", student.programcode);
-            return View(student);
+            try
+            {
+                if (id != null)
+                {
+                    student student = db.students.Single(s => s.studentid == id);
+                    ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);
+                    ViewBag.programcode = new SelectList(db.programs, "programcode", "programname", student.programcode);
+                    return View(student);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                return RedirectToAction("Index", "Student");
+            }
         }
 
         //
