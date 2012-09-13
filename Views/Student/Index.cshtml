@@ -6,7 +6,81 @@
 }
 
 <h2>Index</h2>
+<div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().studentid)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("studentid")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().fname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("fname")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().lname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("lname")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().programcode, "program")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("programcode", String.Empty)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().campus, "campus")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("campus", String.Empty)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().email)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("email")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().acadprobation)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("acadprobation")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().fulltimestatus)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("fulltimestatus")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.First().enrolled)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBox("enrolled")
+        </div>
+
+        <p>
+            <input type="submit" value="Search" />
+        </p>
+}
+</div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -75,7 +149,7 @@
             @Html.DisplayFor(modelItem => item.program.programname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.campu.street)
+            @Html.DisplayFor(modelItem => item.campu.cname)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.phonenum)
@@ -115,8 +189,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.studentid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.studentid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.studentid })
+            @Html.ActionLink("Details", "Details", new { id=item.studentid })
         </td>
     </tr>
 }

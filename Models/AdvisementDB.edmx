@@ -151,7 +151,7 @@
             <End Role="program" EntitySet="program" />
             <End Role="startdate" EntitySet="startdate" />
           </AssociationSet>
-          <AssociationSet Name="FK_student_campus" Association="Model.Store.FK_student_campus">
+          <AssociationSet Name="FK_student_campus1" Association="Model.Store.FK_student_campus1">
             <End Role="campus" EntitySet="campus" />
             <End Role="student" EntitySet="student" />
           </AssociationSet>
@@ -303,6 +303,7 @@
           </Key>
           <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="issuename" Type="text" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
           <Property Name="urgency" Type="nchar" Nullable="false" MaxLength="10" />
@@ -807,7 +808,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_student_campus">
+        <Association Name="FK_student_campus1">
           <End Role="campus" Type="Model.Store.campus" Multiplicity="1" />
           <End Role="student" Type="Model.Store.student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1138,6 +1139,7 @@
           <NavigationProperty Name="part_timeAnd_orAdditionalCourseRegistrationForm" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="issue" ToRole="part_timeAnd_orAdditionalCourseRegistrationForm" />
           <NavigationProperty Name="probationaryContractPlans" Relationship="Model.FK_probationaryContractPlan_issue" FromRole="issue" ToRole="probationaryContractPlan" />
           <NavigationProperty Name="requestForLateEnrolments" Relationship="Model.FK_requestForLateEnrolment_issue" FromRole="issue" ToRole="requestForLateEnrolment" />
+          <Property Type="String" Name="issuename" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="location">
           <Key>
@@ -1721,7 +1723,8 @@
             <ScalarProperty Name="fname" ColumnName="fname" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="issues"><EntityTypeMapping TypeName="Model.issue"><MappingFragment StoreEntitySet="issue">
-            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="issuename" ColumnName="issuename" />
+                <ScalarProperty Name="issueid" ColumnName="issueid" />
             <ScalarProperty Name="studentid" ColumnName="studentid" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="status" ColumnName="status" />
