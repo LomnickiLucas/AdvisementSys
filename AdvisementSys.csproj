@@ -156,6 +156,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\grid.form.css" />
+    <Content Include="Content\css\web.form.css" />
     <Content Include="Scripts\arial.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\cuf_run.js" />
