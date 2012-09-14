@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using System.Text;
 
 namespace AdvisementSys.Controllers
 { 
@@ -37,7 +38,13 @@ namespace AdvisementSys.Controllers
         public ActionResult Index(FormCollection collection)
         {
             ViewBag.campus = new SelectList(db.campus, "cname", "cname");
-            ViewBag.programcode = new SelectList(db.programs, "programcode", "programname");
+            var program = db.programs;
+            List<String> collections = new List<String>();
+            foreach (program pcode in program)
+            {
+                collections.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
+            }
+            ViewBag.programcode = new SelectList(collections);
             var students = db.students.Include("campu").Include("program");
             IEnumerable<student> studentz = students;
             if (!collection.Get(0).Equals(""))
@@ -47,7 +54,11 @@ namespace AdvisementSys.Controllers
             if (!collection.Get(2).Equals(""))
                 studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(collection.Get(2).Trim().ToUpper()));
             if (!collection.Get(3).Equals(""))
-                studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(collection.Get(3).Trim().ToUpper()));
+            {
+                StringBuilder sb = new StringBuilder(collection.Get(3).Trim().ToUpper());
+                sb.Remove(5, sb.Length - 5);
+                studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
+            }
             if (!collection.Get(4).Equals(""))
                 studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(collection.Get(4).Trim().ToUpper()));
             if (!collection.Get(5).Equals(""))
