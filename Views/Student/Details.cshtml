@@ -1,101 +1,218 @@
 ﻿@model AdvisementSys.Models.student
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-
-<fieldset>
-    <legend>student</legend>
-
-    <div class="display-label">fname</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fname)
-    </div>
-
-    <div class="display-label">lname</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.lname)
-    </div>
-
-    <div class="display-label">program</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.program.programname)
-    </div>
-
-    <div class="display-label">campus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.campus)
-    </div>
-
-    <div class="display-label">phonenum</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.phonenum)
-    </div>
-
-    <div class="display-label">email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.email)
-    </div>
-
-    <div class="display-label">street</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.street)
-    </div>
-
-    <div class="display-label">appartmentnum</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.appartmentnum)
-    </div>
-
-    <div class="display-label">city</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.city)
-    </div>
-
-    <div class="display-label">province</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.province)
-    </div>
-
-    <div class="display-label">postalcode</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.postalcode)
-    </div>
-
-    <div class="display-label">acadprobation</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.acadprobation)
-    </div>
-
-    <div class="display-label">fulltimestatus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fulltimestatus)
-    </div>
-
-    <div class="display-label">enrolled</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.enrolled)
-    </div>
-
-    <div class="display-label">international</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.international)
-    </div>
-
-    <div class="display-label">cellnum</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.cellnum)
-    </div>
-</fieldset>
+<link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
+<h2 style="padding-left: 13px;">Student Details for: @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h2>
+<table class="tableDetail">
+    <tr>
+        <td>
+            <h3>
+                Student Information</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Student ID:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.studentid)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Email:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.email)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                First Name:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.fname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Phone Number:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.phonenum)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Last Name:
+            </div>
+        </td>
+        <td>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.lname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Cell Number:
+            </div>
+        </td>
+        <td>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.cellnum)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Program:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.program.programname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Campus:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.campus)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                International Student:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.international)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Full Time:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.fulltimestatus)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Academic Probation:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.acadprobation)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Enrolled:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.enrolled)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3>
+                Address</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Address:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.street)
+            </div>
+        </td>
+        <td>
+            <div class="editor-label">
+                City:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.city)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Apt. Number:
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.appartmentnum)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Province
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.province)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Postal Code
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.postalcode)
+            </div>
+        </td>
+    </tr>
+</table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.studentid }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.studentid }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-@foreach (var item in Model.issues) {
+@foreach (var item in Model.issues)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.student.fname)
@@ -113,12 +230,10 @@
             @Html.DisplayFor(modelItem => item.issuename)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.issueid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.issueid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.issueid })
+            @Html.ActionLink("Edit", "Edit", new { id = item.issueid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.issueid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.issueid })
         </td>
     </tr>
 }
-
-</table>
-
+</table> 

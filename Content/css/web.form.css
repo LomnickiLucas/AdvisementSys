@@ -6,9 +6,15 @@ fieldset
     width: 800px;
     padding: 5px;
 }
+
 table
 {
     width:100%;
     padding-left:10px;
     padding-right:10px;
+}
+
+.tableDetail
+{
+    width: 800px;
 }
