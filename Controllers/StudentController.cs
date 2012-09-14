@@ -19,9 +19,13 @@ namespace AdvisementSys.Controllers
         public ViewResult Index()
         {
             ViewBag.campus = new SelectList(db.campus, "cname", "cname");
-            SelectList pname = new SelectList(db.programs, "programcode", "programname");
-            //var pcode = db.prog.Include("campu").Include("program");
-            ViewBag.programcode = new SelectList(db.programs, "programcode", "programname");
+            var program = db.programs;
+            List<String> collection = new List<String>();
+            foreach (program pcode in program)
+            {
+                collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
+            }
+            ViewBag.programcode = new SelectList(collection);
             var students = db.students.Include("campu").Include("program");
             return View(students.ToList());
         }
