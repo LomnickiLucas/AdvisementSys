@@ -5,9 +5,13 @@
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.5.1.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.blockUI.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/Student.Create.js")" type="text/javascript"></script>
+
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Student", FormMethod.Post, new {id="studentForm", name="studentForm" }))
 {
     @Html.ValidationSummary(true)
     <p>Please complete the following fields in order to create a new student in the database.</p>
@@ -25,7 +29,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.studentid)
+                        @Html.EditorFor(model => model.studentid, new { id="requiredFieldValidation"})
                         @Html.ValidationMessageFor(model => model.studentid)
                      </div>
                 </td>
@@ -37,7 +41,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.email)
+                        @Html.EditorFor(model => model.email, new { id = "requiredFieldValidation" })
                         @Html.ValidationMessageFor(model => model.email)
                     </div>
                 </td>
@@ -51,7 +55,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.fname)
+                        @Html.EditorFor(model => model.fname, new { id = "requiredFieldValidation" })
                         @Html.ValidationMessageFor(model => model.fname)
                     </div>
                 </td>
@@ -63,7 +67,7 @@
                  </td>
                  <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.phonenum)
+                        @Html.EditorFor(model => model.phonenum, new { @class = "requiredFieldValidation", id="phoneValidation" })
                         @Html.ValidationMessageFor(model => model.phonenum)
                     </div>
                  </td>
@@ -77,7 +81,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.lname)
+                        @Html.EditorFor(model => model.lname, new { @class = "requiredFieldValidation" })
                         @Html.ValidationMessageFor(model => model.lname)
                     </div>
                 </td>
@@ -89,7 +93,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.cellnum)
+                        @Html.EditorFor(model => model.cellnum, new { id = "phoneValidation" })
                         @Html.ValidationMessageFor(model => model.cellnum)
                     </div>
                 </td>
@@ -182,7 +186,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.street)
+                        @Html.EditorFor(model => model.street, new { @class="requiredFieldValidation"})
                         @Html.ValidationMessageFor(model => model.street)
                      </div>
                 </td>
@@ -194,7 +198,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.city)
+                        @Html.EditorFor(model => model.city, new { @class = "requiredFieldValidation" })
                         @Html.ValidationMessageFor(model => model.city)
                     </div>
                 </td>
@@ -233,8 +237,8 @@
                     </div>
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.postalcode)
+                    <div class="editor-field">'
+                        @Html.EditorFor(model => model.postalcode, new { @class = "requiredFieldValidation", id = "postalCodeValidation"})
                         @Html.ValidationMessageFor(model => model.postalcode)
                      </div>
                 </td>
@@ -242,7 +246,7 @@
             
         </table>
         <p>
-          <input type="submit" value="Create" />
+         <input type="submit" value="Create" style="color:Red;" />
         </p>
     </fieldset>
     <p>Fields marked with an * are mandatory.</p>
@@ -250,3 +254,17 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<!--Block UI and Validation -->
+<div id="blockConfirmMessage" style="display:none">
+    Student has been added!
+     @Html.ActionLink("Okay", "Index")
+</div>
+
+<script type="text/javascript">
+    
+    function openBlock(data) {
+        $.blockUI({ message: $('#blockConfirmMessage') });
+    }
+
+</script>
