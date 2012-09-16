@@ -22,7 +22,6 @@ namespace AdvisementSys.Models
     [KnownType(typeof(employee))]
     [KnownType(typeof(faculty))]
     [KnownType(typeof(location))]
-    [KnownType(typeof(startdate))]
     [KnownType(typeof(student))]
     [KnownType(typeof(course))]
     public partial class program: IObjectWithChangeTracker, INotifyPropertyChanged
@@ -252,41 +251,6 @@ namespace AdvisementSys.Models
         private TrackableCollection<location> _locations;
     
         [DataMember]
-        public TrackableCollection<startdate> startdates
-        {
-            get
-            {
-                if (_startdates == null)
-                {
-                    _startdates = new TrackableCollection<startdate>();
-                    _startdates.CollectionChanged += Fixupstartdates;
-                }
-                return _startdates;
-            }
-            set
-            {
-                if (!ReferenceEquals(_startdates, value))
-                {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_startdates != null)
-                    {
-                        _startdates.CollectionChanged -= Fixupstartdates;
-                    }
-                    _startdates = value;
-                    if (_startdates != null)
-                    {
-                        _startdates.CollectionChanged += Fixupstartdates;
-                    }
-                    OnNavigationPropertyChanged("startdates");
-                }
-            }
-        }
-        private TrackableCollection<startdate> _startdates;
-    
-        [DataMember]
         public TrackableCollection<student> students
         {
             get
@@ -438,7 +402,6 @@ namespace AdvisementSys.Models
             employee = null;
             faculty1 = null;
             locations.Clear();
-            startdates.Clear();
             students.Clear();
             courses.Clear();
         }
@@ -597,45 +560,6 @@ namespace AdvisementSys.Models
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         ChangeTracker.RecordRemovalFromCollectionProperties("locations", item);
-                    }
-                }
-            }
-        }
-    
-        private void Fixupstartdates(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (startdate item in e.NewItems)
-                {
-                    item.program = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("startdates", item);
-                    }
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (startdate item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.program, this))
-                    {
-                        item.program = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("startdates", item);
                     }
                 }
             }

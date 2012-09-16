@@ -27,7 +27,7 @@ namespace AdvisementSys.Models
         #region Primitive Properties
     
         [DataMember]
-        public int coursecode
+        public string coursecode
         {
             get { return _coursecode; }
             set
@@ -43,7 +43,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private int _coursecode;
+        private string _coursecode;
     
         [DataMember]
         public string name

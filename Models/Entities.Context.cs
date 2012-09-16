@@ -191,12 +191,6 @@ namespace AdvisementSys.Models
         }
         private ObjectSet<role> _roles;
     
-        public ObjectSet<startdate> startdates
-        {
-            get { return _startdates  ?? (_startdates = CreateObjectSet<startdate>("startdates")); }
-        }
-        private ObjectSet<startdate> _startdates;
-    
         public ObjectSet<student> students
         {
             get { return _students  ?? (_students = CreateObjectSet<student>("students")); }

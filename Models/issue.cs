@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdvisementSys.Models
 {
@@ -87,6 +88,7 @@ namespace AdvisementSys.Models
         private string _issuename;
     
         [DataMember]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime date
         {
             get { return _date; }

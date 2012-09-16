@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 { 
@@ -27,35 +28,38 @@ namespace AdvisementSys.Controllers
 
         public ViewResult Details(Guid id)
         {
-            issue issue = db.issues.Single(i => i.issueid == id);
+            issue issue = db.issues.Include("student").Single(i => i.issueid == id);
             return View(issue);
         }
 
         //
         // GET: /Issue/Create
 
-        public ActionResult Create()
+        public ActionResult Create(String id)
         {
-            ViewBag.studentid = new SelectList(db.students, "studentid", "fname");
-            return View();
+            student student = db.students.Single(i => i.studentid == id);
+            issue issue = new issue() { studentid = id, date = DateTime.Now };
+            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student };
+            return View(model);
         } 
 
         //
         // POST: /Issue/Create
 
         [HttpPost]
-        public ActionResult Create(issue issue)
+        public ActionResult Create(CreateIssueRequestModel model, String id)
         {
             if (ModelState.IsValid)
             {
-                issue.issueid = Guid.NewGuid();
-                db.issues.AddObject(issue);
+                model._issue.issueid = Guid.NewGuid();
+                model._issue.studentid = id;
+                db.issues.AddObject(model._issue);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + id, "Student");  
             }
 
-            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
-            return View(issue);
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
+            return View(model);
         }
         
         //
@@ -63,7 +67,7 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            issue issue = db.issues.Single(i => i.issueid == id);
+            issue issue = db.issues.Include("student").Single(i => i.issueid == id);
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
             return View(issue);
         }

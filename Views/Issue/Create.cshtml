@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.issue
+﻿@model AdvisementSys.Models.Request.CreateIssueRequestModel
 
 @{
     ViewBag.Title = "Create";
@@ -14,45 +14,73 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>issue</legend>
+        @Html.HiddenFor(model => model._issue.studentid)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.studentid, "student")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("studentid", String.Empty)
-            @Html.ValidationMessageFor(model => model.studentid)
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.studentid)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.date)
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.fname)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.date)
-            @Html.ValidationMessageFor(model => model.date)
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.lname)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.campus)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.phonenum)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.email)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.program)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.status)
+            @Html.LabelFor(model => model._issue.date)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.status)
-            @Html.ValidationMessageFor(model => model.status)
+            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._issue.date)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.urgency)
+            @Html.LabelFor(model => model._issue.status)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.urgency)
-            @Html.ValidationMessageFor(model => model.urgency)
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new [] {"In Progress", "On Hold", "Complete"}))
+            @Html.ValidationMessageFor(model => model._issue.status)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.issuename)
+            @Html.LabelFor(model => model._issue.urgency)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.issuename)
-            @Html.ValidationMessageFor(model => model.issuename)
+            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new [] {"High", "Medium", "Low"}))
+            @Html.ValidationMessageFor(model => model._issue.urgency)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._issue.issuename)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model._issue.issuename)
+            @Html.ValidationMessageFor(model => model._issue.issuename)
         </div>
 
         <p>
@@ -62,5 +90,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
 </div>

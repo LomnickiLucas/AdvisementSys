@@ -146,6 +146,8 @@
             @Html.DisplayFor(modelItem => item.lname)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.programcode)
+            &nbsp;-&nbsp;
             @Html.DisplayFor(modelItem => item.program.programname)
         </td>
         <td>
@@ -188,7 +190,6 @@
             @Html.DisplayFor(modelItem => item.cellnum)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.studentid }) |
             @Html.ActionLink("Details", "Details", new { id=item.studentid })
         </td>
     </tr>

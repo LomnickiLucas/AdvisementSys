@@ -1,10 +1,10 @@
-﻿@model AdvisementSys.Models.student
+﻿@model AdvisementSys.Models.DetailsStudentRequestModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
-<h2 style="padding-left: 13px;">Student Details for: @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h2>
+<h2 style="padding-left: 13px;">Student Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
 <table class="tableDetail">
     <tr>
         <td>
@@ -20,7 +20,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.studentid)
+                @Html.DisplayFor(model => model._student.studentid)
             </div>
         </td>
         <td>
@@ -30,7 +30,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.email)
+                @Html.DisplayFor(model => model._student.email)
             </div>
         </td>
     </tr>
@@ -42,7 +42,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.fname)
+                @Html.DisplayFor(model => model._student.fname)
             </div>
         </td>
         <td>
@@ -52,7 +52,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.phonenum)
+                @Html.DisplayFor(model => model._student.phonenum)
             </div>
         </td>
     </tr>
@@ -64,7 +64,7 @@
         </td>
         <td>
             <div class="editor-field">
-                @Html.DisplayFor(model => model.lname)
+                @Html.DisplayFor(model => model._student.lname)
             </div>
         </td>
         <td>
@@ -74,7 +74,7 @@
         </td>
         <td>
             <div class="editor-field">
-                @Html.DisplayFor(model => model.cellnum)
+                @Html.DisplayFor(model => model._student.cellnum)
             </div>
         </td>
     </tr>
@@ -86,7 +86,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.program.programname)
+                @Html.DisplayFor(model => model._student.program.programname)
             </div>
         </td>
         <td>
@@ -96,7 +96,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.campus)
+                @Html.DisplayFor(model => model._student.campus)
             </div>
         </td>
     </tr>
@@ -108,7 +108,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.international)
+                @Html.DisplayFor(model => model._student.international)
             </div>
         </td>
         <td>
@@ -118,7 +118,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.fulltimestatus)
+                @Html.DisplayFor(model => model._student.fulltimestatus)
             </div>
         </td>
     </tr>
@@ -130,7 +130,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.acadprobation)
+                @Html.DisplayFor(model => model._student.acadprobation)
             </div>
         </td>
         <td>
@@ -140,7 +140,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.enrolled)
+                @Html.DisplayFor(model => model._student.enrolled)
             </div>
         </td>
     </tr>
@@ -158,7 +158,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.street)
+                @Html.DisplayFor(model => model._student.street)
             </div>
         </td>
         <td>
@@ -168,7 +168,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.city)
+                @Html.DisplayFor(model => model._student.city)
             </div>
         </td>
     </tr>
@@ -180,7 +180,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.appartmentnum)
+                @Html.DisplayFor(model => model._student.appartmentnum)
             </div>
         </td>
         <td>
@@ -190,7 +190,7 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.province)
+                @Html.DisplayFor(model => model._student.province)
             </div>
         </td>
     </tr>
@@ -202,20 +202,36 @@
         </td>
         <td>
             <div class="display-field">
-                @Html.DisplayFor(model => model.postalcode)
+                @Html.DisplayFor(model => model._student.postalcode)
             </div>
         </td>
     </tr>
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.studentid }) |
+    @Html.ActionLink("Create New Issue", "Create", "Issue", new { id = Model._student.studentid }, null) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model._student.studentid }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-@foreach (var item in Model.issues)
+<table>
+<tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Urgency
+        </th>
+    </tr>
+@foreach (var item in Model._issue)
 {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.student.fname)
+            @Html.DisplayFor(modelItem => item.issuename)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.date)
@@ -227,12 +243,7 @@
             @Html.DisplayFor(modelItem => item.urgency)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.issuename)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.issueid }) |
-            @Html.ActionLink("Details", "Details", new { id = item.issueid }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.issueid })
+            @Html.ActionLink("Details", "Details",  "Issue", new { id = item.issueid }, null)
         </td>
     </tr>
 }

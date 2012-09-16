@@ -17,19 +17,46 @@
 
         @Html.HiddenFor(model => model.issueid)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.studentid, "student")
+         <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.studentid)
         </div>
-        <div class="editor-field">
-            @Html.DropDownList("studentid", String.Empty)
-            @Html.ValidationMessageFor(model => model.studentid)
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.fname)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.lname)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.campus)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.phonenum)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.email)
+        </div>
+
+        <div class="display-label">student</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.program)
         </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.date)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.date)
+            @Html.TextBoxFor(model => model.date, new { @Value = Model.date.ToString("dd MMM yyyy") })
             @Html.ValidationMessageFor(model => model.date)
         </div>
 
@@ -37,7 +64,7 @@
             @Html.LabelFor(model => model.status)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.status)
+            @Html.DropDownListFor(model => model.status, new SelectList(new [] {"In Progress", "On Hold", "Complete"}))
             @Html.ValidationMessageFor(model => model.status)
         </div>
 
@@ -45,7 +72,7 @@
             @Html.LabelFor(model => model.urgency)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.urgency)
+            @Html.DropDownListFor(model => model.urgency, new SelectList(new [] {"High", "Medium", "Low"}))
             @Html.ValidationMessageFor(model => model.urgency)
         </div>
 
@@ -64,5 +91,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Issue", "Details/" + Model.issueid)
 </div>

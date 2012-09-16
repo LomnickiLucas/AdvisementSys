@@ -12,12 +12,42 @@
 
     <div class="display-label">student</div>
     <div class="display-field">
+        @Html.DisplayFor(model => model.studentid)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
         @Html.DisplayFor(model => model.student.fname)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.lname)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.campus)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.phonenum)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.email)
+    </div>
+
+    <div class="display-label">student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.student.program)
     </div>
 
     <div class="display-label">date</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.date)
+        @Html.DisplayFor(model => model.date, new { @Value = Model.date.ToShortDateString()})
     </div>
 
     <div class="display-label">status</div>
@@ -37,5 +67,5 @@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.issueid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Student Details", "Details/" + Model.studentid, "Student")
 </p>

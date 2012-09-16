@@ -81,8 +81,10 @@ namespace AdvisementSys.Controllers
             {
                 if (id != null)
                 {
+                    IEnumerable<issue> issue = db.issues.Include("student").Where(i => i.studentid == id);
                     student student = db.students.Include("program").Single(s => s.studentid == id);
-                    return View(student);
+                    DetailsStudentRequestModel details = new DetailsStudentRequestModel() { _student = student, _issue = issue };
+                    return View(details);
                 }
                 else
                 {
@@ -111,16 +113,23 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Create(student student)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.students.AddObject(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
+                if (ModelState.IsValid)
+                {
+                    db.students.AddObject(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);
-            ViewBag.programcode = new SelectList(db.programs, "programcode", "programname", student.programcode);
-            return View(student);
+                ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);
+                ViewBag.programcode = new SelectList(db.programs, "programcode", "programname", student.programcode);
+                return View(student);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Create", "Student");
+            }
         }
         
         //
@@ -159,7 +168,7 @@ namespace AdvisementSys.Controllers
                 db.students.Attach(student);
                 db.ObjectStateManager.ChangeObjectState(student, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + student.studentid);
             }
             ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);
             ViewBag.programcode = new SelectList(db.programs, "programcode", "programname", student.programcode);

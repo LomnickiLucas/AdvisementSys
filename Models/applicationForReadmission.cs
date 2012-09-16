@@ -201,67 +201,67 @@ namespace AdvisementSys.Models
         private string _newcampus;
     
         [DataMember]
-        public string recamendedprogram
+        public string recommendedprogram
         {
-            get { return _recamendedprogram; }
+            get { return _recommendedprogram; }
             set
             {
-                if (_recamendedprogram != value)
+                if (_recommendedprogram != value)
                 {
-                    _recamendedprogram = value;
-                    OnPropertyChanged("recamendedprogram");
+                    _recommendedprogram = value;
+                    OnPropertyChanged("recommendedprogram");
                 }
             }
         }
-        private string _recamendedprogram;
+        private string _recommendedprogram;
     
         [DataMember]
-        public Nullable<bool> recamendedfulltime
+        public Nullable<bool> recommendedfulltime
         {
-            get { return _recamendedfulltime; }
+            get { return _recommendedfulltime; }
             set
             {
-                if (_recamendedfulltime != value)
+                if (_recommendedfulltime != value)
                 {
-                    _recamendedfulltime = value;
-                    OnPropertyChanged("recamendedfulltime");
+                    _recommendedfulltime = value;
+                    OnPropertyChanged("recommendedfulltime");
                 }
             }
         }
-        private Nullable<bool> _recamendedfulltime;
+        private Nullable<bool> _recommendedfulltime;
     
         [DataMember]
-        public string recamendedsemyear
+        public string recommendedsemyear
         {
-            get { return _recamendedsemyear; }
+            get { return _recommendedsemyear; }
             set
             {
-                if (_recamendedsemyear != value)
+                if (_recommendedsemyear != value)
                 {
-                    _recamendedsemyear = value;
-                    OnPropertyChanged("recamendedsemyear");
+                    _recommendedsemyear = value;
+                    OnPropertyChanged("recommendedsemyear");
                 }
             }
         }
-        private string _recamendedsemyear;
+        private string _recommendedsemyear;
     
         [DataMember]
-        public string recamendedcampus
+        public string recomendedcampus
         {
-            get { return _recamendedcampus; }
+            get { return _recomendedcampus; }
             set
             {
-                if (_recamendedcampus != value)
+                if (_recomendedcampus != value)
                 {
-                    _recamendedcampus = value;
-                    OnPropertyChanged("recamendedcampus");
+                    _recomendedcampus = value;
+                    OnPropertyChanged("recomendedcampus");
                 }
             }
         }
-        private string _recamendedcampus;
+        private string _recomendedcampus;
     
         [DataMember]
-        public bool approved
+        public Nullable<bool> approved
         {
             get { return _approved; }
             set
@@ -273,7 +273,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private bool _approved;
+        private Nullable<bool> _approved;
     
         [DataMember]
         public string acceptableconditional
@@ -336,7 +336,7 @@ namespace AdvisementSys.Models
         private string _probation;
     
         [DataMember]
-        public bool special
+        public Nullable<bool> special
         {
             get { return _special; }
             set
@@ -348,7 +348,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private bool _special;
+        private Nullable<bool> _special;
     
         [DataMember]
         public string status
