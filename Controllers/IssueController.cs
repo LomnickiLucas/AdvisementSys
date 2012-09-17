@@ -83,7 +83,7 @@ namespace AdvisementSys.Controllers
                 db.issues.Attach(issue);
                 db.ObjectStateManager.ChangeObjectState(issue, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + issue.issueid);  
             }
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
             return View(issue);
