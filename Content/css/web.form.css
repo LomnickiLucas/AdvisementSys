@@ -3,7 +3,7 @@
 
 fieldset 
 {
-    width: 800px;
+    width: 1080px;
     padding: 5px;
 }
 
@@ -18,3 +18,21 @@ table
 {
     width: 800px;
 }
+
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(assets/img/valid.png) center center no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+}
+label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+
+
+

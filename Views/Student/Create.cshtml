@@ -3,9 +3,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery-1.5.1.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.blockUI.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/Student.Create.js")" type="text/javascript"></script>
 
@@ -23,41 +21,26 @@
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.studentid, "*Student ID:")
-                    </div>
+                    @Html.LabelFor(model => model.studentid, "Student ID")
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.studentid, new { id="requiredFieldValidation"})
-                        @Html.ValidationMessageFor(model => model.studentid)
-                     </div>
+                     @Html.TextBoxFor(model => model.studentid, new { id = "studentId", @class = "required" })                                        
                 </td>
-
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.email, "*Email:")
-                    </div>
+                <td>                    
+                    @Html.LabelFor(model => model.email, "*Email:")
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.email, new { id = "requiredFieldValidation" })
-                        @Html.ValidationMessageFor(model => model.email)
-                    </div>
+                    @Html.TextBoxFor(model => model.email, new { @class="required email"})
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.fname, "*First Name:")
-                    </div>
+                   @Html.LabelFor(model => model.fname, "*First Name:")
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.fname, new { id = "requiredFieldValidation" })
-                        @Html.ValidationMessageFor(model => model.fname)
-                    </div>
+                        @Html.TextBoxFor(model => model.fname, new { id = "firstName", @class = "required" })
+                         @Html.ValidationMessageFor(model => model.fname)
                 </td>
 
                 <td>
@@ -66,111 +49,106 @@
                     </div>                    
                  </td>
                  <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.phonenum, new { @class = "requiredFieldValidation", id="phoneValidation" })
+                        @Html.TextBoxFor(model => model.phonenum, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.phonenum)
-                    </div>
                  </td>
             </tr>
-
             <tr>
                 <td>
-                    <div class="editor-label">
                         @Html.LabelFor(model => model.lname, "*Last Name:")
-                    </div>
+            
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.lname, new { @class = "requiredFieldValidation" })
+
+                        @Html.TextBoxFor(model => model.lname, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.lname)
-                    </div>
+
                 </td>
 
                 <td>
-                    <div class="editor-label">
+
                         @Html.LabelFor(model => model.cellnum, "Cell Number:")
-                    </div>
+
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.cellnum, new { id = "phoneValidation" })
+
+                        @Html.TextBoxFor(model => model.cellnum)
                         @Html.ValidationMessageFor(model => model.cellnum)
-                    </div>
+
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <div class="editor-label">
+
                         @Html.LabelFor(model => model.programcode, "*Program:")
-                     </div>
+
                 </td>
                  <td>
-                    <div class="editor-field">
+
                         @Html.DropDownList("programcode", "Please Select a Program")
                         @Html.ValidationMessageFor(model => model.programcode)
-                    </div>
+
                  </td>
 
                  <td>
-                    <div class="editor-label">
+                
                         @Html.LabelFor(model => model.campus, "*Campus:")
-                     </div>
+                     
                 </td>
                  <td>
-                    <div class="editor-field">
                         @Html.DropDownList("campus", "Please Select a Campus")
                         @Html.ValidationMessageFor(model => model.programcode)
-                    </div>
+              
                  </td>
             </tr>
             <tr>
                 <td>                   
-                    <div class="editor-label">
+                    
                          @Html.LabelFor(model => model.international, "International Student:")
-                    </div>                    
+                                 
                 </td> 
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.international)
+                    
+                        @Html.CheckBoxFor(model => model.international)
                         @Html.ValidationMessageFor(model => model.international)               
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-label">
+                   
                         @Html.LabelFor(model => model.fulltimestatus, "Full Time:")
-                    </div>
+               
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.fulltimestatus)
+                  
+                        @Html.CheckBoxFor(model => model.fulltimestatus)
                         @Html.ValidationMessageFor(model => model.fulltimestatus)
-                    </div>
+                  
                 </td>           
             </tr>
 
             <tr>
                 <td>                   
-                    <div class="editor-label">
+                    
                          @Html.LabelFor(model => model.acadprobation, "Academic Probation:")
-                    </div>                    
+                                      
                 </td> 
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.acadprobation)
+                   
+                        @Html.CheckBoxFor(model => model.acadprobation)
                         @Html.ValidationMessageFor(model => model.acadprobation)               
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model.enrolled, "Enrolled:")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.enrolled)
+                    
+                        @Html.CheckBoxFor(model => model.enrolled)
                         @Html.ValidationMessageFor(model => model.enrolled)
-                    </div>
+                    
                 </td>           
             </tr>
 
@@ -180,41 +158,41 @@
             
             <tr>
                 <td>
-                    <div class="editor-label">
+                
                         @Html.LabelFor(model => model.street, "*Address:")
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.street, new { @class="requiredFieldValidation"})
+                    
+                        @Html.TextBoxFor(model => model.street, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.street)
-                     </div>
+                     
                 </td>
 
                 <td>
-                    <div class="editor-label">
+                 
                         @Html.LabelFor(model => model.city, "*City:")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.city, new { @class = "requiredFieldValidation" })
+                    
+                        @Html.TextBoxFor(model => model.city, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.city)
-                    </div>
+                   
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model.appartmentnum, "Apt. Number")
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.appartmentnum)
+                  
+                        @Html.TextBoxFor(model => model.appartmentnum)
                         @Html.ValidationMessageFor(model => model.appartmentnum)
-                     </div>
+                     
                 </td>
 
                 <td>
@@ -223,30 +201,30 @@
                     </div>
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.DropDownListFor(model => model.province, new SelectList(new[] { "Ontario", "Quebec", "Nova Scotia", "New Brunswick", "Manitoba", "British Columbia", "Prince Edward Island", "Saskatchewan", "Alberta", "Newfoundland and Labrador" }))
                         @Html.ValidationMessageFor(model => model.province)
-                    </div>
+                  
                 </td>
             </tr>
             
             <tr>
                 <td>
-                    <div class="editor-label">
+                  
                         @Html.LabelFor(model => model.postalcode, "*Postal Code:")
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-field">'
-                        @Html.EditorFor(model => model.postalcode, new { @class = "requiredFieldValidation", id = "postalCodeValidation"})
+                  
+                        @Html.TextBoxFor(model => model.postalcode, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.postalcode)
-                     </div>
+                    
                 </td>
              </tr>
             
         </table>
         <p>
-         <input type="submit" value="Create" style="color:Red;" />
+         <input type="submit" value="Create" class="Button" />
         </p>
     </fieldset>
     <p>Fields marked with an * are mandatory.</p>
@@ -262,7 +240,21 @@
 </div>
 
 <script type="text/javascript">
-    
+
+    $(document).ready(function () {
+        $("#studentForm").validate(
+        {
+            /**rules: {
+            firstName: {
+            required: true
+            }
+            },
+            messages: {
+            firstName: "Please enter something here"
+            }*/
+        });
+    });
+
     function openBlock(data) {
         $.blockUI({ message: $('#blockConfirmMessage') });
     }
