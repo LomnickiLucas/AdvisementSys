@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdvisementSys.Models.student>
+﻿@model AdvisementSys.Models.Request.IndexStudentRequestModel
 
 @{
     ViewBag.Title = "Index";
@@ -14,66 +14,67 @@
     @Html.ValidationSummary(true)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().studentid)
+            @Html.LabelFor(model => model._student.First().studentid)
         </div>
+    
         <div class="editor-field">
-            @Html.TextBox("studentid")
+            @Html.TextBox("studentid", value: Model.studentID)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().fname)
+            @Html.LabelFor(model => model._student.First().fname)
         </div>
         <div class="editor-field">
-            @Html.TextBox("fname")
+            @Html.TextBox("fname", value: Model.fName )
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().lname)
+            @Html.LabelFor(model => model._student.First().lname)
         </div>
         <div class="editor-field">
-            @Html.TextBox("lname")
+            @Html.TextBox("lname", value: Model.lName)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().programcode, "program")
+            @Html.LabelFor(model => model._student.First().programcode, "program")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("programcode", String.Empty)
+            @Html.DropDownList("programcode", Model.programCode)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().campus, "campus")
+            @Html.LabelFor(model => model._student.First().campus, "campus")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("campus", String.Empty)
+            @Html.DropDownList("campus", Model.campus)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().email)
+            @Html.LabelFor(model => model._student.First().email)
         </div>
         <div class="editor-field">
-            @Html.TextBox("email")
+            @Html.TextBox("email", value: Model.email)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().acadprobation)
+            @Html.LabelFor(model => model._student.First().acadprobation)
         </div>
         <div class="editor-field">
-            @Html.CheckBox("acadprobation")
+            @Html.CheckBox("acadprobation", Model.acadprobation )
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().fulltimestatus)
+            @Html.LabelFor(model => model._student.First().fulltimestatus)
         </div>
         <div class="editor-field">
-            @Html.CheckBox("fulltimestatus")
+            @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.First().enrolled)
+            @Html.LabelFor(model => model._student.First().enrolled)
         </div>
         <div class="editor-field">
-            @Html.CheckBox("enrolled")
+            @Html.CheckBox("enrolled", Model.enrolled)
         </div>
 
         <p>
@@ -86,6 +87,9 @@
 </p>
 <table>
     <tr>
+        <th>
+            Student ID
+        </th>
         <th>
             fname
         </th>
@@ -137,8 +141,11 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model._student) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentid)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.fname)
         </td>

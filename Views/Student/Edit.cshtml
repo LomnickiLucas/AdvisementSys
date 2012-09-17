@@ -212,7 +212,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.province)
+                        @Html.DropDownListFor(model => model.province, new SelectList(new[] { "Ontario", "Quebec", "Nova Scotia", "New Brunswick", "Manitoba", "British Columbia", "Prince Edward Island", "Saskatchewan", "Alberta", "Newfoundland and Labrador" }))
                         @Html.ValidationMessageFor(model => model.province)
                     </div>
                 </td>

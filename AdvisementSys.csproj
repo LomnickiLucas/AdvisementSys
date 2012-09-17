@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="Models\Request\CreateIssueRequestModel.cs" />
     <Compile Include="Models\Request\EditIssueRequestModel.cs" />
+    <Compile Include="Models\Request\IndexStudentRequestModel.cs" />
     <Compile Include="Models\requiredcourse.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
