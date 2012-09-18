@@ -2,6 +2,7 @@
 }
 table
 {
+    width: 800px;
     padding: 5px;
     padding-left:10px;
     padding-right:10px;
@@ -11,6 +12,9 @@ th
 {
     background-color:#2C3D5A;
     color:white;
+    border-collapse:collapse;
+    border-style:solid;
+    border-width:1px;
 }
 
 .results
@@ -21,8 +25,17 @@ th
     width: 1280px;
 }
 
+.resultsissue
+{
+    border-collapse:collapse;
+    border-style:solid;
+    border-width:1px;
+    width: 600px;
+}
+
 .resultstd
 {
+    border-collapse:collapse;
     border-style:solid;
     border-width:1px;
 }

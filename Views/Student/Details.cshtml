@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/css/grid.form.css")" rel="stylesheet" type="text/css" />
 <h2 style="padding-left: 13px;">Student Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
 <table class="tableDetail">
     <tr>
@@ -147,7 +148,8 @@
     <tr>
         <td>
             <h3>
-                Address</h3>
+                Address
+            </h3>
         </td>
     </tr>
     <tr>
@@ -212,38 +214,41 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model._student.studentid }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-<table>
-<tr>
-        <th>
+<table class="resultsissue">
+    <tr>
+        <th style="width: 10%;">
+        </th>
+        <th style="width: 45%;">
             Name
         </th>
-        <th>
+        <th style="width: 15%;">
             Date
         </th>
-        <th>
+        <th style="width: 15%;">
             Status
         </th>
-        <th>
+        <th style="width: 15%;">
             Urgency
         </th>
+
     </tr>
 @foreach (var item in Model._issue)
 {
     <tr>
-        <td>
+        <td class="resultstd">
+            @Html.ActionLink("Details", "Details",  "Issue", new { id = item.issueid }, null)
+        </td>
+        <td class="resultstd">
             @Html.DisplayFor(modelItem => item.issuename)
         </td>
-        <td>
+        <td class="resultstd">
             @Html.DisplayFor(modelItem => item.date)
         </td>
-        <td>
+        <td class="resultstd">
             @Html.DisplayFor(modelItem => item.status)
         </td>
-        <td>
+        <td class="resultstd">
             @Html.DisplayFor(modelItem => item.urgency)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details",  "Issue", new { id = item.issueid }, null)
         </td>
     </tr>
 }
