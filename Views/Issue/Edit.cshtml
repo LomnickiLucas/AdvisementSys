@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.issue
+﻿@model AdvisementSys.Models.Request.EditIssueRequestModel
 
 @{
     ViewBag.Title = "Edit";
@@ -16,74 +16,74 @@
     <fieldset>
         <legend>issue</legend>
 
-        @Html.HiddenFor(model => model.issueid)
-        @Html.HiddenFor(model => model.studentid)
+        @Html.HiddenFor(model => model._issue.issueid)
+        @Html.HiddenFor(model => model._issue.studentid)
 
          <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.studentid)
+            @Html.DisplayFor(model => model._issue.studentid)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.fname)
+            @Html.DisplayFor(model => model._student.fname)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.lname)
+            @Html.DisplayFor(model => model._student.lname)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.campus)
+            @Html.DisplayFor(model => model._student.campus)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.phonenum)
+            @Html.DisplayFor(model => model._student.phonenum)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.email)
+            @Html.DisplayFor(model => model._student.email)
         </div>
 
         <div class="display-label">student</div>
         <div class="display-field">
-            @Html.DisplayFor(model => model.student.program)
+            @Html.DisplayFor(model => model._student.program) - @Html.DisplayFor(model => model._program.programcode)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.date)
+            @Html.LabelFor(model => model._issue.date)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.date, new { @Value = Model.date.ToString("dd MMM yyyy") })
-            @Html.ValidationMessageFor(model => model.date)
+            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._issue.date)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.status)
+            @Html.LabelFor(model => model._issue.status)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.status, new SelectList(new [] {"In Progress", "On Hold", "Complete"}))
-            @Html.ValidationMessageFor(model => model.status)
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new [] {"In Progress", "On Hold", "Complete"}))
+            @Html.ValidationMessageFor(model => model._issue.status)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.urgency)
+            @Html.LabelFor(model => model._issue.urgency)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.urgency, new SelectList(new [] {"High", "Medium", "Low"}))
-            @Html.ValidationMessageFor(model => model.urgency)
+            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new [] {"High", "Medium", "Low"}))
+            @Html.ValidationMessageFor(model => model._issue.urgency)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.issuename)
+            @Html.LabelFor(model => model._issue.issuename)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.issuename, new { @class = "required" })
-            @Html.ValidationMessageFor(model => model.issuename)
+            @Html.TextBoxFor(model => model._issue.issuename, new { @class = "required" })
+            @Html.ValidationMessageFor(model => model._issue.issuename)
         </div>
 
         <p>
@@ -93,7 +93,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Issue", "Details/" + Model.issueid)
+    @Html.ActionLink("Back to Issue", "Details/" + Model._issue.issueid)
 </div>
 
 <script type="text/javascript">

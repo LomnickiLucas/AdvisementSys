@@ -1,71 +1,140 @@
-﻿@model AdvisementSys.Models.issue
-
+﻿@model AdvisementSys.Models.Request.DetailsIssueRequestModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
+<div class="contentDiv">
+<h2 style="padding-left: 13px;">
+    Issue Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
+<table class="tableDetail">
+    <tr>
+        <td>
+            <h3>
+                Student Information</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Student ID:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.studentid)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Email:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.email)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                First Name:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.fname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Phone Number:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.phonenum)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Last Name:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.lname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Cell Number:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model._student.cellnum)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Program:</div>
+        </td>
+        <td><div class="display-field">
+@Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._program.programname)
+</div>
+        </td>
+        <td>
+        <div class="display-label">
+    Campus:</div>
+        </td>
+        <td><div class="display-field">
+    @Html.DisplayFor(model => model._student.campus)
+</div>
+        </td>
+    </tr>
+    <tr>
+           <td><h3>Issue Information</h3></td>
+        </tr>
+    <tr>
+    <td><div class="display-label">
+    Issue Name:</div></td>
+    <td><div class="display-field">
+    @Html.DisplayFor(model => model._issue.issuename)
+</div></td>
+    <td><div class="display-label">
+    Date:</div></td>
+    <td><div class="display-field">
+    @Html.DisplayFor(model => model._issue.date, new { @Value = Model._issue.date.ToShortDateString() })
+</div></td>    
+    </tr>
+    <tr>
+    <td><div class="display-label">
+    Urgency:</div></td>
+    <td><div class="display-field">
+    @Html.DisplayFor(model => model._issue.urgency)
+</div></td>
+    <td><div class="display-label">
+    status</div></td>
+    <td><div class="display-field">
+    @Html.DisplayFor(model => model._issue.status)
+</div>
+</td>
+    </tr>
+</table>
 
-<h2>Details</h2>
 
-<fieldset>
-    <legend>issue</legend>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.studentid)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.fname)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.lname)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.campus)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.phonenum)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.email)
-    </div>
 
-    <div class="display-label">student</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.student.program)
-    </div>
 
-    <div class="display-label">date</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.date, new { @Value = Model.date.ToShortDateString()})
-    </div>
 
-    <div class="display-label">status</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.status)
-    </div>
 
-    <div class="display-label">urgency</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.urgency)
-    </div>
-
-    <div class="display-label">issuename</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.issuename)
-    </div>
-</fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.issueid }) |
-    @Html.ActionLink("Back to Student Details", "Details/" + Model.studentid, "Student")
+    @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |
+    @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
 </p>
+</div>

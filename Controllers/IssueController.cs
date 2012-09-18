@@ -29,8 +29,9 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
+            student student = db.students.Single(i => i.studentid == issue.studentid);
             program program = db.programs.Single(i => i.programcode == issue.student.programcode);
-            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _program = program };
+            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student , _program = program };
             return View(model);
         }
 
@@ -41,7 +42,8 @@ namespace AdvisementSys.Controllers
         {
             student student = db.students.Single(i => i.studentid == id);
             issue issue = new issue() { studentid = id, date = DateTime.Now };
-            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student };
+            program program = db.programs.Single(i => i.programcode == student.programcode);
+            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program };
             return View(model);
         } 
 
@@ -70,25 +72,28 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
+            student student = db.students.Single(i => i.studentid == issue.studentid);
+            program program = db.programs.Single(i => i.programcode == student.programcode);
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
-            return View(issue);
+            EditIssueRequestModel model = new EditIssueRequestModel() { _issue = issue, _program = program, _student = student };
+            return View(model);
         }
 
         //
         // POST: /Issue/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(issue issue)
+        public ActionResult Edit(EditIssueRequestModel model)
         {
             if (ModelState.IsValid)
             {
-                db.issues.Attach(issue);
-                db.ObjectStateManager.ChangeObjectState(issue, EntityState.Modified);
+                db.issues.Attach(model._issue);
+                db.ObjectStateManager.ChangeObjectState(model._issue, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Details/" + issue.issueid);  
+                return RedirectToAction("Details/" + model._issue.issueid);  
             }
-            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
-            return View(issue);
+            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
+            return View(model._issue);
         }
 
         //

@@ -9,6 +9,8 @@ namespace AdvisementSys.Models.Request
     {
         public issue _issue { get; set; }
 
+        public student _student { get; set; }
+
         public program _program { get; set; }
     }
 }
