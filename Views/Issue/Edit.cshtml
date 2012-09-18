@@ -13,8 +13,8 @@
 <div class="contentDiv">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <h2>Update Student Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
-        <p>Please complete the following fields in order to update the student in the database.</p>
+    <h2>Update Issue Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
+        <p>Please complete the following fields in order to update the issue in the database.</p>
     
         <table>
         <tr>
@@ -101,7 +101,7 @@
 
 
         <div>
-            <input type="Update" value="Save" class="Button"/>
+            <input type="Submit" value="Update" class="Button"/>
         </div>
            <p>Fields marked with an * are mandatory.</p>    
 }
