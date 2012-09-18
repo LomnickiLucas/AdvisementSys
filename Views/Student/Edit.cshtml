@@ -8,20 +8,29 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
-<h2>Student Details for: @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h2>
 
+<div class="contentDiv">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+        <h2>Update Student Details for: @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h2>
         <p>Please complete the following fields in order to update the student in the database.</p>
-    <fieldset>
-        <legend><h2>Edit Student</h2></legend>
+    
         <table>
             <tr>
                 <td><h3>Student Information</h3></td>
             </tr>
             <tr>               
                     @Html.HiddenFor(model => model.studentid)
-              
+                <td>
+                    <div class="display-label">
+                        Student ID:
+                    </div>
+                </td>
+                <td>
+                    <div class="display-field">
+                         @Html.DisplayFor(model => model.studentid)
+                   </div>
+                </td>
                 <td>
                     <div class="editor-label">
                         @Html.LabelFor(model => model.email, "*Email:")
@@ -55,7 +64,7 @@
                  </td>
                  <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.phonenum, new { @class = "required" })
+                        @Html.TextBoxFor(model => model.phonenum, new { @class = "required phone" })
                         @Html.ValidationMessageFor(model => model.phonenum)
                     </div>
                  </td>
@@ -81,7 +90,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.cellnum, new { @class = "required" })
+                        @Html.TextBoxFor(model => model.cellnum, new { @class = "phone" })
                         @Html.ValidationMessageFor(model => model.cellnum)
                     </div>
                 </td>
@@ -120,7 +129,7 @@
                 </td> 
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.international, new { @class = "required" })
+                        @Html.CheckBoxFor(model => model.international, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.international)               
                     </div>
                 </td>
@@ -131,7 +140,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.fulltimestatus, new { @class = "required" })
+                        @Html.CheckBoxFor(model => model.fulltimestatus, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.fulltimestatus)
                     </div>
                 </td>           
@@ -145,7 +154,7 @@
                 </td> 
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.acadprobation, new { @class = "required" })
+                        @Html.CheckBoxFor(model => model.acadprobation, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.acadprobation)               
                     </div>
                 </td>
@@ -156,7 +165,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.enrolled, new { @class = "required" })
+                        @Html.CheckBoxFor(model => model.enrolled, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.enrolled)
                     </div>
                 </td>           
@@ -200,7 +209,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.appartmentnum, new { @class = "required" })
+                        @Html.TextBoxFor(model => model.appartmentnum)
                         @Html.ValidationMessageFor(model => model.appartmentnum)
                      </div>
                 </td>
@@ -226,7 +235,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.postalcode, new { @class = "required" })
+                        @Html.TextBoxFor(model => model.postalcode, new { @class = "required postalCode" })
                         @Html.ValidationMessageFor(model => model.postalcode)
                      </div>
                 </td>
@@ -234,12 +243,34 @@
             
         </table>
         <p>
-          <input type="submit" value="Update" />
+          <input type="submit" value="Update" class="Button" style="position: relative; left:10px;"/>
         </p>
-    </fieldset>
+    
     <p>Fields marked with an * are mandatory.</p>
 }
 
 <div>
     @Html.ActionLink("Back to Student Details", "Details/" + Model.studentid)
-</div>
+</div></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.validator.addMethod("postalCode", function (value) {
+            return value.match(/^[a-zA-Z][0-9][a-zA-Z](-| )?[0-9][a-zA-Z][0-9]$/);
+        }, 'Please enter a valid postal code');
+
+        $.validator.addMethod("phone", function (value) {
+            return value.match(/^($)|(\d{3}\-\d{3}\-\d{4})$/);
+        }, 'Please enter a valid Phone Number');
+
+
+        $("#studentForm").validate();
+
+    });
+
+    /**function openBlock(data) {
+    $.blockUI({ message: $('#blockConfirmMessage') });
+    }*/
+
+</script>
