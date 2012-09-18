@@ -29,7 +29,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.email)
+                        @Html.TextBoxFor(model => model.email, new { @class = "required email" })
                         @Html.ValidationMessageFor(model => model.email)
                     </div>
                 </td>
@@ -43,7 +43,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.fname)
+                        @Html.TextBoxFor(model => model.fname, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.fname)
                     </div>
                 </td>
@@ -55,7 +55,7 @@
                  </td>
                  <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.phonenum)
+                        @Html.TextBoxFor(model => model.phonenum, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.phonenum)
                     </div>
                  </td>
@@ -69,7 +69,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.lname)
+                        @Html.TextBoxFor(model => model.lname, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.lname)
                     </div>
                 </td>
@@ -81,7 +81,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.cellnum)
+                        @Html.TextBoxFor(model => model.cellnum, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.cellnum)
                     </div>
                 </td>
@@ -120,7 +120,7 @@
                 </td> 
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.international)
+                        @Html.TextBoxFor(model => model.international, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.international)               
                     </div>
                 </td>
@@ -131,7 +131,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.fulltimestatus)
+                        @Html.TextBoxFor(model => model.fulltimestatus, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.fulltimestatus)
                     </div>
                 </td>           
@@ -145,7 +145,7 @@
                 </td> 
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.acadprobation)
+                        @Html.TextBoxFor(model => model.acadprobation, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.acadprobation)               
                     </div>
                 </td>
@@ -156,7 +156,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.enrolled)
+                        @Html.TextBoxFor(model => model.enrolled, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.enrolled)
                     </div>
                 </td>           
@@ -174,7 +174,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.street)
+                        @Html.TextBoxFor(model => model.street, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.street)
                      </div>
                 </td>
@@ -186,7 +186,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.city)
+                        @Html.TextBoxFor(model => model.city, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.city)
                     </div>
                 </td>
@@ -200,7 +200,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.appartmentnum)
+                        @Html.TextBoxFor(model => model.appartmentnum, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.appartmentnum)
                      </div>
                 </td>
@@ -226,7 +226,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.postalcode)
+                        @Html.TextBoxFor(model => model.postalcode, new { @class = "required" })
                         @Html.ValidationMessageFor(model => model.postalcode)
                      </div>
                 </td>
