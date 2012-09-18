@@ -47,35 +47,35 @@ namespace AdvisementSys.Controllers
                 collections.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
             }
             ViewBag.programcode = new SelectList(collections);
-            IndexStudentRequestModel model = new IndexStudentRequestModel() { studentID = collection.Get(0).Trim(), fName = collection.Get(1).Trim(), lName = collection.Get(2).Trim(), programCode = "Please Select a Program", campus = "Please Select a Campus", email = collection.Get(5).Trim() };
+            IndexStudentRequestModel model = new IndexStudentRequestModel() { studentID = collection.Get(0).Trim(), fName = collection.Get(2).Trim(), lName = collection.Get(3).Trim(), programCode = "Please Select a Program", campus = "Please Select a Campus", email = collection.Get(1).Trim() };
             var students = db.students.Include("campu").Include("program");
             IEnumerable<student> studentz = students;
             if (!collection.Get(0).Equals(""))
                 studentz = studentz.Where(stud => stud.studentid.Trim().ToUpper().Contains(collection.Get(0).Trim().ToUpper()));
-            if (!collection.Get(1).Equals(""))
-                studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(collection.Get(1).Trim().ToUpper()));
             if (!collection.Get(2).Equals(""))
-                studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(collection.Get(2).Trim().ToUpper()));
+                studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(collection.Get(2).Trim().ToUpper()));
             if (!collection.Get(3).Equals(""))
-            {
-                StringBuilder sb = new StringBuilder(collection.Get(3).Trim().ToUpper());
-                sb.Remove(5, sb.Length - 5);
-                model.programCode = collection.Get(3).Trim();
-                studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
-            }
+                studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(collection.Get(3).Trim().ToUpper()));
             if (!collection.Get(4).Equals(""))
             {
-                model.campus = collection.Get(4).Trim();
-                studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(collection.Get(4).Trim().ToUpper()));
+                StringBuilder sb = new StringBuilder(collection.Get(4).Trim().ToUpper());
+                sb.Remove(5, sb.Length - 5);
+                model.programCode = collection.Get(4).Trim();
+                studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
             }
             if (!collection.Get(5).Equals(""))
-                studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(collection.Get(5).Trim().ToUpper()));
-            if (collection.Get(6).Equals("true,false"))
+            {
+                model.campus = collection.Get(5).Trim();
+                studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(collection.Get(5).Trim().ToUpper()));
+            }
+            if (!collection.Get(1).Equals(""))
+                studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(collection.Get(1).Trim().ToUpper()));
+            if (collection.Get(7).Equals("true,false"))
             {
                 model.acadprobation = true;
                 studentz = studentz.Where(stud => stud.acadprobation.Equals(true));
             }
-            if (collection.Get(7).Equals("true,false"))
+            if (collection.Get(6).Equals("true,false"))
             {
                 model.fulltimestatus = true;
                 studentz = studentz.Where(stud => stud.fulltimestatus.Equals(true));

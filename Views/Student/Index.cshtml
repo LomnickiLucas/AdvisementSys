@@ -13,73 +13,116 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().studentid)
-        </div>
-    
-        <div class="editor-field">
-            @Html.TextBox("studentid", value: Model.studentID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().fname)
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("fname", value: Model.fName )
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().lname)
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("lname", value: Model.lName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().programcode, "program")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("programcode", Model.programCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().campus, "campus")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("campus", Model.campus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().email)
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("email", value: Model.email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().acadprobation)
-        </div>
-        <div class="editor-field">
-            @Html.CheckBox("acadprobation", Model.acadprobation )
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().fulltimestatus)
-        </div>
-        <div class="editor-field">
-            @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._student.First().enrolled)
-        </div>
-        <div class="editor-field">
-            @Html.CheckBox("enrolled", Model.enrolled)
-        </div>
-
-        <p>
-            <input type="submit" value="Search" />
-        </p>
+    <table>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().studentid)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBox("studentid", value: Model.studentID)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().email)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBox("email", value: Model.email)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().fname)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBox("fname", value: Model.fName )
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().lname)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBox("lname", value: Model.lName)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().programcode, "program")
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.DropDownList("programcode", Model.programCode)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().campus, "campus")
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.DropDownList("campus", Model.campus)
+                </div>
+            </td> 
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().fulltimestatus)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().acadprobation)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.CheckBox("acadprobation", Model.acadprobation )
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model._student.First().enrolled)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.CheckBox("enrolled", Model.enrolled)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Search" class="Button"/>
+            </td>
+            <td>
+                <input type="reset" value="Reset" class="Button"/>
+            </td>
+        </tr>
+        </table>
 }
 </div>
 <p>
@@ -203,3 +246,7 @@
 }
 
 </table>
+
+<script type="text/javascript">
+    
+</script>
