@@ -29,7 +29,9 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
-            return View(issue);
+            program program = db.programs.Single(i => i.programcode == issue.student.programcode);
+            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _program = program };
+            return View(model);
         }
 
         //
