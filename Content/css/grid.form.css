@@ -1,2 +1,28 @@
 ﻿body {
 }
+table
+{
+    padding: 5px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+th
+{
+    background-color:#2C3D5A;
+    color:white;
+}
+
+.results
+{
+    border-collapse:collapse;
+    border-style:solid;
+    border-width:1px;
+    width: 1280px;
+}
+
+.resultstd
+{
+    border-style:solid;
+    border-width:1px;
+}
