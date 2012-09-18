@@ -38,77 +38,67 @@
             <td><div class="display-label">Last Name:</div></td>
             <td><div class="display-field">
             @Html.DisplayFor(model => model._student.lname)
-        </div></td>
-        <td></td>
-        <td></td>
-        </tr>    
-     </table> 
-            
-            
-            
+            </div></td>
+            <td><div class="display-label">Cell Number:</div></td>
+            <td><div class="display-field">
+                @Html.DisplayFor(model => model._student.cellnum)
+            </div></td>
+        </tr>
         
-
-        
-        
-       
-        
-        
-            
-        
-        
-        
-        
-
-        <div class="display-label">student</div>
-        <div class="display-field">
+        <tr>
+            <td><div class="display-label">Program:</div>
+            </td>
+            <td><div class="display-field">
+            @Html.DisplayFor(model => model._student.programcode)
+            </div></td>
+            <td><div class="display-label">Campus:</div></td>
+            <td><div class="display-field">
             @Html.DisplayFor(model => model._student.campus)
-        </div>
-
-        
-        
-
-        
-
-        <div class="display-label">student</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.program)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._issue.date)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd MMM yyyy") })
-            @Html.ValidationMessageFor(model => model._issue.date)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._issue.status)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
-            @Html.ValidationMessageFor(model => model._issue.status)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._issue.urgency)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }))
-            @Html.ValidationMessageFor(model => model._issue.urgency)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._issue.issuename)
-        </div>
-        <div class="editor-field">
+        </div></td>
+        </tr>
+        <tr>
+           <td><h3>Issue Information</h3></td>
+        </tr>
+        <tr>
+            <td><div class="editor-label">
+            @Html.LabelFor(model => model._issue.issuename, "*Issue Name:")
+        </div></td>
+            <td><div class="editor-field">
             @Html.TextBoxFor(model => model._issue.issuename, new { @class = "required" })
             @Html.ValidationMessageFor(model => model._issue.issuename)
-        </div>
-       
-        <p>
-            <input type="submit" value="Create" class="Button" />
-        </p>
+        </div></td>
+            <td><div class="editor-label">
+            @Html.LabelFor(model => model._issue.date, "Date:")
+        </div></td>
+            <td><div class="editor-field">
+            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._issue.date)
+        </div></td>
+        </tr>
+        
+        <tr>
+        <td> <div class="editor-label">
+            @Html.LabelFor(model => model._issue.status, "Status:")
+        </div></td>
+        <td><div class="editor-field">
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
+            @Html.ValidationMessageFor(model => model._issue.status)
+        </div></td>
+        <td><div class="editor-label">
+            @Html.LabelFor(model => model._issue.urgency, "Urgency:")
+        </div></td>
+        <td><div class="editor-field">
+            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }))
+            @Html.ValidationMessageFor(model => model._issue.urgency)
+        </div></td>
+        </tr>    
+     </table> 
+        <br />
+            <div>
+             <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/> 
+             <input type="reset" class="Button" style="position: relative; left: 100px; bottom:29px;"/>
+            </div>
+    <p>Fields marked with an * are mandatory.</p>       
 }
 
 <div>
