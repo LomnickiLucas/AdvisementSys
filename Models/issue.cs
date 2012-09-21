@@ -14,13 +14,14 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations;
 
 namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(applicationForReadmission))]
     [KnownType(typeof(applicationForTermOrCompleteProgramWithdrawal))]
+    [KnownType(typeof(catagory))]
+    [KnownType(typeof(employee))]
     [KnownType(typeof(student))]
     [KnownType(typeof(note))]
     [KnownType(typeof(part_timeAnd_orAdditionalCourseRegistrationForm))]
@@ -88,7 +89,6 @@ namespace AdvisementSys.Models
         private string _issuename;
     
         [DataMember]
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public System.DateTime date
         {
             get { return _date; }
@@ -132,6 +132,52 @@ namespace AdvisementSys.Models
             }
         }
         private string _urgency;
+    
+        [DataMember]
+        public string employeeid
+        {
+            get { return _employeeid; }
+            set
+            {
+                if (_employeeid != value)
+                {
+                    ChangeTracker.RecordOriginalValue("employeeid", _employeeid);
+                    if (!IsDeserializing)
+                    {
+                        if (employee != null && employee.employeeid != value)
+                        {
+                            employee = null;
+                        }
+                    }
+                    _employeeid = value;
+                    OnPropertyChanged("employeeid");
+                }
+            }
+        }
+        private string _employeeid;
+    
+        [DataMember]
+        public string catagory
+        {
+            get { return _catagory; }
+            set
+            {
+                if (_catagory != value)
+                {
+                    ChangeTracker.RecordOriginalValue("catagory", _catagory);
+                    if (!IsDeserializing)
+                    {
+                        if (catagory1 != null && catagory1.catagory1 != value)
+                        {
+                            catagory1 = null;
+                        }
+                    }
+                    _catagory = value;
+                    OnPropertyChanged("catagory");
+                }
+            }
+        }
+        private string _catagory;
 
         #endregion
         #region Navigation Properties
@@ -205,6 +251,40 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<applicationForTermOrCompleteProgramWithdrawal> _applicationForTermOrCompleteProgramWithdrawals;
+    
+        [DataMember]
+        public catagory catagory1
+        {
+            get { return _catagory1; }
+            set
+            {
+                if (!ReferenceEquals(_catagory1, value))
+                {
+                    var previousValue = _catagory1;
+                    _catagory1 = value;
+                    Fixupcatagory1(previousValue);
+                    OnNavigationPropertyChanged("catagory1");
+                }
+            }
+        }
+        private catagory _catagory1;
+    
+        [DataMember]
+        public employee employee
+        {
+            get { return _employee; }
+            set
+            {
+                if (!ReferenceEquals(_employee, value))
+                {
+                    var previousValue = _employee;
+                    _employee = value;
+                    Fixupemployee(previousValue);
+                    OnNavigationPropertyChanged("employee");
+                }
+            }
+        }
+        private employee _employee;
     
         [DataMember]
         public student student
@@ -443,6 +523,8 @@ namespace AdvisementSys.Models
         {
             applicationForReadmissions.Clear();
             applicationForTermOrCompleteProgramWithdrawals.Clear();
+            catagory1 = null;
+            employee = null;
             student = null;
             notes.Clear();
             part_timeAnd_orAdditionalCourseRegistrationForm.Clear();
@@ -452,6 +534,84 @@ namespace AdvisementSys.Models
 
         #endregion
         #region Association Fixup
+    
+        private void Fixupcatagory1(catagory previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.issues.Contains(this))
+            {
+                previousValue.issues.Remove(this);
+            }
+    
+            if (catagory1 != null)
+            {
+                if (!catagory1.issues.Contains(this))
+                {
+                    catagory1.issues.Add(this);
+                }
+    
+                catagory = catagory1.catagory1;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("catagory1")
+                    && (ChangeTracker.OriginalValues["catagory1"] == catagory1))
+                {
+                    ChangeTracker.OriginalValues.Remove("catagory1");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("catagory1", previousValue);
+                }
+                if (catagory1 != null && !catagory1.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    catagory1.StartTracking();
+                }
+            }
+        }
+    
+        private void Fixupemployee(employee previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.issues.Contains(this))
+            {
+                previousValue.issues.Remove(this);
+            }
+    
+            if (employee != null)
+            {
+                if (!employee.issues.Contains(this))
+                {
+                    employee.issues.Add(this);
+                }
+    
+                employeeid = employee.employeeid;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("employee")
+                    && (ChangeTracker.OriginalValues["employee"] == employee))
+                {
+                    ChangeTracker.OriginalValues.Remove("employee");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("employee", previousValue);
+                }
+                if (employee != null && !employee.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    employee.StartTracking();
+                }
+            }
+        }
     
         private void Fixupstudent(student previousValue)
         {

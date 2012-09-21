@@ -1,0 +1,56 @@
+﻿@model AdvisementSys.Models.part_timeAnd_orAdditionalCourseRegistrationForm
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>part_timeAnd_orAdditionalCourseRegistrationForm</legend>
+
+    <div class="display-label">registrationid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.registrationid)
+    </div>
+
+    <div class="display-label">issue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issue.studentid)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">coursecode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.coursecode)
+    </div>
+
+    <div class="display-label">coursecharges</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.coursecharges)
+    </div>
+
+    <div class="display-label">matfees</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.matfees)
+    </div>
+
+    <div class="display-label">compcharges</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.compcharges)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.registrationid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

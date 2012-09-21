@@ -1,0 +1,90 @@
+﻿@model AdvisementSys.Models.part_timeAnd_orAdditionalCourseRegistrationForm
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>part_timeAnd_orAdditionalCourseRegistrationForm</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.registrationid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.registrationid)
+            @Html.ValidationMessageFor(model => model.registrationid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.issueid, "issue")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("issueid", String.Empty)
+            @Html.ValidationMessageFor(model => model.issueid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.date)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.date)
+            @Html.ValidationMessageFor(model => model.date)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.coursecode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.coursecode)
+            @Html.ValidationMessageFor(model => model.coursecode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.coursecharges)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.coursecharges)
+            @Html.ValidationMessageFor(model => model.coursecharges)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.matfees)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.matfees)
+            @Html.ValidationMessageFor(model => model.matfees)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.compcharges)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.compcharges)
+            @Html.ValidationMessageFor(model => model.compcharges)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.status)
+            @Html.ValidationMessageFor(model => model.status)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -101,6 +101,12 @@ namespace AdvisementSys.Models
         }
         private ObjectSet<campu> _campus;
     
+        public ObjectSet<catagory> catagories
+        {
+            get { return _catagories  ?? (_catagories = CreateObjectSet<catagory>("catagories")); }
+        }
+        private ObjectSet<catagory> _catagories;
+    
         public ObjectSet<coordinator> coordinators
         {
             get { return _coordinators  ?? (_coordinators = CreateObjectSet<coordinator>("coordinators")); }

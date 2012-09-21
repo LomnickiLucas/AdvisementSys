@@ -21,6 +21,7 @@ namespace AdvisementSys.Models
     [KnownType(typeof(appointment))]
     [KnownType(typeof(faculty))]
     [KnownType(typeof(role))]
+    [KnownType(typeof(issue))]
     [KnownType(typeof(note))]
     [KnownType(typeof(program))]
     public partial class employee: IObjectWithChangeTracker, INotifyPropertyChanged
@@ -285,6 +286,41 @@ namespace AdvisementSys.Models
         private role _role1;
     
         [DataMember]
+        public TrackableCollection<issue> issues
+        {
+            get
+            {
+                if (_issues == null)
+                {
+                    _issues = new TrackableCollection<issue>();
+                    _issues.CollectionChanged += Fixupissues;
+                }
+                return _issues;
+            }
+            set
+            {
+                if (!ReferenceEquals(_issues, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_issues != null)
+                    {
+                        _issues.CollectionChanged -= Fixupissues;
+                    }
+                    _issues = value;
+                    if (_issues != null)
+                    {
+                        _issues.CollectionChanged += Fixupissues;
+                    }
+                    OnNavigationPropertyChanged("issues");
+                }
+            }
+        }
+        private TrackableCollection<issue> _issues;
+    
+        [DataMember]
         public TrackableCollection<note> notes
         {
             get
@@ -435,6 +471,7 @@ namespace AdvisementSys.Models
             appointments.Clear();
             faculty1 = null;
             role1 = null;
+            issues.Clear();
             notes.Clear();
             programs.Clear();
         }
@@ -559,6 +596,45 @@ namespace AdvisementSys.Models
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         ChangeTracker.RecordRemovalFromCollectionProperties("appointments", item);
+                    }
+                }
+            }
+        }
+    
+        private void Fixupissues(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (issue item in e.NewItems)
+                {
+                    item.employee = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("issues", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (issue item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.employee, this))
+                    {
+                        item.employee = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("issues", item);
                     }
                 }
             }

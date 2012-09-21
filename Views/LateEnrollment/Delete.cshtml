@@ -1,0 +1,49 @@
+﻿@model AdvisementSys.Models.requestForLateEnrolment
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>requestForLateEnrolment</legend>
+
+    <div class="display-label">enrolementid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enrolementid)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">coursecode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.coursecode)
+    </div>
+
+    <div class="display-label">programcode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.programcode)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">issue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issue.studentid)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

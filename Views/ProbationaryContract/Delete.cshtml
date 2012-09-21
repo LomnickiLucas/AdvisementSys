@@ -1,0 +1,49 @@
+﻿@model AdvisementSys.Models.probationaryContractPlan
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>probationaryContractPlan</legend>
+
+    <div class="display-label">advisementid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.advisementid)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">particulers</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.particulers)
+    </div>
+
+    <div class="display-label">conditions</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.conditions)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">issue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issue.studentid)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

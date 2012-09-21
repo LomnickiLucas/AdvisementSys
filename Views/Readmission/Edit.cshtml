@@ -1,0 +1,210 @@
+﻿@model AdvisementSys.Models.applicationForReadmission
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>applicationForReadmission</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.readmissionid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.readmissionid)
+            @Html.ValidationMessageFor(model => model.readmissionid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.issueid, "issue")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("issueid", String.Empty)
+            @Html.ValidationMessageFor(model => model.issueid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.date)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.date)
+            @Html.ValidationMessageFor(model => model.date)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldprogram)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldprogram)
+            @Html.ValidationMessageFor(model => model.oldprogram)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldfulltime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldfulltime)
+            @Html.ValidationMessageFor(model => model.oldfulltime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldsemyear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldsemyear)
+            @Html.ValidationMessageFor(model => model.oldsemyear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.oldcampus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.oldcampus)
+            @Html.ValidationMessageFor(model => model.oldcampus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.newprogram)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newprogram)
+            @Html.ValidationMessageFor(model => model.newprogram)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.newfulltime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newfulltime)
+            @Html.ValidationMessageFor(model => model.newfulltime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.newsemyear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newsemyear)
+            @Html.ValidationMessageFor(model => model.newsemyear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.newcampus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.newcampus)
+            @Html.ValidationMessageFor(model => model.newcampus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.recommendedprogram)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.recommendedprogram)
+            @Html.ValidationMessageFor(model => model.recommendedprogram)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.recommendedfulltime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.recommendedfulltime)
+            @Html.ValidationMessageFor(model => model.recommendedfulltime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.recommendedsemyear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.recommendedsemyear)
+            @Html.ValidationMessageFor(model => model.recommendedsemyear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.recomendedcampus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.recomendedcampus)
+            @Html.ValidationMessageFor(model => model.recomendedcampus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.approved)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.approved)
+            @Html.ValidationMessageFor(model => model.approved)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.acceptableconditional)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.acceptableconditional)
+            @Html.ValidationMessageFor(model => model.acceptableconditional)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.term)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.term)
+            @Html.ValidationMessageFor(model => model.term)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.conditions)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.conditions)
+            @Html.ValidationMessageFor(model => model.conditions)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.probation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.probation)
+            @Html.ValidationMessageFor(model => model.probation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.special)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.special)
+            @Html.ValidationMessageFor(model => model.special)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.status)
+            @Html.ValidationMessageFor(model => model.status)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.purpose)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.purpose)
+            @Html.ValidationMessageFor(model => model.purpose)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AdvisementSys.Models.applicationForTermOrCompleteProgramWithdrawal>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            withdrawid
+        </th>
+        <th>
+            issue
+        </th>
+        <th>
+            date
+        </th>
+        <th>
+            withdrawalterm
+        </th>
+        <th>
+            returnterm
+        </th>
+        <th>
+            reasonwithdrawal
+        </th>
+        <th>
+            continuingedcoursecode
+        </th>
+        <th>
+            refundapproved
+        </th>
+        <th>
+            status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.withdrawid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.withdrawalterm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.returnterm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reasonwithdrawal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.continuingedcoursecode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.refundapproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.withdrawid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.withdrawid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.withdrawid })
+        </td>
+    </tr>
+}
+
+</table>

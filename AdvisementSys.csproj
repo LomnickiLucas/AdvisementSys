@@ -64,7 +64,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CourseRegistrationController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\LateEnrollmentController.cs" />
+    <Compile Include="Controllers\ProbationaryContractController.cs" />
+    <Compile Include="Controllers\ProgramWithdrawalController.cs" />
+    <Compile Include="Controllers\ReadmissionController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -84,6 +89,9 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\campu.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\catagory.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\coordinator.cs">
@@ -142,6 +150,7 @@
     <Compile Include="Models\Request\DetailsIssueRequestModel.cs" />
     <Compile Include="Models\Request\EditIssueRequestModel.cs" />
     <Compile Include="Models\Request\IndexStudentRequestModel.cs" />
+    <Compile Include="Models\Request\DetailsStudentRequestModel.cs" />
     <Compile Include="Models\requiredcourse.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -151,7 +160,6 @@
     <Compile Include="Models\student.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Request\DetailsStudentRequestModel.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -261,6 +269,31 @@
     <Content Include="Views\Issue\Create.cshtml" />
     <Content Include="Views\Issue\Edit.cshtml" />
     <Content Include="Views\Issue\Delete.cshtml" />
+    <Content Include="Views\Readmission\Index.cshtml" />
+    <Content Include="Views\Readmission\Details.cshtml" />
+    <Content Include="Views\Readmission\Create.cshtml" />
+    <Content Include="Views\Readmission\Edit.cshtml" />
+    <Content Include="Views\Readmission\Delete.cshtml" />
+    <Content Include="Views\ProgramWithdrawal\Index.cshtml" />
+    <Content Include="Views\ProgramWithdrawal\Details.cshtml" />
+    <Content Include="Views\ProgramWithdrawal\Create.cshtml" />
+    <Content Include="Views\ProgramWithdrawal\Edit.cshtml" />
+    <Content Include="Views\ProgramWithdrawal\Delete.cshtml" />
+    <Content Include="Views\CourseRegistration\Index.cshtml" />
+    <Content Include="Views\CourseRegistration\Details.cshtml" />
+    <Content Include="Views\CourseRegistration\Create.cshtml" />
+    <Content Include="Views\CourseRegistration\Edit.cshtml" />
+    <Content Include="Views\CourseRegistration\Delete.cshtml" />
+    <Content Include="Views\ProbationaryContract\Index.cshtml" />
+    <Content Include="Views\ProbationaryContract\Details.cshtml" />
+    <Content Include="Views\ProbationaryContract\Create.cshtml" />
+    <Content Include="Views\ProbationaryContract\Edit.cshtml" />
+    <Content Include="Views\ProbationaryContract\Delete.cshtml" />
+    <Content Include="Views\LateEnrollment\Index.cshtml" />
+    <Content Include="Views\LateEnrollment\Details.cshtml" />
+    <Content Include="Views\LateEnrollment\Create.cshtml" />
+    <Content Include="Views\LateEnrollment\Edit.cshtml" />
+    <Content Include="Views\LateEnrollment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

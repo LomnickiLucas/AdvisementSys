@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AdvisementSys.Models.requestForLateEnrolment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            enrolementid
+        </th>
+        <th>
+            date
+        </th>
+        <th>
+            coursecode
+        </th>
+        <th>
+            programcode
+        </th>
+        <th>
+            status
+        </th>
+        <th>
+            issue
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.enrolementid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coursecode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.programcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue.studentid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.enrolementid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.enrolementid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.enrolementid })
+        </td>
+    </tr>
+}
+
+</table>

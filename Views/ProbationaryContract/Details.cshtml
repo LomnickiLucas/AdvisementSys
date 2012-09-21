@@ -1,0 +1,46 @@
+﻿@model AdvisementSys.Models.probationaryContractPlan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>probationaryContractPlan</legend>
+
+    <div class="display-label">advisementid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.advisementid)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">particulers</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.particulers)
+    </div>
+
+    <div class="display-label">conditions</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.conditions)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">issue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issue.studentid)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.advisementid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

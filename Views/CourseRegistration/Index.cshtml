@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AdvisementSys.Models.part_timeAnd_orAdditionalCourseRegistrationForm>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            registrationid
+        </th>
+        <th>
+            issue
+        </th>
+        <th>
+            date
+        </th>
+        <th>
+            coursecode
+        </th>
+        <th>
+            coursecharges
+        </th>
+        <th>
+            matfees
+        </th>
+        <th>
+            compcharges
+        </th>
+        <th>
+            status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.registrationid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coursecode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coursecharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.matfees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.compcharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.registrationid }) |
+            @Html.ActionLink("Details", "Details", new { id = item.registrationid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.registrationid })
+        </td>
+    </tr>
+}
+
+</table>

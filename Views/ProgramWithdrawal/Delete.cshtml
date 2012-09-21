@@ -1,0 +1,64 @@
+﻿@model AdvisementSys.Models.applicationForTermOrCompleteProgramWithdrawal
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>applicationForTermOrCompleteProgramWithdrawal</legend>
+
+    <div class="display-label">withdrawid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.withdrawid)
+    </div>
+
+    <div class="display-label">issue</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issue.studentid)
+    </div>
+
+    <div class="display-label">date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">withdrawalterm</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.withdrawalterm)
+    </div>
+
+    <div class="display-label">returnterm</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.returnterm)
+    </div>
+
+    <div class="display-label">reasonwithdrawal</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.reasonwithdrawal)
+    </div>
+
+    <div class="display-label">continuingedcoursecode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.continuingedcoursecode)
+    </div>
+
+    <div class="display-label">refundapproved</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.refundapproved)
+    </div>
+
+    <div class="display-label">status</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

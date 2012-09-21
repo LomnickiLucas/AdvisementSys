@@ -1,0 +1,166 @@
+﻿@model IEnumerable<AdvisementSys.Models.applicationForReadmission>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            readmissionid
+        </th>
+        <th>
+            issue
+        </th>
+        <th>
+            date
+        </th>
+        <th>
+            oldprogram
+        </th>
+        <th>
+            oldfulltime
+        </th>
+        <th>
+            oldsemyear
+        </th>
+        <th>
+            oldcampus
+        </th>
+        <th>
+            newprogram
+        </th>
+        <th>
+            newfulltime
+        </th>
+        <th>
+            newsemyear
+        </th>
+        <th>
+            newcampus
+        </th>
+        <th>
+            recommendedprogram
+        </th>
+        <th>
+            recommendedfulltime
+        </th>
+        <th>
+            recommendedsemyear
+        </th>
+        <th>
+            recomendedcampus
+        </th>
+        <th>
+            approved
+        </th>
+        <th>
+            acceptableconditional
+        </th>
+        <th>
+            term
+        </th>
+        <th>
+            conditions
+        </th>
+        <th>
+            probation
+        </th>
+        <th>
+            special
+        </th>
+        <th>
+            status
+        </th>
+        <th>
+            purpose
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.readmissionid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.oldprogram)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.oldfulltime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.oldsemyear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.oldcampus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.newprogram)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.newfulltime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.newsemyear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.newcampus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recommendedprogram)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recommendedfulltime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recommendedsemyear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recomendedcampus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.acceptableconditional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.term)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.conditions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.probation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.special)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.purpose)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.readmissionid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.readmissionid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.readmissionid })
+        </td>
+    </tr>
+}
+
+</table>
