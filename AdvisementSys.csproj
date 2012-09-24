@@ -122,6 +122,7 @@
     <Compile Include="Models\faculty.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Forms.cs" />
     <Compile Include="Models\issue.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
