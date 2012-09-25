@@ -12,5 +12,7 @@ namespace AdvisementSys.Models.Request
         public student _student { get; set; }
 
         public program _program { get; set; }
+
+        public IEnumerable<Forms> _Forms { get; set; }
     }
 }

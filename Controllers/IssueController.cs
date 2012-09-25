@@ -9,7 +9,7 @@ using AdvisementSys.Models;
 using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
-{ 
+{
     public class IssueController : Controller
     {
         private Entities db = new Entities();
@@ -31,7 +31,69 @@ namespace AdvisementSys.Controllers
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
             student student = db.students.Single(i => i.studentid == issue.studentid);
             program program = db.programs.Single(i => i.programcode == issue.student.programcode);
-            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student , _program = program };
+            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program };
+            List<Forms> Forms = new List<Forms>();
+            IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
+            foreach (applicationForReadmission form in applicationForReadmission)
+            {
+                Forms _Forms = new Forms();
+                _Forms.Date = _Forms.Date;
+                _Forms.FormType = "Application For Readmission";
+                _Forms.Status = form.status;
+                _Forms.Controller = "Readmission";
+                _Forms.FormID = form.readmissionid;
+
+                Forms.Add(_Forms);
+            }
+            IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
+            foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
+            {
+                Forms _Forms = new Forms();
+                _Forms.Date = _Forms.Date;
+                _Forms.FormType = "Application FOr Term Or Complete Program Withdrawal";
+                _Forms.Status = form.status;
+                _Forms.Controller = "ProgramWithdrawal";
+                _Forms.FormID = form.withdrawid;
+
+                Forms.Add(_Forms);
+            }
+            IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
+            foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
+            {
+                Forms _Forms = new Forms();
+                _Forms.Date = _Forms.Date;
+                _Forms.FormType = "Part Time And/or Additional Course Registration Form";
+                _Forms.Status = form.status;
+                _Forms.Controller = "CourseRegistration";
+                _Forms.FormID = form.registrationid;
+
+                Forms.Add(_Forms);
+            }
+            IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
+            foreach (probationaryContractPlan form in probationaryContractPlan)
+            {
+                Forms _Forms = new Forms();
+                _Forms.Date = _Forms.Date;
+                _Forms.FormType = "Probationary Contract Plan";
+                _Forms.Status = form.status;
+                _Forms.Controller = "ProbationaryContract";
+                _Forms.FormID = form.advisementid;
+
+                Forms.Add(_Forms);
+            }
+            IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
+            foreach (requestForLateEnrolment form in requestForLateEnrolment)
+            {
+                Forms _Forms = new Forms();
+                _Forms.Date = _Forms.Date;
+                _Forms.FormType = "Request For Late Enrollment Form";
+                _Forms.Status = form.status;
+                _Forms.Controller = "LateEnrollment";
+                _Forms.FormID = form.enrolementid;
+
+                Forms.Add(_Forms);
+            }
+            model._Forms = Forms;
             return View(model);
         }
 
@@ -45,7 +107,7 @@ namespace AdvisementSys.Controllers
             program program = db.programs.Single(i => i.programcode == student.programcode);
             CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program };
             return View(model);
-        } 
+        }
 
         //
         // POST: /Issue/Create
@@ -59,16 +121,16 @@ namespace AdvisementSys.Controllers
                 model._issue.studentid = id;
                 db.issues.AddObject(model._issue);
                 db.SaveChanges();
-                return RedirectToAction("Details/" + id, "Student");  
+                return RedirectToAction("Details/" + id, "Student");
             }
 
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
             return View(model);
         }
-        
+
         //
         // GET: /Issue/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
@@ -90,7 +152,7 @@ namespace AdvisementSys.Controllers
                 db.issues.Attach(model._issue);
                 db.ObjectStateManager.ChangeObjectState(model._issue, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Details/" + model._issue.issueid);  
+                return RedirectToAction("Details/" + model._issue.issueid);
             }
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
             return View(model._issue);
@@ -98,7 +160,7 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             issue issue = db.issues.Single(i => i.issueid == id);
@@ -110,7 +172,7 @@ namespace AdvisementSys.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             issue issue = db.issues.Single(i => i.issueid == id);
             db.issues.DeleteObject(issue);
             db.SaveChanges();

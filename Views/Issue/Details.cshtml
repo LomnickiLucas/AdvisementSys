@@ -145,4 +145,37 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |
         @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
     </p>
+
+    <table class="resultsissue">
+    <tr>
+        <th style="width: 10%;">
+        </th>
+        <th style="width: 45%;">
+            Date
+        </th>
+        <th style="width: 15%;">
+            Name
+        </th>
+        <th style="width: 15%;">
+            Status
+        </th>
+    </tr>
+@foreach (var item in Model._Forms)
+{
+    <tr>
+        <td class="resultstd">
+            @Html.ActionLink("Details", "Details",  item.Controller, new { id = item.FormID }, null)
+        </td>
+        <td class="resultstd">
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td class="resultstd">
+            @Html.DisplayFor(modelItem => item.FormType)
+        </td>
+        <td class="resultstd">
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+    </tr>
+}
+</table>
 </div>
