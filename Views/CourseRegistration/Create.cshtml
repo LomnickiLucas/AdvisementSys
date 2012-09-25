@@ -5,16 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 
+<div class="contentDiv">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>part_timeAnd_orAdditionalCourseRegistrationForm</legend>
-
+    <h2>New Course Registration Form</h2>
+    <p>Please complete the following fields in order to create a new course registration form in the database.</p>
+   
         <div class="editor-label">
             @Html.LabelFor(model => model.registrationid)
         </div>
@@ -82,9 +84,9 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-    </fieldset>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
+</div>
 </div>

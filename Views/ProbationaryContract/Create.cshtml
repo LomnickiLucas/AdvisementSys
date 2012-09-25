@@ -5,70 +5,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm()) {
+<div class="contentDiv">
+@using (Html.BeginForm("Create", "ProbationaryContract", FormMethod.Post, new { id="probationContractForm", name="probationContractForm"}))
+{
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>probationaryContractPlan</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.advisementid)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.advisementid)
-            @Html.ValidationMessageFor(model => model.advisementid)
-        </div>
+    <h2>New Probationary Contract Form</h2>
+   
+       <table style="width: 800px;">
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.date)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.date)
-            @Html.ValidationMessageFor(model => model.date)
-        </div>
+       <tr>
+       <td><h3>Student Information</h3></td>
+       </tr>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.particulers)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.particulers)
-            @Html.ValidationMessageFor(model => model.particulers)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.conditions)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.conditions)
-            @Html.ValidationMessageFor(model => model.conditions)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.status)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.status)
-            @Html.ValidationMessageFor(model => model.status)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.issueid, "issue")
-        </div>
-        <div class="editor-field">
+       <tr>
+       <td><h3>Action Form</h3></td>
+       </tr>
+       <tr>
+       <td><div class="editor-label">
+            @Html.LabelFor(model => model.issueid, "Issue:")
+        </div></td>
+        <td><div class="editor-field">
+            
             @Html.DropDownList("issueid", String.Empty)
             @Html.ValidationMessageFor(model => model.issueid)
-        </div>
+        </div></td>
+       </tr>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+       <tr>
+       <td><div class="editor-label">
+            @Html.LabelFor(model => model.status, "Status:")
+        </div>
+       </td>
+       <td><div class="editor-field">
+            @Html.TextBoxFor(model => model.status)
+            @Html.ValidationMessageFor(model => model.status)
+        </div></td>
+
+        <td><div class="editor-label">
+            @Html.LabelFor(model => model.date, "Date:")
+        </div></td>
+        
+        <td><div class="editor-field">
+            @Html.TextBoxFor(model => model.date, new { @style="position:relative; left:98px;"})
+            @Html.ValidationMessageFor(model => model.date)
+        </div></td>
+       </tr>
+
+
+       <tr>
+       <td><div class="editor-label">
+            @Html.LabelFor(model => model.particulers, "Particulars:")
+        </div></td>
+       </tr>
+       <tr><td colspan="4"><div class="editor-field">
+            @Html.TextAreaFor(model => model.particulers, new { @style = "width:775px; height:100px; resize:none;" })
+            @Html.ValidationMessageFor(model => model.particulers)
+        </div></td></tr>
+       
+       <tr>
+       <td><div class="editor-label">
+            @Html.LabelFor(model => model.conditions, "Action Plan/Conditions:")
+        </div></td>
+       </tr>
+       <tr>
+       <td colspan="4"><div class="editor-field">
+            @Html.TextAreaFor(model => model.conditions, new { @style = "width:775px; height:300px; resize:none;" })
+            @Html.ValidationMessageFor(model => model.conditions)
+        </div></td>
+       </tr>
+       
+       </table>
+        <br />
+     <div>
+         <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/> </div><br />
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") 
+</div>
 </div>

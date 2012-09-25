@@ -12,7 +12,7 @@
 <div class="contentDiv">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <h2>Create Issue</h2>
+    <h2>New Issue for @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
     <p>Please complete the following fields in order to create a new issue in the database.</p>
     
     <table>
