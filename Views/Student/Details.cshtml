@@ -236,7 +236,7 @@
 {
     <tr>
         <td class="resultstd">
-            @Html.ActionLink("Details", "Details",  "Issue", new { id = item.issueid }, null)
+            @Html.ActionLink("Details", "Details", "Issue", new { id = item.issueid }, new { @style = "text-align:center;" })
         </td>
         <td class="resultstd">
             @Html.DisplayFor(modelItem => item.issuename)
