@@ -13,7 +13,8 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <h2>New Term or Complete Program Withdrawal Form</h2>
-   
+    <fieldset>
+        <legend>applicationForTermOrCompleteProgramWithdrawal</legend>
 
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawid)
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issueid)
@@ -131,7 +132,7 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-  
+    </fieldset>
 }
 
 <div>
