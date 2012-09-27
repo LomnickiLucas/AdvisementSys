@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.probationaryContractPlan
+﻿@model AdvisementSys.Models.Request.EditProbationaryContractModel
 
 @{
     ViewBag.Title = "Edit";
@@ -15,52 +15,72 @@
     <fieldset>
         <legend>probationaryContractPlan</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.advisementid)
+        @Html.HiddenFor(model => model._probationaryContractPlan.advisementid)
+        @Html.HiddenFor(model => model._probationaryContractPlan.issueid)
+
+        <div class="display-label">
+            First Name:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.fname)
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.advisementid)
-            @Html.ValidationMessageFor(model => model.advisementid)
+
+        <div class="display-label">
+            Last Name:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.lname)
+        </div>
+
+        <div class="display-label">
+            Student ID:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.studentid)
+        </div>
+
+        <div class="display-label">
+            Program:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.date)
+            @Html.LabelFor(model => model._probationaryContractPlan.incomingterm, "Incoming Term:")
         </div>
+        
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.date)
-            @Html.ValidationMessageFor(model => model.date)
+            @Html.TextBoxFor(model => model._probationaryContractPlan.incomingterm)
+            @Html.ValidationMessageFor(model => model._probationaryContractPlan.incomingterm)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.particulers)
+            @Html.LabelFor(model => model._probationaryContractPlan.date)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.particulers)
-            @Html.ValidationMessageFor(model => model.particulers)
+            @Html.TextBoxFor(model => model._probationaryContractPlan.date, new { @Value = Model._probationaryContractPlan.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._probationaryContractPlan.date)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.conditions)
+            @Html.LabelFor(model => model._probationaryContractPlan.particulers)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.conditions)
-            @Html.ValidationMessageFor(model => model.conditions)
+            @Html.TextBoxFor(model => model._probationaryContractPlan.particulers)
+            @Html.ValidationMessageFor(model => model._probationaryContractPlan.particulers)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.status)
+            @Html.LabelFor(model => model._probationaryContractPlan.conditions)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.status)
-            @Html.ValidationMessageFor(model => model.status)
+            @Html.TextBoxFor(model => model._probationaryContractPlan.conditions)
+            @Html.ValidationMessageFor(model => model._probationaryContractPlan.conditions)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.issueid, "issue")
+            @Html.LabelFor(model => model._probationaryContractPlan.status)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("issueid", String.Empty)
-            @Html.ValidationMessageFor(model => model.issueid)
+            @Html.TextBoxFor(model => model._probationaryContractPlan.status)
+            @Html.ValidationMessageFor(model => model._probationaryContractPlan.status)
         </div>
 
         <p>

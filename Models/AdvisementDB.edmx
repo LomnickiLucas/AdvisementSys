@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="applicationForReadmission" EntityType="Model.Store.applicationForReadmission" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="applicationForTermOrCompleteProgramWithdrawal" EntityType="Model.Store.applicationForTermOrCompleteProgramWithdrawal" store:Type="Tables" Schema="dbo" />
@@ -361,6 +361,7 @@
           <Property Name="conditions" Type="text" Nullable="false" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
           <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="incomingterm" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="professor">
           <Key>
@@ -848,8 +849,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -1221,6 +1221,7 @@
           <Property Name="status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
           <Property Name="issueid" Type="Guid" Nullable="false" />
           <NavigationProperty Name="issue" Relationship="Model.FK_probationaryContractPlan_issue" FromRole="probationaryContractPlan" ToRole="issue" />
+          <Property Type="Int32" Name="incomingterm" Nullable="false" />
         </EntityType>
         <EntityType Name="professor">
           <Key>
@@ -1793,7 +1794,8 @@
             <ScalarProperty Name="status" ColumnName="status" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="probationaryContractPlans"><EntityTypeMapping TypeName="Model.probationaryContractPlan"><MappingFragment StoreEntitySet="probationaryContractPlan">
-            <ScalarProperty Name="advisementid" ColumnName="advisementid" />
+            <ScalarProperty Name="incomingterm" ColumnName="incomingterm" />
+                <ScalarProperty Name="advisementid" ColumnName="advisementid" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="particulers" ColumnName="particulers" />
             <ScalarProperty Name="conditions" ColumnName="conditions" />

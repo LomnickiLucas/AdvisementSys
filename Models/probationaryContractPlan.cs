@@ -124,6 +124,21 @@ namespace AdvisementSys.Models
             }
         }
         private System.Guid _issueid;
+    
+        [DataMember]
+        public int incomingterm
+        {
+            get { return _incomingterm; }
+            set
+            {
+                if (_incomingterm != value)
+                {
+                    _incomingterm = value;
+                    OnPropertyChanged("incomingterm");
+                }
+            }
+        }
+        private int _incomingterm;
 
         #endregion
         #region Navigation Properties

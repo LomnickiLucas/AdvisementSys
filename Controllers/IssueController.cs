@@ -50,7 +50,7 @@ namespace AdvisementSys.Controllers
             {
                 Forms _Forms = new Forms();
                 _Forms.Date = _Forms.Date;
-                _Forms.FormType = "Application FOr Term Or Complete Program Withdrawal";
+                _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProgramWithdrawal";
                 _Forms.FormID = form.withdrawid;
