@@ -186,7 +186,7 @@
           <Property Name="approved" Type="bit" />
           <Property Name="acceptableconditional" Type="nvarchar" MaxLength="50" />
           <Property Name="term" Type="nchar" MaxLength="10" />
-          <Property Name="conditions" Type="nvarchar" MaxLength="50" />
+          <Property Name="comments" Type="nvarchar" MaxLength="50" />
           <Property Name="probation" Type="nvarchar" MaxLength="50" />
           <Property Name="special" Type="bit" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
@@ -1027,12 +1027,12 @@
           <Property Name="approved" Type="Boolean" />
           <Property Name="acceptableconditional" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="term" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
-          <Property Name="conditions" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="probation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="special" Type="Boolean" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
           <Property Name="purpose" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="issue" Relationship="Model.FK_applicationForReadmission_issue" FromRole="applicationForReadmission" ToRole="issue" />
+          <Property Type="String" Name="comments" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="applicationForTermOrCompleteProgramWithdrawal">
           <Key>
@@ -1681,7 +1681,8 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="applicationForReadmissions"><EntityTypeMapping TypeName="Model.applicationForReadmission"><MappingFragment StoreEntitySet="applicationForReadmission">
-            <ScalarProperty Name="readmissionid" ColumnName="readmissionid" />
+            <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="readmissionid" ColumnName="readmissionid" />
             <ScalarProperty Name="issueid" ColumnName="issueid" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="oldprogram" ColumnName="oldprogram" />
@@ -1699,7 +1700,6 @@
             <ScalarProperty Name="approved" ColumnName="approved" />
             <ScalarProperty Name="acceptableconditional" ColumnName="acceptableconditional" />
             <ScalarProperty Name="term" ColumnName="term" />
-            <ScalarProperty Name="conditions" ColumnName="conditions" />
             <ScalarProperty Name="probation" ColumnName="probation" />
             <ScalarProperty Name="special" ColumnName="special" />
             <ScalarProperty Name="status" ColumnName="status" />
@@ -1933,7 +1933,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="AdvisementDB">
-        <EntityTypeShape EntityType="Model.applicationForReadmission" Width="1.5" PointX="24" PointY="18.375" Height="5.634013671874996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.applicationForReadmission" Width="1.5" PointX="24" PointY="18.375" Height="5.6340136718750031" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.applicationForTermOrCompleteProgramWithdrawal" Width="1.5" PointX="24" PointY="14.75" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.appointment" Width="1.5" PointX="18.75" PointY="22.75" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.campu" Width="1.5" PointX="0.75" PointY="17.375" Height="2.9417936197916674" IsExpanded="true" />
@@ -1956,10 +1956,10 @@
         <EntityTypeShape EntityType="Model.student" Width="1.5" PointX="16.5" PointY="22.625" Height="5.057109374999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333282" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_applicationForReadmission_issue" ManuallyRouted="false">
-          <ConnectorPoint PointX="23.25" PointY="23.067006835937498" />
-          <ConnectorPoint PointX="23.666666666666668" PointY="23.067006835937498" />
-          <ConnectorPoint PointX="23.833333333333332" PointY="23.067006835937498" />
-          <ConnectorPoint PointX="24" PointY="23.067006835937498" />
+          <ConnectorPoint PointX="23.25" PointY="23.0670068359375" />
+          <ConnectorPoint PointX="23.666666666666668" PointY="23.0670068359375" />
+          <ConnectorPoint PointX="23.833333333333332" PointY="23.0670068359375" />
+          <ConnectorPoint PointX="24" PointY="23.0670068359375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" ManuallyRouted="false">
           <ConnectorPoint PointX="22.5" PointY="22.125" />
@@ -1982,8 +1982,6 @@
           <ConnectorPoint PointX="17.333333333333332" PointY="22.375" />
           <ConnectorPoint PointX="18.416666666666668" PointY="22.375" />
           <ConnectorPoint PointX="18.583333333333332" PointY="22.375" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="22.375" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="22.375" />
           <ConnectorPoint PointX="19.5" PointY="22.375" />
           <ConnectorPoint PointX="19.5" PointY="22.75" />
         </AssociationConnector>
@@ -2065,16 +2063,14 @@
           <ConnectorPoint PointX="8.75" PointY="21" />
           <ConnectorPoint PointX="14.166666666666666" PointY="21" />
           <ConnectorPoint PointX="14.333333333333334" PointY="21" />
+          <ConnectorPoint PointX="16.416666666666668" PointY="21" />
+          <ConnectorPoint PointX="16.583333333333332" PointY="21" />
           <ConnectorPoint PointX="17.166666666666668" PointY="21" />
           <ConnectorPoint PointX="17.333333333333332" PointY="21" />
           <ConnectorPoint PointX="18.5" PointY="21" />
           <ConnectorPoint PointX="18.5" PointY="22.5" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="22.5" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="22.5" />
           <ConnectorPoint PointX="19.416666666666668" PointY="22.5" />
           <ConnectorPoint PointX="19.583333333333332" PointY="22.5" />
-          <ConnectorPoint PointX="21.166666666666668" PointY="22.5" />
-          <ConnectorPoint PointX="21.333333333333332" PointY="22.5" />
           <ConnectorPoint PointX="21.5" PointY="22.5" />
           <ConnectorPoint PointX="21.5" PointY="21.875" />
           <ConnectorPoint PointX="22.010414166666667" PointY="21.875" />
@@ -2091,21 +2087,21 @@
           <ConnectorPoint PointX="8.7083333333333339" PointY="20.5" />
           <ConnectorPoint PointX="14.166666666666666" PointY="20.5" />
           <ConnectorPoint PointX="14.333333333333334" PointY="20.5" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="20.5" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="20.5" />
-          <ConnectorPoint PointX="18.75" PointY="20.5" />
-          <ConnectorPoint PointX="18.75" PointY="22.625" />
-          <ConnectorPoint PointX="19.416666666666668" PointY="22.625" />
-          <ConnectorPoint PointX="19.583333333333332" PointY="22.625" />
-          <ConnectorPoint PointX="21.25" PointY="22.625" />
-          <ConnectorPoint PointX="21.25" PointY="21.625" />
-          <ConnectorPoint PointX="22.010414166666667" PointY="21.625" />
-          <ConnectorPoint PointX="22.177080833333331" PointY="21.625" />
-          <ConnectorPoint PointX="22.416666666666668" PointY="21.625" />
-          <ConnectorPoint PointX="22.583333333333332" PointY="21.625" />
-          <ConnectorPoint PointX="23.75" PointY="21.625" />
-          <ConnectorPoint PointX="23.75" PointY="24.259013671874996" />
-          <ConnectorPoint PointX="26.625" PointY="24.259013671874996" />
+          <ConnectorPoint PointX="16.5" PointY="20.5" />
+          <ConnectorPoint PointX="16.5" PointY="22.359375" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="22.359375" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="22.359375" />
+          <ConnectorPoint PointX="18.416666666666668" PointY="22.359375" />
+          <ConnectorPoint PointX="18.583333333333332" PointY="22.359375" />
+          <ConnectorPoint PointX="21.25" PointY="22.359375" />
+          <ConnectorPoint PointX="21.25" PointY="21.859375" />
+          <ConnectorPoint PointX="22.010414166666667" PointY="21.859375" />
+          <ConnectorPoint PointX="22.177080833333331" PointY="21.859375" />
+          <ConnectorPoint PointX="22.416666666666668" PointY="21.859375" />
+          <ConnectorPoint PointX="22.583333333333332" PointY="21.859375" />
+          <ConnectorPoint PointX="23.75" PointY="21.859375" />
+          <ConnectorPoint PointX="23.75" PointY="24.259013671875003" />
+          <ConnectorPoint PointX="26.625" PointY="24.259013671875003" />
           <ConnectorPoint PointX="26.625" PointY="23.557444661458334" />
           <ConnectorPoint PointX="27" PointY="23.557444661458334" />
         </AssociationConnector>
@@ -2142,8 +2138,8 @@
           <ConnectorPoint PointX="21.75" PointY="26.0835986328125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_note_issue" ManuallyRouted="false">
-          <ConnectorPoint PointX="23.25" PointY="24.561951497395832" />
-          <ConnectorPoint PointX="27" PointY="24.561951497395832" />
+          <ConnectorPoint PointX="23.25" PointY="24.561951497395835" />
+          <ConnectorPoint PointX="27" PointY="24.561951497395835" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" ManuallyRouted="false">
           <ConnectorPoint PointX="22.5" PointY="26.412903645833332" />

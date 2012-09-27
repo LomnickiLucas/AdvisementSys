@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.applicationForReadmission
+﻿@model AdvisementSys.Models.Request.DetailsReadmissionForm
 
 @{
     ViewBag.Title = "Details";
@@ -10,122 +10,163 @@
 <fieldset>
     <legend>applicationForReadmission</legend>
 
-    <div class="display-label">readmissionid</div>
+    @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
+    @Html.HiddenFor(model => model._applicationForReadmission.issueid)
+
+    <div class="display-label">
+        First Name:</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.readmissionid)
+        @Html.DisplayFor(model => model._student.fname)
     </div>
 
-    <div class="display-label">issue</div>
+    <div class="display-label">
+        Last Name:</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.issue.studentid)
+        @Html.DisplayFor(model => model._student.lname)
+    </div>
+
+    <div class="display-label">
+        Student ID:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.studentid)
+    </div>
+
+    <div class="display-label">
+        Street:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.street)
+    </div>
+
+    <div class="display-label">
+        Appartment #:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.appartmentnum)
+    </div>
+
+    <div class="display-label">
+         City:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.city)
+    </div>
+
+    <div class="display-label">
+        Province:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.province)
+    </div>
+
+    <div class="display-label">
+        Postal Code:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.postalcode)
     </div>
 
     <div class="display-label">date</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.date)
+        @Html.DisplayFor(model => model._applicationForReadmission.date)
     </div>
 
     <div class="display-label">oldprogram</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.oldprogram)
+        @Html.DisplayFor(model => model._applicationForReadmission.oldprogram)
     </div>
 
     <div class="display-label">oldfulltime</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.oldfulltime)
+        @Html.DisplayFor(model => model._applicationForReadmission.oldfulltime)
     </div>
 
     <div class="display-label">oldsemyear</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.oldsemyear)
+        @Html.DisplayFor(model => model._applicationForReadmission.oldsemyear)
     </div>
 
     <div class="display-label">oldcampus</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.oldcampus)
+        @Html.DisplayFor(model => model._applicationForReadmission.oldcampus)
     </div>
 
     <div class="display-label">newprogram</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.newprogram)
+        @Html.DisplayFor(model => model._applicationForReadmission.newprogram)
     </div>
 
     <div class="display-label">newfulltime</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.newfulltime)
+        @Html.DisplayFor(model => model._applicationForReadmission.newfulltime)
     </div>
 
     <div class="display-label">newsemyear</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.newsemyear)
+        @Html.DisplayFor(model => model._applicationForReadmission.newsemyear)
     </div>
 
     <div class="display-label">newcampus</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.newcampus)
+        @Html.DisplayFor(model => model._applicationForReadmission.newcampus)
     </div>
 
     <div class="display-label">recommendedprogram</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.recommendedprogram)
+        @Html.DisplayFor(model => model._applicationForReadmission.recommendedprogram)
     </div>
 
     <div class="display-label">recommendedfulltime</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.recommendedfulltime)
+        @Html.DisplayFor(model => model._applicationForReadmission.recommendedfulltime)
     </div>
 
     <div class="display-label">recommendedsemyear</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.recommendedsemyear)
+        @Html.DisplayFor(model => model._applicationForReadmission.recommendedsemyear)
     </div>
 
     <div class="display-label">recomendedcampus</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.recomendedcampus)
+        @Html.DisplayFor(model => model._applicationForReadmission.recomendedcampus)
     </div>
 
     <div class="display-label">approved</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.approved)
+        @Html.DisplayFor(model => model._applicationForReadmission.approved)
     </div>
 
     <div class="display-label">acceptableconditional</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.acceptableconditional)
+        @Html.DisplayFor(model => model._applicationForReadmission.acceptableconditional)
     </div>
 
     <div class="display-label">term</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.term)
+        @Html.DisplayFor(model => model._applicationForReadmission.term)
     </div>
 
     <div class="display-label">conditions</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.conditions)
+        @Html.DisplayFor(model => model._applicationForReadmission.comments)
     </div>
 
     <div class="display-label">probation</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.probation)
+        @Html.DisplayFor(model => model._applicationForReadmission.probation)
     </div>
 
     <div class="display-label">special</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.special)
+        @Html.DisplayFor(model => model._applicationForReadmission.special)
     </div>
 
     <div class="display-label">status</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.status)
+        @Html.DisplayFor(model => model._applicationForReadmission.status)
     </div>
 
     <div class="display-label">purpose</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.purpose)
+        @Html.DisplayFor(model => model._applicationForReadmission.purpose)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.readmissionid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model._applicationForReadmission.readmissionid }) |
+    @Html.ActionLink("Back to Student Issue", "Details/" + Model._applicationForReadmission.issueid, "Issue")
 </p>

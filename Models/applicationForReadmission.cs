@@ -306,21 +306,6 @@ namespace AdvisementSys.Models
         private string _term;
     
         [DataMember]
-        public string conditions
-        {
-            get { return _conditions; }
-            set
-            {
-                if (_conditions != value)
-                {
-                    _conditions = value;
-                    OnPropertyChanged("conditions");
-                }
-            }
-        }
-        private string _conditions;
-    
-        [DataMember]
         public string probation
         {
             get { return _probation; }
@@ -379,6 +364,21 @@ namespace AdvisementSys.Models
             }
         }
         private string _purpose;
+    
+        [DataMember]
+        public string comments
+        {
+            get { return _comments; }
+            set
+            {
+                if (_comments != value)
+                {
+                    _comments = value;
+                    OnPropertyChanged("comments");
+                }
+            }
+        }
+        private string _comments;
 
         #endregion
         #region Navigation Properties

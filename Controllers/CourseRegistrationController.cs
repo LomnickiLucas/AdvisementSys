@@ -61,7 +61,6 @@ namespace AdvisementSys.Controllers
                 return RedirectToAction("Details/" + _CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", _CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.issueid);
             return View(_CreateCourseRegistrationModel);
         }
         
@@ -90,7 +89,7 @@ namespace AdvisementSys.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details/" + _EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid);
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", _EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.issueid);
+
             return View(_EditCourseRegistrationModel);
         }
 

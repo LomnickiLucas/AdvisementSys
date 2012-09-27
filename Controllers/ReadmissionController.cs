@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 { 
@@ -28,34 +29,39 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
-            return View(applicationforreadmission);
+            issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            DetailsReadmissionForm Model = new DetailsReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
+            return View(Model);
         }
 
         //
         // GET: /Readmission/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid");
-            return View();
+            applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
+            issue issue = db.issues.Single(i => i.issueid == id);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student };
+            return View(Model);
         } 
 
         //
         // POST: /Readmission/Create
 
         [HttpPost]
-        public ActionResult Create(applicationForReadmission applicationforreadmission)
+        public ActionResult Create(CreateReadmissionForm _CreateReadmissionForm)
         {
             if (ModelState.IsValid)
             {
-                applicationforreadmission.readmissionid = Guid.NewGuid();
-                db.applicationForReadmissions.AddObject(applicationforreadmission);
+                _CreateReadmissionForm._applicationForReadmission.readmissionid = Guid.NewGuid();
+                db.applicationForReadmissions.AddObject(_CreateReadmissionForm._applicationForReadmission);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + _CreateReadmissionForm._applicationForReadmission.readmissionid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationforreadmission.issueid);
-            return View(applicationforreadmission);
+            return View(_CreateReadmissionForm);
         }
         
         //
@@ -64,25 +70,27 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationforreadmission.issueid);
-            return View(applicationforreadmission);
+            issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            EditReadmissionForm Model = new EditReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
+            return View(Model);
         }
 
         //
         // POST: /Readmission/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(applicationForReadmission applicationforreadmission)
+        public ActionResult Edit(EditReadmissionForm _EditReadmissionForm)
         {
             if (ModelState.IsValid)
             {
-                db.applicationForReadmissions.Attach(applicationforreadmission);
-                db.ObjectStateManager.ChangeObjectState(applicationforreadmission, EntityState.Modified);
+                db.applicationForReadmissions.Attach(_EditReadmissionForm._applicationForReadmission);
+                db.ObjectStateManager.ChangeObjectState(_EditReadmissionForm._applicationForReadmission, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + _EditReadmissionForm._applicationForReadmission.readmissionid);
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationforreadmission.issueid);
-            return View(applicationforreadmission);
+
+            return View(_EditReadmissionForm);
         }
 
         //
