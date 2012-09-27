@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 { 
@@ -28,34 +29,39 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
-            return View(applicationfortermorcompleteprogramwithdrawal);
+            issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
+            return View(Model);
         }
 
         //
         // GET: /ProgramWithdrawal/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid");
-            return View();
+            applicationForTermOrCompleteProgramWithdrawal applicationForTermOrCompleteProgramWithdrawal = new applicationForTermOrCompleteProgramWithdrawal() { issueid = id, date = DateTime.Now };
+            issue issue = db.issues.Single(i => i.issueid == id);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            CreateProgramWithdrawalModel Model = new CreateProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationForTermOrCompleteProgramWithdrawal, _student = student };
+            return View(Model);
         } 
 
         //
         // POST: /ProgramWithdrawal/Create
 
         [HttpPost]
-        public ActionResult Create(applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal)
+        public ActionResult Create(CreateProgramWithdrawalModel _CreateProgramWithdrawalModel)
         {
             if (ModelState.IsValid)
             {
-                applicationfortermorcompleteprogramwithdrawal.withdrawid = Guid.NewGuid();
-                db.applicationForTermOrCompleteProgramWithdrawals.AddObject(applicationfortermorcompleteprogramwithdrawal);
+                _CreateProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal.withdrawid = Guid.NewGuid();
+                db.applicationForTermOrCompleteProgramWithdrawals.AddObject(_CreateProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + _CreateProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal.withdrawid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationfortermorcompleteprogramwithdrawal.issueid);
-            return View(applicationfortermorcompleteprogramwithdrawal);
+            return View(_CreateProgramWithdrawalModel);
         }
         
         //
@@ -64,25 +70,27 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationfortermorcompleteprogramwithdrawal.issueid);
-            return View(applicationfortermorcompleteprogramwithdrawal);
+            issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            EditProgramWithdrawalModel Model = new EditProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
+            return View(Model);
         }
 
         //
         // POST: /ProgramWithdrawal/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal)
+        public ActionResult Edit(EditProgramWithdrawalModel _EditProgramWithdrawalModel)
         {
             if (ModelState.IsValid)
             {
-                db.applicationForTermOrCompleteProgramWithdrawals.Attach(applicationfortermorcompleteprogramwithdrawal);
-                db.ObjectStateManager.ChangeObjectState(applicationfortermorcompleteprogramwithdrawal, EntityState.Modified);
+                db.applicationForTermOrCompleteProgramWithdrawals.Attach(_EditProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal);
+                db.ObjectStateManager.ChangeObjectState(_EditProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + _EditProgramWithdrawalModel._applicationForTermOrCompleteProgramWithdrawal.withdrawid);
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", applicationfortermorcompleteprogramwithdrawal.issueid);
-            return View(applicationfortermorcompleteprogramwithdrawal);
+
+            return View(_EditProgramWithdrawalModel);
         }
 
         //

@@ -58,11 +58,10 @@ namespace AdvisementSys.Controllers
                 createprobationarycontractplanmodel._probationaryContractPlan.advisementid = Guid.NewGuid();
                 db.probationaryContractPlans.AddObject(createprobationarycontractplanmodel._probationaryContractPlan);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + createprobationarycontractplanmodel._probationaryContractPlan.advisementid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", createprobationarycontractplanmodel._probationaryContractPlan.issueid);
-            return View(createprobationarycontractplanmodel._probationaryContractPlan);
+            return View(createprobationarycontractplanmodel);
         }
         
         //
@@ -88,10 +87,10 @@ namespace AdvisementSys.Controllers
                 db.probationaryContractPlans.Attach(editprobationarycontractplanmodel._probationaryContractPlan);
                 db.ObjectStateManager.ChangeObjectState(editprobationarycontractplanmodel._probationaryContractPlan, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + editprobationarycontractplanmodel._probationaryContractPlan.advisementid);  
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", editprobationarycontractplanmodel._probationaryContractPlan.issueid);
-            return View(editprobationarycontractplanmodel._probationaryContractPlan);
+
+            return View(editprobationarycontractplanmodel);
         }
 
         //
@@ -115,7 +114,7 @@ namespace AdvisementSys.Controllers
             probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
             db.probationaryContractPlans.DeleteObject(probationarycontractplan);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details/" + probationarycontractplan.issueid, "Issue");
         }
 
         protected override void Dispose(bool disposing)

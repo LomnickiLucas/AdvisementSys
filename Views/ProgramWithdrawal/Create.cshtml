@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.applicationForTermOrCompleteProgramWithdrawal
+﻿@model AdvisementSys.Models.Request.CreateProgramWithdrawalModel
 
 @{
     ViewBag.Title = "Create";
@@ -16,76 +16,117 @@
     <fieldset>
         <legend>applicationForTermOrCompleteProgramWithdrawal</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.withdrawid)
+        @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawid)
+        @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issueid)
+
+        <div class="display-label">
+            First Name:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.fname)
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.withdrawid)
-            @Html.ValidationMessageFor(model => model.withdrawid)
+
+        <div class="display-label">
+            Last Name:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.lname)
+        </div>
+
+        <div class="display-label">
+            Student ID:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.studentid)
+        </div>
+
+        <div class="display-label">
+            Full Time Status:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.fulltimestatus)
+        </div>
+
+        <div class="display-label">
+            Street:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.street)
+        </div>
+
+        <div class="display-label">
+            Appartment #:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.appartmentnum)
+        </div>
+
+        <div class="display-label">
+             City:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.city)
+        </div>
+
+        <div class="display-label">
+            Province:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.province)
+        </div>
+
+        <div class="display-label">
+            Postal Code:</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model._student.postalcode)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.issueid, "issue")
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("issueid", String.Empty)
-            @Html.ValidationMessageFor(model => model.issueid)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.date)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.date)
-            @Html.ValidationMessageFor(model => model.date)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.withdrawalterm)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.withdrawalterm)
-            @Html.ValidationMessageFor(model => model.withdrawalterm)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.returnterm)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.returnterm)
-            @Html.ValidationMessageFor(model => model.returnterm)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.reasonwithdrawal)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.reasonwithdrawal)
-            @Html.ValidationMessageFor(model => model.reasonwithdrawal)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.continuingedcoursecode)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.continuingedcoursecode)
-            @Html.ValidationMessageFor(model => model.continuingedcoursecode)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.refundapproved)
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.refundapproved)
-            @Html.ValidationMessageFor(model => model.refundapproved)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.status)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.status)
-            @Html.ValidationMessageFor(model => model.status)
+            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
+            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
         </div>
 
         <p>
@@ -95,5 +136,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")
 </div></div>

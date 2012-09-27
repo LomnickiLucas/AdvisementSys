@@ -149,11 +149,14 @@
     </Compile>
     <Compile Include="Models\Request\CreateIssueRequestModel.cs" />
     <Compile Include="Models\Request\CreateProbationaryContractModel.cs.cs" />
+    <Compile Include="Models\Request\CreateProgramWithdrawalModel.cs" />
     <Compile Include="Models\Request\DeleteProbationaryContractModel.cs" />
     <Compile Include="Models\Request\DetailsIssueRequestModel.cs" />
     <Compile Include="Models\Request\DetailsProbationaryContractModel.cs" />
+    <Compile Include="Models\Request\DetailsProgramWithdrawalModel.cs" />
     <Compile Include="Models\Request\EditIssueRequestModel.cs" />
     <Compile Include="Models\Request\EditProbationaryContractModel.cs.cs" />
+    <Compile Include="Models\Request\EditProgramWithdrawalModel.cs" />
     <Compile Include="Models\Request\IndexStudentRequestModel.cs" />
     <Compile Include="Models\Request\DetailsStudentRequestModel.cs" />
     <Compile Include="Models\requiredcourse.cs">

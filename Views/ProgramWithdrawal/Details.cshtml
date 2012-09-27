@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.applicationForTermOrCompleteProgramWithdrawal
+﻿@model AdvisementSys.Models.Request.DetailsProgramWithdrawalModel
 
 @{
     ViewBag.Title = "Details";
@@ -10,52 +10,101 @@
 <fieldset>
     <legend>applicationForTermOrCompleteProgramWithdrawal</legend>
 
-    <div class="display-label">withdrawid</div>
+    <div class="display-label">
+        First Name:</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.withdrawid)
+        @Html.DisplayFor(model => model._student.fname)
+    </div>
+
+    <div class="display-label">
+        Last Name:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.lname)
+    </div>
+
+    <div class="display-label">
+        Student ID:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.studentid)
+    </div>
+
+    <div class="display-label">
+        Full Time Status:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.fulltimestatus)
+    </div>
+
+    <div class="display-label">
+        Street:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.street)
+    </div>
+
+    <div class="display-label">
+        Appartment #:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.appartmentnum)
+    </div>
+
+    <div class="display-label">
+         City:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.city)
+    </div>
+
+    <div class="display-label">
+        Province:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.province)
+    </div>
+
+    <div class="display-label">
+        Postal Code:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.postalcode)
     </div>
 
     <div class="display-label">issue</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.issue.studentid)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issue.studentid)
     </div>
 
     <div class="display-label">date</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.date)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
     </div>
 
     <div class="display-label">withdrawalterm</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.withdrawalterm)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)
     </div>
 
     <div class="display-label">returnterm</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.returnterm)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
     </div>
 
     <div class="display-label">reasonwithdrawal</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.reasonwithdrawal)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
     </div>
 
     <div class="display-label">continuingedcoursecode</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.continuingedcoursecode)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
     </div>
 
     <div class="display-label">refundapproved</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.refundapproved)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
     </div>
 
     <div class="display-label">status</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.status)
+        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.withdrawid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model._applicationForTermOrCompleteProgramWithdrawal.withdrawid }) |
+    @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")
 </p>
