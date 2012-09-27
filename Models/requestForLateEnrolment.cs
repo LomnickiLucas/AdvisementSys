@@ -124,6 +124,66 @@ namespace AdvisementSys.Models
             }
         }
         private System.Guid _issueid;
+    
+        [DataMember]
+        public string clsnum
+        {
+            get { return _clsnum; }
+            set
+            {
+                if (_clsnum != value)
+                {
+                    _clsnum = value;
+                    OnPropertyChanged("clsnum");
+                }
+            }
+        }
+        private string _clsnum;
+    
+        [DataMember]
+        public string coursetitle
+        {
+            get { return _coursetitle; }
+            set
+            {
+                if (_coursetitle != value)
+                {
+                    _coursetitle = value;
+                    OnPropertyChanged("coursetitle");
+                }
+            }
+        }
+        private string _coursetitle;
+    
+        [DataMember]
+        public int currentcap
+        {
+            get { return _currentcap; }
+            set
+            {
+                if (_currentcap != value)
+                {
+                    _currentcap = value;
+                    OnPropertyChanged("currentcap");
+                }
+            }
+        }
+        private int _currentcap;
+    
+        [DataMember]
+        public int incomingterm
+        {
+            get { return _incomingterm; }
+            set
+            {
+                if (_incomingterm != value)
+                {
+                    _incomingterm = value;
+                    OnPropertyChanged("incomingterm");
+                }
+            }
+        }
+        private int _incomingterm;
 
         #endregion
         #region Navigation Properties

@@ -405,6 +405,10 @@
           <Property Name="programcode" Type="char" Nullable="false" MaxLength="5" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
           <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="clsnum" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="coursetitle" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="currentcap" Type="int" Nullable="false" />
+          <Property Name="incomingterm" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="requiredcourse">
           <Key>
@@ -1267,6 +1271,10 @@
           <Property Name="status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
           <Property Name="issueid" Type="Guid" Nullable="false" />
           <NavigationProperty Name="issue" Relationship="Model.FK_requestForLateEnrolment_issue" FromRole="requestForLateEnrolment" ToRole="issue" />
+          <Property Type="String" Name="clsnum" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="coursetitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="currentcap" Nullable="false" />
+          <Property Type="Int32" Name="incomingterm" Nullable="false" />
         </EntityType>
         <EntityType Name="requiredcourse">
           <Key>
@@ -1821,7 +1829,11 @@
             <ScalarProperty Name="requirements" ColumnName="requirements" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="requestForLateEnrolments"><EntityTypeMapping TypeName="Model.requestForLateEnrolment"><MappingFragment StoreEntitySet="requestForLateEnrolment">
-            <ScalarProperty Name="enrolementid" ColumnName="enrolementid" />
+            <ScalarProperty Name="incomingterm" ColumnName="incomingterm" />
+                <ScalarProperty Name="currentcap" ColumnName="currentcap" />
+                <ScalarProperty Name="coursetitle" ColumnName="coursetitle" />
+                <ScalarProperty Name="clsnum" ColumnName="clsnum" />
+                <ScalarProperty Name="enrolementid" ColumnName="enrolementid" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="coursecode" ColumnName="coursecode" />
             <ScalarProperty Name="programcode" ColumnName="programcode" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 { 
@@ -28,34 +29,39 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
-            return View(requestforlateenrolment);
+            issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            DetailsLateEnrollementModel Model = new DetailsLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
+            return View(Model);
         }
 
         //
         // GET: /LateEnrollment/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid");
-            return View();
+            requestForLateEnrolment requestForLateEnrolment = new requestForLateEnrolment() { issueid = id, date = DateTime.Now };
+            issue issue = db.issues.Single(i => i.issueid == id);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            CreateLateEnrollementModel Model = new CreateLateEnrollementModel() { _requestForLateEnrolment = requestForLateEnrolment, _student = student };
+            return View(Model);
         } 
 
         //
         // POST: /LateEnrollment/Create
 
         [HttpPost]
-        public ActionResult Create(requestForLateEnrolment requestforlateenrolment)
+        public ActionResult Create(CreateLateEnrollementModel _CreateLateEnrollementModel)
         {
             if (ModelState.IsValid)
             {
-                requestforlateenrolment.enrolementid = Guid.NewGuid();
-                db.requestForLateEnrolments.AddObject(requestforlateenrolment);
+                _CreateLateEnrollementModel._requestForLateEnrolment.enrolementid = Guid.NewGuid();
+                db.requestForLateEnrolments.AddObject(_CreateLateEnrollementModel._requestForLateEnrolment);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + _CreateLateEnrollementModel._requestForLateEnrolment.enrolementid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", requestforlateenrolment.issueid);
-            return View(requestforlateenrolment);
+            return View(_CreateLateEnrollementModel);
         }
         
         //
@@ -64,25 +70,27 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", requestforlateenrolment.issueid);
-            return View(requestforlateenrolment);
+            issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            EditLateEnrollementModel Model = new EditLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
+            return View(Model);
         }
 
         //
         // POST: /LateEnrollment/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(requestForLateEnrolment requestforlateenrolment)
+        public ActionResult Edit(EditLateEnrollementModel _EditLateEnrollementModel)
         {
             if (ModelState.IsValid)
             {
-                db.requestForLateEnrolments.Attach(requestforlateenrolment);
-                db.ObjectStateManager.ChangeObjectState(requestforlateenrolment, EntityState.Modified);
+                db.requestForLateEnrolments.Attach(_EditLateEnrollementModel._requestForLateEnrolment);
+                db.ObjectStateManager.ChangeObjectState(_EditLateEnrollementModel._requestForLateEnrolment, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + _EditLateEnrollementModel._requestForLateEnrolment.enrolementid);
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", requestforlateenrolment.issueid);
-            return View(requestforlateenrolment);
+
+            return View(_EditLateEnrollementModel);
         }
 
         //
