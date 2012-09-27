@@ -9,8 +9,12 @@
 
 @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
 @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
-<h3>Student Information</h3>
 <table style="width: 800px;">
+    <tr>
+        <td colspan="4">
+            <h3>Student Information</h3>
+        </td>
+    </tr>
     <tr>
         <td>
             Name:
@@ -62,9 +66,11 @@
             @Html.DisplayFor(model => model._requestForLateEnrolment.date)
         </td>
     </tr>
-</table>
-<h3>Late Enrolment</h3>
-<table style="width: 640px;">
+    <tr>
+        <td colspan="4">
+            <h3>Late Enrolment Information</h3>
+        </td>  
+    </tr>
     <tr>
         <td>
             Current Capacity:

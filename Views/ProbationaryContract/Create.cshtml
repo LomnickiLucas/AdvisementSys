@@ -20,6 +20,11 @@
         @Html.HiddenFor(model => model._probationaryContractPlan.issueid)
         <table style="width: 800px;">
             <tr>
+                <td colspan="4">
+                    <h3>Student Information</h3>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     Name:
                 </td>
@@ -65,6 +70,12 @@
                     @Html.TextBoxFor(model => model._probationaryContractPlan.status)
                     @Html.ValidationMessageFor(model => model._probationaryContractPlan.status)
                 </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <h3>Probationary Info</h3>
+                </td>
+            
             </tr>
             <tr>
                 <td>
