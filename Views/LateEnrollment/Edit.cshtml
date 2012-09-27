@@ -46,7 +46,7 @@
             @Html.LabelFor(model => model._requestForLateEnrolment.date)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.date)
+            @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
             @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
         </div>
 

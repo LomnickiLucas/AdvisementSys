@@ -37,7 +37,7 @@ namespace AdvisementSys.Controllers
             foreach (applicationForReadmission form in applicationForReadmission)
             {
                 Forms _Forms = new Forms();
-                _Forms.Date = _Forms.Date;
+                _Forms.Date = form.date;
                 _Forms.FormType = "Application For Readmission";
                 _Forms.Status = form.status;
                 _Forms.Controller = "Readmission";
@@ -49,7 +49,7 @@ namespace AdvisementSys.Controllers
             foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
             {
                 Forms _Forms = new Forms();
-                _Forms.Date = _Forms.Date;
+                _Forms.Date = form.date;
                 _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProgramWithdrawal";
@@ -61,7 +61,7 @@ namespace AdvisementSys.Controllers
             foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
             {
                 Forms _Forms = new Forms();
-                _Forms.Date = _Forms.Date;
+                _Forms.Date = form.date;
                 _Forms.FormType = "Part Time And/or Additional Course Registration Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "CourseRegistration";
@@ -73,7 +73,7 @@ namespace AdvisementSys.Controllers
             foreach (probationaryContractPlan form in probationaryContractPlan)
             {
                 Forms _Forms = new Forms();
-                _Forms.Date = _Forms.Date;
+                _Forms.Date = form.date;
                 _Forms.FormType = "Probationary Contract Plan";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProbationaryContract";
@@ -85,7 +85,7 @@ namespace AdvisementSys.Controllers
             foreach (requestForLateEnrolment form in requestForLateEnrolment)
             {
                 Forms _Forms = new Forms();
-                _Forms.Date = _Forms.Date;
+                _Forms.Date = form.date;
                 _Forms.FormType = "Request For Late Enrollment Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "LateEnrollment";
@@ -93,7 +93,8 @@ namespace AdvisementSys.Controllers
 
                 Forms.Add(_Forms);
             }
-            model._Forms = Forms;
+
+            model._Forms = Forms.OrderByDescending(f => f.Date);
             return View(model);
         }
 

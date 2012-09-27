@@ -154,6 +154,66 @@ namespace AdvisementSys.Models
             }
         }
         private string _status;
+    
+        [DataMember]
+        public int term
+        {
+            get { return _term; }
+            set
+            {
+                if (_term != value)
+                {
+                    _term = value;
+                    OnPropertyChanged("term");
+                }
+            }
+        }
+        private int _term;
+    
+        [DataMember]
+        public string clsnum
+        {
+            get { return _clsnum; }
+            set
+            {
+                if (_clsnum != value)
+                {
+                    _clsnum = value;
+                    OnPropertyChanged("clsnum");
+                }
+            }
+        }
+        private string _clsnum;
+    
+        [DataMember]
+        public decimal creditvalue
+        {
+            get { return _creditvalue; }
+            set
+            {
+                if (_creditvalue != value)
+                {
+                    _creditvalue = value;
+                    OnPropertyChanged("creditvalue");
+                }
+            }
+        }
+        private decimal _creditvalue;
+    
+        [DataMember]
+        public int progyear
+        {
+            get { return _progyear; }
+            set
+            {
+                if (_progyear != value)
+                {
+                    _progyear = value;
+                    OnPropertyChanged("progyear");
+                }
+            }
+        }
+        private int _progyear;
 
         #endregion
         #region Navigation Properties

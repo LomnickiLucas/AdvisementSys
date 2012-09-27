@@ -350,6 +350,10 @@
           <Property Name="matfees" Type="decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="compcharges" Type="decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
+          <Property Name="term" Type="int" Nullable="false" />
+          <Property Name="clsnum" Type="char" Nullable="false" MaxLength="5" />
+          <Property Name="creditvalue" Type="decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="progyear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="probationaryContractPlan">
           <Key>
@@ -406,9 +410,9 @@
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
           <Property Name="issueid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="clsnum" Type="char" Nullable="false" MaxLength="5" />
-          <Property Name="coursetitle" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="currentcap" Type="int" Nullable="false" />
           <Property Name="incomingterm" Type="int" Nullable="false" />
+          <Property Name="coursetitle" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="requiredcourse">
           <Key>
@@ -1213,6 +1217,10 @@
           <Property Name="compcharges" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="issue" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="part_timeAnd_orAdditionalCourseRegistrationForm" ToRole="issue" />
+          <Property Type="Int32" Name="term" Nullable="false" />
+          <Property Type="String" Name="clsnum" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Type="Decimal" Name="creditvalue" Nullable="false" Precision="4" Scale="2" />
+          <Property Type="Int32" Name="progyear" Nullable="false" />
         </EntityType>
         <EntityType Name="probationaryContractPlan">
           <Key>
@@ -1792,7 +1800,11 @@
             <ScalarProperty Name="issueid" ColumnName="issueid" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="part_timeAnd_orAdditionalCourseRegistrationForm"><EntityTypeMapping TypeName="Model.part_timeAnd_orAdditionalCourseRegistrationForm"><MappingFragment StoreEntitySet="part-timeAnd/orAdditionalCourseRegistrationForm">
-            <ScalarProperty Name="registrationid" ColumnName="registrationid" />
+            <ScalarProperty Name="progyear" ColumnName="progyear" />
+                <ScalarProperty Name="creditvalue" ColumnName="creditvalue" />
+                <ScalarProperty Name="clsnum" ColumnName="clsnum" />
+                <ScalarProperty Name="term" ColumnName="term" />
+                <ScalarProperty Name="registrationid" ColumnName="registrationid" />
             <ScalarProperty Name="issueid" ColumnName="issueid" />
             <ScalarProperty Name="date" ColumnName="date" />
             <ScalarProperty Name="coursecode" ColumnName="coursecode" />

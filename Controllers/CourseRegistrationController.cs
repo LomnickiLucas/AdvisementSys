@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 { 
@@ -28,34 +29,40 @@ namespace AdvisementSys.Controllers
         public ViewResult Details(Guid id)
         {
             part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
-            return View(part_timeand_oradditionalcourseregistrationform);
+            issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
+            return View(Model);
         }
 
         //
         // GET: /CourseRegistration/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid");
-            return View();
+            part_timeAnd_orAdditionalCourseRegistrationForm part_timeAnd_orAdditionalCourseRegistrationForm = new part_timeAnd_orAdditionalCourseRegistrationForm() { issueid = id, date = DateTime.Now };
+            issue issue = db.issues.Single(i => i.issueid == id);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            CreateCourseRegistrationModel Model = new CreateCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeAnd_orAdditionalCourseRegistrationForm, _student = student };
+            return View(Model);
         } 
 
         //
         // POST: /CourseRegistration/Create
 
         [HttpPost]
-        public ActionResult Create(part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform)
+        public ActionResult Create(CreateCourseRegistrationModel _CreateCourseRegistrationModel)
         {
             if (ModelState.IsValid)
             {
-                part_timeand_oradditionalcourseregistrationform.registrationid = Guid.NewGuid();
-                db.part_timeAnd_orAdditionalCourseRegistrationForm.AddObject(part_timeand_oradditionalcourseregistrationform);
+                _CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid = Guid.NewGuid();
+                db.part_timeAnd_orAdditionalCourseRegistrationForm.AddObject(_CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Details/" + _CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid);  
             }
 
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", part_timeand_oradditionalcourseregistrationform.issueid);
-            return View(part_timeand_oradditionalcourseregistrationform);
+            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", _CreateCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.issueid);
+            return View(_CreateCourseRegistrationModel);
         }
         
         //
@@ -64,25 +71,27 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", part_timeand_oradditionalcourseregistrationform.issueid);
-            return View(part_timeand_oradditionalcourseregistrationform);
+            issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
+            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+            EditCourseRegistrationModel Model = new EditCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
+            return View(Model);
         }
 
         //
         // POST: /CourseRegistration/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform)
+        public ActionResult Edit(EditCourseRegistrationModel _EditCourseRegistrationModel)
         {
             if (ModelState.IsValid)
             {
-                db.part_timeAnd_orAdditionalCourseRegistrationForm.Attach(part_timeand_oradditionalcourseregistrationform);
-                db.ObjectStateManager.ChangeObjectState(part_timeand_oradditionalcourseregistrationform, EntityState.Modified);
+                db.part_timeAnd_orAdditionalCourseRegistrationForm.Attach(_EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm);
+                db.ObjectStateManager.ChangeObjectState(_EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + _EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid);
             }
-            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", part_timeand_oradditionalcourseregistrationform.issueid);
-            return View(part_timeand_oradditionalcourseregistrationform);
+            ViewBag.issueid = new SelectList(db.issues, "issueid", "studentid", _EditCourseRegistrationModel._part_timeAnd_orAdditionalCourseRegistrationForm.issueid);
+            return View(_EditCourseRegistrationModel);
         }
 
         //

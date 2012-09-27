@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.part_timeAnd_orAdditionalCourseRegistrationForm
+﻿@model AdvisementSys.Models.Request.EditCourseRegistrationModel
 
 @{
     ViewBag.Title = "Edit";
@@ -14,69 +14,105 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>part_timeAnd_orAdditionalCourseRegistrationForm</legend>
+        
+        @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid)
+    @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid)
+
+    <div class="display-label">
+        First Name:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.fname)
+    </div>
+
+    <div class="display-label">
+        Last Name:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.lname)
+    </div>
+
+    <div class="display-label">
+        Student ID:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.studentid)
+    </div>
+
+    <div class="display-label">
+        Program:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
+    </div>
+
+    <div class="display-label">Term</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.term)
+    </div>
+
+    <div class="display-label">Program Year</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.progyear)
+    </div>
+
+    <div class="display-label">International Student</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._student.international)
+    </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.registrationid)
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.registrationid)
-            @Html.ValidationMessageFor(model => model.registrationid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.issueid, "issue")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("issueid", String.Empty)
-            @Html.ValidationMessageFor(model => model.issueid)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.date)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.date)
-            @Html.ValidationMessageFor(model => model.date)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.coursecode)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.coursecode)
-            @Html.ValidationMessageFor(model => model.coursecode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.coursecharges)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.coursecharges)
-            @Html.ValidationMessageFor(model => model.coursecharges)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.matfees)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.matfees)
-            @Html.ValidationMessageFor(model => model.matfees)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.compcharges)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.compcharges)
-            @Html.ValidationMessageFor(model => model.compcharges)
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date, new { @Value = Model._part_timeAnd_orAdditionalCourseRegistrationForm.date.ToString("dd MMM yyyy") })
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.status)
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.status)
-            @Html.ValidationMessageFor(model => model.status)
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode)
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode)
+        </div>
+
+        <div class="display-label">CLS Num</div>
+        <div class="display-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.clsnum)
+        </div>
+
+        <div class="display-label">Credit Value</div>
+        <div class="display-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.creditvalue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees)
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges)
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status)
+            @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status)
         </div>
 
         <p>
@@ -86,5 +122,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Part Time And/or Additional Course Registration Form", "Details/" + Model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid)
 </div>
