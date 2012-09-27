@@ -46,7 +46,7 @@
             Date:
         </td>
         <td>
-            @Html.DisplayFor(model => model._probationaryContractPlan.date, new { @Value = Model._probationaryContractPlan.date.ToString("dd MMM yyyy") })
+            @Html.DisplayFor(model => model._probationaryContractPlan.date, new { @Value = Model._probationaryContractPlan.date.ToShortDateString() })
         </td>
         <td>
             Status:

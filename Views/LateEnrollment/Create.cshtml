@@ -5,99 +5,124 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Create Request for Late Enrolment</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>requestForLateEnrolment</legend>
+    @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
+    @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
+    <h3>Student Information</h3>
+    <table style="width: 800px;">
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.fname)
+                @Html.DisplayFor(model => model._student.lname)
+            </td>
+            <td>
+                Student ID:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.studentid)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Campus:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.campus)
+            </td>
+            <td>
+                Program:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Term:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.incomingterm)
+            </td>
+            <td>
+                Status:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.status)
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
+            </td>
+        </tr>
+    </table>
+    <h3>Late Enrolment</h3>
+    <table style="width: 655px;">
+        <tr>
+            <td>
+                Current Capacity:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
+            </td>
+            <td>
+                Date/Time:
+            </td>
+            <td>
+                ???
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Course Code:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode)
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
+            </td>
+            <td>
+                Course Title:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CLS#:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum)
+            </td>
+            <td>
+                Program Code:
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode)
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
+            </td>
+        </tr>
 
-        @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
-        @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
-
-        <div class="display-label">
-            First Name:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.fname)
-        </div>
-
-        <div class="display-label">
-            Last Name:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.lname)
-        </div>
-
-        <div class="display-label">
-            Student ID:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.studentid)
-        </div>
-
-        <div class="display-label">
-            Program:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._requestForLateEnrolment.date)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
-            @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._requestForLateEnrolment.coursecode)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode)
-            @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._requestForLateEnrolment.programcode)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode)
-            @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
-        </div>
-
-        <div class="display-label">status</div>
-        <div class="display-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.incomingterm)
-        </div>
-
-        <div class="display-label">status</div>
-        <div class="display-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum)
-        </div>
-
-        <div class="display-label">status</div>
-        <div class="display-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle)
-        </div>
-
-        <div class="display-label">status</div>
-        <div class="display-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._requestForLateEnrolment.status)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
-            @Html.ValidationMessageFor(model => model._requestForLateEnrolment.status)
-        </div>
+    </table>
 
         <p>
             <input type="submit" value="Create" />
         </p>
-    </fieldset>
 }
 
 <div>
