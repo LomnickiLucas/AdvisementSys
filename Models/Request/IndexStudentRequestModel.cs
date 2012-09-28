@@ -9,6 +9,10 @@ namespace AdvisementSys.Models.Request
     {
         public IEnumerable<student> _student { get; set; }
 
+        public IEnumerable<program> _program { get; set; }
+
+        public IEnumerable<campu> _campus { get; set; }
+
         public String studentID { get; set; }
 
         public String fName { get; set; }
@@ -26,5 +30,7 @@ namespace AdvisementSys.Models.Request
         public Boolean fulltimestatus { get; set; }
 
         public Boolean enrolled { get; set; }
+
+        public IEnumerable<String> _collection { get; set; }
     }
 }

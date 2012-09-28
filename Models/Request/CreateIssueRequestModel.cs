@@ -12,5 +12,9 @@ namespace AdvisementSys.Models.Request
         public issue _issue { get; set; }
 
         public program _program { get; set; }
+
+        public IEnumerable<catagory> _catagory { get; set; }
+
+        public IEnumerable<employee> _employee { get; set; }
     }
 }

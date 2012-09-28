@@ -1,20 +1,97 @@
-﻿@model IEnumerable<AdvisementSys.Models.issue>
+﻿@model AdvisementSys.Models.Request.IndexIssueRequestModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._issue.First().issuename, "Issue Name:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model._name)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._issue.First().employeeid, "Owner:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model._employeeid, new SelectList(Model._employee, "employeeid", "employeeid", Model._employeeid))
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._status, "Please Select Status:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._urgency, "Please Select a Urgency:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model._employeeid, new SelectList(new[] { "High", "Medium", "Low" }))
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model._category, "Please Select a Category:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model._category, new SelectList(Model._catagories, "catagory1", "catagory1"))
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        Please Enter a range of dates:
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model._date1, new { @id = "datepicker" }) &nbsp; - &nbsp; @Html.TextBoxFor(model => model._date2, new { @id = "datepicker1" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Search" class="Button" />
+                </td>
+                <td>
+                    <input type="reset" value="Reset" class="Button" />
+                </td>
+            </tr>
+        </table>
+    }
+
 <table>
     <tr>
-        <th>
-            student
-        </th>
         <th>
             date
         </th>
@@ -27,14 +104,17 @@
         <th>
             issuename
         </th>
+        <th>
+            category
+        </th>
+        <th>
+            owner
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model._issue) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.student.fname)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.date)
         </td>
@@ -48,11 +128,22 @@
             @Html.DisplayFor(modelItem => item.issuename)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.issueid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.issueid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.issueid })
+            @Html.DisplayFor(modelItem => item.catagory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.employeeid)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.issueid })
         </td>
     </tr>
 }
 
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datepicker").datepicker();
+        $("#datepicker1").datepicker();
+    });
+</script>

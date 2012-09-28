@@ -97,6 +97,26 @@
         </div></td>
         </tr>  
         
+        <tr>
+            <td>
+                <div class="display-label">
+                    Owner:</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DropDownListFor(model => model._issue.employeeid, new SelectList(Model._employee, "employeeid", "employeeid"))
+                </div>
+            </td>
+            <td>
+                <div class="display-label">
+                    Catagory:</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DropDownListFor(model => model._issue.catagory, new SelectList(Model._catagory, "catagory1", "catagory1"))
+                </div>
+            </td>
+        </tr>
         </table>
 
 

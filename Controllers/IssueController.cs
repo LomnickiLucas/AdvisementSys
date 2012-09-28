@@ -20,7 +20,19 @@ namespace AdvisementSys.Controllers
         public ViewResult Index()
         {
             var issues = db.issues.Include("student");
-            return View(issues.ToList());
+            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues, _employee = db.employees, _catagories = db.catagories, _date1 = DateTime.Now.ToShortDateString(), _date2 = DateTime.Now.ToShortDateString() };
+            return View(Model);
+        }
+
+        [HttpPost]
+        public ActionResult Index(IndexIssueRequestModel Model)
+        {
+            var issues = db.issues.Include("student");
+            IEnumerable<issue> _issues = issues;
+            if (Model._name != "")
+                _issues = _issues.Where(i => i.issuename.Trim().ToUpper().Contains(Model._name.Trim().ToUpper()));
+            Model._issue = _issues;
+            return View(Model);
         }
 
         //
@@ -106,7 +118,9 @@ namespace AdvisementSys.Controllers
             student student = db.students.Single(i => i.studentid == id);
             issue issue = new issue() { studentid = id, date = DateTime.Now };
             program program = db.programs.Single(i => i.programcode == student.programcode);
-            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program };
+            IEnumerable<catagory> catagory = db.catagories;
+            IEnumerable<employee> employee = db.employees;
+            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program, _catagory = catagory, _employee = employee };
             return View(model);
         }
 
@@ -138,7 +152,9 @@ namespace AdvisementSys.Controllers
             student student = db.students.Single(i => i.studentid == issue.studentid);
             program program = db.programs.Single(i => i.programcode == student.programcode);
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
-            EditIssueRequestModel model = new EditIssueRequestModel() { _issue = issue, _program = program, _student = student };
+            IEnumerable<catagory> catagory = db.catagories;
+            IEnumerable<employee> employee = db.employees;
+            EditIssueRequestModel model = new EditIssueRequestModel() { _issue = issue, _program = program, _student = student, _catagory = catagory, _employee = employee };
             return View(model);
         }
 

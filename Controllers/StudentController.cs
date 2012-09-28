@@ -39,14 +39,14 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
-            ViewBag.campus = new SelectList(db.campus, "cname", "cname");
+            ViewBag.campus = new SelectList(db.campus, "cname", "cname", collection.Get(5));
             var program = db.programs;
             List<String> collections = new List<String>();
             foreach (program pcode in program)
             {
                 collections.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
             }
-            ViewBag.programcode = new SelectList(collections);
+            ViewBag.programcode = new SelectList(collections, collection.Get(4));
             IndexStudentRequestModel model = new IndexStudentRequestModel() { studentID = collection.Get(0).Trim(), fName = collection.Get(2).Trim(), lName = collection.Get(3).Trim(), programCode = "Please Select a Program", campus = "Please Select a Campus", email = collection.Get(1).Trim() };
             var students = db.students.Include("campu").Include("program");
             IEnumerable<student> studentz = students;

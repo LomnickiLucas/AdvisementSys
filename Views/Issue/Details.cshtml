@@ -141,6 +141,26 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td>
+                <div class="display-label">
+                    Owner</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model._issue.employeeid)
+                </div>
+            </td>
+            <td>
+                <div class="display-label">
+                    Catagory</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model._issue.catagory)
+                </div>
+            </td>
+        </tr>
     </table>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |
