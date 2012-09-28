@@ -45,7 +45,7 @@
                     @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
                 </td>
                 <td>
-                    Incoming Term:
+                    *Incoming Term:
                 </td>
                 <td>
                     @Html.TextBoxFor(model => model._probationaryContractPlan.incomingterm)
@@ -54,14 +54,14 @@
             </tr>
             <tr>
                 <td>
-                    Date:
+                    *Date:
                 </td>
                 <td>
                     @Html.TextBoxFor(model => model._probationaryContractPlan.date, new { @Value = Model._probationaryContractPlan.date.ToString("dd MMM yyyy") })
                     @Html.ValidationMessageFor(model => model._probationaryContractPlan.date)
                 </td>
                 <td>
-                    Status
+                    *Status:
                 </td>
                 <td>
                     @Html.TextBoxFor(model => model._probationaryContractPlan.status)
@@ -76,7 +76,7 @@
             </tr>
             <tr>
                 <td>
-                    Particulars:
+                    *Particulars:
                 </td>
             </tr>
             <tr>
@@ -87,7 +87,7 @@
             </tr>
             <tr>
                 <td>
-                    Conditions:
+                    *Conditions:
                 </td>
             </tr>
             <tr>

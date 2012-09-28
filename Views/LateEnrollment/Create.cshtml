@@ -52,13 +52,13 @@
         </tr>
         <tr>
             <td>
-                Term:
+                *Term:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.incomingterm)
             </td>
             <td>
-                Status:
+                *Status:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
@@ -68,7 +68,7 @@
         </tr>
         <tr>
             <td>
-                Date:
+                *Date:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <td>
-                Current Capacity:
+                *Current Capacity:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
@@ -96,14 +96,14 @@
         </tr>
         <tr>
             <td>
-                Course Code:
+                **Course Code:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode)
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
             </td>
             <td>
-                Course Title:
+                **Course Title:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle)
@@ -111,13 +111,13 @@
         </tr>
         <tr>
             <td>
-                CLS#:
+                **CLS#:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum)
             </td>
             <td>
-                Program Code:
+                ***Program Code:
             </td>
             <td>
                 @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode)
@@ -129,6 +129,7 @@
 
         <p>
             <input type="submit" value="Create" />
+            ** or *** must be completed
         </p>
 }
 
