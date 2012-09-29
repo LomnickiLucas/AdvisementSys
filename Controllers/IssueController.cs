@@ -71,7 +71,11 @@ namespace AdvisementSys.Controllers
             if (Model._name != null)
                 _issues = _issues.Where(i => i.issuename.Trim().ToUpper().Contains(Model._name.Trim().ToUpper()));
             if (Model._employeeid != "Please Select an Employee ID")
-                _issues = _issues.Where(i => i.employeeid.Trim().ToUpper().Contains(Model._employeeid.Trim().ToUpper()));
+            {
+                StringBuilder sb = new StringBuilder(Model._employeeid.Trim().ToUpper());
+                sb.Remove(9, sb.Length - 9);
+                _issues = _issues.Where(i => i.employeeid.Trim().ToUpper().Contains(sb.ToString()));
+            }
             if (Model._status != "Please Select a Status")
                 _issues = _issues.Where(i => i.status.Trim().ToUpper().Contains(Model._status.Trim().ToUpper()));
             if (Model._urgency != "Please Select an Urgency Level")
@@ -86,11 +90,11 @@ namespace AdvisementSys.Controllers
             }
             if ((DateTime.TryParse(Model._date1, out date1) && (DateTime.TryParse(Model._date2, out date2))))
             {
-                if (date1.CompareTo(date2) == 1)
+                if (date1 > date2)
                 {
                     _issues = _issues.Where(i => i.date >= date2 && i.date <= date1);
                 }
-                else if (date2.CompareTo(date1) == 1)
+                else if (date2 > date1)
                 {
                     _issues = _issues.Where(i => i.date <= date2 && i.date >= date1);
                 }
