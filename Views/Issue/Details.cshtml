@@ -5,6 +5,9 @@
 }
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/css/grid.form.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+
 <div class="contentDiv">
     <h2 style="padding-left: 13px;">
         Issue Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
@@ -124,20 +127,20 @@
         <tr>
             <td>
                 <div class="display-label">
-                    Urgency:</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model._issue.urgency)
-                </div>
-            </td>
-            <td>
-                <div class="display-label">
                     status</div>
             </td>
             <td>
                 <div class="display-field">
                     @Html.DisplayFor(model => model._issue.status)
+                </div>
+            </td>
+            <td>
+                <div class="display-label">
+                    Urgency:</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model._issue.urgency)
                 </div>
             </td>
         </tr>
@@ -166,6 +169,22 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |
         @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
     </p>
+
+    <div id="accordion" style="width:1080px;">
+	    <h3><a href="#">Create New Form</a></h3>
+	    <div>
+            @Html.ActionLink("Create New Prbationary Contract Plan", "create/" + Model._issue.issueid, "ProbationaryContract")
+            <br />
+            @Html.ActionLink("Create New Course Registration Form", "create/" + Model._issue.issueid, "CourseRegistration")
+            <br />
+            @Html.ActionLink("Create New Late Enrollment Form", "create/" + Model._issue.issueid, "LateEnrollment")
+            <br />
+            @Html.ActionLink("Create New Program Withdrawal Form", "create/" + Model._issue.issueid, "ProgramWithdrawal")
+            <br />
+            @Html.ActionLink("Create New Readmission Form", "create/" + Model._issue.issueid, "Readmission")
+        </div>
+    </div>
+    <br />
 
     <table class="resultsissue">
     <tr>
@@ -200,3 +219,9 @@
 }
 </table>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#accordion").accordion({ collapsible: true, active: 2 });
+    });
+</script>

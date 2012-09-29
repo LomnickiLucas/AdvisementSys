@@ -85,14 +85,14 @@
             @Html.LabelFor(model => model._issue.status, "Status:")
         </div></td>
         <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._issue.status))
             @Html.ValidationMessageFor(model => model._issue.status)
         </div></td>
         <td><div class="editor-label">
             @Html.LabelFor(model => model._issue.urgency, "Urgency:")
         </div></td>
         <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }))
+            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }, Model._issue.urgency))
             @Html.ValidationMessageFor(model => model._issue.urgency)
         </div></td>
         </tr>  
