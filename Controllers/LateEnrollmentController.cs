@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
                     issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
@@ -56,7 +56,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     requestForLateEnrolment requestForLateEnrolment = new requestForLateEnrolment() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
                     issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);

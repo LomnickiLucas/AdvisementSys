@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
                     issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
@@ -56,7 +56,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     probationaryContractPlan probationaryContractPlan = new probationaryContractPlan() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
                     issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);

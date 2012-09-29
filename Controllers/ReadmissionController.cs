@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
@@ -56,7 +56,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);

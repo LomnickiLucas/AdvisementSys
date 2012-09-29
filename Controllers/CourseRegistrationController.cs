@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
                     issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
@@ -56,7 +56,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     part_timeAnd_orAdditionalCourseRegistrationForm part_timeAnd_orAdditionalCourseRegistrationForm = new part_timeAnd_orAdditionalCourseRegistrationForm() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
                     issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);

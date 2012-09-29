@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
@@ -56,7 +56,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForTermOrCompleteProgramWithdrawal applicationForTermOrCompleteProgramWithdrawal = new applicationForTermOrCompleteProgramWithdrawal() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
                     applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
