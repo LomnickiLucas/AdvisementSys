@@ -46,6 +46,8 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Index(IndexIssueRequestModel Model)
         {
+            DateTime date1;
+            DateTime date2;
             var issues = db.issues.Include("student");
             var program = db.programs;
             var employee = db.employees;
@@ -81,6 +83,21 @@ namespace AdvisementSys.Controllers
                 StringBuilder sb = new StringBuilder(Model._selectedpcode.Trim().ToUpper());
                 sb.Remove(5, sb.Length - 5);
                 _issues = _issues.Where(i => i.student.programcode.Trim().ToUpper().Contains(sb.ToString()));
+            }
+            if ((DateTime.TryParse(Model._date1, out date1) && (DateTime.TryParse(Model._date2, out date2))))
+            {
+                if (date1.CompareTo(date2) == 1)
+                {
+                    _issues = _issues.Where(i => i.date >= date2 && i.date <= date1);
+                }
+                else if (date2.CompareTo(date1) == 1)
+                {
+                    _issues = _issues.Where(i => i.date <= date2 && i.date >= date1);
+                }
+                else
+                {
+                    _issues = _issues.Where(i => i.date == date1);
+                }
             }
             Model._issue = _issues.OrderByDescending(i => i.date);
             Model._employee = employees;
