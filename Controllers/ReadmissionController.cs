@@ -26,13 +26,27 @@ namespace AdvisementSys.Controllers
         //
         // GET: /Readmission/Details/5
 
-        public ViewResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
-            applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
-            issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            DetailsReadmissionForm Model = new DetailsReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
+                    issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsReadmissionForm Model = new DetailsReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -40,11 +54,25 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Create(Guid id)
         {
-            applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
-            issue issue = db.issues.Single(i => i.issueid == id);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
+                    issue issue = db.issues.Single(i => i.issueid == id);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         } 
 
         //
@@ -69,11 +97,25 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
-            issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            EditReadmissionForm Model = new EditReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
+                    issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    EditReadmissionForm Model = new EditReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //

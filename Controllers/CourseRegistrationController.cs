@@ -26,13 +26,27 @@ namespace AdvisementSys.Controllers
         //
         // GET: /CourseRegistration/Details/5
 
-        public ViewResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
-            part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
-            issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
+                    issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -40,11 +54,25 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Create(Guid id)
         {
-            part_timeAnd_orAdditionalCourseRegistrationForm part_timeAnd_orAdditionalCourseRegistrationForm = new part_timeAnd_orAdditionalCourseRegistrationForm() { issueid = id, date = DateTime.Now };
-            issue issue = db.issues.Single(i => i.issueid == id);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            CreateCourseRegistrationModel Model = new CreateCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeAnd_orAdditionalCourseRegistrationForm, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    part_timeAnd_orAdditionalCourseRegistrationForm part_timeAnd_orAdditionalCourseRegistrationForm = new part_timeAnd_orAdditionalCourseRegistrationForm() { issueid = id, date = DateTime.Now };
+                    issue issue = db.issues.Single(i => i.issueid == id);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    CreateCourseRegistrationModel Model = new CreateCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeAnd_orAdditionalCourseRegistrationForm, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         } 
 
         //
@@ -69,11 +97,25 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
-            issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            EditCourseRegistrationModel Model = new EditCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
+                    issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    EditCourseRegistrationModel Model = new EditCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //

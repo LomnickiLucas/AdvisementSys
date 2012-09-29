@@ -26,13 +26,27 @@ namespace AdvisementSys.Controllers
         //
         // GET: /ProgramWithdrawal/Details/5
 
-        public ViewResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
-            applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
-            issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
+                    issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -40,11 +54,25 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Create(Guid id)
         {
-            applicationForTermOrCompleteProgramWithdrawal applicationForTermOrCompleteProgramWithdrawal = new applicationForTermOrCompleteProgramWithdrawal() { issueid = id, date = DateTime.Now };
-            issue issue = db.issues.Single(i => i.issueid == id);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            CreateProgramWithdrawalModel Model = new CreateProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationForTermOrCompleteProgramWithdrawal, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForTermOrCompleteProgramWithdrawal applicationForTermOrCompleteProgramWithdrawal = new applicationForTermOrCompleteProgramWithdrawal() { issueid = id, date = DateTime.Now };
+                    issue issue = db.issues.Single(i => i.issueid == id);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    CreateProgramWithdrawalModel Model = new CreateProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationForTermOrCompleteProgramWithdrawal, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         } 
 
         //
@@ -69,11 +97,25 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
-            issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            EditProgramWithdrawalModel Model = new EditProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
+                    issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    EditProgramWithdrawalModel Model = new EditProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //

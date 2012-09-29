@@ -26,13 +26,27 @@ namespace AdvisementSys.Controllers
         //
         // GET: /ProbationaryContract/Details/5
 
-        public ViewResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
-            probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
-            issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            DetailsProbationaryContractModel Model = new DetailsProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
+                    issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsProbationaryContractModel Model = new DetailsProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -40,11 +54,25 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Create(Guid id)
         {
-            probationaryContractPlan probationaryContractPlan = new probationaryContractPlan() { issueid = id, date = DateTime.Now };
-            issue issue = db.issues.Single(i => i.issueid == id);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            CreateProbationaryContractModel Model = new CreateProbationaryContractModel() { _probationaryContractPlan = probationaryContractPlan, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    probationaryContractPlan probationaryContractPlan = new probationaryContractPlan() { issueid = id, date = DateTime.Now };
+                    issue issue = db.issues.Single(i => i.issueid == id);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    CreateProbationaryContractModel Model = new CreateProbationaryContractModel() { _probationaryContractPlan = probationaryContractPlan, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         } 
 
         //
@@ -69,11 +97,25 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
-            issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            EditProbationaryContractModel Model = new EditProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
+                    issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    EditProbationaryContractModel Model = new EditProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -103,6 +145,7 @@ namespace AdvisementSys.Controllers
             student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
             DeleteProbationaryContractModel Model = new DeleteProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student };
             return View(Model);
+
         }
 
         //

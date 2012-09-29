@@ -26,13 +26,27 @@ namespace AdvisementSys.Controllers
         //
         // GET: /LateEnrollment/Details/5
 
-        public ViewResult Details(Guid id)
+        public ActionResult Details(Guid id)
         {
-            requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
-            issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            DetailsLateEnrollementModel Model = new DetailsLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
+                    issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsLateEnrollementModel Model = new DetailsLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
@@ -40,11 +54,25 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Create(Guid id)
         {
-            requestForLateEnrolment requestForLateEnrolment = new requestForLateEnrolment() { issueid = id, date = DateTime.Now };
-            issue issue = db.issues.Single(i => i.issueid == id);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            CreateLateEnrollementModel Model = new CreateLateEnrollementModel() { _requestForLateEnrolment = requestForLateEnrolment, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    requestForLateEnrolment requestForLateEnrolment = new requestForLateEnrolment() { issueid = id, date = DateTime.Now };
+                    issue issue = db.issues.Single(i => i.issueid == id);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    CreateLateEnrollementModel Model = new CreateLateEnrollementModel() { _requestForLateEnrolment = requestForLateEnrolment, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         } 
 
         //
@@ -69,11 +97,25 @@ namespace AdvisementSys.Controllers
  
         public ActionResult Edit(Guid id)
         {
-            requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
-            issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
-            student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-            EditLateEnrollementModel Model = new EditLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
-            return View(Model);
+            try
+            {
+                if (id == null)
+                {
+                    requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
+                    issue issue = db.issues.Single(i => i.issueid == requestforlateenrolment.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    EditLateEnrollementModel Model = new EditLateEnrollementModel() { _requestForLateEnrolment = requestforlateenrolment, _student = student };
+                    return View(Model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Issue");
+            }
         }
 
         //
