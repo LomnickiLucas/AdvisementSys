@@ -141,7 +141,7 @@ namespace AdvisementSys.Models
         private string _continuingedcoursecode;
     
         [DataMember]
-        public string refundapproved
+        public bool refundapproved
         {
             get { return _refundapproved; }
             set
@@ -153,7 +153,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private string _refundapproved;
+        private bool _refundapproved;
     
         [DataMember]
         public string status

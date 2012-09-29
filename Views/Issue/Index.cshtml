@@ -33,7 +33,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._employeeid, new SelectList(Model._employee, "employeeid", "employeeid", Model._employeeid))
+                        @Html.DropDownListFor(model => model._employeeid, new SelectList(Model._employee, Model._employeeid), new { @class = "DDL" })
                     </div>
                 </td>
             </tr>
@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
+                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Please Select a Status", "In Progress", "On Hold", "Complete" }))
                     </div>
                 </td>
                 <td>
@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._employeeid, new SelectList(new[] { "High", "Medium", "Low" }))
+                        @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Please Select an Urgency Level", "High", "Medium", "Low" }))
                     </div>
                 </td>
             </tr>
@@ -64,7 +64,13 @@
                     @Html.LabelFor(model => model._category, "Please Select a Category:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._category, new SelectList(Model._catagories, "catagory1", "catagory1"))
+                    @Html.DropDownListFor(model => model._category, new SelectList(Model._catagories, "catagory1", "catagory1", Model._category), new { @class = "DDL" })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model._category, "Please Select a Program:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model._selectedpcode, new SelectList(Model._programcode,Model._selectedpcode), new { @class = "DDL" })
                 </td>
             </tr>
             <tr>
@@ -143,7 +149,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#datepicker").datepicker();
-        $("#datepicker1").datepicker();
+        $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#datepicker1").datepicker({ dateFormat: "dd/mm/yy" });
     });
 </script>

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdvisementSys.Models;
 using AdvisementSys.Models.Request;
+using System.Text;
 
 namespace AdvisementSys.Controllers
 {
@@ -20,7 +21,25 @@ namespace AdvisementSys.Controllers
         public ViewResult Index()
         {
             var issues = db.issues.Include("student");
-            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues, _employee = db.employees, _catagories = db.catagories, _date1 = DateTime.Now.ToShortDateString(), _date2 = DateTime.Now.ToShortDateString() };
+            var program = db.programs;
+            var employee = db.employees;
+            List<String> employees = new List<String>();
+            employees.Add("Please Select an Employee ID");
+            foreach (employee emp in employee)
+            {
+                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+            }
+            List<catagory> catagories = new List<catagory>();
+            catagory cat = new catagory() { catagory1 = "Please Select a Catagory"};
+            catagories.Add(cat);
+            catagories.AddRange(db.catagories);
+            List<String> collection = new List<String>();
+            collection.Add("Please Select a Program");
+            foreach (program prog in program)
+            {
+                collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
+            }
+            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues.OrderByDescending(i => i.date), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date.ToShortDateString(), _date2 = issues.OrderBy(i => i.date).First().date.ToShortDateString(), _programcode = collection };
             return View(Model);
         }
 
@@ -28,10 +47,47 @@ namespace AdvisementSys.Controllers
         public ActionResult Index(IndexIssueRequestModel Model)
         {
             var issues = db.issues.Include("student");
+            var program = db.programs;
+            var employee = db.employees;
+            List<String> employees = new List<String>();
+            employees.Add("Please Select an Employee ID");
+            foreach (employee emp in employee)
+            {
+                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+            }
+            List<catagory> catagories = new List<catagory>();
+            catagory cat = new catagory() { catagory1 = "Please Select a Catagory" };
+            catagories.Add(cat);
+            catagories.AddRange(db.catagories);
+            List<String> collection = new List<String>();
+            collection.Add("Please Select a Program");
+            foreach (program prog in program)
+            {
+                collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
+            }
             IEnumerable<issue> _issues = issues;
-            if (Model._name != "")
+            if (Model._name != null)
                 _issues = _issues.Where(i => i.issuename.Trim().ToUpper().Contains(Model._name.Trim().ToUpper()));
-            Model._issue = _issues;
+            if (Model._employeeid != "Please Select an Employee ID")
+                _issues = _issues.Where(i => i.employeeid.Trim().ToUpper().Contains(Model._employeeid.Trim().ToUpper()));
+            if (Model._status != "Please Select a Status")
+                _issues = _issues.Where(i => i.status.Trim().ToUpper().Contains(Model._status.Trim().ToUpper()));
+            if (Model._urgency != "Please Select an Urgency Level")
+                _issues = _issues.Where(i => i.urgency.Trim().ToUpper().Contains(Model._urgency.Trim().ToUpper()));
+            if (Model._category != "Please Select a Catagory")
+                _issues = _issues.Where(i => i.catagory.Trim().ToUpper().Contains(Model._category.Trim().ToUpper()));
+            if (Model._selectedpcode != "Please Select a Program")
+            {
+                StringBuilder sb = new StringBuilder(Model._selectedpcode.Trim().ToUpper());
+                sb.Remove(5, sb.Length - 5);
+                _issues = _issues.Where(i => i.student.programcode.Trim().ToUpper().Contains(sb.ToString()));
+            }
+            Model._issue = _issues.OrderByDescending(i => i.date);
+            Model._employee = employees;
+            Model._catagories = catagories;
+            Model._programcode = collection;
+
+
             return View(Model);
         }
 

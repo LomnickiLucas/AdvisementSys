@@ -9,9 +9,13 @@ namespace AdvisementSys.Models.Request
     {
         public IEnumerable<issue> _issue { get; set; }
 
-        public IEnumerable<employee> _employee { get; set; }
+        public IEnumerable<String> _employee { get; set; }
 
         public IEnumerable<catagory> _catagories { get; set; }
+
+        public List<String> _programcode { get; set; }
+
+        public String _selectedpcode { get; set;}
 
         public String _employeeid { get; set; }
 

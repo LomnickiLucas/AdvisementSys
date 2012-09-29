@@ -203,7 +203,7 @@
           <Property Name="returnterm" Type="nchar" Nullable="false" MaxLength="20" />
           <Property Name="reasonwithdrawal" Type="nvarchar(max)" Nullable="false" />
           <Property Name="continuingedcoursecode" Type="nvarchar" MaxLength="50" />
-          <Property Name="refundapproved" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="refundapproved" Type="bit" Nullable="false" />
           <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="appointment">
@@ -1045,7 +1045,7 @@
           <Property Name="returnterm" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
           <Property Name="reasonwithdrawal" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="continuingedcoursecode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="refundapproved" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="refundapproved" Type="Boolean" Nullable="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="issue" Relationship="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" FromRole="applicationForTermOrCompleteProgramWithdrawal" ToRole="issue" />
         </EntityType>
