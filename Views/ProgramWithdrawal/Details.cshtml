@@ -5,105 +5,128 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Application for Term or Complete Program Withdrawal Form</h2>
+<table style="width: 800px;">
+    <tr>
+        <td colspan="4">
+            <h3>Student Information</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Name:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)
+        </td>
+        <td>
+            Student ID:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.studentid)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Address:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.appartmentnum) @Html.DisplayFor(model => model._student.street)
+        </td>
+        <td>
+            City:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.city)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Province:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.province)
+        </td>
+        <td>
+            Postal Code:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.postalcode)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Full Time:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.fulltimestatus)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <h3>Term or Program Withdrawal Form</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
+        </td>
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, "*Status:")
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
+        </td>
+    </tr>
 
-<fieldset>
-    <legend>applicationForTermOrCompleteProgramWithdrawal</legend>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)           
+        </td>
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
+        </td>
+    </tr>
 
-    <div class="display-label">
-        First Name:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.fname)
-    </div>
+    <tr style="vertical-align:top;">
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, "*Reason for Withdrawal:")
+        </td>
+        <td colspan="3">
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
+        </td>
+    </tr>
+       
+    <tr style="vertical-align:top;">
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode, "Continuing Education class(es) dropped:")
+        </td>
+        <td colspan="3" >
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
+        </td>
+    </tr>
 
-    <div class="display-label">
-        Last Name:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.lname)
-    </div>
+    <tr>
+        <td>
+            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved, "Refund Approved:")
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
+        </td>
+    </tr>        
+</table>
+    
 
-    <div class="display-label">
-        Student ID:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.studentid)
-    </div>
 
-    <div class="display-label">
-        Full Time Status:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.fulltimestatus)
-    </div>
-
-    <div class="display-label">
-        Street:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.street)
-    </div>
-
-    <div class="display-label">
-        Appartment #:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.appartmentnum)
-    </div>
-
-    <div class="display-label">
-         City:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.city)
-    </div>
-
-    <div class="display-label">
-        Province:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.province)
-    </div>
-
-    <div class="display-label">
-        Postal Code:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.postalcode)
-    </div>
-
-    <div class="display-label">issue</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issue.studentid)
-    </div>
-
-    <div class="display-label">date</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
-    </div>
-
-    <div class="display-label">withdrawalterm</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)
-    </div>
-
-    <div class="display-label">returnterm</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm)
-    </div>
-
-    <div class="display-label">reasonwithdrawal</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
-    </div>
-
-    <div class="display-label">continuingedcoursecode</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
-    </div>
-
-    <div class="display-label">refundapproved</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
-    </div>
-
-    <div class="display-label">status</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
-    </div>
-</fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model._applicationForTermOrCompleteProgramWithdrawal.withdrawid }) |
     @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")

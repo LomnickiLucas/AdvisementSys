@@ -10,138 +10,149 @@
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 
 <div class="contentDiv">
-@using (Html.BeginForm("Create", "ProgramWithdrawal", FormMethod.Post, new { id = "programWithdrawalForm", name = "programWithdrawalForm" }))
-{
-    <h2>New Term or Complete Program Withdrawal Form</h2>
-    @Html.ValidationSummary(true)
-   
+    @using (Html.BeginForm("Create", "ProgramWithdrawal", FormMethod.Post, new { id = "programWithdrawalForm", name = "programWithdrawalForm" }))
+    {
+        <h2>New Application for Term or Complete Program Withdrawal Form</h2>
+        @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawid)
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issueid)
+
         <table style="width: 800px;">
-        
-        <tr><td><h3>Student Information</h3></td></tr>
-        <tr>
-        <td><div class="display-label">
-            Name:</div></td>
-        <td>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)
-        </div></td>
-        <td> <div class="display-label">
-            Student ID:</div></td>
-        <td> <div class="display-field">
-            @Html.DisplayFor(model => model._student.studentid)
-        </div></td>
-        </tr>
-        
-        <tr>
-        <td><div class="display-label">
-            Address:</div>
-        </td>
-        <td><div class="display-field">
-            @Html.DisplayFor(model => model._student.appartmentnum) @Html.DisplayFor(model => model._student.street)</div>        
-        </td>
-        <td><div class="display-label">
-             City:</div></td>
-        <td><div class="display-field">
-            @Html.DisplayFor(model => model._student.city)
-        </div></td>
-        </tr>
+            <tr>
+                <td colspan="4">
+                    <h3>Student Information</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)
+                </td>
+                <td>
+                    Student ID:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.studentid)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Address:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.appartmentnum) @Html.DisplayFor(model => model._student.street)      
+                </td>
+                <td>
+                     City:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.city)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Province:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.province)
+                </td>
+                <td>
+                    Postal Code:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.postalcode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Full Time:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.fulltimestatus)
+                </td>
+            </tr>
+      
+            <tr>
+                <td colspan="4">
+                    <h3>Term or Program Withdrawal Form</h3>
+                </td>
+            </tr>
 
-        <tr>
-        <td><div class="display-label">
-            Province:</div></td>
-        <td><div class="display-field">
-            @Html.DisplayFor(model => model._student.province)
-        </div></td>
-        <td><div class="display-label">
-            Postal Code:</div></td>
-        <td><div class="display-field">
-            @Html.DisplayFor(model => model._student.postalcode)
-        </div></td>
-        </tr>
-        <tr>
-        <td><div class="display-label">
-            Full Time:</div></td>
-        <td><div class="display-field">
-            @Html.DisplayFor(model => model._student.fulltimestatus)
-        </div></td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
+                    @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, "*Status:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
+                    @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[]{"Please Select","Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013"}))
+                    @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
+                </td>
+                <td>
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }))
+                </td>
+            </tr>
         
-        <tr><td><h3>Term or Program Withdrawal Form</h3></td></tr>
-
-        <tr>
-        <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
-        </div></td>
-        <td><div class="editor-field">
-            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
-            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
-        </div></td>
-        <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, "*Status:")
-        </div></td>
-        <td><div class="editor-field">
-            @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
-            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
-        </div></td>
-        </tr>
-        <tr>
-        <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
-        </div></td>
-        <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[]{"Please Select","Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013"}))
-            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
-        </div></td>
-        <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
-        </div></td>
-        <td>@Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }))</td>
-        </tr>
-        
-        <tr>
-        <td>
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, "*Reason for Withdrawal:")
-        </div>
-        </td>
-        </tr>
-        <tr>
+            <tr>
+                <td colspan="4">
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, "*Reason for Withdrawal:")
+                </td>
+            </tr>
+            <tr>
                 <td colspan="4">
                     @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, new { @style = "width:775px; height:100px; resize:none;" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
                 </td>
             </tr>
             <tr>
-            <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode, "Continuing Education class(es) dropped:")
-        </div></td>
-        </tr>
-        <tr>
-        <td colspan="4"><div class="editor-field">
-            @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode, new{@style = "width:775px; resize:none;"})
-            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
-        </div></td>
+                <td colspan="4">
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode, "Continuing Education class(es) dropped:")
+                </td>
             </tr>
             <tr>
-            <td><div class="editor-label">
-            @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved, "Refund Approved:")
-        </div></td>
-            <td><div class="editor-field">
-            @Html.CheckBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
-            @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
-        </div></td>
+                <td colspan="4">
+                    @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode, new{@style = "width:775px; resize:none;"})
+                    @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.continuingedcoursecode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved, "Refund Approved:")
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
+                    @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.refundapproved)
+                </td>
             </tr>        
-    </table>
+        </table>
         <br />
         <div>
             <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/> 
         </div>
         <br />
         <p>Fields marked with an * are mandatory.</p>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")
-</div></div>
+    <div>
+        @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")
+    </div>
+</div>
