@@ -122,25 +122,25 @@
     @foreach (var item in Model._issue)
     {
         <tr>
-            <td>
+            <td class="resultstd" style="text-align:center;">
                 @Html.ActionLink("Details", "Details", new { id = item.issueid })
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.date)
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.status)
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.urgency)
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.issuename)
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.catagory)
             </td>
-            <td>
+            <td class="resultstd">
                 @Html.DisplayFor(modelItem => item.employeeid)
             </td>
         </tr>
