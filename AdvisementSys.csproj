@@ -263,7 +263,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sheridan logo.ashx" />
     <Content Include="Content\themes\base\images\sheridan_logo.ashx" />
     <EntityDeploy Include="Models\AdvisementDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
