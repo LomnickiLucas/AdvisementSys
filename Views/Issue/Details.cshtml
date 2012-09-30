@@ -164,6 +164,16 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model._issue.description)
+                </div>
+            </td>   
+        </tr>
     </table>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |

@@ -204,7 +204,7 @@
           <Property Name="reasonwithdrawal" Type="nvarchar(max)" Nullable="false" />
           <Property Name="continuingedcoursecode" Type="nvarchar" MaxLength="50" />
           <Property Name="refundapproved" Type="bit" Nullable="false" />
-          <Property Name="status" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="status" Type="nchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="appointment">
           <Key>
@@ -319,6 +319,7 @@
           <Property Name="urgency" Type="nchar" Nullable="false" MaxLength="10" />
           <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
           <Property Name="catagory" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="description" Type="text" />
         </EntityType>
         <EntityType Name="location">
           <Key>
@@ -1181,6 +1182,7 @@
           <NavigationProperty Name="part_timeAnd_orAdditionalCourseRegistrationForm" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="issue" ToRole="part_timeAnd_orAdditionalCourseRegistrationForm" />
           <NavigationProperty Name="probationaryContractPlans" Relationship="Model.FK_probationaryContractPlan_issue" FromRole="issue" ToRole="probationaryContractPlan" />
           <NavigationProperty Name="requestForLateEnrolments" Relationship="Model.FK_requestForLateEnrolment_issue" FromRole="issue" ToRole="requestForLateEnrolment" />
+          <Property Type="String" Name="description" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="location">
           <Key>
@@ -1778,7 +1780,8 @@
             <ScalarProperty Name="fname" ColumnName="fname" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="issues"><EntityTypeMapping TypeName="Model.issue"><MappingFragment StoreEntitySet="issue">
-            <ScalarProperty Name="issueid" ColumnName="issueid" />
+            <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="issueid" ColumnName="issueid" />
             <ScalarProperty Name="studentid" ColumnName="studentid" />
             <ScalarProperty Name="issuename" ColumnName="issuename" />
             <ScalarProperty Name="date" ColumnName="date" />

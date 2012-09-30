@@ -178,6 +178,21 @@ namespace AdvisementSys.Models
             }
         }
         private string _catagory;
+    
+        [DataMember]
+        public string description
+        {
+            get { return _description; }
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged("description");
+                }
+            }
+        }
+        private string _description;
 
         #endregion
         #region Navigation Properties
