@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create Request for Late Enrolment</h2>
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+<div class="contentDiv">
+<h2>Create Request for Late Enrolment</h2>
+@using (Html.BeginForm("Create", "LateEnrollment", FormMethod.Post, new { id = "lateEnrollmentForm", name = "lateEnrollmentForm" }))
+{
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
     @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
@@ -61,7 +62,7 @@
                 *Status:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.status, new { id = "status", @class = "required" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.status)
             </td>
             
@@ -71,7 +72,7 @@
                 *Date:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { id="date", @class="required", @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
             </td>
         </tr>
@@ -85,7 +86,7 @@
                 *Current Capacity:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap, new { id = "currentCap", @class = "required" })
             </td>
             <td>
                 Date/Time:
@@ -94,45 +95,121 @@
                 ???
             </td>
         </tr>
+        <div id="courseArea">
+        <tr>
+        <td><input type="radio" name="radioSelect" value="courseCheck" checked="checked"> Course</td>
+
+        </tr>
+
         <tr>
             <td>
-                **Course Code:
+                *Course Code:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode)
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode, new { id = "courseCode", @class = "required" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
             </td>
             <td>
-                **Course Title:
+                *Course Title:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle)
-            </td>
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle, new { id = "courseTitle", @class = "required" })
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursetitle)
+            </td> 
         </tr>
         <tr>
-            <td>
-                **CLS#:
+        <td>
+                *CLS#:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum)
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum, new { id = "clsnum", @class = "required" })
+                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.clsnum)
+            </td>
+                      
+        </tr>
+        </div>
+        <div id="programArea">
+        <tr>
+        <td><input type="radio" name="radioSelect" value="programCheck"> Program</td>
+        </tr>
+        <tr>
+        <td>
+                *Program Code:
             </td>
             <td>
-                ***Program Code:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode)
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode, new { id = "programCode", @class = "required", disabled = "disabled" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
             </td>
+           
         </tr>
+        </div>
 
-    </table>
-
-        <p>
-            <input type="submit" value="Create" />
-            ** or *** must be completed
-        </p>
+   </table><br />
+        <div>
+         <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/> 
+         </div>
+    <p>Fields marked with an * are mandatory.</p>
 }
+</div>
 
 <div>
     @Html.ActionLink("Back to Student Issue", "Details/" + Model._requestForLateEnrolment.issueid, "Issue")
 </div>
+
+<script type="text/javascript">
+
+
+
+
+
+    $('input[type="radio"]').change(function () {
+        if ($('input[type="radio"]:checked').val() == 'courseCheck') {
+            //alert("course!");
+            $('#programCode').attr('disabled', 'disabled');
+
+            $('#programCode').val("");
+
+            $('#courseCode').removeAttr('disabled');
+            $('#courseTitle').removeAttr('disabled');
+            $('#clsnum').removeAttr('disabled');
+
+            
+
+            $('#courseCode').removeClass('required error');
+            $('#courseTitle').removeClass('required error');
+            $('#clsnum').removeClass('required error');
+
+            $('#lateEnrollmentForm').valid();
+
+            $('#courseCode').addClass('required error');
+            $('#courseTitle').addClass('required error');
+            $('#clsnum').addClass('required error');
+
+
+        }
+        if ($('input[type="radio"]:checked').val() == 'programCheck') {
+            //alert("program!");
+            $('#programCode').removeAttr('disabled');
+            $('#courseCode').attr('disabled', 'disabled');
+            $('#courseTitle').attr('disabled', 'disabled');
+            $('#clsnum').attr('disabled', 'disabled');
+
+            $('#courseCode').val("");
+            $('#courseTitle').val("");
+            $('#clsnum').val("");
+
+            $('#programCode').removeClass('required error');
+            $('#lateEnrollmentForm').valid();
+            $('#programCode').addClass('required error');
+
+        }
+
+    });
+
+        $('#lateEnrollmentForm').validate({
+
+        });
+
+
+
+</script>
