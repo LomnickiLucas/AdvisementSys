@@ -106,7 +106,7 @@
                 *Course Code:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode, new { id = "courseCode", @class = "required" })
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode, new { id = "courseCode", @class = "required coursecoderegex" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
             </td>
             <td>
@@ -122,7 +122,7 @@
                 *CLS#:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum, new { id = "clsnum", @class = "required" })
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum, new { id = "clsnum", @class = "required clsnumdigit" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.clsnum)
             </td>
                       
@@ -137,7 +137,7 @@
                 *Program Code:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode, new { id = "programCode", @class = "required", disabled = "disabled" })
+                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode, new { id = "programCode", @class = "required progcoderegex", disabled = "disabled" })
                 @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
             </td>
            
@@ -158,9 +158,17 @@
 
 <script type="text/javascript">
 
+    $.validator.addMethod("coursecoderegex", function (value) {
+        return value.match(/^[A-Z]{4}\d{5}$/);
+    }, 'Please enter a valid course code');
 
+    $.validator.addMethod("clsnumdigit", function (value) {
+        return value.match(/^\d{5}$/);
+    }, 'Please enter a 5 digit number');
 
-
+    $.validator.addMethod("progcoderegex", function (value) {
+        return value.match(/^[A-Z]{5}$/);
+    }, 'Please enter a valid program code');
 
     $('input[type="radio"]').change(function () {
         if ($('input[type="radio"]:checked').val() == 'courseCheck') {
@@ -173,17 +181,17 @@
             $('#courseTitle').removeAttr('disabled');
             $('#clsnum').removeAttr('disabled');
 
-            
 
-            $('#courseCode').removeClass('required error');
+
+            $('#courseCode').removeClass('coursecoderegex required error');
             $('#courseTitle').removeClass('required error');
-            $('#clsnum').removeClass('required error');
+            $('#clsnum').removeClass('clsnumdigit required error');
 
             $('#lateEnrollmentForm').valid();
 
-            $('#courseCode').addClass('required error');
+            $('#courseCode').addClass('coursecoderegex required error');
             $('#courseTitle').addClass('required error');
-            $('#clsnum').addClass('required error');
+            $('#clsnum').addClass('clsnumdigit required error');
 
 
         }
@@ -198,9 +206,9 @@
             $('#courseTitle').val("");
             $('#clsnum').val("");
 
-            $('#programCode').removeClass('required error');
+            $('#programCode').removeClass('progcoderegex required error');
             $('#lateEnrollmentForm').valid();
-            $('#programCode').addClass('required error');
+            $('#programCode').addClass('progcoderegex required error');
 
         }
 

@@ -1,139 +1,223 @@
 ﻿@model AdvisementSys.Models.Request.EditLateEnrollementModel
-
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit Request for Late Enrolment</h2>
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div class="contentDiv">
+    <h2>
+        Edit Request for Late Enrolment</h2>
+    @using (Html.BeginForm("Edit", "LateEnrollment", FormMethod.Post, new { id = "lateEnrollmentForm", name = "lateEnrollmentForm" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
+        @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
+        <table style="width: 800px;">
+            <tr>
+                <td colspan="4">
+                    <h3>
+                        Student Information</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.fname)
+                    @Html.DisplayFor(model => model._student.lname)
+                </td>
+                <td>
+                    Student ID:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.studentid)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Campus:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.campus)
+                </td>
+                <td>
+                    Program:
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    *Term:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.incomingterm)
+                </td>
+                <td>
+                    *Status:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.status)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    *Date:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <h3>
+                        Late Enrolment Information</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    *Current Capacity:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
+                </td>
+                <td>
+                    Date/Time:
+                </td>
+                <td>
+                    ???
+                </td>
+            </tr>
+            <tr>
+            <td>
+                <input type="radio" name="radioSelect" value="courseCheck" checked="checked">
+                Course
+            </td>
+            </tr>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
-    @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)
-    <table style="width: 800px;">
-        <tr>
-            <td colspan="4">
-                <h3>Student Information</h3>
-            </td>
-            
-        </tr>
-        <tr>
-            <td>
-                Name:
-            </td>
-            <td>
-                @Html.DisplayFor(model => model._student.fname)
-                @Html.DisplayFor(model => model._student.lname)
-            </td>
-            <td>
-                Student ID:
-            </td>
-            <td>
-                @Html.DisplayFor(model => model._student.studentid)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Campus:
-            </td>
-            <td>
-                @Html.DisplayFor(model => model._student.campus)
-            </td>
-            <td>
-                Program:
-            </td>
-            <td>
-                @Html.DisplayFor(model => model._student.programcode) - @Html.DisplayFor(model => model._student.program.programname)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                *Term:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.incomingterm)
-            </td>
-            <td>
-                *Status:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.status)
-                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.status)
-            </td>
-            
-        </tr>
-        <tr>
-            <td>
-                *Date:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.date, new { @Value = Model._requestForLateEnrolment.date.ToString("dd MMM yyyy") })
-                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.date)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <h3>Late Enrolment Information</h3>
-            </td>
-            
-        </tr>
-        <tr>
-            <td>
-                *Current Capacity:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.currentcap)
-            </td>
-            <td>
-                Date/Time:
-            </td>
-            <td>
-                ???
-            </td>
-        </tr>
-        <tr>
-            <td>
-                **Course Code:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode)
-                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
-            </td>
-            <td>
-                **Course Title:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                **CLS#:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum)
-            </td>
-            <td>
-                ***Program Code:
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode)
-                @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    *Course Code:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.coursecode, new { id = "courseCode", @class = "required coursecoderegex" })
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursecode)
+                </td>
+                <td>
+                    *Course Title:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.coursetitle, new { id = "courseTitle", @class = "required" })
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.coursetitle)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    *CLS#:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.clsnum, new { id = "clsnum", @class = "required clsnumdigit" })
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.clsnum)
+                </td>
+            </tr>
+    
+            <tr>
+                <td>
+                    <input type="radio" name="radioSelect" value="programCheck">
+                    Program
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    *Program Code:
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model._requestForLateEnrolment.programcode, new { id = "programCode", @class = "required progcoderegex", disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model._requestForLateEnrolment.programcode)
+                </td>
+            </tr>
+    
 
-    </table>
-    <p>
-        <input type="submit" value="Save" />
-        **(Course) or ***(Program) must be completed
-    </p>
-}
+        </table>
+        <br />
+        <div>
+            <input type="submit" value="Update" class="Button" style="position: relative; left: 10px;" />
+        </div>
+        <p>
+            Fields marked with an * are mandatory.</p>
+    }
 
+</div>
 <div>
     @Html.ActionLink("Back to Request For Late Enrolement Form Details", "Details/" + Model._requestForLateEnrolment.enrolementid)
 </div>
+<script type="text/javascript">
+
+    $.validator.addMethod("coursecoderegex", function (value) {
+        return value.match(/^[A-Z]{4}\d{5}$/);
+    }, 'Please enter a valid course code');
+
+    $.validator.addMethod("clsnumdigit", function (value) {
+        return value.match(/^\d{5}$/);
+    }, 'Please enter a 5 digit number');
+
+    $.validator.addMethod("progcoderegex", function (value) {
+        return value.match(/^[A-Z]{5}$/);
+    }, 'Please enter a valid program code');
+
+    $('input[type="radio"]').change(function () {
+        if ($('input[type="radio"]:checked').val() == 'courseCheck') {
+            //alert("course!");
+            $('#programCode').attr('disabled', 'disabled');
+
+            $('#programCode').val("");
+
+            $('#courseCode').removeAttr('disabled');
+            $('#courseTitle').removeAttr('disabled');
+            $('#clsnum').removeAttr('disabled');
+
+
+
+            $('#courseCode').removeClass('coursecoderegex required error');
+            $('#courseTitle').removeClass('required error');
+            $('#clsnum').removeClass('clsnumdigit required error');
+
+            $('#lateEnrollmentForm').valid();
+
+            $('#courseCode').addClass('coursecoderegex required error');
+            $('#courseTitle').addClass('required error');
+            $('#clsnum').addClass('clsnumdigit required error');
+
+
+        }
+        if ($('input[type="radio"]:checked').val() == 'programCheck') {
+            //alert("program!");
+            $('#programCode').removeAttr('disabled');
+            $('#courseCode').attr('disabled', 'disabled');
+            $('#courseTitle').attr('disabled', 'disabled');
+            $('#clsnum').attr('disabled', 'disabled');
+
+            $('#courseCode').val("");
+            $('#courseTitle').val("");
+            $('#clsnum').val("");
+
+            $('#programCode').removeClass('progcoderegex required error');
+            $('#lateEnrollmentForm').valid();
+            $('#programCode').addClass('progcoderegex required error');
+
+        }
+
+    });
+
+    $('#lateEnrollmentForm').validate({
+
+    });
+
+
+
+</script>
