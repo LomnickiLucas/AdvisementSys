@@ -85,7 +85,7 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
+                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { id="date", @class="required", @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
                 </td>
                 <td>
@@ -119,7 +119,7 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, new { @style = "width:775px; height:100px; resize:none;" })
+                    @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, new { id="reason", @class="required", @style = "width:775px; height:100px; resize:none;" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
                 </td>
             </tr>
@@ -156,3 +156,10 @@
         @Html.ActionLink("Back to Issue", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.issueid, "Issue")
     </div>
 </div>
+
+
+<script type="text/javascript">
+        $('#programWithdrawalForm').validate({
+
+        });
+</script>

@@ -10,7 +10,7 @@
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 
 <div class="contentDiv">  
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Edit", "ProgramWithdrawal", FormMethod.Post, new { id = "programWithdrawalForm", name = "programWithdrawalForm" })) {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawid)
         @Html.HiddenFor(model => model._applicationForTermOrCompleteProgramWithdrawal.issueid)
@@ -86,7 +86,7 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
+                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new {id="date", @class="required", @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
                 </td>
                 <td>
@@ -121,7 +121,7 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, new { @style = "width:775px; height:100px; resize:none;" })
+                    @Html.TextAreaFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal, new { id="reason", @class="required", @style = "width:775px; height:100px; resize:none;" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.reasonwithdrawal)
                 </td>
             </tr>
@@ -160,3 +160,10 @@
 <div>
     @Html.ActionLink("Back to Application For Term or Program Withdrawal Form", "Details/" + Model._applicationForTermOrCompleteProgramWithdrawal.withdrawid)
 </div>
+
+<script type="text/javascript">
+    $('#programWithdrawalForm').validate({
+
+    });
+</script>
+
