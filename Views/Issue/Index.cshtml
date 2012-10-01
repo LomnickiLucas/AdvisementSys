@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Please Select a Status", "In Progress", "On Hold", "Complete" }))
+                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Any", "In Progress", "On Hold", "Complete" }))
                     </div>
                 </td>
                 <td>
@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Please Select an Urgency Level", "High", "Medium", "Low" }))
+                        @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Any", "High", "Medium", "Low" }))
                     </div>
                 </td>
             </tr>
