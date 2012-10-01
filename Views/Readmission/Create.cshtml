@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
@@ -68,14 +70,14 @@
                 Date:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.date, new { @Value = Model._applicationForReadmission.date.ToString("dd MMM yyyy") })
+                @Html.EditorFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
             </td>
             <td>
                 Status:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.status)
+                @Html.DropDownListFor(model => model._applicationForReadmission.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForReadmission.status), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.status)
             </td>
         </tr>
@@ -89,7 +91,7 @@
                 Purpose:
             </td>
             <td colspan="3">
-                @Html.EditorFor(model => model._applicationForReadmission.purpose)
+                @Html.DropDownListFor(model => model._applicationForReadmission.purpose, new SelectList(new[] { "Readmission", "Campus Transfer", "Program Transfer" }, Model._applicationForReadmission.purpose), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.purpose)
             </td>
         </tr>
@@ -126,7 +128,7 @@
                 Semester:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.newsemyear)
+                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
             </td>
         </tr>
@@ -163,7 +165,7 @@
                 Semester:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.oldsemyear)
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.oldsemyear), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
             </td>
         </tr>
@@ -201,7 +203,7 @@
                             Semester/Year:
                         </td>
                         <td>
-                            @Html.EditorFor(model => model._applicationForReadmission.term)
+                            @Html.DropDownListFor(model => model._applicationForReadmission.term, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.term), new { @class = "required" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.term)
                         </td>
                     </tr>
@@ -248,7 +250,7 @@
                             Semester:
                         </td>
                         <td>
-                            @Html.EditorFor(model => model._applicationForReadmission.recommendedsemyear)
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { @class = "required" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
                         </td>
                     </tr>
@@ -324,3 +326,9 @@
 <div>
     @Html.ActionLink("Back to Student Issue", "Details/" + Model._applicationForReadmission.issueid, "Issue")
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+    });
+</script>

@@ -103,14 +103,14 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }), new { @class = "required" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { @class = "required" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
                 </td>
                 <td>
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }), new { @class = "required" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { @class = "required" })
                 </td>
             </tr>
         
