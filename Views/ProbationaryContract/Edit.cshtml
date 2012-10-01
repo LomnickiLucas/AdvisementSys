@@ -61,7 +61,7 @@
                     *Date:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._probationaryContractPlan.date, new { id = "datepicker", @class = "required", @Value = Model._probationaryContractPlan.date.ToString("dd MMM yyyy") })
+                    @Html.TextBoxFor(model => model._probationaryContractPlan.date, new { id = "datepicker", @class = "required", @Value = Model._probationaryContractPlan.date.ToString("dd/MM/yyyy") })
                     @Html.ValidationMessageFor(model => model._probationaryContractPlan.date)
                 </td>
                 <td>
@@ -118,7 +118,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $("#datepicker").datepicker({ dateFormat: "mm/dd/yy" });
+        $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
         $("#probationContractForm").validate();
 
     });
