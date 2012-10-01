@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
@@ -86,14 +88,14 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, "*Date:")
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new {id="date", @class="required", @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("dd MMM yyyy") })
+                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date, new { id = "datepicker", @class = "required", @Value = Model._applicationForTermOrCompleteProgramWithdrawal.date.ToString("MM/dd/yyyy") })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.date)
                 </td>
                 <td>
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, "*Status:")
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForTermOrCompleteProgramWithdrawal.status), new { @class = "required" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
                 </td>
             </tr>
@@ -103,14 +105,14 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }))
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }, Model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm), new { @class = "required" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
                 </td>
                 <td>
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }))
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring 2012", "Fall 2012", "Winter 2013", "Spring 2013" }, Model._applicationForTermOrCompleteProgramWithdrawal.returnterm), new { @class = "required" })
                 </td>
             </tr>
 
@@ -162,7 +164,13 @@
 </div>
 
 <script type="text/javascript">
-    $('#programWithdrawalForm').validate({
+
+    $(document).ready(function () {
+        $("#datepicker").datepicker({ dateFormat: "mm/dd/yy" });
+    });
+
+    $('#programWithdrawalForm').vali
+    ({
 
     });
 </script>
