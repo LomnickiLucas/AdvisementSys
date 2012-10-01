@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="Stylesheet" type="text/css" />
 
 <div class="contentDiv">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create", "CourseRegistration", FormMethod.Post, new { id = "courseRegistrationForm", name = "courseRegistrationForm" }))
     {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid)
         @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid)
     
-        <h2>New Part-Time and/or/ Additional Course Registration Form</h2>  
+        <h2>New Part-Time and/or Additional Course Registration Form</h2>  
     
         <table>
             <tr>
@@ -55,25 +55,26 @@
             </tr>
             <tr>
                 <td>
-                    Term:
+                    *Term:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.term)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.term, new { id="term", @class="required"})
+                    @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.term)
                 </td>
                 <td>
-                    Date:
+                    *Date:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date, new { @Value = Model._part_timeAnd_orAdditionalCourseRegistrationForm.date.ToString("dd MMM yyyy") })
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date, new { id="date", @class="required", @Value = Model._part_timeAnd_orAdditionalCourseRegistrationForm.date.ToString("dd MMM yyyy") })
                     @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.date)
                 </td>
             </tr>
             <tr>
                 <td>
-                    Status:
+                    *Status:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status, new { id="status", @class="required"})
                     @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.status)
                 </td>
             </tr>
@@ -84,31 +85,33 @@
             </tr>
             <tr>
                 <td>
-                    CLS #:
+                    *CLS #:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.clsnum)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.clsnum, new { id = "clsnum", @class = "required clsnumdigit" })
+                    @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.clsnum)
                 </td>
                 <td>
-                    Course Code:
+                    *Course Code:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode, new { id = "coursecode", @class = "required coursecoderegex" })
                     @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecode)
                 </td>
             </tr>
             <tr>
                 <td>
-                    Credit Value:
+                    *Credit Value:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.creditvalue)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.creditvalue, new { id="creditvalue", @class="required"})
+                    @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.creditvalue)
                 </td>
                 <td>
-                    Course Cost:
+                    *Course Cost:
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges, new { id = "courseCharges", @class = "required costRegex" })
                     @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
                 </td>
             </tr>
@@ -117,15 +120,15 @@
                     Program Materials/Kit Charges (if applicable):
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees)
-                    @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees, new { id = "matfees", @class = "costRegex" })
+                    
                 </td>
                 <td>
                     Mobile Computing Charges (if applicable):
                 </td>
                 <td>
-                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges)
-                    @Html.ValidationMessageFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges)
+                    @Html.TextBoxFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges, new { id = "compcharges", @class = "costRegex" })
+                    
                 </td>
             </tr>
             <tr>
@@ -133,16 +136,75 @@
                     Total:
                 </td>
                 <td>
-                    $ Insert auto-calc here
+                    <input type="text" id="totalText" readonly="readonly" style="border:none;"/>
                 </td>
             </tr>
         </table>
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+       <br />
+        <div>
+         <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/>
+         <!--<input type="button" value="Calculate" class="Button" style="position: relative; left: 100px; bottom:29px;"/> -->
+         </div>
+    <p>Fields marked with an * are mandatory.</p>
     }
 
     <div>
         @Html.ActionLink("Back to Student Issue", "Details/" + Model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid, "Issue")
     </div>
 </div>
+<script type="text/javascript">
+
+    $.validator.addMethod("clsnumdigit", function (value) {
+        return value.match(/^\d{5}$/);
+    }, 'Please enter a 5 digit number');
+
+    $.validator.addMethod("costRegex", function (value) {
+        return value.match(/^.{0,8}$/);
+    }, 'Please enter a valid value');
+
+    $.validator.addMethod("coursecoderegex", function (value) {
+        return value.match(/^[A-Z]{4}\d{5}$/);
+    }, 'Please enter a valid course code');
+
+    $('#courseRegistrationForm').validate({
+    });
+
+    (function ($) {
+        $.fn.currencyFormat = function () {
+            this.each(function (i) {
+                $(this).change(function (e) {
+                    if (isNaN(parseFloat(this.value))) return;
+                    this.value = parseFloat(this.value).toFixed(2);
+                });
+            });
+            return this; //for chaining
+        }
+    })(jQuery);
+
+    $(function () {
+        var textBox1 = $('input:text[id$=courseCharges]').keyup(foo).currencyFormat();
+        var textBox2 = $('input:text[id$=matfees]').keyup(foo).currencyFormat();
+        var textBox3 = $('input:text[id$=compcharges]').keyup(foo).currencyFormat();
+
+        function foo() {
+            var value1 = textBox1.val();
+            var value2 = textBox2.val();
+            var value3 = textBox3.val();
+            var sum = add(value1, value2, value3);
+            $('input:text[id$=totalText]').val(sum);
+        }
+
+        function add() {
+            var sum = 0;
+            for (var i = 0, j = arguments.length; i < j; i++) {
+                if (IsNumeric(arguments[i])) {
+                    sum += parseFloat(arguments[i]);
+                }
+            }
+            return sum.toFixed(2);
+        }
+        function IsNumeric(input) {
+            return (input - 0) == input && input.length > 0;
+        }
+    });
+</script>

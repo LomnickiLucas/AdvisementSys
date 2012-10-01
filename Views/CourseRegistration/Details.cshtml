@@ -3,9 +3,15 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    double number1 = double.Parse(Model._part_timeAnd_orAdditionalCourseRegistrationForm.matfees.ToString());
+    double n2 = double.Parse(Model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges.ToString());
+    double n3 = double.Parse(Model._part_timeAnd_orAdditionalCourseRegistrationForm.compcharges.ToString());
+    double x = number1 + n2 + n3;
+    
 }
 
-<h2>Edit Part-Time and/or/ Additional Course Registration Form</h2>
+<h2>Details for Part-Time and/or/ Additional Course Registration Form</h2>
 
 @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid)
 @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid)
@@ -97,7 +103,7 @@
             Course Cost:
         </td>
         <td>
-            $ @Html.DisplayFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges)
+            $ @Html.DisplayFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.coursecharges, new { id="testCost"})
         </td>
     </tr>
     <tr>
@@ -119,12 +125,13 @@
             Total:
         </td>
         <td>
-            $ Insert auto-calc here
+            $ @String.Format("{0:0.00}", x)
+           
         </td>
     </tr>
 </table>
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Student Issue", "Details/" + Model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid, "Issue")
 </p>
