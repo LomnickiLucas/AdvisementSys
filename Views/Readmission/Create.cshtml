@@ -5,239 +5,320 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>applicationForReadmission</legend>
+    @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
+    @Html.HiddenFor(model => model._applicationForReadmission.issueid)
+    <h2>New Application for Readmission</h2>
+    <table style="width: 800px;">
+        <tr>
+            <td colspan="4">
+                <h3>Student Information</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Student ID:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.studentid)
+            </td>
+            <td>
+                Name:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.fname)
+                @Html.DisplayFor(model => model._student.lname)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.street)
+                @Html.DisplayFor(model => model._student.appartmentnum)
+            </td>
+            <td>
+                City:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.city)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Province:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.province)
+            </td>
+            <td>
+                Postal Code:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model._student.postalcode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.date, new { @Value = Model._applicationForReadmission.date.ToString("dd MMM yyyy") })
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
+            </td>
+            <td>
+                Status:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.status)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.status)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <h3>Readmission Information</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Purpose:
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => model._applicationForReadmission.purpose)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.purpose)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <h4>New Program</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Program:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.newprogram)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.newprogram)
+            </td>
+            <td>
+                Campus:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.newcampus)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.newcampus)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Full-Time:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.newfulltime)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.newfulltime)
+            </td>
+            <td>
+                Semester:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.newsemyear)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <h4>Old Program</h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Program:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.oldprogram)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.oldprogram)
+            </td>
+            <td>
+                Campus:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.oldcampus)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.oldcampus)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Full-Time:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.oldfulltime)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.oldfulltime)
+            </td>
+            <td>
+                Semester:
+            </td>
+            <td>
+                @Html.EditorFor(model => model._applicationForReadmission.oldsemyear)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
+            </td>
+        </tr>
+    </table>
+    <table border=1px>
+        <tr>
+            <td colspan="2">
+                <h3>Assessment</h3>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 15%;">
+                *Radio Button*
+                @Html.EditorFor(model => model._applicationForReadmission.approved)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
+            </td>
+            <td>
+                The student request is acceptable as indicated above.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                *Radio Button*
+            </td>
+            <td>
+                The student may enter the program in the following semester/year
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Semester/Year:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model._applicationForReadmission.term)
+                            @Html.ValidationMessageFor(model => model._applicationForReadmission.term)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                *Radio Button*
+            </td>
+            <td>
+                The student has been recommended for a program change
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Program:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model._applicationForReadmission.recommendedprogram)
+                            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedprogram)
+                        </td>
+                        <td>
+                            Campus:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model._applicationForReadmission.recomendedcampus)
+                            @Html.ValidationMessageFor(model => model._applicationForReadmission.recomendedcampus)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Full-Time:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model._applicationForReadmission.recommendedfulltime)
+                            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedfulltime)
+                        </td>
+                        <td>
+                            Semester:
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model._applicationForReadmission.recommendedsemyear)
+                            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                *Radio Button*
+            </td>
+            <td>
+                The student request is acceptable with the following conditions:
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                *Text Area*
+                @Html.EditorFor(model => model._applicationForReadmission.acceptableconditional)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.acceptableconditional)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                *Radio Button*
+            </td>
+            <td>
+                The student may be readmitted into the program on academic probation
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                *Text Area*
+                @Html.EditorFor(model => model._applicationForReadmission.probation)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.probation)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                *Radio Button*
+                @Html.EditorFor(model => model._applicationForReadmission.special)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
+            </td>
+            <td>
+                A special timetable has been given to the student and is attached
+            </td>
+        </tr>
+        <tr>
+            <td>
+                *Radio Button*
+            </td>
+            <td>
+                Program change NOT APPROVED
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                *Text Area*
+                @Html.EditorFor(model => model._applicationForReadmission.comments)
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.comments)
+            </td>
+        </tr>
+    </table>
 
-        @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
-        @Html.HiddenFor(model => model._applicationForReadmission.issueid)
-
-        <div class="display-label">
-            First Name:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.fname)
-        </div>
-
-        <div class="display-label">
-            Last Name:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.lname)
-        </div>
-
-        <div class="display-label">
-            Student ID:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.studentid)
-        </div>
-
-        <div class="display-label">
-            Street:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.street)
-        </div>
-
-        <div class="display-label">
-            Appartment #:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.appartmentnum)
-        </div>
-
-        <div class="display-label">
-             City:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.city)
-        </div>
-
-        <div class="display-label">
-            Province:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.province)
-        </div>
-
-        <div class="display-label">
-            Postal Code:</div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model._student.postalcode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.date)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.date, new { @Value = Model._applicationForReadmission.date.ToString("dd MMM yyyy") })
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.oldprogram)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.oldprogram)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.oldprogram)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.oldfulltime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.oldfulltime)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.oldfulltime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.oldsemyear)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.oldsemyear)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.oldcampus)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.oldcampus)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.oldcampus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.newprogram)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.newprogram)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.newprogram)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.newfulltime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.newfulltime)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.newfulltime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.newsemyear)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.newsemyear)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.newcampus)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.newcampus)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.newcampus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.recommendedprogram)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.recommendedprogram)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedprogram)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.recommendedfulltime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.recommendedfulltime)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedfulltime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.recommendedsemyear)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.recommendedsemyear)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.recomendedcampus)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.recomendedcampus)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.recomendedcampus)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.approved)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.approved)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.acceptableconditional)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.acceptableconditional)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.acceptableconditional)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.term)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.term)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.term)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.comments)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.comments)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.comments)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.probation)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.probation)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.probation)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.special)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.special)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.status)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.status)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.status)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model._applicationForReadmission.purpose)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model._applicationForReadmission.purpose)
-            @Html.ValidationMessageFor(model => model._applicationForReadmission.purpose)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+    <p>
+        <input type="submit" value="Create" />
+    </p>
 }
 
 <div>

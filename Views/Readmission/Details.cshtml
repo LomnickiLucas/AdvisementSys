@@ -5,167 +5,293 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<fieldset>
-    <legend>applicationForReadmission</legend>
 
-    @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
-    @Html.HiddenFor(model => model._applicationForReadmission.issueid)
+@Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
+@Html.HiddenFor(model => model._applicationForReadmission.issueid)
+<h2>Application for Readmission</h2>
+<table style="width: 800px;">
+    <tr>
+        <td colspan="4">
+            <h3>Student Information</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Student ID:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.studentid)
+        </td>
+        <td>
+            Name:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.fname)
+            @Html.DisplayFor(model => model._student.lname)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Address:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.street)
+            @Html.DisplayFor(model => model._student.appartmentnum)
+        </td>
+        <td>
+            City:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.city)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Province:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.province)
+        </td>
+        <td>
+            Postal Code:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._student.postalcode)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Date:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.date)
+        </td>
+        <td>
+            Status:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.status)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <h3>Readmission Information</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Purpose:
+        </td>
+        <td colspan="3">
+            @Html.DisplayFor(model => model._applicationForReadmission.purpose)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <h4>New Program</h4>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Program:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.newprogram)
+        </td>
+        <td>
+            Campus:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.newcampus)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Full-Time:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.newfulltime)
+        </td>
+        <td>
+            Semester:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.newsemyear)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <h4>Old Program</h4>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Program:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.oldprogram)
+        </td>
+        <td>
+            Campus:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.oldcampus)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Full-Time:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.oldfulltime)
+        </td>
+        <td>
+            Semester:
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.oldsemyear)
+        </td>
+    </tr>
+</table>
+<table border=1px>
+    <tr>
+        <td colspan="2">
+            <h3>Assessment</h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 15%;">
+            *Radio Button*
+            @Html.DisplayFor(model => model._applicationForReadmission.approved)
+        </td>
+        <td>
+            The student request is acceptable as indicated above.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            *Radio Button*
+        </td>
+        <td>
+            The student may enter the program in the following semester/year
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        Semester/Year:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model._applicationForReadmission.term)
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            *Radio Button*
+        </td>
+        <td>
+            The student has been recommended for a program change
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        Program:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedprogram)
+                    </td>
+                    <td>
+                        Campus:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model._applicationForReadmission.recomendedcampus)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Full-Time:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedfulltime)
+                    </td>
+                    <td>
+                        Semester:
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedsemyear)
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+        
+    <tr>
+        <td>
+            *Radio Button*
+        </td>
+        <td>
+            The student request is acceptable with the following conditions:
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            *Text Area*
+            @Html.DisplayFor(model => model._applicationForReadmission.acceptableconditional)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            *Radio Button*
+        </td>
+        <td>
+            The student may be readmitted into the program on academic probation
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            *Text Area*
+            @Html.DisplayFor(model => model._applicationForReadmission.probation)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            *Radio Button*
+            @Html.DisplayFor(model => model._applicationForReadmission.special)
+        </td>
+        <td>
+            A special timetable has been given to the student and is attached
+        </td>
+    </tr>
+    <tr>
+        <td>
+            *Radio Button*
+        </td>
+        <td>
+            Program change NOT APPROVED
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            *Text Area*
+            @Html.DisplayFor(model => model._applicationForReadmission.comments)
+        </td>
+    </tr>
+</table>
 
-    <div class="display-label">
-        First Name:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.fname)
-    </div>
-
-    <div class="display-label">
-        Last Name:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.lname)
-    </div>
-
-    <div class="display-label">
-        Student ID:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.studentid)
-    </div>
-
-    <div class="display-label">
-        Street:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.street)
-    </div>
-
-    <div class="display-label">
-        Appartment #:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.appartmentnum)
-    </div>
-
-    <div class="display-label">
-         City:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.city)
-    </div>
-
-    <div class="display-label">
-        Province:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.province)
-    </div>
-
-    <div class="display-label">
-        Postal Code:</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._student.postalcode)
-    </div>
-
-    <div class="display-label">date</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.date)
-    </div>
-
-    <div class="display-label">oldprogram</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.oldprogram)
-    </div>
-
-    <div class="display-label">oldfulltime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.oldfulltime)
-    </div>
-
-    <div class="display-label">oldsemyear</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.oldsemyear)
-    </div>
-
-    <div class="display-label">oldcampus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.oldcampus)
-    </div>
-
-    <div class="display-label">newprogram</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.newprogram)
-    </div>
-
-    <div class="display-label">newfulltime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.newfulltime)
-    </div>
-
-    <div class="display-label">newsemyear</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.newsemyear)
-    </div>
-
-    <div class="display-label">newcampus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.newcampus)
-    </div>
-
-    <div class="display-label">recommendedprogram</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.recommendedprogram)
-    </div>
-
-    <div class="display-label">recommendedfulltime</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.recommendedfulltime)
-    </div>
-
-    <div class="display-label">recommendedsemyear</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.recommendedsemyear)
-    </div>
-
-    <div class="display-label">recomendedcampus</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.recomendedcampus)
-    </div>
-
-    <div class="display-label">approved</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.approved)
-    </div>
-
-    <div class="display-label">acceptableconditional</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.acceptableconditional)
-    </div>
-
-    <div class="display-label">term</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.term)
-    </div>
-
-    <div class="display-label">conditions</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.comments)
-    </div>
-
-    <div class="display-label">probation</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.probation)
-    </div>
-
-    <div class="display-label">special</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.special)
-    </div>
-
-    <div class="display-label">status</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.status)
-    </div>
-
-    <div class="display-label">purpose</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._applicationForReadmission.purpose)
-    </div>
-</fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model._applicationForReadmission.readmissionid }) |
     @Html.ActionLink("Back to Student Issue", "Details/" + Model._applicationForReadmission.issueid, "Issue")
