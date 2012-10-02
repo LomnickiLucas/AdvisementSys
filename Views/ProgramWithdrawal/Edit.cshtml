@@ -105,14 +105,14 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm), new { @class = "required" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm), new { id = "withdrawalterm", @class = "select1Validation" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
                 </td>
                 <td>
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForTermOrCompleteProgramWithdrawal.returnterm), new { @class = "required" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForTermOrCompleteProgramWithdrawal.returnterm), new { id = "returmterm", @class = "select2Validation" })
                 </td>
             </tr>
 
@@ -169,9 +169,27 @@
         $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
     });
 
-    $('#programWithdrawalForm').validate
-    ({
+    $.validator.addMethod("select1Validation", function (value) {
+        if ($('#withdrawalterm').val() == "Please Select") {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }, 'Please Select required fields');
+
+    $.validator.addMethod("select2Validation", function (value) {
+        if ($('#returmterm').val() == "Please Select") {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }, 'Please Select required fields');
+
+    $('#programWithdrawalForm').validate({
 
     });
+
 </script>
 

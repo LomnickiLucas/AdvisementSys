@@ -127,7 +127,7 @@
         <tr>
             <td>
                 <div class="display-label">
-                    status</div>
+                    Status</div>
             </td>
             <td>
                 <div class="display-field">
@@ -180,30 +180,30 @@
         @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
     </p>
 
-    <div id="accordion" style="width:1080px;">
+    <div id="accordion" style="width:740px;">
 	    <h3><a href="#">Create New Form</a></h3>
 	    <div>
-            @Html.ActionLink("Create New Prbationary Contract Plan", "create/" + Model._issue.issueid, "ProbationaryContract")
+            @Html.ActionLink("Create New Probationary Contract Form", "create/" + Model._issue.issueid, "ProbationaryContract")
             <br />
-            @Html.ActionLink("Create New Course Registration Form", "create/" + Model._issue.issueid, "CourseRegistration")
+            @Html.ActionLink("Create New Part-Time and/or Additional Course Registration Form", "create/" + Model._issue.issueid, "CourseRegistration")
             <br />
-            @Html.ActionLink("Create New Late Enrollment Form", "create/" + Model._issue.issueid, "LateEnrollment")
+            @Html.ActionLink("Create New Request for Late Enrolment Form", "create/" + Model._issue.issueid, "LateEnrollment")
             <br />
-            @Html.ActionLink("Create New Program Withdrawal Form", "create/" + Model._issue.issueid, "ProgramWithdrawal")
+            @Html.ActionLink("Create New Application for Term or Complete Program Withdrawal Form", "create/" + Model._issue.issueid, "ProgramWithdrawal")
             <br />
-            @Html.ActionLink("Create New Readmission Form", "create/" + Model._issue.issueid, "Readmission")
+            @Html.ActionLink("Create New Application for Readmission Form", "create/" + Model._issue.issueid, "Readmission")
         </div>
     </div>
     <br />
 
     <table class="resultsissue">
     <tr>
-        <th style="width: 10%;">
+        <th style="width: 8%;">
         </th>
-        <th style="width: 45%;">
+        <th style="width: 10%;">
             Date
         </th>
-        <th style="width: 15%;">
+        <th style="width: 30%;">
             Name
         </th>
         <th style="width: 15%;">
@@ -230,7 +230,7 @@
 </table>
 </div>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#accordion").accordion({ collapsible: true, active: 2 });
     });
