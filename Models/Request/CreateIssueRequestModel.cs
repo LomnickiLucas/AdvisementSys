@@ -15,6 +15,6 @@ namespace AdvisementSys.Models.Request
 
         public IEnumerable<catagory> _catagory { get; set; }
 
-        public IEnumerable<employee> _employee { get; set; }
+        public IEnumerable<String> _employee { get; set; }
     }
 }

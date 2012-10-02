@@ -115,10 +115,11 @@ namespace AdvisementSys.Controllers
 
         public ViewResult Details(Guid id)
         {
-            issue issue = db.issues.Include("student").Single(i => i.issueid == id);
+            issue issue = db.issues.Include("employee").Single(i => i.issueid == id);
             student student = db.students.Single(i => i.studentid == issue.studentid);
             program program = db.programs.Single(i => i.programcode == issue.student.programcode);
-            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program };
+            String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
+            DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp };
             List<Forms> Forms = new List<Forms>();
             IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
             foreach (applicationForReadmission form in applicationForReadmission)
@@ -195,7 +196,13 @@ namespace AdvisementSys.Controllers
             program program = db.programs.Single(i => i.programcode == student.programcode);
             IEnumerable<catagory> catagory = db.catagories;
             IEnumerable<employee> employee = db.employees;
-            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program, _catagory = catagory, _employee = employee };
+            List<String> employees = new List<String>();
+            employees.Add("Please Select a Employee");
+            foreach (employee emp in employee)
+            {
+                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+            }
+            CreateIssueRequestModel model = new CreateIssueRequestModel() { _issue = issue, _student = student, _program = program, _catagory = catagory, _employee = employees };
             return View(model);
         }
 
@@ -207,6 +214,9 @@ namespace AdvisementSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
+                sb.Remove(9, sb.Length - 9);
+                model._issue.employeeid = sb.ToString();
                 model._issue.issueid = Guid.NewGuid();
                 model._issue.studentid = id;
                 db.issues.AddObject(model._issue);
@@ -229,7 +239,13 @@ namespace AdvisementSys.Controllers
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", issue.studentid);
             IEnumerable<catagory> catagory = db.catagories;
             IEnumerable<employee> employee = db.employees;
-            EditIssueRequestModel model = new EditIssueRequestModel() { _issue = issue, _program = program, _student = student, _catagory = catagory, _employee = employee };
+            List<String> employees = new List<String>();
+            employees.Add("Please Select a Employee");
+            foreach (employee emp in employee)
+            {
+                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+            }
+            EditIssueRequestModel model = new EditIssueRequestModel() { _issue = issue, _program = program, _student = student, _catagory = catagory, _employee = employees };
             return View(model);
         }
 
@@ -241,6 +257,9 @@ namespace AdvisementSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
+                sb.Remove(9, sb.Length - 9);
+                model._issue.employeeid = sb.ToString();
                 db.issues.Attach(model._issue);
                 db.ObjectStateManager.ChangeObjectState(model._issue, EntityState.Modified);
                 db.SaveChanges();

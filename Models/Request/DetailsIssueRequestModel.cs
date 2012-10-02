@@ -14,5 +14,7 @@ namespace AdvisementSys.Models.Request
         public program _program { get; set; }
 
         public IEnumerable<Forms> _Forms { get; set; }
+
+        public String _EmployeeID { get; set; }
     }
 }

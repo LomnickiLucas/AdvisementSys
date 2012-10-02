@@ -354,7 +354,6 @@
           <Property Name="term" Type="int" Nullable="false" />
           <Property Name="clsnum" Type="char" Nullable="false" MaxLength="5" />
           <Property Name="creditvalue" Type="decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="progyear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="probationaryContractPlan">
           <Key>
@@ -1221,7 +1220,6 @@
           <Property Name="term" Type="Int32" Nullable="false" />
           <Property Name="clsnum" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="true" />
           <Property Name="creditvalue" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="progyear" Type="Int32" Nullable="false" />
           <NavigationProperty Name="issue" Relationship="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" FromRole="part_timeAnd_orAdditionalCourseRegistrationForm" ToRole="issue" />
         </EntityType>
         <EntityType Name="probationaryContractPlan">
@@ -1814,7 +1812,6 @@
             <ScalarProperty Name="term" ColumnName="term" />
             <ScalarProperty Name="clsnum" ColumnName="clsnum" />
             <ScalarProperty Name="creditvalue" ColumnName="creditvalue" />
-            <ScalarProperty Name="progyear" ColumnName="progyear" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="probationaryContractPlans"><EntityTypeMapping TypeName="Model.probationaryContractPlan"><MappingFragment StoreEntitySet="probationaryContractPlan">
             <ScalarProperty Name="advisementid" ColumnName="advisementid" />
@@ -1935,7 +1932,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AdvisementDB">
+      <Diagram Name="AdvisementDB" ZoomLevel="52">
         <EntityTypeShape EntityType="Model.applicationForReadmission" Width="1.5" PointX="24" PointY="18.5" Height="5.634013671874996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.applicationForTermOrCompleteProgramWithdrawal" Width="1.5" PointX="24" PointY="14.75" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.appointment" Width="1.5" PointX="18.75" PointY="23.75" Height="2.9417936197916674" IsExpanded="true" />
@@ -1949,7 +1946,7 @@
         <EntityTypeShape EntityType="Model.issue" Width="1.5" PointX="21.75" PointY="22.875" Height="4.4802050781250031" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.location" Width="1.5" PointX="13.5" PointY="25.125" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.note" Width="1.5" PointX="27" PointY="23.375" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.part_timeAnd_orAdditionalCourseRegistrationForm" Width="1.5" PointX="24" PointY="28" Height="3.5186979166666674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.part_timeAnd_orAdditionalCourseRegistrationForm" Width="1.5" PointX="24" PointY="28" Height="3.3263964843750031" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.probationaryContractPlan" Width="1.5" PointX="24" PointY="32.25" Height="2.5571907552083388" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.professor" Width="1.5" PointX="8.5" PointY="25.25" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.program" Width="1.5" PointX="11.25" PointY="24.375" Height="3.5186979166666674" IsExpanded="true" />
@@ -2146,10 +2143,10 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_part_timeAnd_orAdditionalCourseRegistrationForm_issue" ManuallyRouted="false">
           <ConnectorPoint PointX="22.5" PointY="27.355205078125003" />
-          <ConnectorPoint PointX="22.5" PointY="29.759348958333334" />
-          <ConnectorPoint PointX="22.822919166666669" PointY="29.759348958333334" />
-          <ConnectorPoint PointX="22.989585833333333" PointY="29.759348958333334" />
-          <ConnectorPoint PointX="24" PointY="29.759348958333334" />
+          <ConnectorPoint PointX="22.5" PointY="29.6631982421875" />
+          <ConnectorPoint PointX="22.822919166666669" PointY="29.6631982421875" />
+          <ConnectorPoint PointX="22.989585833333333" PointY="29.6631982421875" />
+          <ConnectorPoint PointX="24" PointY="29.6631982421875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_probationaryContractPlan_issue" ManuallyRouted="false">
           <ConnectorPoint PointX="22.9062525" PointY="27.355205078125003" />

@@ -199,21 +199,6 @@ namespace AdvisementSys.Models
             }
         }
         private decimal _creditvalue;
-    
-        [DataMember]
-        public int progyear
-        {
-            get { return _progyear; }
-            set
-            {
-                if (_progyear != value)
-                {
-                    _progyear = value;
-                    OnPropertyChanged("progyear");
-                }
-            }
-        }
-        private int _progyear;
 
         #endregion
         #region Navigation Properties

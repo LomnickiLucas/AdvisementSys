@@ -101,7 +101,7 @@
             </td>
             <td>
                 <div class="display-field">
-                    @Html.DropDownListFor(model => model._issue.employeeid, new SelectList(Model._employee, "employeeid", "employeeid"))
+                    @Html.DropDownListFor(model => model._issue.employeeid, new SelectList(Model._employee, Model._issue.employeeid))
                 </div>
             </td>
             <td>
