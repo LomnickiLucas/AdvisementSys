@@ -83,6 +83,8 @@ namespace AdvisementSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_CreateReadmissionForm._applicationForReadmission.term == "Please Select") _CreateReadmissionForm._applicationForReadmission.term = null;
+                if (_CreateReadmissionForm._applicationForReadmission.recommendedsemyear == "Please Select") _CreateReadmissionForm._applicationForReadmission.recommendedsemyear = null;
                 if (_CreateReadmissionForm._applicationForReadmission.recomendedcampus == "Please Select a Campus") _CreateReadmissionForm._applicationForReadmission.recomendedcampus = null;
                 _CreateReadmissionForm._applicationForReadmission.readmissionid = Guid.NewGuid();
                 db.applicationForReadmissions.AddObject(_CreateReadmissionForm._applicationForReadmission);
@@ -127,6 +129,9 @@ namespace AdvisementSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_EditReadmissionForm._applicationForReadmission.term == "Please Select") _EditReadmissionForm._applicationForReadmission.term = null;
+                if (_EditReadmissionForm._applicationForReadmission.recommendedsemyear == "Please Select") _EditReadmissionForm._applicationForReadmission.recommendedsemyear = null;
+                if (_EditReadmissionForm._applicationForReadmission.recomendedcampus == "Please Select a Campus") _EditReadmissionForm._applicationForReadmission.recomendedcampus = null;
                 db.applicationForReadmissions.Attach(_EditReadmissionForm._applicationForReadmission);
                 db.ObjectStateManager.ChangeObjectState(_EditReadmissionForm._applicationForReadmission, EntityState.Modified);
                 db.SaveChanges();
