@@ -16,7 +16,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProgramWithdrawal/
-
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var applicationfortermorcompleteprogramwithdrawals = db.applicationForTermOrCompleteProgramWithdrawals.Include("issue");
@@ -25,7 +28,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProgramWithdrawal/Details/5
-
+        /// <summary>
+        /// Grabs a single entry in the database to populate the View 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             try
@@ -51,7 +58,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProgramWithdrawal/Create
-
+        /// <summary>
+        /// Grabs required  data for View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             try
@@ -77,7 +88,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProgramWithdrawal/Create
-
+        /// <summary>
+        /// Submits Create to Database
+        /// </summary>
+        /// <param name="_CreateProgramWithdrawalModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateProgramWithdrawalModel _CreateProgramWithdrawalModel)
         {
@@ -94,7 +109,11 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /ProgramWithdrawal/Edit/5
- 
+        /// <summary>
+        /// Ensures Edit View has the single entry from the Database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             try
@@ -120,7 +139,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProgramWithdrawal/Edit/5
-
+        /// <summary>
+        /// Edit is Submited to the Database
+        /// </summary>
+        /// <param name="_EditProgramWithdrawalModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditProgramWithdrawalModel _EditProgramWithdrawalModel)
         {
@@ -137,7 +160,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProgramWithdrawal/Delete/5
- 
+        /// <summary>
+        /// not in use, prob never will be
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
@@ -146,7 +173,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProgramWithdrawal/Delete/5
-
+        /// <summary>
+        /// Future use (GOT VISION)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {            

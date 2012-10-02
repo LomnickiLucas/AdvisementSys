@@ -16,7 +16,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProbationaryContract/
-
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var probationarycontractplans = db.probationaryContractPlans.Include("issue");
@@ -25,7 +28,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProbationaryContract/Details/5
-
+        /// <summary>
+        /// Get's single Entry by ID P.S. All of the Forms do...
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             try
@@ -51,7 +58,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProbationaryContract/Create
-
+        /// <summary>
+        /// Create gets the required data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             try
@@ -77,7 +88,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProbationaryContract/Create
-
+        /// <summary>
+        /// Submits the Form data to the database
+        /// </summary>
+        /// <param name="createprobationarycontractplanmodel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateProbationaryContractModel createprobationarycontractplanmodel)
         {
@@ -94,7 +109,11 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /ProbationaryContract/Edit/5
- 
+        /// <summary>
+        /// Gets data required for Edit View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             try
@@ -120,7 +139,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProbationaryContract/Edit/5
-
+        /// <summary>
+        /// Submits the Edit
+        /// </summary>
+        /// <param name="editprobationarycontractplanmodel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditProbationaryContractModel editprobationarycontractplanmodel)
         {
@@ -137,7 +160,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /ProbationaryContract/Delete/5
- 
+        /// <summary>
+        /// Not in use EVER!!!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
@@ -150,7 +177,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /ProbationaryContract/Delete/5
-
+        /// <summary>
+        /// For future use
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {            

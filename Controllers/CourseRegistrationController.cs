@@ -16,7 +16,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /CourseRegistration/
-
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Include("issue");
@@ -25,7 +28,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /CourseRegistration/Details/5
-
+        /// <summary>
+        /// Retrieves all data required for the main view for the form
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             try
@@ -51,7 +58,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /CourseRegistration/Create
-
+        /// <summary>
+        /// Gets all data required for the Create view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             try
@@ -77,7 +88,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /CourseRegistration/Create
-
+        /// <summary>
+        /// Submits the create view
+        /// </summary>
+        /// <param name="_CreateCourseRegistrationModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateCourseRegistrationModel _CreateCourseRegistrationModel)
         {
@@ -94,7 +109,11 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /CourseRegistration/Edit/5
- 
+        /// <summary>
+        /// Grabs all the required data for the Edit View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             try
@@ -120,7 +139,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /CourseRegistration/Edit/5
-
+        /// <summary>
+        /// Submits the Edit View
+        /// </summary>
+        /// <param name="_EditCourseRegistrationModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditCourseRegistrationModel _EditCourseRegistrationModel)
         {
@@ -137,7 +160,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /CourseRegistration/Delete/5
- 
+        /// <summary>
+        /// Not for use
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
@@ -146,7 +173,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /CourseRegistration/Delete/5
-
+        /// <summary>
+        /// For future endeavors
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {            

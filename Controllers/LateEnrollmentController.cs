@@ -16,7 +16,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /LateEnrollment/
-
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var requestforlateenrolments = db.requestForLateEnrolments.Include("issue");
@@ -25,7 +28,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /LateEnrollment/Details/5
-
+        /// <summary>
+        /// Gets a single entry by an ID
+        /// </summary>
+        /// <param name="id">EnrollementID</param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             try
@@ -51,7 +58,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /LateEnrollment/Create
-
+        /// <summary>
+        /// Gets all data required for Date View
+        /// </summary>
+        /// <param name="id">IssueID</param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             try
@@ -77,7 +88,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /LateEnrollment/Create
-
+        /// <summary>
+        /// Submits the requests
+        /// </summary>
+        /// <param name="_CreateLateEnrollementModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateLateEnrollementModel _CreateLateEnrollementModel)
         {
@@ -94,7 +109,11 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /LateEnrollment/Edit/5
- 
+        /// <summary>
+        /// Generates Edit View a grabs all required data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             try
@@ -120,7 +139,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /LateEnrollment/Edit/5
-
+        /// <summary>
+        /// Submits Edit Request
+        /// </summary>
+        /// <param name="_EditLateEnrollementModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditLateEnrollementModel _EditLateEnrollementModel)
         {
@@ -137,7 +160,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /LateEnrollment/Delete/5
- 
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             requestForLateEnrolment requestforlateenrolment = db.requestForLateEnrolments.Single(r => r.enrolementid == id);
@@ -146,7 +173,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /LateEnrollment/Delete/5
-
+        /// <summary>
+        /// For future implementations
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {            

@@ -17,7 +17,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/
-
+        /// <summary>
+        /// Ensures tha field have the proper information
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var issues = db.issues.Include("student");
@@ -42,7 +45,11 @@ namespace AdvisementSys.Controllers
             IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues.OrderByDescending(i => i.date), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
             return View(Model);
         }
-
+        /// <summary>
+        /// goes the througgh the search paramaters and returns just the results that fullfil the criteria
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(IndexIssueRequestModel Model)
         {
@@ -112,7 +119,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/Details/5
-
+        /// <summary>
+        /// Gets a single Issue and finds all forms that are associated with that issue
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ViewResult Details(Guid id)
         {
             issue issue = db.issues.Include("employee").Single(i => i.issueid == id);
@@ -188,7 +199,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/Create
-
+        /// <summary>
+        /// Gets all required Data for the create view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(String id)
         {
             student student = db.students.Single(i => i.studentid == id);
@@ -208,7 +223,12 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Issue/Create
-
+        /// <summary>
+        /// Submits the create request
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateIssueRequestModel model, String id)
         {
@@ -230,7 +250,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/Edit/5
-
+        /// <summary>
+        /// Gets all data required for the Edit View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             issue issue = db.issues.Include("student").Single(i => i.issueid == id);
@@ -251,7 +275,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Issue/Edit/5
-
+        /// <summary>
+        /// Submits the Edit View
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditIssueRequestModel model)
         {
@@ -270,7 +298,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Issue/Delete/5
-
+        /// <summary>
+        /// Not in use
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             issue issue = db.issues.Single(i => i.issueid == id);
@@ -279,7 +311,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Issue/Delete/5
-
+        /// <summary>
+        /// Not for Use (Be aware of castcading effects and Soft deletes would need to be done if delete is to be required)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {

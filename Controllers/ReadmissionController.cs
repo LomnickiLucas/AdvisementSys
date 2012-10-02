@@ -9,7 +9,7 @@ using AdvisementSys.Models;
 using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
-{ 
+{
     public class ReadmissionController : Controller
     {
         private Entities db = new Entities();
@@ -17,6 +17,10 @@ namespace AdvisementSys.Controllers
         //
         // GET: /Readmission/
 
+        /// <summary>
+        /// Not Really in use.
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             var applicationforreadmissions = db.applicationForReadmissions.Include("issue");
@@ -25,7 +29,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Readmission/Details/5
-
+        /// <summary>
+        /// Displays all information to the user. Acts as Main view for the form.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             try
@@ -51,7 +59,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Readmission/Create
-
+        /// <summary>
+        /// Create view for readmission form. Ensures that Model is properly populated with data.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             try
@@ -73,11 +85,15 @@ namespace AdvisementSys.Controllers
             {
                 return RedirectToAction("Index", "Issue");
             }
-        } 
+        }
 
         //
         // POST: /Readmission/Create
-
+        /// <summary>
+        /// submits create request to the database.
+        /// </summary>
+        /// <param name="_CreateReadmissionForm"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateReadmissionForm _CreateReadmissionForm)
         {
@@ -89,15 +105,19 @@ namespace AdvisementSys.Controllers
                 _CreateReadmissionForm._applicationForReadmission.readmissionid = Guid.NewGuid();
                 db.applicationForReadmissions.AddObject(_CreateReadmissionForm._applicationForReadmission);
                 db.SaveChanges();
-                return RedirectToAction("Details/" + _CreateReadmissionForm._applicationForReadmission.readmissionid);  
+                return RedirectToAction("Details/" + _CreateReadmissionForm._applicationForReadmission.readmissionid);
             }
 
             return View(_CreateReadmissionForm);
         }
-        
+
         //
         // GET: /Readmission/Edit/5
- 
+        /// <summary>
+        /// Edit view for readmission form. Ensures that Model is properly populated with data.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             try
@@ -123,7 +143,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Readmission/Edit/5
-
+        /// <summary>
+        /// Submits Edit request to the Database.
+        /// </summary>
+        /// <param name="_EditReadmissionForm"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(EditReadmissionForm _EditReadmissionForm)
         {
@@ -143,7 +167,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Readmission/Delete/5
- 
+        /// <summary>
+        /// Not In use
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
@@ -152,10 +180,14 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Readmission/Delete/5
-
+        /// <summary>
+        /// Not In use will be in use in the future.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
             db.applicationForReadmissions.DeleteObject(applicationforreadmission);
             db.SaveChanges();

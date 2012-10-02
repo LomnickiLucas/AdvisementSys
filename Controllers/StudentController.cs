@@ -17,7 +17,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Student/
-
+        /// <summary>
+        /// Ensure the model has the proper object/information populated into it.
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Index()
         {
             ViewBag.campus = new SelectList(db.campus, "cname", "cname");
@@ -35,7 +38,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Student
-
+        /// <summary>
+        /// Grabs all the results then uses the search paramaters to narrow down the results. (I know it could be better Issue Index is improved and in the future it will be even better)
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(FormCollection collection)
         {
@@ -91,7 +98,11 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Student/Details/5
-
+        /// <summary>
+        /// Grabs the object by ID and pushes the required objects in the Model (These are the worse comments I know but Im to tired)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             try
@@ -116,7 +127,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Student/Create
-
+        /// <summary>
+        /// Grabs required data data to populate the ViewBag
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             ViewBag.campus = new SelectList(db.campus, "cname", "cname");
@@ -135,7 +149,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Student/Create
-
+        /// <summary>
+        /// Posts Create request
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(student student)
         {
@@ -160,7 +178,11 @@ namespace AdvisementSys.Controllers
         
         //
         // GET: /Student/Edit/5
-
+        /// <summary>
+        /// Grabs required data for Edit View
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(string id)
         {
             try
@@ -192,7 +214,11 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Student/Edit/5
-
+        /// <summary>
+        /// Submits Edit to the Database
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(student student)
         {
