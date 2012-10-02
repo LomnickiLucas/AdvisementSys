@@ -246,8 +246,7 @@ namespace AdvisementSys.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details/" + model._issue.issueid);
             }
-            ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
-            return View(model._issue);
+            return View(model);
         }
 
         //
