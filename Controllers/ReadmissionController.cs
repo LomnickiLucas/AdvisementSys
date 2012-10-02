@@ -61,7 +61,7 @@ namespace AdvisementSys.Controllers
                     applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
                     student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student };
+                    CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student, _campus = db.campus };
                     return View(Model);
                 }
                 else
@@ -104,7 +104,7 @@ namespace AdvisementSys.Controllers
                     applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
                     student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    EditReadmissionForm Model = new EditReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student };
+                    EditReadmissionForm Model = new EditReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student, _campus = db.campus };
                     return View(Model);
                 }
                 else

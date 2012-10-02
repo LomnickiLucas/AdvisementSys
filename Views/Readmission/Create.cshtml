@@ -112,7 +112,7 @@
                 Campus:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.newcampus)
+                @Html.DropDownListFor(model => model._applicationForReadmission.newcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.newcampus), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newcampus)
             </td>
         </tr>
@@ -149,7 +149,7 @@
                 Campus:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.oldcampus)
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldcampus)
             </td>
         </tr>
@@ -179,7 +179,7 @@
         <tr>
             <td style="width: 15%;">
                 *Radio Button*
-                @Html.EditorFor(model => model._applicationForReadmission.approved)
+                @Html.CheckBoxFor(model => model._applicationForReadmission.approved)
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
             </td>
             <td>
@@ -234,7 +234,7 @@
                             Campus:
                         </td>
                         <td>
-                            @Html.EditorFor(model => model._applicationForReadmission.recomendedcampus)
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recomendedcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.recomendedcampus), new { @class = "required" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recomendedcampus)
                         </td>
                     </tr>
@@ -243,7 +243,7 @@
                             Full-Time:
                         </td>
                         <td>
-                            @Html.EditorFor(model => model._applicationForReadmission.recommendedfulltime)
+                            @Html.CheckBoxFor(model => model._applicationForReadmission.recommendedfulltime)
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedfulltime)
                         </td>
                         <td>
@@ -293,7 +293,7 @@
         <tr>
             <td>
                 *Radio Button*
-                @Html.EditorFor(model => model._applicationForReadmission.special)
+                @Html.CheckBoxFor(model => model._applicationForReadmission.special)
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
             </td>
             <td>

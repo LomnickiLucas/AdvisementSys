@@ -216,7 +216,7 @@ namespace AdvisementSys.Models
         private string _recommendedprogram;
     
         [DataMember]
-        public Nullable<bool> recommendedfulltime
+        public bool recommendedfulltime
         {
             get { return _recommendedfulltime; }
             set
@@ -228,7 +228,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private Nullable<bool> _recommendedfulltime;
+        private bool _recommendedfulltime;
     
         [DataMember]
         public string recommendedsemyear
@@ -261,7 +261,7 @@ namespace AdvisementSys.Models
         private string _recomendedcampus;
     
         [DataMember]
-        public Nullable<bool> approved
+        public bool approved
         {
             get { return _approved; }
             set
@@ -273,7 +273,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private Nullable<bool> _approved;
+        private bool _approved;
     
         [DataMember]
         public string acceptableconditional
@@ -306,6 +306,21 @@ namespace AdvisementSys.Models
         private string _term;
     
         [DataMember]
+        public string comments
+        {
+            get { return _comments; }
+            set
+            {
+                if (_comments != value)
+                {
+                    _comments = value;
+                    OnPropertyChanged("comments");
+                }
+            }
+        }
+        private string _comments;
+    
+        [DataMember]
         public string probation
         {
             get { return _probation; }
@@ -321,7 +336,7 @@ namespace AdvisementSys.Models
         private string _probation;
     
         [DataMember]
-        public Nullable<bool> special
+        public bool special
         {
             get { return _special; }
             set
@@ -333,7 +348,7 @@ namespace AdvisementSys.Models
                 }
             }
         }
-        private Nullable<bool> _special;
+        private bool _special;
     
         [DataMember]
         public string status
@@ -364,21 +379,6 @@ namespace AdvisementSys.Models
             }
         }
         private string _purpose;
-    
-        [DataMember]
-        public string comments
-        {
-            get { return _comments; }
-            set
-            {
-                if (_comments != value)
-                {
-                    _comments = value;
-                    OnPropertyChanged("comments");
-                }
-            }
-        }
-        private string _comments;
 
         #endregion
         #region Navigation Properties

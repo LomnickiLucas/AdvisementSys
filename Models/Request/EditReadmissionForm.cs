@@ -10,5 +10,7 @@ namespace AdvisementSys.Models.Request
         public applicationForReadmission _applicationForReadmission { get; set; }
 
         public student _student { get; set; }
+
+        public IEnumerable<campu> _campus { get; set; }
     }
 }

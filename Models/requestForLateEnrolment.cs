@@ -141,21 +141,6 @@ namespace AdvisementSys.Models
         private string _clsnum;
     
         [DataMember]
-        public string coursetitle
-        {
-            get { return _coursetitle; }
-            set
-            {
-                if (_coursetitle != value)
-                {
-                    _coursetitle = value;
-                    OnPropertyChanged("coursetitle");
-                }
-            }
-        }
-        private string _coursetitle;
-    
-        [DataMember]
         public int currentcap
         {
             get { return _currentcap; }
@@ -184,6 +169,21 @@ namespace AdvisementSys.Models
             }
         }
         private int _incomingterm;
+    
+        [DataMember]
+        public string coursetitle
+        {
+            get { return _coursetitle; }
+            set
+            {
+                if (_coursetitle != value)
+                {
+                    _coursetitle = value;
+                    OnPropertyChanged("coursetitle");
+                }
+            }
+        }
+        private string _coursetitle;
 
         #endregion
         #region Navigation Properties
