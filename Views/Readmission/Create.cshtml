@@ -147,7 +147,7 @@
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldprogram)
             </td>
             <td>
-                Campus:
+                *Campus:
             </td>
             <td>
                 @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { id="oldcampus", @class = "required oldcampusvalidate" })

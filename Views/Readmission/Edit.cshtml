@@ -5,10 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Readmission", FormMethod.Post, new { id = "readmissionForm", name = "readmissionForm" }))
 {
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
@@ -66,10 +68,10 @@
         </tr>
         <tr>
             <td>
-                Date:
+                *Date:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
+                @Html.TextBoxFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @class = "required", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
             </td>
             <td>
@@ -101,17 +103,17 @@
         </tr>
         <tr>
             <td>
-                Program:
+                *Program:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.newprogram)
+                @Html.TextBoxFor(model => model._applicationForReadmission.newprogram, new { id = "newprogram", @class = "required newprogramvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newprogram)
             </td>
             <td>
-                Campus:
+                *Campus:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.newcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.newcampus), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.newcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.newcampus), new { id = "newcampus", @class = "required newcampusvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newcampus)
             </td>
         </tr>
@@ -124,10 +126,10 @@
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newfulltime)
             </td>
             <td>
-                Semester:
+                *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { id = "newsemyear", @class = "required newsemyearvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
             </td>
         </tr>
@@ -138,17 +140,17 @@
         </tr>
         <tr>
             <td>
-                Program:
+                *Program:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.oldprogram)
+                @Html.TextBoxFor(model => model._applicationForReadmission.oldprogram, new { id = "oldprogram", @class = "required oldprogramvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldprogram)
             </td>
             <td>
-                Campus:
+                *Campus:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { id = "oldcampus", @class = "required oldcampusvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldcampus)
             </td>
         </tr>
@@ -161,10 +163,10 @@
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldfulltime)
             </td>
             <td>
-                Semester:
+                *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select","Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { id = "oldsemyear", @class = "required oldsemyearvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
             </td>
         </tr>
@@ -177,17 +179,17 @@
         </tr>
         <tr>
             <td style="width: 15%;">
-                *Radio Button*
-                @Html.CheckBoxFor(model => model._applicationForReadmission.approved)
-                @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
+                <input type="radio" name="mainRadio" value="approvedCheck"/>
             </td>
             <td>
+                @Html.CheckBoxFor(model => model._applicationForReadmission.approved, new { id="approved"})
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
                 The student request is acceptable as indicated above.
             </td>
         </tr>
         <tr>
             <td>
-                *Radio Button*
+                <input type="radio" name="mainRadio" value="semesterCheck" />
             </td>
             <td>
                 The student may enter the program in the following semester/year
@@ -202,7 +204,7 @@
                             Semester/Year:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.term, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.term), new { @class = "required" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.term, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.term), new { id = "term", @class = "required termvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.term)
                         </td>
                     </tr>
@@ -211,7 +213,7 @@
         </tr>
         <tr>
             <td>
-                *Radio Button*
+                <input type="radio" name="mainRadio" value="programCheck" />
             </td>
             <td>
                 The student has been recommended for a program change
@@ -226,14 +228,14 @@
                             Program:
                         </td>
                         <td>
-                            @Html.EditorFor(model => model._applicationForReadmission.recommendedprogram)
+                             @Html.TextBoxFor(model => model._applicationForReadmission.recommendedprogram, new { id = "recommendedProgram", @class = "required recommendedprogramvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedprogram)
                         </td>
                         <td>
                             Campus:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.recomendedcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.recomendedcampus), new { @class = "required" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recomendedcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.recomendedcampus), new { id = "recommendedCampus", @class = "required recommendedcampusvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recomendedcampus)
                         </td>
                     </tr>
@@ -242,14 +244,14 @@
                             Full-Time:
                         </td>
                         <td>
-                            @Html.CheckBoxFor(model => model._applicationForReadmission.recommendedfulltime)
+                            @Html.CheckBoxFor(model => model._applicationForReadmission.recommendedfulltime, new { id = "recommendedFullTime" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedfulltime)
                         </td>
                         <td>
                             Semester:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { @class = "required" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { id = "recommendedYear", @class = "required recommendedyearvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
                         </td>
                     </tr>
@@ -259,7 +261,7 @@
         
         <tr>
             <td>
-                *Radio Button*
+                <input type="radio" name="mainRadio" value="conditionalCheck" />
             </td>
             <td>
                 The student request is acceptable with the following conditions:
@@ -268,14 +270,13 @@
         <tr>
             <td></td>
             <td>
-                *Text Area*
-                @Html.EditorFor(model => model._applicationForReadmission.acceptableconditional)
+                @Html.TextAreaFor(model => model._applicationForReadmission.acceptableconditional, new { id = "acceptableConditional", @class = "required", @style = "width:457px; height:60px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.acceptableconditional)
             </td>
         </tr>
         <tr>
             <td>
-                *Radio Button*
+                <input type="radio" name="mainRadio" value="probationCheck" />
             </td>
             <td>
                 The student may be readmitted into the program on academic probation
@@ -284,24 +285,23 @@
         <tr>
             <td></td>
             <td>
-                *Text Area*
-                @Html.EditorFor(model => model._applicationForReadmission.probation)
+                 @Html.TextAreaFor(model => model._applicationForReadmission.probation, new { id = "probation", @class = "required", @style = "width:457px; height:40px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.probation)
             </td>
         </tr>
         <tr>
             <td>
-                *Radio Button*
-                @Html.CheckBoxFor(model => model._applicationForReadmission.special)
-                @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
+                <input type="radio" name="mainRadio" value="specialCheck" />
             </td>
             <td>
+                @Html.CheckBoxFor(model => model._applicationForReadmission.special, new { id="special"})
+                @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
                 A special timetable has been given to the student and is attached
             </td>
         </tr>
         <tr>
             <td>
-                *Radio Button*
+                <input type="radio" name="mainRadio" value="rejectedCheck" />
             </td>
             <td>
                 Program change NOT APPROVED
@@ -310,15 +310,16 @@
         <tr>
             <td></td>
             <td>
-                *Text Area*
-                @Html.EditorFor(model => model._applicationForReadmission.comments)
+                 @Html.TextAreaFor(model => model._applicationForReadmission.comments, new { id = "comments", @class = "required", @style = "width:457px; height:40px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.comments)
             </td>
         </tr>
     </table>
-    <p>
-        <input type="submit" value="Save" />
-    </p>
+   <br />
+        <div>
+         <input type="submit" value="Update" class="Button" style="position: relative; left:10px;"/> 
+         </div>
+    <p>Fields marked with an * are mandatory.</p>
 }
 
 <div>
@@ -328,5 +329,264 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+        /*Permanently disables checkboxes*/
+        $('#approved').attr('disabled', 'disabled');
+        /*$('#approved').attr('checked', 'checked');*/
+
+        $('#term').attr('disabled', 'disabled');
+        $('#recommendedProgram').attr('disabled', 'disabled');
+        $('#recommendedCampus').attr('disabled', 'disabled');
+        $('#recommendedFullTime').attr('disabled', 'disabled');
+        $('#recommendedYear').attr('disabled', 'disabled');
+        $('#acceptableConditional').attr('disabled', 'disabled');
+        $('#probation').attr('disabled', 'disabled');
+        $('#special').attr('disabled', 'disabled');
+        $('#comments').attr('disabled', 'disabled');
+
+        $.validator.addMethod("oldcampusvalidate", function (value) {
+            if ($('#oldcampus').val() == "Please Select a Campus") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("newcampusvalidate", function (value) {
+            if ($('#newcampus').val() == "Please Select a Campus") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("newsemyearvalidate", function (value) {
+            if ($('#newsemyear').val() == "Please Select") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("oldsemyearvalidate", function (value) {
+            if ($('#oldsemyear').val() == "Please Select") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("termvalidate", function (value) {
+            if ($('#term').val() == "Please Select") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("recommendedprogramvalidate", function (value) {
+            return value.match(/^[A-Z]{5}$/);
+        }, 'Please enter a valid program code');
+
+        $.validator.addMethod("newprogramvalidate", function (value) {
+            return value.match(/^[A-Z]{5}$/);
+        }, 'Please enter a valid program code');
+
+        $.validator.addMethod("oldprogramvalidate", function (value) {
+            return value.match(/^[A-Z]{5}$/);
+        }, 'Please enter a valid program code');
+
+        $.validator.addMethod("recommendedcampusvalidate", function (value) {
+            if ($('#recommendedCampus').val() == "Please Select a Campus") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+
+        $.validator.addMethod("recommendedyearvalidate", function (value) {
+            if ($('#recommendedYear').val() == "Please Select") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, 'Please Select required fields');
+    });
+
+    /*If Approved Check is selected*/
+    $('input[type="radio"]').change(function () {
+        if ($('input[type="radio"]:checked').val() == 'approvedCheck') {
+            $('#approved').attr('checked', 'checked');
+
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select");
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val("");
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val("Please Select a Campus");
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val("Please Select");
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val("");
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val("");
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val("");
+        }
+
+        /*If semesterCheck is Selected*/
+        if ($('input[type="radio"]:checked').val() == 'semesterCheck') {
+
+            $('#term').removeAttr('disabled');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val('');
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val('Please Select a Campus');
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val('Please Select');
+
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val('');
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val('');
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val('');
+        }
+
+        /*If programCheck is Selected*/
+        if ($('input[type="radio"]:checked').val() == 'programCheck') {
+            $('#recommendedProgram').removeAttr('disabled');
+            $('#recommendedCampus').removeAttr('disabled');
+            $('#recommendedFullTime').removeAttr('disabled');
+            $('#recommendedYear').removeAttr('disabled');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select");
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val('');
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val('');
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val('');
+        }
+
+        /*If conditionalCheck is Selected*/
+        if ($('input[type="radio"]:checked').val() == 'conditionalCheck') {
+            $('#acceptableConditional').removeAttr('disabled');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select")
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val('');
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val('Please Select a Campus');
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val('Please Select');
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val('');
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val('');
+        }
+
+        /*If probationCheck is Selected*/
+        if ($('input[type="radio"]:checked').val() == 'probationCheck') {
+            $('#probation').removeAttr('disabled');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select")
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val('');
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val('Please Select a Campus');
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val('Please Select');
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val('');
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val('');
+        }
+        /*If specialCheck is Selected*/
+        if ($('input[type="radio"]:checked').val() == 'specialCheck') {
+            $('#special').attr('checked', 'checked');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select")
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val('');
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val('Please Select a Campus');
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val('Please Select');
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val('');
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val('');
+            $('#comments').attr('disabled', 'disabled');
+            $('#comments').val('');
+        }
+        if ($('input[type="radio"]:checked').val() == 'rejectedCheck') {
+            $('#comments').removeAttr('disabled');
+
+            $('#approved').attr('disabled', 'disabled');
+            $('#approved').removeAttr('checked');
+            $('#term').attr('disabled', 'disabled');
+            $('#term').val("Please Select")
+            $('#recommendedProgram').attr('disabled', 'disabled');
+            $('#recommendedProgram').val('');
+            $('#recommendedCampus').attr('disabled', 'disabled');
+            $('#recommendedCampus').val('Please Select a Campus');
+            $('#recommendedFullTime').attr('disabled', 'disabled');
+            $('#recommendedFullTime').removeAttr('checked');
+            $('#recommendedYear').attr('disabled', 'disabled');
+            $('#recommendedYear').val('Please Select');
+            $('#acceptableConditional').attr('disabled', 'disabled');
+            $('#acceptableConditional').val('');
+            $('#probation').attr('disabled', 'disabled');
+            $('#probation').val('');
+            $('#special').attr('disabled', 'disabled');
+            $('#special').removeAttr('checked');
+        }
+
+    });
+
+    $('#readmissionForm').validate({
+
     });
 </script>
