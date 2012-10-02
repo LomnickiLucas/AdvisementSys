@@ -15,6 +15,9 @@
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
     @Html.HiddenFor(model => model._applicationForReadmission.issueid)
+    @Html.HiddenFor(model => model._applicationForReadmission.approved, new { id = "approved" })
+    @Html.HiddenFor(model => model._applicationForReadmission.special, new { id = "special" })
+
     <h2>Edit Application for Readmission</h2>
     <table style="width: 800px;">
         <tr>
@@ -182,7 +185,7 @@
                 <input type="radio" name="mainRadio" value="approvedCheck"/>
             </td>
             <td>
-                @Html.CheckBoxFor(model => model._applicationForReadmission.approved, new { id="approved"})
+                
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
                 The student request is acceptable as indicated above.
             </td>
@@ -279,7 +282,7 @@
                 <input type="radio" name="mainRadio" value="probationCheck" />
             </td>
             <td>
-                The student may be readmitted into the program on academic probation
+                The student may be readmitted into the program on academic probation with reason:
             </td>
         </tr>
         <tr>
@@ -294,7 +297,6 @@
                 <input type="radio" name="mainRadio" value="specialCheck" />
             </td>
             <td>
-                @Html.CheckBoxFor(model => model._applicationForReadmission.special, new { id="special"})
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
                 A special timetable has been given to the student and is attached
             </td>
@@ -304,7 +306,7 @@
                 <input type="radio" name="mainRadio" value="rejectedCheck" />
             </td>
             <td>
-                Program change NOT APPROVED
+                Program change NOT APPROVED for the following reasons:
             </td>
         </tr>
         <tr>
@@ -331,7 +333,7 @@
         $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
         /*Permanently disables checkboxes*/
         $('#approved').attr('disabled', 'disabled');
-        /*$('#approved').attr('checked', 'checked');*/
+
 
         $('#term').attr('disabled', 'disabled');
         $('#recommendedProgram').attr('disabled', 'disabled');
@@ -417,13 +419,50 @@
                 return true;
             }
         }, 'Please Select required fields');
+        
+        /*$(function () {
+
+            if ($('#approved').val() == "0") {
+                $('input:radio[name=mainRadio]:nth(0)').attr('checked', true);
+            }
+
+            if ($('#term').val() != "0") {
+                $('input:radio[name=mainRadio]:nth(1)').attr('checked', true);
+                $('#term').removeAttr('disabled');
+            }
+
+            if ($('#recommendedProgram').val() != "") {
+                $('input:radio[name=mainRadio]:nth(2)').attr('checked', true);
+                $('#recommendedProgram').removeAttr('disabled');
+            }
+
+            if ($('#acceptableConditional').val() != "") {
+                $('input:radio[name=mainRadio]:nth(3)').attr('checked', true);
+                $('#acceptableConditional').removeAttr('disabled');
+            }
+
+            if ($('#probation').val() != "") {
+                $('input:radio[name=mainRadio]:nth(4)').attr('checked', true);
+                $('#probation').removeAttr('disabled');
+            }
+
+            if ($('#special').val() != "0") {
+                $('input:radio[name=mainRadio]:nth(5)').attr('checked', true);
+                $('#special').removeAttr('disabled');
+            }
+
+            if ($('#comments').val() != "") {
+                $('input:radio[name=mainRadio]:nth(6)').attr('checked', true);
+                $('#comments').removeAttr('disabled');
+            }
+        });*/
     });
 
     /*If Approved Check is selected*/
     $('input[type="radio"]').change(function () {
         if ($('input[type="radio"]:checked').val() == 'approvedCheck') {
-            $('#approved').attr('checked', 'checked');
-
+            $('#approved').val('true');
+            $('#approved').removeAttr('disabled');
             $('#term').attr('disabled', 'disabled');
             $('#term').val("Please Select");
             $('#recommendedProgram').attr('disabled', 'disabled');
@@ -540,7 +579,10 @@
         }
         /*If specialCheck is Selected*/
         if ($('input[type="radio"]:checked').val() == 'specialCheck') {
-            $('#special').attr('checked', 'checked');
+            //$('#special').attr('checked', 'checked');
+
+            $('#special').val('true');
+            $('#special').removeAttr('disabled');
 
             $('#approved').attr('disabled', 'disabled');
             $('#approved').removeAttr('checked');

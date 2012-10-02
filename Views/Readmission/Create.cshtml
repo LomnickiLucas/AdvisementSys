@@ -15,6 +15,9 @@
     @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model._applicationForReadmission.readmissionid)
     @Html.HiddenFor(model => model._applicationForReadmission.issueid)
+    @Html.HiddenFor(model => model._applicationForReadmission.approved, new { id = "approved" })
+    @Html.HiddenFor(model => model._applicationForReadmission.special, new { id = "special" })
+
     <h2>New Application for Readmission</h2>
     <table style="width: 800px;">
         <tr>
@@ -71,7 +74,7 @@
                 *Date:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @class="required" , @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
+                @Html.TextBoxFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @class = "required", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
             </td>
             <td>
@@ -106,14 +109,14 @@
                 *Program:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._applicationForReadmission.newprogram, new { id="newprogram", @class="required newprogramvalidate"})
+                @Html.TextBoxFor(model => model._applicationForReadmission.newprogram, new { id = "newprogram", @class = "required newprogramvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newprogram)
             </td>
             <td>
                 *Campus:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.newcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.newcampus), new { id="newcampus", @class = "required newcampusvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.newcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.newcampus), new { id = "newcampus", @class = "required newcampusvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newcampus)
             </td>
         </tr>
@@ -129,7 +132,7 @@
                 *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { id="newsemyear", @class = "required newsemyearvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { id = "newsemyear", @class = "required newsemyearvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
             </td>
         </tr>
@@ -143,14 +146,14 @@
                 *Program:
             </td>
             <td>
-                @Html.TextBoxFor(model => model._applicationForReadmission.oldprogram, new { id="oldprogram", @class="required oldprogramvalidate"})
+                @Html.TextBoxFor(model => model._applicationForReadmission.oldprogram, new { id = "oldprogram", @class = "required oldprogramvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldprogram)
             </td>
             <td>
                 *Campus:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { id="oldcampus", @class = "required oldcampusvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldcampus, new SelectList(Model._campus, "cname", "cname", Model._applicationForReadmission.oldcampus), new { id = "oldcampus", @class = "required oldcampusvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldcampus)
             </td>
         </tr>
@@ -166,7 +169,7 @@
                 *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select","Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { id="oldsemyear", @class = "required oldsemyearvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { id = "oldsemyear", @class = "required oldsemyearvalidate" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
             </td>
         </tr>
@@ -182,7 +185,7 @@
                 <input type="radio" name="mainRadio" value="approvedCheck" checked="checked"/>
             </td>
             <td>
-                @Html.CheckBoxFor(model => model._applicationForReadmission.approved, new { id="approved"})
+                
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
                 The student request is acceptable as indicated above.
             </td>
@@ -204,7 +207,7 @@
                             Semester/Year:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.term, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.term), new { id="term", @class = "required termvalidate" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.term, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.term), new { id = "term", @class = "required termvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.term)
                         </td>
                     </tr>
@@ -228,7 +231,7 @@
                             Program:
                         </td>
                         <td>
-                            @Html.TextBoxFor(model => model._applicationForReadmission.recommendedprogram, new { id="recommendedProgram", @class="required recommendedprogramvalidate"})
+                            @Html.TextBoxFor(model => model._applicationForReadmission.recommendedprogram, new { id = "recommendedProgram", @class = "required recommendedprogramvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedprogram)
                         </td>
                         <td>
@@ -244,14 +247,14 @@
                             Full-Time:
                         </td>
                         <td>
-                            @Html.CheckBoxFor(model => model._applicationForReadmission.recommendedfulltime, new { id="recommendedFullTime"})
+                            @Html.CheckBoxFor(model => model._applicationForReadmission.recommendedfulltime, new { id = "recommendedFullTime" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedfulltime)
                         </td>
                         <td>
                             Semester:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { id="recommendedYear", @class = "required recommendedyearvalidate" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { id = "recommendedYear", @class = "required recommendedyearvalidate" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
                         </td>
                     </tr>
@@ -271,7 +274,7 @@
             <td></td>
             <td>
                 
-                @Html.TextAreaFor(model => model._applicationForReadmission.acceptableconditional, new { id = "acceptableConditional", @class="required", @style = "width:457px; height:60px; resize:none;" })
+                @Html.TextAreaFor(model => model._applicationForReadmission.acceptableconditional, new { id = "acceptableConditional", @class = "required", @style = "width:457px; height:60px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.acceptableconditional)
             </td>
         </tr>
@@ -280,14 +283,14 @@
                 <input type="radio" name="mainRadio" value="probationCheck" />
             </td>
             <td>
-                The student may be readmitted into the program on academic probation
+                The student may be readmitted into the program on academic probation with reason:
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
                 
-                @Html.TextAreaFor(model => model._applicationForReadmission.probation, new { id = "probation", @class="required", @style = "width:457px; height:40px; resize:none;" })
+                @Html.TextAreaFor(model => model._applicationForReadmission.probation, new { id = "probation", @class = "required", @style = "width:457px; height:40px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.probation)
             </td>
         </tr>
@@ -297,7 +300,7 @@
                 
             </td>
             <td>
-                @Html.CheckBoxFor(model => model._applicationForReadmission.special, new { id="special"})
+               
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
                 A special timetable has been given to the student and is attached
             </td>
@@ -307,20 +310,20 @@
                 <input type="radio" name="mainRadio" value="rejectedCheck" />
             </td>
             <td>
-                Program change NOT APPROVED
+                Program change NOT APPROVED for the following reasons:
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
                 
-                @Html.TextAreaFor(model => model._applicationForReadmission.comments, new { id = "comments", @class="required", @style = "width:457px; height:40px; resize:none;" })
+                @Html.TextAreaFor(model => model._applicationForReadmission.comments, new { id = "comments", @class = "required", @style = "width:457px; height:40px; resize:none;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.comments)
             </td>
         </tr>
     </table><br />
         <div>
-         <input type="submit" value="Create" class="Button" style="position: relative; left:10px;"/> 
+         <input type="submit" id="submit" value="Create" class="Button" style="position: relative; left:10px;"/> 
          </div>
     <p>Fields marked with an * are mandatory.</p>
 }
@@ -334,7 +337,7 @@
         $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
         /*Permanently disables checkboxes*/
         $('#approved').attr('disabled', 'disabled');
-        $('#approved').attr('checked', 'checked');
+        
 
         $('#term').attr('disabled', 'disabled');
         $('#recommendedProgram').attr('disabled', 'disabled');
@@ -346,6 +349,7 @@
         $('#special').attr('disabled', 'disabled');
         $('#comments').attr('disabled', 'disabled');
 
+       
         $.validator.addMethod("oldcampusvalidate", function (value) {
             if ($('#oldcampus').val() == "Please Select a Campus") {
                 return false;
@@ -425,8 +429,8 @@
     /*If Approved Check is selected*/
     $('input[type="radio"]').change(function () {
         if ($('input[type="radio"]:checked').val() == 'approvedCheck') {
-            $('#approved').attr('checked', 'checked');
-
+            $('#approved').val('true');
+            $('#approved').removeAttr('disabled');
             $('#term').attr('disabled', 'disabled');
             $('#term').val("Please Select");
             $('#recommendedProgram').attr('disabled', 'disabled');
@@ -543,7 +547,10 @@
         }
         /*If specialCheck is Selected*/
         if ($('input[type="radio"]:checked').val() == 'specialCheck') {
-            $('#special').attr('checked', 'checked');
+           // $('#special').attr('checked', 'checked');
+
+            $('#special').val('true');
+            $('#special').removeAttr('disabled');
 
             $('#approved').attr('disabled', 'disabled');
             $('#approved').removeAttr('checked');

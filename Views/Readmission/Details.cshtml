@@ -156,140 +156,156 @@
 </table>
 <table border=1px>
     <tr>
-        <td colspan="2">
+        <td>
             <h3>Assessment</h3>
         </td>
     </tr>
     <tr>
-        <td style="width: 15%;">
-            *Radio Button*
-            @Html.DisplayFor(model => model._applicationForReadmission.approved)
-        </td>
         <td>
+            @Html.DisplayFor(model => model._applicationForReadmission.approved)
             The student request is acceptable as indicated above.
         </td>
     </tr>
     <tr>
         <td>
-            *Radio Button*
-        </td>
-        <td>
-            The student may enter the program in the following semester/year
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
             <table>
                 <tr>
                     <td>
-                        Semester/Year:
+                        The student may enter the program in the following semester/year
                     </td>
+                </tr>
+                <tr>
                     <td>
-                        @Html.DisplayFor(model => model._applicationForReadmission.term)
+                        <table>
+                            <tr>
+                                <td>
+                                    Semester/Year:
+                                </td>
+                                <td>
+                                    &nbsp
+                                    @Html.DisplayFor(model => model._applicationForReadmission.term)
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
+
     <tr>
-        <td>
-            *Radio Button*
-        </td>
-        <td>
-            The student has been recommended for a program change
-        </td>
-    </tr>
-    <tr>
-        <td></td>
         <td>
             <table>
                 <tr>
                     <td>
-                        Program:
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedprogram)
-                    </td>
-                    <td>
-                        Campus:
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model._applicationForReadmission.recomendedcampus)
+                        The student has been recommended for a program change
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Full-Time:
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedfulltime)
-                    </td>
-                    <td>
-                        Semester:
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model._applicationForReadmission.recommendedsemyear)
+                        <table >
+                            <tr>
+                                <td>
+                                    Program:
+                                </td>
+                                <td>
+                                    &nbsp
+                                    @Html.DisplayFor(model => model._applicationForReadmission.recommendedprogram)
+                                </td>
+                                <td>
+                                    Campus:
+                                </td>
+                                <td>
+                                    &nbsp
+                                    @Html.DisplayFor(model => model._applicationForReadmission.recomendedcampus)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Full-Time:
+                                </td>
+                                <td>
+                                    &nbsp
+                                    @Html.DisplayFor(model => model._applicationForReadmission.recommendedfulltime)
+                                </td>
+                                <td>
+                                    Semester:
+                                </td>
+                                <td>
+                                    &nbsp
+                                    @Html.DisplayFor(model => model._applicationForReadmission.recommendedsemyear)
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
+   
         
     <tr>
         <td>
-            *Radio Button*
-        </td>
-        <td>
-            The student request is acceptable with the following conditions:
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            *Text Area*
-            @Html.DisplayFor(model => model._applicationForReadmission.acceptableconditional)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            *Radio Button*
-        </td>
-        <td>
-            The student may be readmitted into the program on academic probation
+            <table>
+                <tr>
+                    <td>
+                        The student request is acceptable with the following conditions:
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp
+                        @Html.DisplayFor(model => model._applicationForReadmission.acceptableconditional)
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
+
     <tr>
-        <td></td>
         <td>
-            *Text Area*
-            @Html.DisplayFor(model => model._applicationForReadmission.probation)
+            <table>
+                <tr>
+                    <td>
+                        The student may be readmitted into the program on academic probation with reason:
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp
+                        @Html.DisplayFor(model => model._applicationForReadmission.probation)
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
+
     <tr>
         <td>
-            *Radio Button*
+            &nbsp
             @Html.DisplayFor(model => model._applicationForReadmission.special)
-        </td>
-        <td>
             A special timetable has been given to the student and is attached
         </td>
     </tr>
     <tr>
         <td>
-            *Radio Button*
-        </td>
-        <td>
-            Program change NOT APPROVED
+            <table>
+                <tr>
+                    <td>
+                        Program change NOT APPROVED for the following reasons:
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp
+                        @Html.DisplayFor(model => model._applicationForReadmission.comments)
+                    </td>
+                </tr>
+            </table>
+            
         </td>
     </tr>
-    <tr>
-        <td></td>
-        <td>
-            *Text Area*
-            @Html.DisplayFor(model => model._applicationForReadmission.comments)
-        </td>
-    </tr>
+
 </table>
 
 <p>
