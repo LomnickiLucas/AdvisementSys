@@ -70,10 +70,13 @@ namespace AdvisementSys.Controllers
             {
                 if (id != null)
                 {
+                    List<campu> _campus = new List<campu>();
+                    _campus.Add(new campu() { cname = "Please Select a Campus" });
+                    _campus.AddRange(db.campus);
                     applicationForReadmission applicationForReadmission = new applicationForReadmission() { issueid = id, date = DateTime.Now };
                     issue issue = db.issues.Single(i => i.issueid == id);
                     student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student, _campus = db.campus };
+                    CreateReadmissionForm Model = new CreateReadmissionForm() { _applicationForReadmission = applicationForReadmission, _student = student, _campus = _campus };
                     return View(Model);
                 }
                 else
