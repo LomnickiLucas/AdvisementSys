@@ -133,7 +133,7 @@
         </tr>
         <tr>
             <td colspan="4">
-                <h4>Old Program</h4>
+                <h4>Last Program</h4>
             </td>
         </tr>
         <tr>
@@ -164,7 +164,7 @@
                 Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.oldsemyear), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select","Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { @class = "required" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
             </td>
         </tr>
