@@ -75,7 +75,7 @@
             @Html.LabelFor(model => model._issue.date, "Date:")
         </div></td>
             <td><div class="editor-field">
-            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd MMM yyyy") })
+            @Html.TextBoxFor(model => model._issue.date, new { @Value = Model._issue.date.ToString("dd/MM/yyyy") })
             @Html.ValidationMessageFor(model => model._issue.date)
         </div></td>
         </tr>

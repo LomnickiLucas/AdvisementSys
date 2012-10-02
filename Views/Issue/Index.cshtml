@@ -81,7 +81,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._date1, new { @id = "datepicker" }) &nbsp; - &nbsp; @Html.TextBoxFor(model => model._date2, new { @id = "datepicker1" })
+                        @Html.TextBoxFor(model => model._date2, new { @id = "datepicker", @Value = Model._date2.ToString("dd/MM/yyyy") }) &nbsp; - &nbsp; @Html.TextBoxFor(model => model._date1, new { @id = "datepicker1", @Value = Model._date1.ToString("dd/MM/yyyy") })
                     </div>
                 </td>
             </tr>

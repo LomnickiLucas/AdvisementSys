@@ -39,15 +39,13 @@ namespace AdvisementSys.Controllers
             {
                 collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
             }
-            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues.OrderByDescending(i => i.date), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date.ToShortDateString(), _date2 = issues.OrderBy(i => i.date).First().date.ToShortDateString(), _programcode = collection };
+            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues.OrderByDescending(i => i.date), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
             return View(Model);
         }
 
         [HttpPost]
         public ActionResult Index(IndexIssueRequestModel Model)
         {
-            DateTime date1;
-            DateTime date2;
             var issues = db.issues.Include("student");
             var program = db.programs;
             var employee = db.employees;
@@ -88,19 +86,19 @@ namespace AdvisementSys.Controllers
                 sb.Remove(5, sb.Length - 5);
                 _issues = _issues.Where(i => i.student.programcode.Trim().ToUpper().Contains(sb.ToString()));
             }
-            if ((DateTime.TryParse(Model._date1, out date1) && (DateTime.TryParse(Model._date2, out date2))))
+            if ((Model._date1 != null) && (Model._date2 != null))
             {
-                if (date1 > date2)
+                if (Model._date1 > Model._date2)
                 {
-                    _issues = _issues.Where(i => i.date >= date2 && i.date <= date1);
+                    _issues = _issues.Where(i => i.date >= Model._date2 && i.date <= Model._date1);
                 }
-                else if (date2 > date1)
+                else if (Model._date2 > Model._date1)
                 {
-                    _issues = _issues.Where(i => i.date <= date2 && i.date >= date1);
+                    _issues = _issues.Where(i => i.date <= Model._date2 && i.date >= Model._date1);
                 }
                 else
                 {
-                    _issues = _issues.Where(i => i.date == date1);
+                    _issues = _issues.Where(i => i.date == Model._date1);
                 }
             }
             Model._issue = _issues.OrderByDescending(i => i.date);

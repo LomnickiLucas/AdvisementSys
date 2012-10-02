@@ -21,9 +21,9 @@ namespace AdvisementSys.Models.Request
 
         public String _name { get; set; }
 
-        public String _date1 { get; set; }
+        public DateTime _date1 { get; set; }
 
-        public String _date2 { get; set; }
+        public DateTime _date2 { get; set; }
 
         public String _status { get; set; }
 
