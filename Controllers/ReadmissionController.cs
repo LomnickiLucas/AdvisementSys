@@ -83,6 +83,7 @@ namespace AdvisementSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_CreateReadmissionForm._applicationForReadmission.recomendedcampus == "Please Select a Campus") _CreateReadmissionForm._applicationForReadmission.recomendedcampus = null;
                 _CreateReadmissionForm._applicationForReadmission.readmissionid = Guid.NewGuid();
                 db.applicationForReadmissions.AddObject(_CreateReadmissionForm._applicationForReadmission);
                 db.SaveChanges();
