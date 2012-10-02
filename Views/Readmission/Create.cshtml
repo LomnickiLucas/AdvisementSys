@@ -70,7 +70,7 @@
                 Date:
             </td>
             <td>
-                @Html.EditorFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
+                @Html.TextBoxFor(model => model._applicationForReadmission.date, new { @id = "datepicker", @Value = Model._applicationForReadmission.date.ToString("dd/MM/yyyy") })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.date)
             </td>
             <td>
