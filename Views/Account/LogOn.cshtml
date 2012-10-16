@@ -1,0 +1,22 @@
+﻿@model AdvisementSys.Models.LogOnModel
+
+@{
+    ViewBag.Title = "LogOn";
+    Layout = "~/Views/Shared/LogOn_Layout.cshtml";
+}
+
+<h2>LogOn</h2>
+@using (Html.BeginForm()) {
+@Html.LabelFor(model => model.UserName)
+@Html.TextBoxFor(model => model.UserName)
+
+@Html.LabelFor(model => model.Password)
+@Html.PasswordFor(model => model.Password)
+
+@Html.LabelFor(model => model.RememberMe)
+@Html.CheckBoxFor(model => model.RememberMe)
+
+@Html.ValidationSummary();
+
+<input type="submit" value="LogOn" class="Button" style="position: relative; left:10px;"/> 
+}

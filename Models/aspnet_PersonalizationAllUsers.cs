@@ -18,82 +18,95 @@ using System.Runtime.Serialization;
 namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(employee))]
-    public partial class role: IObjectWithChangeTracker, INotifyPropertyChanged
+    [KnownType(typeof(aspnet_Paths))]
+    public partial class aspnet_PersonalizationAllUsers: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
     
         [DataMember]
-        public string permcode
+        public System.Guid PathId
         {
-            get { return _permcode; }
+            get { return _pathId; }
             set
             {
-                if (_permcode != value)
+                if (_pathId != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'permcode' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property 'PathId' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _permcode = value;
-                    OnPropertyChanged("permcode");
+                    if (!IsDeserializing)
+                    {
+                        if (aspnet_Paths != null && aspnet_Paths.PathId != value)
+                        {
+                            aspnet_Paths = null;
+                        }
+                    }
+                    _pathId = value;
+                    OnPropertyChanged("PathId");
                 }
             }
         }
-        private string _permcode;
+        private System.Guid _pathId;
     
         [DataMember]
-        public string role1
+        public byte[] PageSettings
         {
-            get { return _role1; }
+            get { return _pageSettings; }
             set
             {
-                if (_role1 != value)
+                if (_pageSettings != value)
                 {
-                    _role1 = value;
-                    OnPropertyChanged("role1");
+                    _pageSettings = value;
+                    OnPropertyChanged("PageSettings");
                 }
             }
         }
-        private string _role1;
+        private byte[] _pageSettings;
+    
+        [DataMember]
+        public System.DateTime LastUpdatedDate
+        {
+            get { return _lastUpdatedDate; }
+            set
+            {
+                if (_lastUpdatedDate != value)
+                {
+                    _lastUpdatedDate = value;
+                    OnPropertyChanged("LastUpdatedDate");
+                }
+            }
+        }
+        private System.DateTime _lastUpdatedDate;
 
         #endregion
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<employee> employees
+        public aspnet_Paths aspnet_Paths
         {
-            get
-            {
-                if (_employees == null)
-                {
-                    _employees = new TrackableCollection<employee>();
-                    _employees.CollectionChanged += Fixupemployees;
-                }
-                return _employees;
-            }
+            get { return _aspnet_Paths; }
             set
             {
-                if (!ReferenceEquals(_employees, value))
+                if (!ReferenceEquals(_aspnet_Paths, value))
                 {
-                    if (ChangeTracker.ChangeTrackingEnabled)
+                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added && value != null)
                     {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                        // This the dependent end of an identifying relationship, so the principal end cannot be changed if it is already set,
+                        // otherwise it can only be set to an entity with a primary key that is the same value as the dependent's foreign key.
+                        if (PathId != value.PathId)
+                        {
+                            throw new InvalidOperationException("The principal end of an identifying relationship can only be changed when the dependent end is in the Added state.");
+                        }
                     }
-                    if (_employees != null)
-                    {
-                        _employees.CollectionChanged -= Fixupemployees;
-                    }
-                    _employees = value;
-                    if (_employees != null)
-                    {
-                        _employees.CollectionChanged += Fixupemployees;
-                    }
-                    OnNavigationPropertyChanged("employees");
+                    var previousValue = _aspnet_Paths;
+                    _aspnet_Paths = value;
+                    Fixupaspnet_Paths(previousValue);
+                    OnNavigationPropertyChanged("aspnet_Paths");
                 }
             }
         }
-        private TrackableCollection<employee> _employees;
+        private aspnet_Paths _aspnet_Paths;
 
         #endregion
         #region ChangeTracking
@@ -171,49 +184,56 @@ namespace AdvisementSys.Models
             ChangeTracker.ChangeTrackingEnabled = true;
         }
     
+        // This entity type is the dependent end in at least one association that performs cascade deletes.
+        // This event handler will process notifications that occur when the principal end is deleted.
+        internal void HandleCascadeDelete(object sender, ObjectStateChangingEventArgs e)
+        {
+            if (e.NewState == ObjectState.Deleted)
+            {
+                this.MarkAsDeleted();
+            }
+        }
+    
         protected virtual void ClearNavigationProperties()
         {
-            employees.Clear();
+            aspnet_Paths = null;
         }
 
         #endregion
         #region Association Fixup
     
-        private void Fixupemployees(object sender, NotifyCollectionChangedEventArgs e)
+        private void Fixupaspnet_Paths(aspnet_Paths previousValue)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (e.NewItems != null)
+            if (previousValue != null && ReferenceEquals(previousValue.aspnet_PersonalizationAllUsers, this))
             {
-                foreach (employee item in e.NewItems)
-                {
-                    item.role1 = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("employees", item);
-                    }
-                }
+                previousValue.aspnet_PersonalizationAllUsers = null;
             }
     
-            if (e.OldItems != null)
+            if (aspnet_Paths != null)
             {
-                foreach (employee item in e.OldItems)
+                aspnet_Paths.aspnet_PersonalizationAllUsers = this;
+                PathId = aspnet_Paths.PathId;
+            }
+    
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("aspnet_Paths")
+                    && (ChangeTracker.OriginalValues["aspnet_Paths"] == aspnet_Paths))
                 {
-                    if (ReferenceEquals(item.role1, this))
-                    {
-                        item.role1 = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("employees", item);
-                    }
+                    ChangeTracker.OriginalValues.Remove("aspnet_Paths");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("aspnet_Paths", previousValue);
+                }
+                if (aspnet_Paths != null && !aspnet_Paths.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    aspnet_Paths.StartTracking();
                 }
             }
         }

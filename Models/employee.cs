@@ -20,7 +20,6 @@ namespace AdvisementSys.Models
     [DataContract(IsReference = true)]
     [KnownType(typeof(appointment))]
     [KnownType(typeof(faculty))]
-    [KnownType(typeof(role))]
     [KnownType(typeof(issue))]
     [KnownType(typeof(note))]
     [KnownType(typeof(program))]
@@ -146,59 +145,6 @@ namespace AdvisementSys.Models
         private string _role;
     
         [DataMember]
-        public string password
-        {
-            get { return _password; }
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged("password");
-                }
-            }
-        }
-        private string _password;
-    
-        [DataMember]
-        public string passhint
-        {
-            get { return _passhint; }
-            set
-            {
-                if (_passhint != value)
-                {
-                    _passhint = value;
-                    OnPropertyChanged("passhint");
-                }
-            }
-        }
-        private string _passhint;
-    
-        [DataMember]
-        public string permcode
-        {
-            get { return _permcode; }
-            set
-            {
-                if (_permcode != value)
-                {
-                    ChangeTracker.RecordOriginalValue("permcode", _permcode);
-                    if (!IsDeserializing)
-                    {
-                        if (role1 != null && role1.permcode != value)
-                        {
-                            role1 = null;
-                        }
-                    }
-                    _permcode = value;
-                    OnPropertyChanged("permcode");
-                }
-            }
-        }
-        private string _permcode;
-    
-        [DataMember]
         public bool archived
         {
             get { return _archived; }
@@ -267,23 +213,6 @@ namespace AdvisementSys.Models
             }
         }
         private faculty _faculty1;
-    
-        [DataMember]
-        public role role1
-        {
-            get { return _role1; }
-            set
-            {
-                if (!ReferenceEquals(_role1, value))
-                {
-                    var previousValue = _role1;
-                    _role1 = value;
-                    Fixuprole1(previousValue);
-                    OnNavigationPropertyChanged("role1");
-                }
-            }
-        }
-        private role _role1;
     
         [DataMember]
         public TrackableCollection<issue> issues
@@ -470,7 +399,6 @@ namespace AdvisementSys.Models
         {
             appointments.Clear();
             faculty1 = null;
-            role1 = null;
             issues.Clear();
             notes.Clear();
             programs.Clear();
@@ -514,50 +442,6 @@ namespace AdvisementSys.Models
                 if (faculty1 != null && !faculty1.ChangeTracker.ChangeTrackingEnabled)
                 {
                     faculty1.StartTracking();
-                }
-            }
-        }
-    
-        private void Fixuprole1(role previousValue, bool skipKeys = false)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.employees.Contains(this))
-            {
-                previousValue.employees.Remove(this);
-            }
-    
-            if (role1 != null)
-            {
-                if (!role1.employees.Contains(this))
-                {
-                    role1.employees.Add(this);
-                }
-    
-                permcode = role1.permcode;
-            }
-            else if (!skipKeys)
-            {
-                permcode = null;
-            }
-    
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("role1")
-                    && (ChangeTracker.OriginalValues["role1"] == role1))
-                {
-                    ChangeTracker.OriginalValues.Remove("role1");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("role1", previousValue);
-                }
-                if (role1 != null && !role1.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    role1.StartTracking();
                 }
             }
         }

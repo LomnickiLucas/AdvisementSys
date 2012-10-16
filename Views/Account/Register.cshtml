@@ -1,0 +1,98 @@
+﻿@model AdvisementSys.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>RegisterModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.fname)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fname)
+            @Html.ValidationMessageFor(model => model.fname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lname)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lname)
+            @Html.ValidationMessageFor(model => model.lname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.phonenum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.phonenum)
+            @Html.ValidationMessageFor(model => model.phonenum)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.faculty)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.faculty)
+            @Html.ValidationMessageFor(model => model.faculty)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.position)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.position)
+            @Html.ValidationMessageFor(model => model.position)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

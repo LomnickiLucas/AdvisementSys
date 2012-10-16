@@ -9,6 +9,17 @@
           <EntitySet Name="applicationForReadmission" EntityType="Model.Store.applicationForReadmission" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="applicationForTermOrCompleteProgramWithdrawal" EntityType="Model.Store.applicationForTermOrCompleteProgramWithdrawal" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="appointment" EntityType="Model.Store.appointment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Applications" EntityType="Model.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Membership" EntityType="Model.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Paths" EntityType="Model.Store.aspnet_Paths" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Model.Store.aspnet_PersonalizationAllUsers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Model.Store.aspnet_PersonalizationPerUser" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Profile" EntityType="Model.Store.aspnet_Profile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Roles" EntityType="Model.Store.aspnet_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="Model.Store.aspnet_SchemaVersions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_Users" EntityType="Model.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_UsersInRoles" EntityType="Model.Store.aspnet_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="Model.Store.aspnet_WebEvent_Events" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="campus" EntityType="Model.Store.campus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="catagories" EntityType="Model.Store.catagories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="coordinator" EntityType="Model.Store.coordinator" store:Type="Tables" Schema="dbo" />
@@ -28,9 +39,52 @@
           <EntitySet Name="program" EntityType="Model.Store.program" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="requestForLateEnrolment" EntityType="Model.Store.requestForLateEnrolment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="requiredcourse" EntityType="Model.Store.requiredcourse" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="role" EntityType="Model.Store.role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="student" EntityType="Model.Store.student" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__69279377" Association="Model.Store.FK__aspnet_Me__Appli__69279377">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__6A1BB7B0" Association="Model.Store.FK__aspnet_Me__UserI__6A1BB7B0">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__1ABEEF0B" Association="Model.Store.FK__aspnet_Pa__Appli__1ABEEF0B">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__2077C861" Association="Model.Store.FK__aspnet_Pe__PathI__2077C861">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__24485945" Association="Model.Store.FK__aspnet_Pe__PathI__24485945">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__253C7D7E" Association="Model.Store.FK__aspnet_Pe__UserI__253C7D7E">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__7E22B05D" Association="Model.Store.FK__aspnet_Pr__UserI__7E22B05D">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__07AC1A97" Association="Model.Store.FK__aspnet_Ro__Appli__07AC1A97">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__58F12BAE" Association="Model.Store.FK__aspnet_Us__Appli__58F12BAE">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__RoleI__0C70CFB4" Association="Model.Store.FK__aspnet_Us__RoleI__0C70CFB4">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__UserI__0B7CAB7B" Association="Model.Store.FK__aspnet_Us__UserI__0B7CAB7B">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_applicationForReadmission_issue" Association="Model.Store.FK_applicationForReadmission_issue">
             <End Role="issue" EntitySet="issue" />
             <End Role="applicationForReadmission" EntitySet="applicationForReadmission" />
@@ -73,10 +127,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_employee_faculty" Association="Model.Store.FK_employee_faculty">
             <End Role="faculty" EntitySet="faculty" />
-            <End Role="employee" EntitySet="employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_employee_role1" Association="Model.Store.FK_employee_role1">
-            <End Role="role" EntitySet="role" />
             <End Role="employee" EntitySet="employee" />
           </AssociationSet>
           <AssociationSet Name="FK_issue_catagories" Association="Model.Store.FK_issue_catagories">
@@ -219,6 +269,137 @@
           <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
           <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
         </EntityType>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredPath" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesString" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesBinary" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredRoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="CompatibleSchemaVersion" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="IsCurrentVersion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="char" Nullable="false" MaxLength="32" />
+          <Property Name="EventTimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="EventTime" Type="datetime" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="EventSequence" Type="decimal" Nullable="false" Precision="19" />
+          <Property Name="EventOccurrence" Type="decimal" Nullable="false" Precision="19" />
+          <Property Name="EventCode" Type="int" Nullable="false" />
+          <Property Name="EventDetailCode" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ApplicationPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="ApplicationVirtualPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="MachineName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="RequestUrl" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
+          <Property Name="Details" Type="ntext" />
+        </EntityType>
         <EntityType Name="campus">
           <Key>
             <PropertyRef Name="cname" />
@@ -296,9 +477,6 @@
           <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
           <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="role" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="20" />
-          <Property Name="passhint" Type="nvarchar" Nullable="false" MaxLength="60" />
-          <Property Name="permcode" Type="char" MaxLength="10" />
           <Property Name="archived" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="faculty">
@@ -422,13 +600,6 @@
           <Property Name="coursecode" Type="nvarchar" Nullable="false" MaxLength="9" />
           <Property Name="reqcoursecode" Type="nvarchar" Nullable="false" MaxLength="9" />
         </EntityType>
-        <EntityType Name="role">
-          <Key>
-            <PropertyRef Name="permcode" />
-          </Key>
-          <Property Name="permcode" Type="char" Nullable="false" MaxLength="10" />
-          <Property Name="role" Type="nvarchar" Nullable="false" MaxLength="20" />
-        </EntityType>
         <EntityType Name="student">
           <Key>
             <PropertyRef Name="studentid" />
@@ -461,6 +632,138 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__69279377">
+          <End Role="aspnet_Applications" Type="Model.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Model.Store.aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__6A1BB7B0">
+          <End Role="aspnet_Users" Type="Model.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Model.Store.aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__1ABEEF0B">
+          <End Role="aspnet_Applications" Type="Model.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Paths" Type="Model.Store.aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__2077C861">
+          <End Role="aspnet_Paths" Type="Model.Store.aspnet_Paths" Multiplicity="1" />
+          <End Role="aspnet_PersonalizationAllUsers" Type="Model.Store.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__24485945">
+          <End Role="aspnet_Paths" Type="Model.Store.aspnet_Paths" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Model.Store.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__253C7D7E">
+          <End Role="aspnet_Users" Type="Model.Store.aspnet_Users" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Model.Store.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__7E22B05D">
+          <End Role="aspnet_Users" Type="Model.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Profile" Type="Model.Store.aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__07AC1A97">
+          <End Role="aspnet_Applications" Type="Model.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Roles" Type="Model.Store.aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__58F12BAE">
+          <End Role="aspnet_Applications" Type="Model.Store.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Users" Type="Model.Store.aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__RoleI__0C70CFB4">
+          <End Role="aspnet_Roles" Type="Model.Store.aspnet_Roles" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="Model.Store.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__UserI__0B7CAB7B">
+          <End Role="aspnet_Users" Type="Model.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="Model.Store.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_applicationForReadmission_issue">
           <End Role="issue" Type="Model.Store.issue" Multiplicity="1" />
           <End Role="applicationForReadmission" Type="Model.Store.applicationForReadmission" Multiplicity="*" />
@@ -590,18 +893,6 @@
             </Principal>
             <Dependent Role="employee">
               <PropertyRef Name="faculty" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_employee_role1">
-          <End Role="role" Type="Model.Store.role" Multiplicity="0..1" />
-          <End Role="employee" Type="Model.Store.employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="role">
-              <PropertyRef Name="permcode" />
-            </Principal>
-            <Dependent Role="employee">
-              <PropertyRef Name="permcode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -881,7 +1172,6 @@
           <EntitySet Name="programs" EntityType="Model.program" />
           <EntitySet Name="requestForLateEnrolments" EntityType="Model.requestForLateEnrolment" />
           <EntitySet Name="requiredcourses" EntityType="Model.requiredcourse" />
-          <EntitySet Name="roles" EntityType="Model.role" />
           <EntitySet Name="students" EntityType="Model.student" />
           <EntitySet Name="sysdiagrams" EntityType="Model.sysdiagram" />
           <AssociationSet Name="FK_applicationForReadmission_issue" Association="Model.FK_applicationForReadmission_issue">
@@ -938,10 +1228,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_employee_faculty" Association="Model.FK_employee_faculty">
             <End Role="faculty" EntitySet="faculties" />
-            <End Role="employee" EntitySet="employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_employee_role1" Association="Model.FK_employee_role1">
-            <End Role="role" EntitySet="roles" />
             <End Role="employee" EntitySet="employees" />
           </AssociationSet>
           <AssociationSet Name="FK_issue_employee" Association="Model.FK_issue_employee">
@@ -1003,6 +1289,56 @@
           <AssociationSet Name="professor_course" Association="Model.professor_course">
             <End Role="course" EntitySet="courses" />
             <End Role="professor" EntitySet="professors" />
+          </AssociationSet>
+          <EntitySet Name="aspnet_Applications" EntityType="Model.aspnet_Applications" />
+          <EntitySet Name="aspnet_Membership" EntityType="Model.aspnet_Membership" />
+          <EntitySet Name="aspnet_Paths" EntityType="Model.aspnet_Paths" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Model.aspnet_PersonalizationAllUsers" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Model.aspnet_PersonalizationPerUser" />
+          <EntitySet Name="aspnet_Profile" EntityType="Model.aspnet_Profile" />
+          <EntitySet Name="aspnet_Roles" EntityType="Model.aspnet_Roles" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="Model.aspnet_SchemaVersions" />
+          <EntitySet Name="aspnet_Users" EntityType="Model.aspnet_Users" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="Model.aspnet_WebEvent_Events" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__69279377" Association="Model.FK__aspnet_Me__Appli__69279377">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__1ABEEF0B" Association="Model.FK__aspnet_Pa__Appli__1ABEEF0B">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__07AC1A97" Association="Model.FK__aspnet_Ro__Appli__07AC1A97">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__58F12BAE" Association="Model.FK__aspnet_Us__Appli__58F12BAE">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__6A1BB7B0" Association="Model.FK__aspnet_Me__UserI__6A1BB7B0">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__2077C861" Association="Model.FK__aspnet_Pe__PathI__2077C861">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__24485945" Association="Model.FK__aspnet_Pe__PathI__24485945">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__253C7D7E" Association="Model.FK__aspnet_Pe__UserI__253C7D7E">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__7E22B05D" Association="Model.FK__aspnet_Pr__UserI__7E22B05D">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="aspnet_UsersInRoles" Association="Model.aspnet_UsersInRoles">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="applicationForReadmission">
@@ -1139,13 +1475,9 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
           <Property Name="faculty" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="role" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="passhint" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
-          <Property Name="permcode" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
           <Property Name="archived" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="appointments" Relationship="Model.FK_appointment_employee" FromRole="employee" ToRole="appointment" />
           <NavigationProperty Name="faculty1" Relationship="Model.FK_employee_faculty" FromRole="employee" ToRole="faculty" />
-          <NavigationProperty Name="role1" Relationship="Model.FK_employee_role1" FromRole="employee" ToRole="role" />
           <NavigationProperty Name="issues" Relationship="Model.FK_issue_employee" FromRole="employee" ToRole="issue" />
           <NavigationProperty Name="notes" Relationship="Model.FK_note_employee" FromRole="employee" ToRole="note" />
           <NavigationProperty Name="programs" Relationship="Model.FK_program_employee" FromRole="employee" ToRole="program" />
@@ -1293,14 +1625,6 @@
           <Property Name="reqcoursecode" Type="String" Nullable="false" MaxLength="9" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="course" Relationship="Model.FK_requiredcourse_course" FromRole="requiredcourse" ToRole="course" />
           <NavigationProperty Name="course1" Relationship="Model.FK_requiredcourse_course1" FromRole="requiredcourse" ToRole="course" />
-        </EntityType>
-        <EntityType Name="role">
-          <Key>
-            <PropertyRef Name="permcode" />
-          </Key>
-          <Property Name="permcode" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="true" />
-          <Property Name="role1" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="employees" Relationship="Model.FK_employee_role1" FromRole="role" ToRole="employee" />
         </EntityType>
         <EntityType Name="student">
           <Key>
@@ -1506,18 +1830,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_employee_role1">
-          <End Role="role" Type="Model.role" Multiplicity="0..1" />
-          <End Role="employee" Type="Model.employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="role">
-              <PropertyRef Name="permcode" />
-            </Principal>
-            <Dependent Role="employee">
-              <PropertyRef Name="permcode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_issue_employee">
           <End Role="employee" Type="Model.employee" Multiplicity="1" />
           <End Role="issue" Type="Model.issue" Multiplicity="*" />
@@ -1674,6 +1986,261 @@
           <End Role="course" Type="Model.course" Multiplicity="*" />
           <End Role="professor" Type="Model.professor" Multiplicity="*" />
         </Association>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredApplicationName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="Model.FK__aspnet_Me__Appli__69279377" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Model.FK__aspnet_Pa__Appli__1ABEEF0B" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="Model.FK__aspnet_Ro__Appli__07AC1A97" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Model.FK__aspnet_Us__Appli__58F12BAE" FromRole="aspnet_Applications" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PasswordFormat" Nullable="false" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobilePIN" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredEmail" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordAnswer" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsLockedOut" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastPasswordChangedDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastLockoutDate" Nullable="false" />
+          <Property Type="Int32" Name="FailedPasswordAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" Nullable="false" />
+          <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" Nullable="false" />
+          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Nullable="false" />
+          <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Model.FK__aspnet_Me__Appli__69279377" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Model.FK__aspnet_Me__UserI__6A1BB7B0" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="PathId" Nullable="false" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredPath" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Model.FK__aspnet_Pa__Appli__1ABEEF0B" FromRole="aspnet_Paths" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_PersonalizationAllUsers" Relationship="Model.FK__aspnet_Pe__PathI__2077C861" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationAllUsers" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="Model.FK__aspnet_Pe__PathI__24485945" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationPerUser" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Type="Guid" Name="PathId" Nullable="false" />
+          <Property Type="Binary" Name="PageSettings" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Model.FK__aspnet_Pe__PathI__2077C861" FromRole="aspnet_PersonalizationAllUsers" ToRole="aspnet_Paths" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="PathId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Binary" Name="PageSettings" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Model.FK__aspnet_Pe__PathI__24485945" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Model.FK__aspnet_Pe__UserI__253C7D7E" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="PropertyNames" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PropertyValuesString" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="PropertyValuesBinary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Model.FK__aspnet_Pr__UserI__7E22B05D" FromRole="aspnet_Profile" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredRoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Model.FK__aspnet_Ro__Appli__07AC1A97" FromRole="aspnet_Roles" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Model.aspnet_UsersInRoles" FromRole="aspnet_Roles" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Type="String" Name="Feature" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CompatibleSchemaVersion" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsCurrentVersion" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Model.FK__aspnet_Us__Appli__58F12BAE" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="Model.FK__aspnet_Me__UserI__6A1BB7B0" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="Model.FK__aspnet_Pe__UserI__253C7D7E" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
+          <NavigationProperty Name="aspnet_Profile" Relationship="Model.FK__aspnet_Pr__UserI__7E22B05D" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="Model.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Type="String" Name="EventId" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="EventTimeUtc" Nullable="false" />
+          <Property Type="DateTime" Name="EventTime" Nullable="false" />
+          <Property Type="String" Name="EventType" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="EventSequence" Nullable="false" Precision="19" Scale="0" />
+          <Property Type="Decimal" Name="EventOccurrence" Nullable="false" Precision="19" Scale="0" />
+          <Property Type="Int32" Name="EventCode" Nullable="false" />
+          <Property Type="Int32" Name="EventDetailCode" Nullable="false" />
+          <Property Type="String" Name="Message" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ApplicationPath" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ApplicationVirtualPath" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MachineName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RequestUrl" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionType" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Details" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__69279377">
+          <End Type="Model.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="Model.aspnet_Membership" Role="aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__1ABEEF0B">
+          <End Type="Model.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="Model.aspnet_Paths" Role="aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__07AC1A97">
+          <End Type="Model.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="Model.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__58F12BAE">
+          <End Type="Model.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__6A1BB7B0">
+          <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="Model.aspnet_Membership" Role="aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__2077C861">
+          <End Type="Model.aspnet_Paths" Role="aspnet_Paths" Multiplicity="1" />
+          <End Type="Model.aspnet_PersonalizationAllUsers" Role="aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__24485945">
+          <End Type="Model.aspnet_Paths" Role="aspnet_Paths" Multiplicity="0..1" />
+          <End Type="Model.aspnet_PersonalizationPerUser" Role="aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__253C7D7E">
+          <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="0..1" />
+          <End Type="Model.aspnet_PersonalizationPerUser" Role="aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__7E22B05D">
+          <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="Model.aspnet_Profile" Role="aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="aspnet_UsersInRoles">
+          <End Type="Model.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
+          <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1769,9 +2336,6 @@
             <ScalarProperty Name="email" ColumnName="email" />
             <ScalarProperty Name="faculty" ColumnName="faculty" />
             <ScalarProperty Name="role" ColumnName="role" />
-            <ScalarProperty Name="password" ColumnName="password" />
-            <ScalarProperty Name="passhint" ColumnName="passhint" />
-            <ScalarProperty Name="permcode" ColumnName="permcode" />
             <ScalarProperty Name="archived" ColumnName="archived" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="faculties"><EntityTypeMapping TypeName="Model.faculty"><MappingFragment StoreEntitySet="faculty">
@@ -1857,10 +2421,6 @@
             <ScalarProperty Name="coursecode" ColumnName="coursecode" />
             <ScalarProperty Name="reqcoursecode" ColumnName="reqcoursecode" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="roles"><EntityTypeMapping TypeName="Model.role"><MappingFragment StoreEntitySet="role">
-            <ScalarProperty Name="permcode" ColumnName="permcode" />
-            <ScalarProperty Name="role1" ColumnName="role" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="students"><EntityTypeMapping TypeName="Model.student"><MappingFragment StoreEntitySet="student">
             <ScalarProperty Name="studentid" ColumnName="studentid" />
             <ScalarProperty Name="fname" ColumnName="fname" />
@@ -1911,6 +2471,146 @@
               <ScalarProperty Name="employeeid" ColumnName="employeeid" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="aspnet_Applications">
+            <EntityTypeMapping TypeName="Model.aspnet_Applications">
+              <MappingFragment StoreEntitySet="aspnet_Applications">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="Model.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Paths">
+            <EntityTypeMapping TypeName="Model.aspnet_Paths">
+              <MappingFragment StoreEntitySet="aspnet_Paths">
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationAllUsers">
+            <EntityTypeMapping TypeName="Model.aspnet_PersonalizationAllUsers">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationAllUsers">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationPerUser">
+            <EntityTypeMapping TypeName="Model.aspnet_PersonalizationPerUser">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationPerUser">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Profile">
+            <EntityTypeMapping TypeName="Model.aspnet_Profile">
+              <MappingFragment StoreEntitySet="aspnet_Profile">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+                <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Roles">
+            <EntityTypeMapping TypeName="Model.aspnet_Roles">
+              <MappingFragment StoreEntitySet="aspnet_Roles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_SchemaVersions">
+            <EntityTypeMapping TypeName="Model.aspnet_SchemaVersions">
+              <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+                <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+                <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Users">
+            <EntityTypeMapping TypeName="Model.aspnet_Users">
+              <MappingFragment StoreEntitySet="aspnet_Users">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_WebEvent_Events">
+            <EntityTypeMapping TypeName="Model.aspnet_WebEvent_Events">
+              <MappingFragment StoreEntitySet="aspnet_WebEvent_Events">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="ApplicationVirtualPath" ColumnName="ApplicationVirtualPath" />
+                <ScalarProperty Name="ApplicationPath" ColumnName="ApplicationPath" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="EventDetailCode" ColumnName="EventDetailCode" />
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="EventOccurrence" ColumnName="EventOccurrence" />
+                <ScalarProperty Name="EventSequence" ColumnName="EventSequence" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="EventTimeUtc" ColumnName="EventTimeUtc" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="aspnet_UsersInRoles" TypeName="Model.aspnet_UsersInRoles" StoreEntitySet="aspnet_UsersInRoles">
+            <EndProperty Name="aspnet_Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="aspnet_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1941,7 +2641,7 @@
         <EntityTypeShape EntityType="Model.coordinator" Width="1.5" PointX="3" PointY="22.375" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.course" Width="1.5" PointX="5.25" PointY="27" Height="3.7109993489583317" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.designation" Width="1.5" PointX="9" PointY="22.25" Height="1.595683593749996" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.employee" Width="1.5" PointX="6" PointY="21.625" Height="4.2879036458333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.employee" Width="1.5" PointX="6" PointY="21.625" Height="3.7109993489583353" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.faculty" Width="1.5" PointX="0.75" PointY="22.875" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.issue" Width="1.5" PointX="21.75" PointY="22.875" Height="4.4802050781250031" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.location" Width="1.5" PointX="13.5" PointY="25.125" Height="1.9802864583333317" IsExpanded="true" />
@@ -1952,7 +2652,6 @@
         <EntityTypeShape EntityType="Model.program" Width="1.5" PointX="11.25" PointY="24.375" Height="3.5186979166666674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.requestForLateEnrolment" Width="1.5" PointX="24" PointY="35.5" Height="3.1340950520833388" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.requiredcourse" Width="1.5" PointX="7.5" PointY="35.75" Height="1.9802864583333388" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.role" Width="1.5" PointX="3.75" PointY="19" Height="1.5956835937500031" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.student" Width="1.5" PointX="16.5" PointY="23.625" Height="5.057109374999996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333282" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_applicationForReadmission_issue" ManuallyRouted="false">
@@ -1962,15 +2661,15 @@
           <ConnectorPoint PointX="24" PointY="23.504506835937498" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_applicationForTermOrCompleteProgramWithdrawal_issue" ManuallyRouted="false">
-          <ConnectorPoint PointX="22.5" PointY="22.875" />
-          <ConnectorPoint PointX="22.5" PointY="16.220896809895834" />
+          <ConnectorPoint PointX="22.906252000000002" PointY="22.875" />
+          <ConnectorPoint PointX="22.906252000000002" PointY="16.220896809895834" />
           <ConnectorPoint PointX="24" PointY="16.220896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_appointment_employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="23.4374995" />
-          <ConnectorPoint PointX="8.5416666666666661" PointY="23.4374995" />
-          <ConnectorPoint PointX="8.7083333333333339" PointY="23.4374995" />
-          <ConnectorPoint PointX="8.75" PointY="23.4374995" />
+          <ConnectorPoint PointX="7.5" PointY="23.663296890003764" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="23.663296890003764" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="23.663296890003764" />
+          <ConnectorPoint PointX="8.75" PointY="23.663296890003764" />
           <ConnectorPoint PointX="8.75" PointY="24.095683593749996" />
           <ConnectorPoint PointX="11.916666666666666" PointY="24.095683593749996" />
           <ConnectorPoint PointX="12.083333333333334" PointY="24.095683593749996" />
@@ -1980,10 +2679,6 @@
           <ConnectorPoint PointX="16.25" PointY="23.375" />
           <ConnectorPoint PointX="17.166666666666668" PointY="23.375" />
           <ConnectorPoint PointX="17.333333333333332" PointY="23.375" />
-          <ConnectorPoint PointX="18.416666666666668" PointY="23.375" />
-          <ConnectorPoint PointX="18.583333333333332" PointY="23.375" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="23.375" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="23.375" />
           <ConnectorPoint PointX="19.5" PointY="23.375" />
           <ConnectorPoint PointX="19.5" PointY="23.75" />
         </AssociationConnector>
@@ -1997,32 +2692,28 @@
           <ConnectorPoint PointX="3.34375" PointY="22.375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_location_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="18.65625" />
-          <ConnectorPoint PointX="14.25" PointY="18.65625" />
+          <ConnectorPoint PointX="2.25" PointY="19.6019164453125" />
+          <ConnectorPoint PointX="14.25" PointY="19.6019164453125" />
           <ConnectorPoint PointX="14.25" PointY="25.125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_professor_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="21.183393613281254" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="21.183393613281254" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="21.183393613281254" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="21.183393613281254" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="21.183393613281254" />
-          <ConnectorPoint PointX="8.625" PointY="21.183393613281254" />
+          <ConnectorPoint PointX="2.25" PointY="21.135318255208336" />
+          <ConnectorPoint PointX="3.2604166666666665" PointY="21.135318255208336" />
+          <ConnectorPoint PointX="3.4270833333333335" PointY="21.135318255208336" />
+          <ConnectorPoint PointX="8.625" PointY="21.135318255208336" />
           <ConnectorPoint PointX="8.625" PointY="25.25" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_student_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="20.791583600260417" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="20.791583600260417" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="20.791583600260417" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="20.791583600260417" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="20.791583600260417" />
-          <ConnectorPoint PointX="17.25" PointY="20.791583600260417" />
+          <ConnectorPoint PointX="2.25" PointY="20.246627167968754" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="20.246627167968754" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="20.246627167968754" />
+          <ConnectorPoint PointX="17.25" PointY="20.246627167968754" />
           <ConnectorPoint PointX="17.25" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_issue_catagories" ManuallyRouted="false">
           <ConnectorPoint PointX="21" PointY="22.156247500000006" />
-          <ConnectorPoint PointX="22.0937475" PointY="22.156247500000006" />
-          <ConnectorPoint PointX="22.0937475" PointY="22.875" />
+          <ConnectorPoint PointX="22.5" PointY="22.156247500000006" />
+          <ConnectorPoint PointX="22.5" PointY="22.875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_coordinator_faculty" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="23.865143229166666" />
@@ -2044,61 +2735,50 @@
           <ConnectorPoint PointX="12" PointY="24.375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_employee_faculty" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="24.855286458333332" />
-          <ConnectorPoint PointX="1.5" PointY="25.646098632812503" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="25.646098632812503" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="25.646098632812503" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="25.646098632812503" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="25.646098632812503" />
-          <ConnectorPoint PointX="6" PointY="25.646098632812503" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.FK_employee_role1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="20.595683593750003" />
-          <ConnectorPoint PointX="4.90625" PointY="21.96875" />
+          <ConnectorPoint PointX="1.5" PointY="22.875" />
+          <ConnectorPoint PointX="1.5" PointY="21.96875" />
+          <ConnectorPoint PointX="3.2604166666666665" PointY="21.96875" />
+          <ConnectorPoint PointX="3.4270833333333335" PointY="21.96875" />
           <ConnectorPoint PointX="6" PointY="21.96875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_issue_employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="22.612896445001887" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="22.612896445001887" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="22.612896445001887" />
+          <ConnectorPoint PointX="8.75" PointY="22.612896445001887" />
+          <ConnectorPoint PointX="8.75" PointY="22" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="22" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="22" />
+          <ConnectorPoint PointX="15.916666666666666" PointY="22" />
+          <ConnectorPoint PointX="16.083333333333332" PointY="22" />
+          <ConnectorPoint PointX="16.5" PointY="22" />
+          <ConnectorPoint PointX="16.5" PointY="23.359375" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="23.359375" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="23.359375" />
+          <ConnectorPoint PointX="21.25" PointY="23.359375" />
+          <ConnectorPoint PointX="21.25" PointY="22.75" />
+          <ConnectorPoint PointX="21.416666666666668" PointY="22.75" />
+          <ConnectorPoint PointX="21.583333333333332" PointY="22.75" />
+          <ConnectorPoint PointX="22.093747999999998" PointY="22.75" />
+          <ConnectorPoint PointX="22.093747999999998" PointY="22.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_note_employee" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="21.625" />
           <ConnectorPoint PointX="6.75" PointY="21.375" />
           <ConnectorPoint PointX="8.5416666666666661" PointY="21.375" />
           <ConnectorPoint PointX="8.7083333333333339" PointY="21.375" />
           <ConnectorPoint PointX="14.166666666666666" PointY="21.375" />
           <ConnectorPoint PointX="14.333333333333334" PointY="21.375" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="21.375" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="21.375" />
-          <ConnectorPoint PointX="18.5" PointY="21.375" />
-          <ConnectorPoint PointX="18.5" PointY="23.5" />
-          <ConnectorPoint PointX="18.666666666666668" PointY="23.5" />
-          <ConnectorPoint PointX="18.833333333333332" PointY="23.5" />
-          <ConnectorPoint PointX="19.416666666666668" PointY="23.5" />
-          <ConnectorPoint PointX="19.583333333333332" PointY="23.5" />
-          <ConnectorPoint PointX="21.375" PointY="23.5" />
-          <ConnectorPoint PointX="21.375" PointY="25.1151025390625" />
-          <ConnectorPoint PointX="21.75" PointY="25.1151025390625" />
-        </AssociationConnector>
-        <AssociationConnector Association="Model.FK_note_employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.156252" PointY="21.625" />
-          <ConnectorPoint PointX="7.156252" PointY="21.5" />
-          <ConnectorPoint PointX="8.5416666666666661" PointY="21.5" />
-          <ConnectorPoint PointX="8.7083333333333339" PointY="21.5" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="21.5" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="21.5" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="21.5" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="21.5" />
-          <ConnectorPoint PointX="18.416666666666668" PointY="21.5" />
-          <ConnectorPoint PointX="18.583333333333332" PointY="21.5" />
-          <ConnectorPoint PointX="18.75" PointY="21.5" />
-          <ConnectorPoint PointX="18.75" PointY="23.625" />
-          <ConnectorPoint PointX="19.416666666666668" PointY="23.625" />
-          <ConnectorPoint PointX="19.583333333333332" PointY="23.625" />
-          <ConnectorPoint PointX="21.291666666666668" PointY="23.625" />
-          <ConnectorPoint PointX="21.458333333333332" PointY="23.625" />
-          <ConnectorPoint PointX="21.5" PointY="23.625" />
+          <ConnectorPoint PointX="16" PointY="21.375" />
+          <ConnectorPoint PointX="16" PointY="23.34375" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="23.34375" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="23.34375" />
+          <ConnectorPoint PointX="21.5" PointY="23.34375" />
           <ConnectorPoint PointX="21.5" PointY="22.625" />
-          <ConnectorPoint PointX="22.010414166666667" PointY="22.625" />
-          <ConnectorPoint PointX="22.177080833333331" PointY="22.625" />
           <ConnectorPoint PointX="22.416666666666668" PointY="22.625" />
           <ConnectorPoint PointX="22.583333333333332" PointY="22.625" />
+          <ConnectorPoint PointX="22.82291866666667" PointY="22.625" />
+          <ConnectorPoint PointX="22.989585333333334" PointY="22.625" />
           <ConnectorPoint PointX="23.75" PointY="22.625" />
           <ConnectorPoint PointX="23.75" PointY="24.968200997395833" />
           <ConnectorPoint PointX="27" PointY="24.968200997395833" />
@@ -2111,19 +2791,19 @@
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_professor_faculty" ManuallyRouted="false">
           <ConnectorPoint PointX="1.9062525" PointY="24.855286458333332" />
-          <ConnectorPoint PointX="1.9062525" PointY="26.456451822916669" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="26.456451822916669" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="26.456451822916669" />
-          <ConnectorPoint PointX="8.5" PointY="26.456451822916669" />
+          <ConnectorPoint PointX="1.9062525" PointY="26.360301106770834" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="26.360301106770834" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="26.360301106770834" />
+          <ConnectorPoint PointX="8.5" PointY="26.360301106770834" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_program_faculty" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.093748" PointY="24.855286458333332" />
-          <ConnectorPoint PointX="1.093748" PointY="26.162903645833339" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="26.162903645833339" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="26.162903645833339" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="26.162903645833339" />
-          <ConnectorPoint PointX="3.8333333333333335" PointY="26.162903645833339" />
-          <ConnectorPoint PointX="8.25" PointY="26.162903645833339" />
+          <ConnectorPoint PointX="1.2968742500000001" PointY="24.855286458333332" />
+          <ConnectorPoint PointX="1.2968742500000001" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="1.8229191666666667" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="1.9895858333333332" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="8.25" PointY="26.134348958333334" />
           <ConnectorPoint PointX="8.25" PointY="25" />
           <ConnectorPoint PointX="8.5416666666666661" PointY="25" />
           <ConnectorPoint PointX="8.7083333333333339" PointY="25" />
@@ -2179,6 +2859,63 @@
         <AssociationConnector Association="Model.professor_course" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="27.595896809895834" />
           <ConnectorPoint PointX="8.5" PointY="27.595896809895834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model.aspnet_Applications" Width="1.5" PointX="3.75" PointY="7.875" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="Model.aspnet_Membership" Width="1.5" PointX="9" PointY="9.5" Height="5.4417122395833388" />
+        <EntityTypeShape EntityType="Model.aspnet_Paths" Width="1.5" PointX="6" PointY="6.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.aspnet_PersonalizationAllUsers" Width="1.5" PointX="8.25" PointY="6.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Model.aspnet_PersonalizationPerUser" Width="1.5" PointX="8.25" PointY="3.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.aspnet_Profile" Width="1.5" PointX="13.5" PointY="11.875" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="Model.aspnet_Roles" Width="1.5" PointX="6" PointY="15.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Model.aspnet_SchemaVersions" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="Model.aspnet_Users" Width="1.5" PointX="11.25" PointY="11.375" Height="3.3263964843750102" />
+        <EntityTypeShape EntityType="Model.aspnet_WebEvent_Events" Width="1.5" PointX="0.75" PointY="3.75" Height="3.9033007812500102" />
+        <AssociationConnector Association="Model.FK__aspnet_Me__Appli__69279377" >
+          <ConnectorPoint PointX="5.25" PointY="9.9660953776041623" />
+          <ConnectorPoint PointX="9" PointY="9.9660953776041623" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Pa__Appli__1ABEEF0B" >
+          <ConnectorPoint PointX="5.25" PointY="8.3074446614583337" />
+          <ConnectorPoint PointX="6" PointY="8.3074446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Ro__Appli__07AC1A97" >
+          <ConnectorPoint PointX="4.5" PointY="10.432190755208325" />
+          <ConnectorPoint PointX="4.5" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="6" PointY="16.932444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Us__Appli__58F12BAE" >
+          <ConnectorPoint PointX="5.25" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="11.510414166666665" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="11.677080833333333" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="12" PointY="9.1199446614583337" />
+          <ConnectorPoint PointX="12" PointY="11.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Me__UserI__6A1BB7B0" >
+          <ConnectorPoint PointX="11.25" PointY="13.038198242187505" />
+          <ConnectorPoint PointX="10.5" PointY="13.038198242187505" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Pe__PathI__2077C861" >
+          <ConnectorPoint PointX="7.5" PointY="7.6439925130208337" />
+          <ConnectorPoint PointX="8.25" PointY="7.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Pe__PathI__24485945" >
+          <ConnectorPoint PointX="6.75" PointY="6.375" />
+          <ConnectorPoint PointX="6.75" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="8.25" PointY="4.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Pe__UserI__253C7D7E" >
+          <ConnectorPoint PointX="11.5937475" PointY="11.375" />
+          <ConnectorPoint PointX="11.5937475" PointY="4.5574446614583337" />
+          <ConnectorPoint PointX="9.75" PointY="4.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK__aspnet_Pr__UserI__7E22B05D" >
+          <ConnectorPoint PointX="12.75" PointY="12.961293945312498" />
+          <ConnectorPoint PointX="13.5" PointY="12.961293945312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.aspnet_UsersInRoles" >
+          <ConnectorPoint PointX="7.5" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="12" PointY="16.932444661458334" />
+          <ConnectorPoint PointX="12" PointY="14.70139648437501" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
