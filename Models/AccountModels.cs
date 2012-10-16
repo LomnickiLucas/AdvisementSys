@@ -44,7 +44,7 @@ namespace AdvisementSys.Models
     public class RegisterModel
     {
         [Required]
-        [RegularExpression(@"/^\d{9}$/", ErrorMessage = "Please enter a Valid Employee Identification Number.")]
+        //[RegularExpression(@"/^\d{9}$/", ErrorMessage = "Please enter a Valid Employee Identification Number.")]
         [Display(Name = "Employee Identification Number")]
         public string UserName { get; set; }
 
@@ -76,7 +76,7 @@ namespace AdvisementSys.Models
 
         [Required]
         [Display(Name = "Phone Number")]
-        [RegularExpression(@"/^($)|(\d{3}\-\d{3}\-\d{4})$/", ErrorMessage = "Please enter a Valid Phone Number.")]
+        //[RegularExpression(@"/^($)|(\d{3}\-\d{3}\-\d{4})$/", ErrorMessage = "Please enter a Valid Phone Number.")]
         public string phonenum { get; set; }
 
         [Required]

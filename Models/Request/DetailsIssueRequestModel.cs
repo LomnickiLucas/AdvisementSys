@@ -15,6 +15,14 @@ namespace AdvisementSys.Models.Request
 
         public IEnumerable<Forms> _Forms { get; set; }
 
+        public IEnumerable<note> _note { get; set; }
+
+        public note _newNote { get; set; }
+
         public String _EmployeeID { get; set; }
+
+        public employee _employee { get; set; }
+
+        public DateTime _date { get; set; }
     }
 }

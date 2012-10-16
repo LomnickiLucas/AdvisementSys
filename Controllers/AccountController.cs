@@ -39,7 +39,7 @@ namespace AdvisementSys.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Student");
                     }
                 }
                 else

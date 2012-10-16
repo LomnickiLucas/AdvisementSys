@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseRegistrationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\LateEnrollmentController.cs" />
     <Compile Include="Controllers\ProbationaryContractController.cs" />
@@ -345,6 +346,7 @@
     <Content Include="Views\Shared\LogOn_Layout.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\LogOn_Partial.cshtml" />
+    <Content Include="Views\Issue\EditNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
