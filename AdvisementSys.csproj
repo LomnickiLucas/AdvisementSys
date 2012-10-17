@@ -206,6 +206,7 @@
     <Compile Include="Models\requiredcourse.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudDetailsIssues.cs" />
     <Compile Include="Models\student.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

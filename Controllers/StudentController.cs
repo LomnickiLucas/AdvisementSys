@@ -109,9 +109,22 @@ namespace AdvisementSys.Controllers
             {
                 if (id != null)
                 {
-                    IEnumerable<issue> issue = db.issues.Include("student").Where(i => i.studentid == id);
+                    IEnumerable<issue> _issue = db.issues.Include("student").Where(i => i.studentid == id);
                     student student = db.students.Include("program").Single(s => s.studentid == id);
-                    DetailsStudentRequestModel details = new DetailsStudentRequestModel() { _student = student, _issue = issue };
+                    List<StudDetailsIssues> issue = new List<StudDetailsIssues>();
+                    foreach (issue i in _issue)
+                    {
+                        StudDetailsIssues temp = new StudDetailsIssues();
+                        temp.IssueID = i.issueid;
+                        temp.Name = i.issuename;
+                        temp.Date = i.date.ToShortDateString();
+                        temp.Status = i.status;
+                        temp.Urgency = i.urgency;
+
+                        issue.Add(temp);
+                    }
+
+                    DetailsStudentRequestModel details = new DetailsStudentRequestModel() { _student = student, _issue = issue.OrderByDescending(i => i.Date) };
                     return View(details);
                 }
                 else
