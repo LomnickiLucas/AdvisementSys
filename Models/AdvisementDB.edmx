@@ -93,6 +93,10 @@
             <End Role="issue" EntitySet="issue" />
             <End Role="applicationForTermOrCompleteProgramWithdrawal" EntitySet="applicationForTermOrCompleteProgramWithdrawal" />
           </AssociationSet>
+          <AssociationSet Name="FK_appointment_campus" Association="Model.Store.FK_appointment_campus">
+            <End Role="campus" EntitySet="campus" />
+            <End Role="appointment" EntitySet="appointment" />
+          </AssociationSet>
           <AssociationSet Name="FK_appointment_employee" Association="Model.Store.FK_appointment_employee">
             <End Role="employee" EntitySet="employee" />
             <End Role="appointment" EntitySet="appointment" />
@@ -268,6 +272,7 @@
           <Property Name="reasonForCancelation" Type="text" />
           <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
           <Property Name="studentid" Type="char" Nullable="false" MaxLength="9" />
+          <Property Name="cname" Type="nvarchar" Nullable="false" MaxLength="30" />
         </EntityType>
         <EntityType Name="aspnet_Applications">
           <Key>
@@ -785,6 +790,18 @@
             </Principal>
             <Dependent Role="applicationForTermOrCompleteProgramWithdrawal">
               <PropertyRef Name="issueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_appointment_campus">
+          <End Role="campus" Type="Model.Store.campus" Multiplicity="1" />
+          <End Role="appointment" Type="Model.Store.appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campus">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="cname" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1340,6 +1357,10 @@
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_appointment_campus" Association="Model.FK_appointment_campus">
+            <End Role="campu" EntitySet="campus" />
+            <End Role="appointment" EntitySet="appointments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="applicationForReadmission">
           <Key>
@@ -1399,6 +1420,8 @@
           <Property Name="studentid" Type="String" Nullable="false" MaxLength="9" Unicode="false" FixedLength="true" />
           <NavigationProperty Name="employee" Relationship="Model.FK_appointment_employee" FromRole="appointment" ToRole="employee" />
           <NavigationProperty Name="student" Relationship="Model.FK_appointment_student" FromRole="appointment" ToRole="student" />
+          <Property Type="String" Name="cname" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="campu" Relationship="Model.FK_appointment_campus" FromRole="appointment" ToRole="campu" />
         </EntityType>
         <EntityType Name="campu">
           <Key>
@@ -1414,6 +1437,7 @@
           <NavigationProperty Name="locations" Relationship="Model.FK_location_campus" FromRole="campus" ToRole="location" />
           <NavigationProperty Name="professors" Relationship="Model.FK_professor_campus" FromRole="campus" ToRole="professor" />
           <NavigationProperty Name="students" Relationship="Model.FK_student_campus" FromRole="campus" ToRole="student" />
+          <NavigationProperty Name="appointments" Relationship="Model.FK_appointment_campus" FromRole="campu" ToRole="appointment" />
         </EntityType>
         <EntityType Name="catagory">
           <Key>
@@ -2241,6 +2265,18 @@
           <End Type="Model.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
           <End Type="Model.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
         </Association>
+        <Association Name="FK_appointment_campus">
+          <End Type="Model.campu" Role="campu" Multiplicity="1" />
+          <End Type="Model.appointment" Role="appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campu">
+              <PropertyRef Name="cname" />
+            </Principal>
+            <Dependent Role="appointment">
+              <PropertyRef Name="cname" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2284,7 +2320,8 @@
             <ScalarProperty Name="status" ColumnName="status" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="appointments"><EntityTypeMapping TypeName="Model.appointment"><MappingFragment StoreEntitySet="appointment">
-            <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
+            <ScalarProperty Name="cname" ColumnName="cname" />
+                <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
             <ScalarProperty Name="starttime" ColumnName="starttime" />
             <ScalarProperty Name="endtime" ColumnName="endtime" />
             <ScalarProperty Name="subject" ColumnName="subject" />
@@ -2666,10 +2703,10 @@
           <ConnectorPoint PointX="24" PointY="16.220896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_appointment_employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="23.663296890003764" />
-          <ConnectorPoint PointX="8.5416666666666661" PointY="23.663296890003764" />
-          <ConnectorPoint PointX="8.7083333333333339" PointY="23.663296890003764" />
-          <ConnectorPoint PointX="8.75" PointY="23.663296890003764" />
+          <ConnectorPoint PointX="7.5" PointY="23.691761111739659" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="23.691761111739659" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="23.691761111739659" />
+          <ConnectorPoint PointX="8.75" PointY="23.691761111739659" />
           <ConnectorPoint PointX="8.75" PointY="24.095683593749996" />
           <ConnectorPoint PointX="11.916666666666666" PointY="24.095683593749996" />
           <ConnectorPoint PointX="12.083333333333334" PointY="24.095683593749996" />
@@ -2679,35 +2716,39 @@
           <ConnectorPoint PointX="16.25" PointY="23.375" />
           <ConnectorPoint PointX="17.166666666666668" PointY="23.375" />
           <ConnectorPoint PointX="17.333333333333332" PointY="23.375" />
+          <ConnectorPoint PointX="19.010416666666668" PointY="23.375" />
+          <ConnectorPoint PointX="19.177083333333332" PointY="23.375" />
           <ConnectorPoint PointX="19.5" PointY="23.375" />
           <ConnectorPoint PointX="19.5" PointY="23.75" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_appointment_student" ManuallyRouted="false">
-          <ConnectorPoint PointX="18" PointY="25.220896809895834" />
-          <ConnectorPoint PointX="18.75" PointY="25.220896809895834" />
+          <ConnectorPoint PointX="18" PointY="25.339874674479169" />
+          <ConnectorPoint PointX="18.75" PointY="25.339874674479169" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_coordinator_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="20.987488606770835" />
-          <ConnectorPoint PointX="3.34375" PointY="20.987488606770835" />
-          <ConnectorPoint PointX="3.34375" PointY="22.375" />
+          <ConnectorPoint PointX="2.25" PointY="20.922211235451183" />
+          <ConnectorPoint PointX="3.75" PointY="20.922211235451183" />
+          <ConnectorPoint PointX="3.75" PointY="22.375" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_location_campus" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="19.6019164453125" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="19.6019164453125" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="19.6019164453125" />
           <ConnectorPoint PointX="14.25" PointY="19.6019164453125" />
           <ConnectorPoint PointX="14.25" PointY="25.125" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_professor_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="21.135318255208336" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="21.135318255208336" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="21.135318255208336" />
-          <ConnectorPoint PointX="8.625" PointY="21.135318255208336" />
+          <ConnectorPoint PointX="2.25" PointY="18.957205722656248" />
+          <ConnectorPoint PointX="8.625" PointY="18.957205722656248" />
           <ConnectorPoint PointX="8.625" PointY="25.25" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_student_campus" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="20.246627167968754" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="20.246627167968754" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="20.246627167968754" />
-          <ConnectorPoint PointX="17.25" PointY="20.246627167968754" />
+          <ConnectorPoint PointX="2.25" PointY="20.262063840381842" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="20.262063840381842" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="20.262063840381842" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="20.262063840381842" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="20.262063840381842" />
+          <ConnectorPoint PointX="17.25" PointY="20.262063840381842" />
           <ConnectorPoint PointX="17.25" PointY="23.625" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_issue_catagories" ManuallyRouted="false">
@@ -2737,15 +2778,15 @@
         <AssociationConnector Association="Model.FK_employee_faculty" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="22.875" />
           <ConnectorPoint PointX="1.5" PointY="21.96875" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="21.96875" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="21.96875" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="21.96875" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="21.96875" />
           <ConnectorPoint PointX="6" PointY="21.96875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_issue_employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="22.612896445001887" />
-          <ConnectorPoint PointX="8.5416666666666661" PointY="22.612896445001887" />
-          <ConnectorPoint PointX="8.7083333333333339" PointY="22.612896445001887" />
-          <ConnectorPoint PointX="8.75" PointY="22.612896445001887" />
+          <ConnectorPoint PointX="7.5" PointY="22.624173265145984" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="22.624173265145984" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="22.624173265145984" />
+          <ConnectorPoint PointX="8.75" PointY="22.624173265145984" />
           <ConnectorPoint PointX="8.75" PointY="22" />
           <ConnectorPoint PointX="14.166666666666666" PointY="22" />
           <ConnectorPoint PointX="14.333333333333334" PointY="22" />
@@ -2755,12 +2796,12 @@
           <ConnectorPoint PointX="16.5" PointY="23.359375" />
           <ConnectorPoint PointX="17.166666666666668" PointY="23.359375" />
           <ConnectorPoint PointX="17.333333333333332" PointY="23.359375" />
+          <ConnectorPoint PointX="19.010416666666668" PointY="23.359375" />
+          <ConnectorPoint PointX="19.177083333333332" PointY="23.359375" />
           <ConnectorPoint PointX="21.25" PointY="23.359375" />
-          <ConnectorPoint PointX="21.25" PointY="22.75" />
-          <ConnectorPoint PointX="21.416666666666668" PointY="22.75" />
-          <ConnectorPoint PointX="21.583333333333332" PointY="22.75" />
-          <ConnectorPoint PointX="22.093747999999998" PointY="22.75" />
-          <ConnectorPoint PointX="22.093747999999998" PointY="22.875" />
+          <ConnectorPoint PointX="21.25" PointY="22.609375" />
+          <ConnectorPoint PointX="22.5" PointY="22.609375" />
+          <ConnectorPoint PointX="22.5" PointY="22.875" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_note_employee" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="21.625" />
@@ -2773,6 +2814,8 @@
           <ConnectorPoint PointX="16" PointY="23.34375" />
           <ConnectorPoint PointX="17.166666666666668" PointY="23.34375" />
           <ConnectorPoint PointX="17.333333333333332" PointY="23.34375" />
+          <ConnectorPoint PointX="19.010416666666668" PointY="23.34375" />
+          <ConnectorPoint PointX="19.177083333333332" PointY="23.34375" />
           <ConnectorPoint PointX="21.5" PointY="23.34375" />
           <ConnectorPoint PointX="21.5" PointY="22.625" />
           <ConnectorPoint PointX="22.416666666666668" PointY="22.625" />
@@ -2784,10 +2827,10 @@
           <ConnectorPoint PointX="27" PointY="24.968200997395833" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_program_employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="24.78125" />
-          <ConnectorPoint PointX="8.5416666666666661" PointY="24.78125" />
-          <ConnectorPoint PointX="8.7083333333333339" PointY="24.78125" />
-          <ConnectorPoint PointX="11.25" PointY="24.78125" />
+          <ConnectorPoint PointX="7.5" PointY="24.759348958333334" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="24.759348958333334" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="24.759348958333334" />
+          <ConnectorPoint PointX="11.25" PointY="24.759348958333334" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_professor_faculty" ManuallyRouted="false">
           <ConnectorPoint PointX="1.9062525" PointY="24.855286458333332" />
@@ -2797,10 +2840,8 @@
           <ConnectorPoint PointX="8.5" PointY="26.360301106770834" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_program_faculty" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.2968742500000001" PointY="24.855286458333332" />
-          <ConnectorPoint PointX="1.2968742500000001" PointY="26.134348958333334" />
-          <ConnectorPoint PointX="1.8229191666666667" PointY="26.134348958333334" />
-          <ConnectorPoint PointX="1.9895858333333332" PointY="26.134348958333334" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="24.855286458333332" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="26.134348958333334" />
           <ConnectorPoint PointX="3.6666666666666665" PointY="26.134348958333334" />
           <ConnectorPoint PointX="3.8333333333333335" PointY="26.134348958333334" />
           <ConnectorPoint PointX="8.25" PointY="26.134348958333334" />
@@ -2808,8 +2849,8 @@
           <ConnectorPoint PointX="8.5416666666666661" PointY="25" />
           <ConnectorPoint PointX="8.7083333333333339" PointY="25" />
           <ConnectorPoint PointX="10.875" PointY="25" />
-          <ConnectorPoint PointX="10.875" PointY="26.368725958333329" />
-          <ConnectorPoint PointX="11.25" PointY="26.368725958333329" />
+          <ConnectorPoint PointX="10.875" PointY="26.357775437499996" />
+          <ConnectorPoint PointX="11.25" PointY="26.357775437499996" />
         </AssociationConnector>
         <AssociationConnector Association="Model.FK_issue_student" ManuallyRouted="false">
           <ConnectorPoint PointX="18" PointY="27.054749348958335" />
@@ -2916,6 +2957,17 @@
           <ConnectorPoint PointX="7.5" PointY="16.932444661458334" />
           <ConnectorPoint PointX="12" PointY="16.932444661458334" />
           <ConnectorPoint PointX="12" PointY="14.70139648437501" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model.FK_appointment_campus" >
+          <ConnectorPoint PointX="2.25" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="17.166666666666668" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="17.333333333333332" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="19.09375" PointY="20.592137537916514" />
+          <ConnectorPoint PointX="19.09375" PointY="23.75" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

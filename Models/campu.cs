@@ -22,6 +22,7 @@ namespace AdvisementSys.Models
     [KnownType(typeof(location))]
     [KnownType(typeof(professor))]
     [KnownType(typeof(student))]
+    [KnownType(typeof(appointment))]
     public partial class campu: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -262,6 +263,41 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<student> _students;
+    
+        [DataMember]
+        public TrackableCollection<appointment> appointments
+        {
+            get
+            {
+                if (_appointments == null)
+                {
+                    _appointments = new TrackableCollection<appointment>();
+                    _appointments.CollectionChanged += Fixupappointments;
+                }
+                return _appointments;
+            }
+            set
+            {
+                if (!ReferenceEquals(_appointments, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_appointments != null)
+                    {
+                        _appointments.CollectionChanged -= Fixupappointments;
+                    }
+                    _appointments = value;
+                    if (_appointments != null)
+                    {
+                        _appointments.CollectionChanged += Fixupappointments;
+                    }
+                    OnNavigationPropertyChanged("appointments");
+                }
+            }
+        }
+        private TrackableCollection<appointment> _appointments;
 
         #endregion
         #region ChangeTracking
@@ -345,6 +381,7 @@ namespace AdvisementSys.Models
             locations.Clear();
             professors.Clear();
             students.Clear();
+            appointments.Clear();
         }
 
         #endregion
@@ -501,6 +538,45 @@ namespace AdvisementSys.Models
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         ChangeTracker.RecordRemovalFromCollectionProperties("students", item);
+                    }
+                }
+            }
+        }
+    
+        private void Fixupappointments(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (appointment item in e.NewItems)
+                {
+                    item.campu = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("appointments", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (appointment item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.campu, this))
+                    {
+                        item.campu = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("appointments", item);
                     }
                 }
             }

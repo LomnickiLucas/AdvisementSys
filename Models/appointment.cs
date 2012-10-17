@@ -20,6 +20,7 @@ namespace AdvisementSys.Models
     [DataContract(IsReference = true)]
     [KnownType(typeof(employee))]
     [KnownType(typeof(student))]
+    [KnownType(typeof(campu))]
     public partial class appointment: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -163,6 +164,29 @@ namespace AdvisementSys.Models
             }
         }
         private string _studentid;
+    
+        [DataMember]
+        public string cname
+        {
+            get { return _cname; }
+            set
+            {
+                if (_cname != value)
+                {
+                    ChangeTracker.RecordOriginalValue("cname", _cname);
+                    if (!IsDeserializing)
+                    {
+                        if (campu != null && campu.cname != value)
+                        {
+                            campu = null;
+                        }
+                    }
+                    _cname = value;
+                    OnPropertyChanged("cname");
+                }
+            }
+        }
+        private string _cname;
 
         #endregion
         #region Navigation Properties
@@ -200,6 +224,23 @@ namespace AdvisementSys.Models
             }
         }
         private student _student;
+    
+        [DataMember]
+        public campu campu
+        {
+            get { return _campu; }
+            set
+            {
+                if (!ReferenceEquals(_campu, value))
+                {
+                    var previousValue = _campu;
+                    _campu = value;
+                    Fixupcampu(previousValue);
+                    OnNavigationPropertyChanged("campu");
+                }
+            }
+        }
+        private campu _campu;
 
         #endregion
         #region ChangeTracking
@@ -281,6 +322,7 @@ namespace AdvisementSys.Models
         {
             employee = null;
             student = null;
+            campu = null;
         }
 
         #endregion
@@ -360,6 +402,45 @@ namespace AdvisementSys.Models
                 if (student != null && !student.ChangeTracker.ChangeTrackingEnabled)
                 {
                     student.StartTracking();
+                }
+            }
+        }
+    
+        private void Fixupcampu(campu previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.appointments.Contains(this))
+            {
+                previousValue.appointments.Remove(this);
+            }
+    
+            if (campu != null)
+            {
+                if (!campu.appointments.Contains(this))
+                {
+                    campu.appointments.Add(this);
+                }
+    
+                cname = campu.cname;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("campu")
+                    && (ChangeTracker.OriginalValues["campu"] == campu))
+                {
+                    ChangeTracker.OriginalValues.Remove("campu");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("campu", previousValue);
+                }
+                if (campu != null && !campu.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    campu.StartTracking();
                 }
             }
         }
