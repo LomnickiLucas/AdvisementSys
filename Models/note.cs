@@ -118,6 +118,36 @@ namespace AdvisementSys.Models
             }
         }
         private Nullable<System.Guid> _issueid;
+    
+        [DataMember]
+        public string controller
+        {
+            get { return _controller; }
+            set
+            {
+                if (_controller != value)
+                {
+                    _controller = value;
+                    OnPropertyChanged("controller");
+                }
+            }
+        }
+        private string _controller;
+    
+        [DataMember]
+        public Nullable<System.Guid> formid
+        {
+            get { return _formid; }
+            set
+            {
+                if (_formid != value)
+                {
+                    _formid = value;
+                    OnPropertyChanged("formid");
+                }
+            }
+        }
+        private Nullable<System.Guid> _formid;
 
         #endregion
         #region Navigation Properties

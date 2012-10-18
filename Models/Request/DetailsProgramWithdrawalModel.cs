@@ -9,6 +9,14 @@ namespace AdvisementSys.Models.Request
     {
         public applicationForTermOrCompleteProgramWithdrawal _applicationForTermOrCompleteProgramWithdrawal { get; set; }
 
+        public IEnumerable<note> _note { get; set; }
+
+        public note _NewNote { get; set; }
+
+        public employee _employee { get; set; }
+
+        public DateTime _date { get; set; }
+
         public student _student { get; set; }
     }
 }

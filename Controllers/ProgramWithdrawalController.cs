@@ -42,7 +42,7 @@ namespace AdvisementSys.Controllers
                     applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
                     issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
                     student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student };
+                    DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
                     return View(Model);
                 }
                 else
@@ -54,6 +54,43 @@ namespace AdvisementSys.Controllers
             {
                 return RedirectToAction("Index", "Issue");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Details(DetailsProgramWithdrawalModel _model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Guid? id = _model._NewNote.formid;
+                    _model._NewNote.noteid = Guid.NewGuid();
+                    _model._NewNote.employeeid = User.Identity.Name;
+                    _model._NewNote.dates = DateTime.Now;
+                    _model._NewNote.controller = "ProgramWithdrawal";
+                    db.notes.AddObject(_model._NewNote);
+                    db.SaveChanges();
+
+                    applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
+                    issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
+                    return View(Model);
+
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+
+            return View(_model);
         }
 
         //

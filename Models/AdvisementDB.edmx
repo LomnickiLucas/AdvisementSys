@@ -521,6 +521,8 @@
           <Property Name="notes" Type="text" Nullable="false" />
           <Property Name="employeeid" Type="char" Nullable="false" MaxLength="9" />
           <Property Name="issueid" Type="uniqueidentifier" />
+          <Property Name="controller" Type="nvarchar" MaxLength="50" />
+          <Property Name="formid" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="part-timeAnd/orAdditionalCourseRegistrationForm">
           <Key>
@@ -1560,6 +1562,8 @@
           <Property Name="issueid" Type="Guid" />
           <NavigationProperty Name="employee" Relationship="Model.FK_note_employee" FromRole="note" ToRole="employee" />
           <NavigationProperty Name="issue" Relationship="Model.FK_note_issue" FromRole="note" ToRole="issue" />
+          <Property Type="String" Name="controller" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="formid" />
         </EntityType>
         <EntityType Name="part_timeAnd_orAdditionalCourseRegistrationForm">
           <Key>
@@ -2395,7 +2399,9 @@
             <ScalarProperty Name="campus" ColumnName="campus" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="notes"><EntityTypeMapping TypeName="Model.note"><MappingFragment StoreEntitySet="note">
-            <ScalarProperty Name="noteid" ColumnName="noteid" />
+            <ScalarProperty Name="formid" ColumnName="formid" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="noteid" ColumnName="noteid" />
             <ScalarProperty Name="dates" ColumnName="dates" />
             <ScalarProperty Name="notes" ColumnName="notes" />
             <ScalarProperty Name="employeeid" ColumnName="employeeid" />
@@ -2669,7 +2675,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AdvisementDB" ZoomLevel="52">
+      <Diagram Name="AdvisementDB" ZoomLevel="59">
         <EntityTypeShape EntityType="Model.applicationForReadmission" Width="1.5" PointX="24" PointY="18.5" Height="5.634013671874996" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.applicationForTermOrCompleteProgramWithdrawal" Width="1.5" PointX="24" PointY="14.75" Height="2.9417936197916674" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.appointment" Width="1.5" PointX="18.75" PointY="23.75" Height="2.9417936197916674" IsExpanded="true" />

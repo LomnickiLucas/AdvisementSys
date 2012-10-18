@@ -42,7 +42,7 @@ namespace AdvisementSys.Controllers
                     part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
                     issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
                     student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student };
+                    DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
                     return View(Model);
                 }
                 else
@@ -54,6 +54,43 @@ namespace AdvisementSys.Controllers
             {
                 return RedirectToAction("Index", "Issue");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Details(DetailsCourseRegistrationModel _model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Guid? id = _model._NewNote.formid;
+                    _model._NewNote.noteid = Guid.NewGuid();
+                    _model._NewNote.employeeid = User.Identity.Name;
+                    _model._NewNote.dates = DateTime.Now;
+                    _model._NewNote.controller = "CourseRegistration";
+                    db.notes.AddObject(_model._NewNote);
+                    db.SaveChanges();
+
+                    part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
+                    issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
+                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
+                    DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
+                    return View(Model);
+
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("Index", "Issue");
+                }
+            }
+
+            return View(_model);
         }
 
         //

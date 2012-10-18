@@ -205,7 +205,8 @@
     <div id="grid" style="height: 380px; width:80%;"></div>
 
     <br />
-
+    <a href="#noteCreate">Click here to go to the bottom of the page.</a>
+    <br />
 @foreach (var item in Model._note)
 {
     <table class="resultstd">
@@ -214,7 +215,7 @@
                 @Html.DisplayFor(modelItem => item.employee.fname) &nbsp; @Html.DisplayFor(modelItem => item.employee.lname) <br /> @Html.DisplayFor(modelItem => item.dates)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.employee.faculty) <br /> @Html.DisplayFor(modelItem => item.employee.email) <br /> @Html.DisplayFor(modelItem => item.employee.phonenum)
+                @Html.DisplayFor(modelItem => item.employee.faculty) <br /> <a href="mailto:" @item.employee.email> @Html.DisplayFor(modelItem => item.employee.email) </a> <br /> @Html.DisplayFor(modelItem => item.employee.phonenum)
             </td>
             <td>
                 @if (User.Identity.Name == item.employeeid)
@@ -223,6 +224,14 @@
                 }
             </td>
         </tr>
+        @if (item.formid != null)
+                {
+            <tr>
+                <td colspan="3">
+                    @Html.ActionLink("View related Form", "Details/" + item.formid, item.controller)
+                </td>
+            </tr>
+           }
         <tr>
             <td colspan="3">
                 @Html.DisplayFor(modelItem => item.notes)
@@ -235,7 +244,7 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
+    <fieldset id="noteCreate">
     @Html.HiddenFor(model => model._newNote.issueid, new { @Value = Model._issue.issueid })
         <table>
             <tr>
