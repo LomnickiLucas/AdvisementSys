@@ -178,13 +178,16 @@
                                 title: "Student Email"
                             } , {
                                 field: "Prob",
-                                title: "Academic Probation"
+                                title: "Academic Probation",
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Prob == true){ # checked #} # />"
                             } , {
                                 field: "FT",
-                                title: "Full Time"
+                                title: "Full Time",
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(FT == true){ # checked #} # />"
                             } , {
                                 field: "Enr",
-                                title: "Enrollemnt"
+                                title: "Enrollemnt",
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Enr == true){ # checked #} # />"
                             }
                         ]
         });
