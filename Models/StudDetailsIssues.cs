@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AdvisementSys.Models
 {
-    public class StudDetailsIssues
+    public class IssuesPOCO
     {
         public Guid IssueID { get; set; }
 
@@ -16,5 +16,9 @@ namespace AdvisementSys.Models
         public String Status { get; set; }
 
         public String Urgency { get; set; }
+
+        public String Catagory { get; set; }
+
+        public String Owner { get; set; }
     }
 }

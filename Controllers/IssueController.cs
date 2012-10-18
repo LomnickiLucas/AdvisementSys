@@ -24,6 +24,18 @@ namespace AdvisementSys.Controllers
         public ViewResult Index()
         {
             var issues = db.issues.Include("student");
+            List<IssuesPOCO> _issues = new List<IssuesPOCO>();
+            foreach (issue i in issues.OrderByDescending(e => e.date))
+            {
+                IssuesPOCO temp = new IssuesPOCO();
+                temp.IssueID = i.issueid;
+                temp.Name = i.issuename;
+                temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
+                temp.Status = i.status;
+                temp.Urgency = i.urgency;
+
+                _issues.Add(temp);
+            }
             var program = db.programs;
             var employee = db.employees;
             List<String> employees = new List<String>();
@@ -42,7 +54,7 @@ namespace AdvisementSys.Controllers
             {
                 collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
             }
-            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = issues.OrderByDescending(i => i.date), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
+            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = _issues.OrderByDescending(i => i.Status), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
             return View(Model);
         }
         /// <summary>
@@ -108,7 +120,19 @@ namespace AdvisementSys.Controllers
                     _issues = _issues.Where(i => i.date == Model._date1);
                 }
             }
-            Model._issue = _issues.OrderByDescending(i => i.date);
+            List<IssuesPOCO> _issue = new List<IssuesPOCO>();
+            foreach (issue i in _issues.OrderByDescending(e => e.date))
+            {
+                IssuesPOCO temp = new IssuesPOCO();
+                temp.IssueID = i.issueid;
+                temp.Name = i.issuename;
+                temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
+                temp.Status = i.status;
+                temp.Urgency = i.urgency;
+
+                _issue.Add(temp);
+            }
+            Model._issue = _issue;
             Model._employee = employees;
             Model._catagories = catagories;
             Model._programcode = collection;
@@ -131,12 +155,12 @@ namespace AdvisementSys.Controllers
             program program = db.programs.Single(i => i.programcode == issue.student.programcode);
             String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
             DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
-            List<Forms> Forms = new List<Forms>();
+            List<FormsPOCO> Forms = new List<FormsPOCO>();
             IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
             foreach (applicationForReadmission form in applicationForReadmission)
             {
-                Forms _Forms = new Forms();
-                _Forms.Date = form.date;
+                FormsPOCO _Forms = new FormsPOCO();
+                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                 _Forms.FormType = "Application For Readmission";
                 _Forms.Status = form.status;
                 _Forms.Controller = "Readmission";
@@ -147,8 +171,8 @@ namespace AdvisementSys.Controllers
             IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
             foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
             {
-                Forms _Forms = new Forms();
-                _Forms.Date = form.date;
+                FormsPOCO _Forms = new FormsPOCO();
+                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                 _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProgramWithdrawal";
@@ -159,8 +183,8 @@ namespace AdvisementSys.Controllers
             IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
             foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
             {
-                Forms _Forms = new Forms();
-                _Forms.Date = form.date;
+                FormsPOCO _Forms = new FormsPOCO();
+                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                 _Forms.FormType = "Part Time And/or Additional Course Registration Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "CourseRegistration";
@@ -171,8 +195,8 @@ namespace AdvisementSys.Controllers
             IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
             foreach (probationaryContractPlan form in probationaryContractPlan)
             {
-                Forms _Forms = new Forms();
-                _Forms.Date = form.date;
+                FormsPOCO _Forms = new FormsPOCO();
+                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                 _Forms.FormType = "Probationary Contract Plan";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProbationaryContract";
@@ -183,8 +207,8 @@ namespace AdvisementSys.Controllers
             IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
             foreach (requestForLateEnrolment form in requestForLateEnrolment)
             {
-                Forms _Forms = new Forms();
-                _Forms.Date = form.date;
+                FormsPOCO _Forms = new FormsPOCO();
+                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                 _Forms.FormType = "Request For Late Enrollment Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "LateEnrollment";
@@ -193,7 +217,7 @@ namespace AdvisementSys.Controllers
                 Forms.Add(_Forms);
             }
 
-            model._Forms = Forms.OrderByDescending(f => f.Date);
+            model._Forms = Forms.OrderByDescending(f => f.Status);
             return View(model);
         }
 
@@ -218,13 +242,13 @@ namespace AdvisementSys.Controllers
                 student student = db.students.Single(i => i.studentid == issue.studentid);
                 program program = db.programs.Single(i => i.programcode == issue.student.programcode);
                 String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
-                DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
-                List<Forms> Forms = new List<Forms>();
+                DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
+                List<FormsPOCO> Forms = new List<FormsPOCO>();
                 IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
                 foreach (applicationForReadmission form in applicationForReadmission)
                 {
-                    Forms _Forms = new Forms();
-                    _Forms.Date = form.date;
+                    FormsPOCO _Forms = new FormsPOCO();
+                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                     _Forms.FormType = "Application For Readmission";
                     _Forms.Status = form.status;
                     _Forms.Controller = "Readmission";
@@ -235,8 +259,8 @@ namespace AdvisementSys.Controllers
                 IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
                 foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
                 {
-                    Forms _Forms = new Forms();
-                    _Forms.Date = form.date;
+                    FormsPOCO _Forms = new FormsPOCO();
+                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                     _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                     _Forms.Status = form.status;
                     _Forms.Controller = "ProgramWithdrawal";
@@ -247,8 +271,8 @@ namespace AdvisementSys.Controllers
                 IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
                 foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
                 {
-                    Forms _Forms = new Forms();
-                    _Forms.Date = form.date;
+                    FormsPOCO _Forms = new FormsPOCO();
+                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                     _Forms.FormType = "Part Time And/or Additional Course Registration Form";
                     _Forms.Status = form.status;
                     _Forms.Controller = "CourseRegistration";
@@ -259,8 +283,8 @@ namespace AdvisementSys.Controllers
                 IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
                 foreach (probationaryContractPlan form in probationaryContractPlan)
                 {
-                    Forms _Forms = new Forms();
-                    _Forms.Date = form.date;
+                    FormsPOCO _Forms = new FormsPOCO();
+                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                     _Forms.FormType = "Probationary Contract Plan";
                     _Forms.Status = form.status;
                     _Forms.Controller = "ProbationaryContract";
@@ -271,8 +295,8 @@ namespace AdvisementSys.Controllers
                 IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
                 foreach (requestForLateEnrolment form in requestForLateEnrolment)
                 {
-                    Forms _Forms = new Forms();
-                    _Forms.Date = form.date;
+                    FormsPOCO _Forms = new FormsPOCO();
+                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
                     _Forms.FormType = "Request For Late Enrollment Form";
                     _Forms.Status = form.status;
                     _Forms.Controller = "LateEnrollment";
@@ -281,7 +305,7 @@ namespace AdvisementSys.Controllers
                     Forms.Add(_Forms);
                 }
 
-                model._Forms = Forms.OrderByDescending(f => f.Date);
+                model._Forms = Forms.OrderByDescending(f => f.Status);
 
                 return View(model);
             }

@@ -13,7 +13,7 @@ namespace AdvisementSys.Models.Request
 
         public program _program { get; set; }
 
-        public IEnumerable<Forms> _Forms { get; set; }
+        public IEnumerable<FormsPOCO> _Forms { get; set; }
 
         public IEnumerable<note> _note { get; set; }
 

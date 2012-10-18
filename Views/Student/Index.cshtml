@@ -6,6 +6,12 @@
 <h2>
     Search Students</h2>
 <div>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.common.min.css")" rel="stylesheet"
+        type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.metro.min.css")" rel="stylesheet"
+            type="text/css" />
+    <script src="@Url.Content("~/Scripts/kendo/2012.2.710/kendo.web.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
     <link href="@Url.Content("~/Content/css/grid.form.css")" rel="stylesheet" type="text/css" />
@@ -17,7 +23,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().studentid, "Student ID:")
+                        @Html.LabelFor(model => model._student.First().StudentID, "Student ID:")
                     </div>
                 </td>
                 <td>
@@ -27,7 +33,7 @@
                 </td>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().email, "Email:")
+                        @Html.LabelFor(model => model._student.First().Email, "Email:")
                     </div>
                 </td>
                 <td>
@@ -39,7 +45,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().fname, "First Name:")
+                        @Html.LabelFor(model => model._student.First().FName, "First Name:")
                     </div>
                 </td>
                 <td>
@@ -49,7 +55,7 @@
                 </td>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().lname, "Last Name:")
+                        @Html.LabelFor(model => model._student.First().LName, "Last Name:")
                     </div>
                 </td>
                 <td>
@@ -61,7 +67,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().programcode, "Program:")
+                        @Html.LabelFor(model => model._student.First().Prog, "Program:")
                     </div>
                 </td>
                 <td>
@@ -71,7 +77,7 @@
                 </td>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().campus, "Campus:")
+                        @Html.LabelFor(model => model._student.First().Campus, "Campus:")
                     </div>
                 </td>
                 <td>
@@ -83,7 +89,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().fulltimestatus, "Full-Time:")
+                        @Html.LabelFor(model => model._student.First().FT, "Full-Time:")
                     </div>
                 </td>
                 <td>
@@ -93,7 +99,7 @@
                 </td>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().acadprobation, "Probation:")
+                        @Html.LabelFor(model => model._student.First().Prob, "Probation:")
                     </div>
                 </td>
                 <td>
@@ -105,7 +111,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._student.First().enrolled, "Enrolled:")
+                        @Html.LabelFor(model => model._student.First().Enr, "Enrolled:")
                     </div>
                 </td>
                 <td>
@@ -128,7 +134,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="resultsstudent">
+
+<div id="grid" style="height: 380px; width:80%;"></div>
+
+@*<table class="resultsstudent">
     <tr>
         <div class="divheader">
             <th style="width: 3%;">
@@ -211,7 +220,57 @@
             </td>
         </tr>
     }
-</table>
+</table>*@
 <script type="text/javascript">
-    
+    $(document).ready(function() {
+
+        var model = @Html.Raw(Json.Encode(Model._student));
+        
+       $("#grid").kendoGrid({
+                        dataSource: {
+                            data: model,
+                            pageSize: 15
+                        },
+                        groupable: true,
+                        sortable: true,
+                        selectable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        columns: [  {
+                                field: "StudentID",
+                                title: "Student ID",
+                                template: '<a href="/Student/Details/#=StudentID#">#=StudentID#</a>'
+                            } , {
+                                field: "FName",
+                                title: "First Name"
+                            } , {
+                                field: "LName",
+                                title: "Last Name"
+                            } , {
+                                field: "Prog",
+                                title: "Student Program"
+                            } , {
+                                field: "Campus",
+                                title: "Student Campus"
+                            } , {
+                                field: "PhoneNum",
+                                title: "Student Phone Number"
+                            } , {
+                                field: "Email",
+                                title: "Student Email"
+                            } , {
+                                field: "Prob",
+                                title: "Academic Probation"
+                            } , {
+                                field: "FT",
+                                title: "Full Time"
+                            } , {
+                                field: "Enr",
+                                title: "Enrollemnt"
+                            }
+                        ]
+        });
+    });
 </script>

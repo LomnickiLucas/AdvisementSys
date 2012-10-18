@@ -210,6 +210,7 @@
     <Compile Include="Models\student.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentPOCO.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

@@ -32,7 +32,24 @@ namespace AdvisementSys.Controllers
             }
             ViewBag.programcode = new SelectList(collection);
             var students = db.students.Include("campu").Include("program");
-            IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = students.ToList(), programCode = "Please Select a Program", campus = "Please Select a Campus", enrolled = true };
+            List<StudentPOCO> student = new List<StudentPOCO>();
+            foreach (student s in students)
+            {
+                StudentPOCO temp = new StudentPOCO();
+                temp.StudentID = s.studentid;
+                temp.FName = s.fname;
+                temp.LName = s.lname;
+                temp.PhoneNum = s.phonenum;
+                temp.Prob = s.acadprobation;
+                temp.Prog = s.programcode + "-" + s.program.programname; ;
+                temp.FT = s.fulltimestatus;
+                temp.Campus = s.campus;
+                temp.Email = s.email;
+                temp.Enr = s.enrolled;
+
+                student.Add(temp);
+            }
+            IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = student, programCode = "Please Select a Program", campus = "Please Select a Campus", enrolled = true };
             return View(model);
         }
 
@@ -92,7 +109,24 @@ namespace AdvisementSys.Controllers
                 model.enrolled = true;
                 studentz = studentz.Where(stud => stud.enrolled.Equals(true));
             }
-            model._student = studentz;
+            List<StudentPOCO> student = new List<StudentPOCO>();
+            foreach (student s in studentz)
+            {
+                StudentPOCO temp = new StudentPOCO();
+                temp.StudentID = s.studentid;
+                temp.FName = s.fname;
+                temp.LName = s.lname;
+                temp.PhoneNum = s.phonenum;
+                temp.Prob = s.acadprobation;
+                temp.Prog = s.programcode + "-" + s.program.programname;
+                temp.FT = s.fulltimestatus;
+                temp.Campus = s.campus;
+                temp.Email = s.email;
+                temp.Enr = s.enrolled;
+
+                student.Add(temp);
+            }
+            model._student = student;
             return View(model);
         }
 
@@ -111,20 +145,20 @@ namespace AdvisementSys.Controllers
                 {
                     IEnumerable<issue> _issue = db.issues.Include("student").Where(i => i.studentid == id);
                     student student = db.students.Include("program").Single(s => s.studentid == id);
-                    List<StudDetailsIssues> issue = new List<StudDetailsIssues>();
-                    foreach (issue i in _issue)
+                    List<IssuesPOCO> issue = new List<IssuesPOCO>();
+                    foreach (issue i in _issue.OrderByDescending(e => e.date))
                     {
-                        StudDetailsIssues temp = new StudDetailsIssues();
+                        IssuesPOCO temp = new IssuesPOCO();
                         temp.IssueID = i.issueid;
                         temp.Name = i.issuename;
-                        temp.Date = i.date.ToShortDateString();
+                        temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
                         temp.Status = i.status;
                         temp.Urgency = i.urgency;
 
                         issue.Add(temp);
                     }
 
-                    DetailsStudentRequestModel details = new DetailsStudentRequestModel() { _student = student, _issue = issue.OrderByDescending(i => i.Date) };
+                    DetailsStudentRequestModel details = new DetailsStudentRequestModel() { _student = student, _issue = issue.OrderByDescending(i => i.Status) };
                     return View(details);
                 }
                 else

@@ -8,7 +8,7 @@
     type="text/css" />
 <link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.metro.min.css")" rel="stylesheet"
         type="text/css" />
-<script src="../../Scripts/kendo/2012.2.710/kendo.web.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/kendo/2012.2.710/kendo.web.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/css/grid.form.css")" rel="stylesheet" type="text/css" />
 <h2 style="padding-left: 13px;">Student Details for @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
@@ -225,25 +225,40 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        function customParser(data) {
+            return new Date(data);
+        }
+
         var model = @Html.Raw(Json.Encode(Model._issue));
         
-        $("#grid").kendoGrid({
+       $("#grid").kendoGrid({
                         dataSource: {
                             data: model,
-                            pageSize: 15
+                            pageSize: 15,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        Date: { type: "date", parse: customParser }
+                                    }
+                                }           
+                            }
                         },
                         groupable: true,
                         sortable: true,
+                        selectable: true,
                         pageable: {
                             refresh: true,
                             pageSizes: true
                         },
-                        columns: [ {
+                        columns: [  {
                                 field: "Name",
-                                title: "Issue Name"
+                                title: "Issue Name",
+                                template: '<a href="/Issue/Details/#=IssueID#">#=Name#</a>'
                             } , {
                                 field: "Date",
-                                title: "Issue Date"
+                                title: "Issue Date",
+                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
                             } , {
                                 field: "Status",
                                 title: "Issue Status"

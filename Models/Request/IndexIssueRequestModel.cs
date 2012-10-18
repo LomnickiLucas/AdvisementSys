@@ -7,7 +7,7 @@ namespace AdvisementSys.Models.Request
 {
     public class IndexIssueRequestModel
     {
-        public IEnumerable<issue> _issue { get; set; }
+        public IEnumerable<IssuesPOCO> _issue { get; set; }
 
         public IEnumerable<String> _employee { get; set; }
 

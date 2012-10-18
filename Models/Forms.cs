@@ -7,11 +7,10 @@ using System.Runtime.Serialization;
 
 namespace AdvisementSys.Models
 {
-    public class Forms
+    public class FormsPOCO
     {
         [DataMember]
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        public DateTime Date { get; set; }
+        public String Date { get; set; }
 
         [DataMember]
         public String FormType { get; set; }

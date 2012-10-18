@@ -9,6 +9,6 @@ namespace AdvisementSys.Models
     {
         public student _student { get; set; }
 
-        public IEnumerable<StudDetailsIssues> _issue { get; set; }
+        public IEnumerable<IssuesPOCO> _issue { get; set; }
     }
 }
