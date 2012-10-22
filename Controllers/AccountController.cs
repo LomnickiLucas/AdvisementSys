@@ -65,6 +65,7 @@ namespace AdvisementSys.Controllers
         //
         // GET: /Account/Register
 
+        [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -90,6 +91,7 @@ namespace AdvisementSys.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    //Roles.
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "issue");
                 }
