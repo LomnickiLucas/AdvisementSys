@@ -3,16 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvisementSys", "AdvisementSys.csproj", "{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}"
 EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "AdvisementSysReporting", "..\AdvisementSysReporting\AdvisementSysReporting.rptproj", "{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugLocal|Any CPU = DebugLocal|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C3CE9C-54E5-4AA0-9392-AFA0B8C892E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.Debug|Any CPU.ActiveCfg = DebugLocal
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.Debug|Any CPU.Build.0 = DebugLocal
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.DebugLocal|Any CPU.Build.0 = DebugLocal
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.Release|Any CPU.ActiveCfg = Release
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.Release|Any CPU.Build.0 = Release
+		{8B42EAE4-27FE-45D7-A784-905D4CB3ADCE}.Release|Any CPU.Deploy.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
