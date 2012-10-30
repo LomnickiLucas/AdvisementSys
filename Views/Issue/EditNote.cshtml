@@ -1,50 +1,69 @@
 ﻿@model AdvisementSys.Models.note
-
 @{
     ViewBag.Title = "EditNote";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>EditNote</h2>
-
+<h2>
+    Update Issue Note</h2>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("EditNote", "Issue", FormMethod.Post, new { id = "editNoteForm", name = "editNoteForm" }))
+{
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>note</legend>
 
-        @Html.HiddenFor(model => model.noteid)
-        @Html.HiddenFor(model => model.employeeid)
-        @Html.HiddenFor(model => model.issueid)
-        @Html.HiddenFor(model => model.dates)
+    @Html.HiddenFor(model => model.noteid)
+    @Html.HiddenFor(model => model.employeeid)
+    @Html.HiddenFor(model => model.issueid)
+    @Html.HiddenFor(model => model.dates)
 
-        <table>
-            <tr>
+    <table style="width: 800px;">
+        <tr>
             <td>
-                @Html.DisplayFor(model => model.employee.fname) &nbsp; @Html.DisplayFor(model => model.employee.lname) <br /> @Html.DisplayFor(model => model.dates)
+                @Html.DisplayFor(model => model.employee.fname) @Html.DisplayFor(model => model.employee.lname)
             </td>
             <td>
-                @Html.DisplayFor(model => model.employee.faculty) <br /> @Html.DisplayFor(model => model.employee.email) <br /> @Html.DisplayFor(model => model.employee.phonenum)
+                
+                @Html.DisplayFor(model => model.employee.faculty)
             </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    @Html.TextAreaFor(model => model.notes, new { @style = "width:775px; height:200px; resize:none;" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        <input type="submit" value="Save" />
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+        </tr>
+        <tr>
+            <td>
+                
+                @Html.DisplayFor(model => model.employee.email)
+            </td>
+            <td>
+                
+                @Html.DisplayFor(model => model.employee.phonenum)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                @Html.DisplayFor(model => model.dates)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Note:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.TextAreaFor(model => model.notes, new { @style = "width:775px; height:200px; resize:none;" })
+            </td>
+        </tr>
+    </table>
+      
+
+        
+    <div>
+        <input type="submit" value="Update" class="Button" style="position: relative; left: 10px;" />
+    </div><br />
+        
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

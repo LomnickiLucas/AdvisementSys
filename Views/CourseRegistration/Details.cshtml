@@ -11,6 +11,8 @@
     
 }
 
+<link href="@Url.Content("~/Content/css/note.form.css")" rel="stylesheet" type="text/css" />
+<div id="topAnchor"></div>
 <h2>Details for Part-Time and/or/ Additional Course Registration Form</h2>
 
 @Html.HiddenFor(model => model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid)
@@ -134,30 +136,49 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid }) |
     @Html.ActionLink("Back to Student Issue", "Details/" + Model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid, "Issue")
+    | <a href="#noteCreate">Create New Note</a> 
 </p>
 
 @foreach (var item in Model._note)
 {
-    <table class="resultstd">
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.employee.fname) &nbsp; @Html.DisplayFor(modelItem => item.employee.lname) <br /> @Html.DisplayFor(modelItem => item.dates)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.employee.faculty) <br /> <a href="mailto:" @item.employee.email> @Html.DisplayFor(modelItem => item.employee.email) </a> <br /> @Html.DisplayFor(modelItem => item.employee.phonenum)
-            </td>
-            <td>
-                @if (User.Identity.Name == item.employeeid)
-                {
-                    @Html.ActionLink("Edit Issue Note", "EditNote/" + item.noteid, "Issue")
-                }
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                @Html.DisplayFor(modelItem => item.notes)
-            </td>
-        </tr>
+    <table class="noteThread">
+        <thead>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.employee.fname) @Html.DisplayFor(modelItem => item.employee.lname)</strong>
+                </td>
+                <td style="text-align: right;">
+                    <strong>@Html.DisplayFor(modelItem => item.dates)</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee.faculty)
+                </td>
+                <td style="text-align: right;">
+                    <a href="mailto:" @item.employee.email>@Html.DisplayFor(modelItem => item.employee.email)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if (User.Identity.Name == item.employeeid)
+                    {
+                        @Html.ActionLink("Edit Issue Note", "EditNote", new { id = item.noteid })
+                    }
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(modelItem => item.employee.phonenum)
+                </td>
+            </tr>
+        </thead>
+        <tbody style="background-color: #F5F5F5;">
+            <tr>
+                <td colspan="2">
+                    @Html.DisplayFor(modelItem => item.notes)
+                </td>
+            </tr>
+        </tbody>
     </table>
     <br />
 }
@@ -165,30 +186,52 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset id="noteCreate">
+   
     @Html.HiddenFor(model => model._NewNote.issueid, new { @Value = Model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid })
     @Html.HiddenFor(model => model._NewNote.formid, new { @Value = Model._part_timeAnd_orAdditionalCourseRegistrationForm.registrationid })
-        <table>
-            <tr>
-            <td>
-                @Html.DisplayFor(model => model._employee.fname) &nbsp; @Html.DisplayFor(model => model._employee.lname) <br /> @Html.DisplayFor(model => model._date, new { @Value = Model._date.ToString("dd/MM/yyyy") })
+    <table class="addNoteBox" id="noteCreate">
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <h3>
+                    New Note</h3>
             </td>
+        </tr>
+        <tr>
             <td>
-                @Html.DisplayFor(model => model._employee.faculty) <br /> @Html.DisplayFor(model => model._employee.email) <br /> @Html.DisplayFor(model => model._employee.phonenum)
+                @Html.DisplayFor(model => model._employee.fname)&nbsp;@Html.DisplayFor(model => model._employee.lname)
             </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    @Html.TextAreaFor(model => model._NewNote.notes, new { @style = "width:775px; height:200px; resize:none;" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        <input type="submit" value="Create" />
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => model._date, new { @Value = Model._date.ToString("dd/MM/yyyy") })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model._employee.faculty)
+            </td>
+            <td style="text-align: right;">
+                @Html.DisplayFor(model => model._employee.email)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;">
+                @Html.DisplayFor(model => model._employee.phonenum)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.TextAreaFor(model => model._NewNote.notes, new { @style = "width:775px; height:200px; resize:none;" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Create Note" class="Button" style="position: relative;
+                    left: 10px;" />
+            </td>
+        </tr>
+    </table>
 }
+
+<p>
+    @Html.ActionLink("Back to Student Issue", "Details/" + Model._part_timeAnd_orAdditionalCourseRegistrationForm.issueid, "Issue")
+    | <a href="#topAnchor">Go to Top</a>  
+</p>

@@ -73,7 +73,7 @@ namespace AdvisementSys.Controllers
                     _model._NewNote.noteid = Guid.NewGuid();
                     _model._NewNote.employeeid = User.Identity.Name;
                     _model._NewNote.dates = DateTime.Now;
-                    _model._NewNote.controller = "CourseRegistration";
+                    _model._NewNote.controller = "ProbationaryContract";
                     db.notes.AddObject(_model._NewNote);
                     db.SaveChanges();
 

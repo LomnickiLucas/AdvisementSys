@@ -1,0 +1,15 @@
+﻿.noteThread
+{
+    border-collapse:collapse;
+    border-top: dotted;
+    border-bottom: dotted;
+    border-width:1px;
+    width: 800px;
+}
+
+.addNoteBox
+{
+    width: 800px;
+    border:1px solid;
+    padding: 5px;
+}
