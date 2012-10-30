@@ -19,105 +19,105 @@
     {
         @Html.ValidationSummary(true)
 
-        <table>
+        <table >
             <tr>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model._student.First().StudentID, "Student ID:")
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-field">
+                   
                         @Html.TextBox("studentid", value: Model.studentID)
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model._student.First().Email, "Email:")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-field">
+                   
                         @Html.TextBox("email", value: Model.email)
-                    </div>
+                   
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
+                   
                         @Html.LabelFor(model => model._student.First().FName, "First Name:")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.TextBox("fname", value: Model.fName)
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-label">
+                   
                         @Html.LabelFor(model => model._student.First().LName, "Last Name:")
-                    </div>
+                  
                 </td>
                 <td>
-                    <div class="editor-field">
+                   
                         @Html.TextBox("lname", value: Model.lName)
-                    </div>
+                  
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model._student.First().Prog, "Program:")
-                    </div>
+                  
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.DropDownList("programcode", "Please Select a Program")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-label">
+                    
                         @Html.LabelFor(model => model._student.First().Campus, "Campus:")
-                    </div>
+                 
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.DropDownList("campus", "Please Select a Campus")
-                    </div>
+                   
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
+             
                         @Html.LabelFor(model => model._student.First().FT, "Full-Time:")
-                    </div>
+                  
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-label">
+                   
                         @Html.LabelFor(model => model._student.First().Prob, "Probation:")
-                    </div>
+                    
                 </td>
                 <td>
-                    <div class="editor-field">
+                    
                         @Html.CheckBox("acadprobation", Model.acadprobation)
-                    </div>
+                   
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
+                   
                         @Html.LabelFor(model => model._student.First().Enr, "Enrolled:")
-                    </div>
+                   
                 </td>
                 <td>
-                    <div class="editor-field">
+                   
                         @Html.CheckBox("enrolled", Model.enrolled)
-                    </div>
+                  
                 </td>
             </tr>
             <tr>
@@ -135,7 +135,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<div id="grid" style="height: 380px; width:80%;"></div>
+<div id="grid" style="height: 380px; width:95%;"></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -157,6 +157,7 @@
                         columns: [  {
                                 field: "StudentID",
                                 title: "Student ID",
+                                width: "80px",
                                 template: '<a href="/Student/Details/#=StudentID#">#=StudentID#</a>'
                             } , {
                                 field: "FName",
@@ -166,27 +167,33 @@
                                 title: "Last Name"
                             } , {
                                 field: "Prog",
-                                title: "Student Program"
+                                title: "Program",
+                                width: "150px"                             
                             } , {
                                 field: "Campus",
-                                title: "Student Campus"
+                                title: "Campus",
+                                width: "120px"
                             } , {
                                 field: "PhoneNum",
-                                title: "Student Phone Number"
+                                title: "Phone Number",
+                                width: "100px"
                             } , {
                                 field: "Email",
-                                title: "Student Email"
+                                title: "Email"
                             } , {
                                 field: "Prob",
-                                title: "Academic Probation",
+                                title: "Academic <br> Probation",
+                                width: "80px",
                                 template: "<input disabled=\"True\" type=\"checkbox\" # if(Prob == true){ # checked #} # />"
                             } , {
                                 field: "FT",
-                                title: "Full Time",
+                                title: "Full-Time",
+                                width: "80px",
                                 template: "<input disabled=\"True\" type=\"checkbox\" # if(FT == true){ # checked #} # />"
                             } , {
                                 field: "Enr",
                                 title: "Enrollemnt",
+                                width: "80px",
                                 template: "<input disabled=\"True\" type=\"checkbox\" # if(Enr == true){ # checked #} # />"
                             }
                         ]

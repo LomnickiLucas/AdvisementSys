@@ -221,7 +221,7 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<div id="grid" style="height: 380px; width:80%;"></div>
+<div id="grid" style="height: 380px; width:65.5%;"></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -254,11 +254,13 @@
                         columns: [  {
                                 field: "Name",
                                 title: "Issue Name",
+                                width: "480px",
                                 template: '<a href="/Issue/Details/#=IssueID#">#=Name#</a>'
                             } , {
                                 field: "Date",
                                 title: "Issue Date",
-                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                                width: "130px",
+                                template: '#= kendo.toString(Date,"MMMM dd yyyy") #'
                             } , {
                                 field: "Status",
                                 title: "Issue Status"

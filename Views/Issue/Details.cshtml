@@ -14,7 +14,7 @@
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 
-<div class="contentDiv">
+<div class="contentDiv" id="topAnchor">
     <h2 style="padding-left: 13px;">
         Issue Details for: @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
     <table class="tableDetail">
@@ -186,8 +186,8 @@
         @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
     </p>
 
-    <div id="accordion" style="width:740px;">
-	    <h3><a href="#">Create New Form</a></h3>
+    <div id="accordion" style="width:65.5%;">
+	    <h3 style="color:#C7FFFF;"><a href="#">Create New Form</a></h3>
 	    <div>
             @Html.ActionLink("Create New Probationary Contract Form", "create/" + Model._issue.issueid, "ProbationaryContract")
             <br />
@@ -202,14 +202,14 @@
     </div>
     <br />
 
-    <div id="grid" style="height: 380px; width:80%;"></div>
+    <div id="grid" style="height: 380px; width:65.5%;"></div>
 
     <br />
     <a href="#noteCreate">Click here to go to the bottom of the page.</a>
     <br />
 @foreach (var item in Model._note)
 {
-    <table class="resultstd">
+    <table class="resultstd" style="padding:20px;">
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.employee.fname) &nbsp; @Html.DisplayFor(modelItem => item.employee.lname) <br /> @Html.DisplayFor(modelItem => item.dates)
@@ -244,9 +244,13 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset id="noteCreate">
+    <fieldset id="noteCreate" style="width:65.5%; border:none;">
     @Html.HiddenFor(model => model._newNote.issueid, new { @Value = Model._issue.issueid })
         <table>
+            <tr>
+            <td><h3>
+                    Add Note</h3></td>
+            </tr>
             <tr>
             <td>
                 @Html.DisplayFor(model => model._employee.fname) &nbsp; @Html.DisplayFor(model => model._employee.lname) <br /> @Html.DisplayFor(model => model._date, new { @Value = Model._date.ToString("dd/MM/yyyy") })
@@ -257,18 +261,20 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    @Html.TextAreaFor(model => model._newNote.notes, new { @style = "width:775px; height:200px; resize:none;" })
+                    @Html.TextAreaFor(model => model._newNote.notes, new { @style = "width:770px; height:200px; resize:none;" })
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p>
-                        <input type="submit" value="Create" />
-                    </p>
+                     
+            <input type="submit" value="Create Note" class="Button" style="position: relative; left: 10px;" />
                 </td>
             </tr>
         </table>
     </fieldset>
+     <br />
+    <a href="#topAnchor">Click here to go to the top of the page.</a>
+    <br />
 }
 </div>
 
@@ -304,14 +310,16 @@
                         columns: [ {
                                 field: "Date",
                                 title: "Form Date",
-                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                                width: "130px",
+                                template: '#= kendo.toString(Date,"MMMM dd yyyy") #'
                             } , {
                                 field: "FormType",
                                 title: "Form Name",
                                 template: '<a href="/#=Controller#/Details/#=FormID#">#=FormType#</a>'
                             } , {
                                 field: "Status",
-                                title: "Form Status"
+                                title: "Form Status",
+                                width: "130px",
                             }
                         ]
         });
