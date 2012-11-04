@@ -28,7 +28,7 @@ a { color:#00b2e8; text-decoration:underline;}
 .menu_nav ul { list-style:none; padding-top:14px;}
 .menu_nav ul li { margin:0 4px; float:left;}
 .menu_nav ul li a { display:block; margin:0; padding:20px 24px; color:#fff; text-decoration:none;}
-.menu_nav ul li.active a, .menu_nav ul li a:hover { color:#00b2e8; background:url(themes/base/images/menu_a.gif) no-repeat center top;}
+.menu_nav ul li.active a, .menu_nav ul li a:hover { color:#00b2e8;}
 
 /* content */
 .content_resize {padding-top:5px; padding-bottom:20px; padding-left:7%; /*width:100%;*/}

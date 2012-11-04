@@ -1,5 +1,4 @@
 ﻿@model AdvisementSys.Models.Request.IndexIssueRequestModel
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,97 +12,76 @@
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/css/grid.form.css")" rel="stylesheet" type="text/css" />
-<h2>Search Issues</h2>
-
+<h2>
+    Search Issues</h2>
 @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
+{
+    @Html.ValidationSummary(true)
 
-        <table>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._issue.First().Name, "Issue Name:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model._name)
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._issue.First().Owner, "Owner:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model._employeeid, new SelectList(Model._employee, Model._employeeid), new { @class = "DDL" })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._status, "Please Select Status:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Any", "In Progress", "On Hold", "Complete" }))
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._urgency, "Please Select a Urgency:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Any", "High", "Medium", "Low" }))
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model._category, "Please Select a Category:")
-                </td>
-                <td>
-                    @Html.DropDownListFor(model => model._category, new SelectList(Model._catagories, "catagory1", "catagory1", Model._category), new { @class = "DDL" })
-                </td>
-                <td>
-                    @Html.LabelFor(model => model._category, "Please Select a Program:")
-                </td>
-                <td>
-                    @Html.DropDownListFor(model => model._selectedpcode, new SelectList(Model._programcode,Model._selectedpcode), new { @class = "DDL" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        Please Enter a Range of Dates:
-                    </div>
-                </td>
-                <td colspan="3">
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model._date2, new { @id = "datepicker", @Value = Model._date2.ToString("dd/MM/yyyy") }) &nbsp; - &nbsp; @Html.TextBoxFor(model => model._date1, new { @id = "datepicker1", @Value = Model._date1.ToString("dd/MM/yyyy") })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Search" class="Button" />
-                </td>
-                <td>
-                    <input type="reset" value="Reset" class="Button" />
-                </td>
-            </tr>
-        </table>
-    }
-
-    <div id="grid" style="height: 380px; width:80%;"></div>
-
-
+    <table style="width:800px;">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model._issue.First().Name, "Issue Name:")
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model._name)
+            </td>
+            <td>
+                @Html.LabelFor(model => model._issue.First().Owner, "Owner:")
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model._employeeid, new SelectList(Model._employee, Model._employeeid), new { @class = "DDL" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model._status, "Please Select Status:")
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Any", "In Progress", "On Hold", "Complete" }))
+            </td>
+            <td>
+                @Html.LabelFor(model => model._urgency, "Please Select a Urgency:")
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Any", "High", "Medium", "Low" }))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model._category, "Please Select a Category:")
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model._category, new SelectList(Model._catagories, "catagory1", "catagory1", Model._category), new { @class = "DDL" })
+            </td>
+            <td>
+                @Html.LabelFor(model => model._category, "Please Select a Program:")
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model._selectedpcode, new SelectList(Model._programcode, Model._selectedpcode), new { @class = "DDL" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Please Enter a Range of Dates:
+            </td>
+            <td colspan="3">
+                @Html.TextBoxFor(model => model._date2, new { @id = "datepicker", @Value = Model._date2.ToString("dd/MM/yyyy") })
+                &nbsp; - &nbsp; @Html.TextBoxFor(model => model._date1, new { @id = "datepicker1", @Value = Model._date1.ToString("dd/MM/yyyy") })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Search" class="Button" />
+            </td>
+            <td>
+                <input type="reset" value="Reset" class="Button" />
+            </td>
+        </tr>
+    </table>
+}
+<div id="grid" style="height: 380px; width: 80%;">
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });

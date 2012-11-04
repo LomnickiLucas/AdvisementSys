@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,48 +12,62 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/arial.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/cuf_run.js")"></script>
     <!-- CuFon ends -->
+    <style>
+        ul#nav {top:14.5px;}
+        ul.drop, ul.drop li, ul.drop ul { list-style: none; margin: 0; background: #444243; padding:0px;}
+        ul.drop { position: relative; z-index: 1; float: left; }
+        ul.drop li { float: left; line-height: 1.3em;  zoom: 1;}
+        #subTest { visibility:hidden; position: absolute; top: 100%; left: 500px; z-index: 2; width: 175px;}
+        ul.drop ul li { float: none; }
+        ul.drop ul ul { top: -2px; left: 100%; }
+    </style>
+    <script type="text/javascript">
+        function show() {
+            var d = document.getElementById('subTest');
+            d.style.visibility = "visible";
+        }
+    </script>
 </head>
-
 <body>
-  <div class="header">
-    <div class="header_resize">
-        <div class="header_logOn" style="position: relative; float:right;">
-            @Html.Partial("LogOn_Partial")
+    <div class="header">
+        <div class="header_resize">
+            <div class="header_logOn" style="position: relative; float: right;">
+                @Html.Partial("LogOn_Partial")
+            </div>
+            <div class="menu_nav">
+                <ul id="nav" class="drop">
+                    <li>@Html.ActionLink("Home", "Index", "Home") </li>
+                    <li>@Html.ActionLink("Students", "Index", "Student") </li>
+                    <li>@Html.ActionLink("Issues", "Index", "Issue") </li>
+                    <li>@Html.ActionLink("Appointments", "Index", "Appointments") </li>
+                    <li>@Html.ActionLink("Time Blocks", "Index", "TimeBlocks") </li>
+                    <li><a href="#" onmouseover="show()">Reports</a> </li>                     
+                            <ul id="subTest" onmouseover="show()" onmouseout="this.style.visibility='hidden'">
+                                <li><a href="#">Advisor Report</a></li>
+                                <li><a href="#">Campus Issue Report</a></li>
+                                <li><a href="#">Student Report</a></li>
+                            </ul>
+                     <li> @Html.ActionLink("About", "Index", "Home") </li>                                      
+                </ul>
+                <div class="clr">
+                </div>
+            </div>
+            <div class="clr">
+            </div>
+            <div class="logo">
+                <img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></div>
         </div>
-      <div class="menu_nav">
-        <ul>
-          <li> @Html.ActionLink("Home", "Index", "Home") </li>
-          <li> @Html.ActionLink("Students", "Index", "Student") </li>
-          <li> @Html.ActionLink("Issues", "Index", "Issue") </li>
-          <li> @Html.ActionLink("Course/Program", "Index", "Course") </li>
-          <li> @Html.ActionLink("Appointments", "Index", "Appointments") </li>
-          <li> @Html.ActionLink("Time Blocks", "Index", "TimeBlocks") </li>
-          <li> @Html.ActionLink("Reports", "Index", "Reports") </li>
-          <li> @Html.ActionLink("About", "Index", "Home") </li>
-        </ul>
-        <div class="clr"></div>
-      </div>
-      <div class="clr"></div>
-      <div class="logo"><img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></div>
     </div>
-  </div>
-
-  <div class="content">
-    <div class="content_resize">
-    @RenderBody()
+    <div class="content">
+        <div class="content_resize">
+            @RenderBody()
+        </div>
+        <div class="footer">
+            <div class="footer_resize">
+                <div class="clr">
+                </div>
+            </div>
+        </div>
     </div>
-  <div class="footer">
-    <div class="footer_resize">
-      <!--<ul class="fmenu">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contacts</a></li>
-      </ul>-->
-      <div class="clr"></div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
