@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Models\AdvisorReportModel.cs" />
     <Compile Include="Controllers\CourseRegistrationController.cs" />
@@ -805,6 +806,7 @@
     <Content Include="Views\Reports\AdvisorIssueReport.cshtml" />
     <Content Include="Views\Reports\StudentIssueReport.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
