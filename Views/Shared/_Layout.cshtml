@@ -43,9 +43,9 @@
                     <li>@Html.ActionLink("Time Blocks", "Index", "TimeBlocks") </li>
                     <li><a href="#" onmouseover="show()">Reports</a> </li>                     
                             <ul id="subTest" onmouseover="show()" onmouseout="this.style.visibility='hidden'">
-                                <li><a href="#">Advisor Report</a></li>
-                                <li><a href="#">Campus Issue Report</a></li>
-                                <li><a href="#">Student Report</a></li>
+                                <li>@Html.ActionLink("Advisor Issue Reports", "AdvisorIssueReport", "Reports")</li>
+                                <li>@Html.ActionLink("Campus Issue Reports", "CampusIssueReport", "Reports")</li>
+                                <li>@Html.ActionLink("Student Issue Reports", "StudentIssueReport", "Reports")</li>
                             </ul>
                      <li> @Html.ActionLink("About", "Index", "Home") </li>                                      
                 </ul>
