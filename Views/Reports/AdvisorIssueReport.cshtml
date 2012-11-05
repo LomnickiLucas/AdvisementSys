@@ -10,6 +10,7 @@
 <h2>Advisor Issue Report</h2>
 @using (Html.BeginForm())
     {
+        <span>Employee ID:</span>
         @Html.TextBoxFor(model => model.EmpID, new { @id = "txtEmpID" })
         <input type="submit" value="Generate Report" class="Button" />
     }

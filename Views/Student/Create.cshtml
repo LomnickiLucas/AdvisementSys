@@ -23,13 +23,15 @@
                     @Html.LabelFor(model => model.studentid, "*Student ID:")
                 </td>
                 <td>
-                     @Html.TextBoxFor(model => model.studentid, new { id = "studentId", @class = "required stud" })                                        
+                     @Html.TextBoxFor(model => model.studentid, new { id = "studentId", @class = "required stud" })   
+                     @Html.ValidationMessageFor(model => model.studentid)                                     
                 </td>
                 <td>                    
                     @Html.LabelFor(model => model.email, "*Email:")
                 </td>
                 <td>
                     @Html.TextBoxFor(model => model.email, new { @class="required email"})
+                    @Html.ValidationMessageFor(model => model.email)
                 </td>
             </tr>
 

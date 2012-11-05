@@ -10,8 +10,12 @@
 <h2>Campus Issue Report</h2>
 @using (Html.BeginForm())
     {
+        <span>Program:</span>
         @Html.DropDownListFor(model => model.Program, new SelectList(Model.ProgList, Model.ProgList), new { @class = "DDL" })
+        <br />
+        <span>Start Date:</span>
         @Html.TextBoxFor(model => model.StartDate, new { @id = "datepicker", @Value = Model.StartDate.ToShortDateString() })
+        <span>End Date:</span>
         @Html.TextBoxFor(model => model.EndDate, new { @id = "datepicker1", @Value = Model.EndDate.ToShortDateString() })
          <input type="submit" value="Generate Report" class="Button" />
     }
