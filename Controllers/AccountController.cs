@@ -67,7 +67,6 @@ namespace AdvisementSys.Controllers
         //
         // GET: /Account/Register
 
-        [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -161,6 +160,7 @@ namespace AdvisementSys.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult EditUser(String id)
         {
             employee model = db.employees.Single(e => e.employeeid == id);

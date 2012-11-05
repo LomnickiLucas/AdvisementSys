@@ -32,5 +32,7 @@ namespace AdvisementSys.Models.Request
         public Boolean enrolled { get; set; }
 
         public IEnumerable<String> _collection { get; set; }
+
+        public IEnumerable<String> StudID { get; set; }
     }
 }

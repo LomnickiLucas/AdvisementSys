@@ -127,6 +127,12 @@ namespace AdvisementSys.Controllers
                 student.Add(temp);
             }
             model._student = student;
+            List<String> StudID = new List<string>();
+            foreach (student stud in students)
+            {
+                StudID.Add(stud.studentid);
+            }
+            model.StudID = StudID;
             return View(model);
         }
 
