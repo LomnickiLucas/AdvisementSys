@@ -39,6 +39,7 @@
         ReportParameter[] parameters = new ReportParameter[4] { new ReportParameter("StudentID", ViewData["StudentID"].ToString()), new ReportParameter("StartDate", start.ToString()), new ReportParameter("EndDate", end.ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
             ReportViewer1.LocalReport.SetParameters(parameters);
             ReportViewer1.Visible = true;
+            ReportViewer1.ShowPageNavigationControls = false;
             ReportViewer1.ShowFindControls = false;
             ReportViewer1.ShowRefreshButton = false;
             ReportViewer1.ShowBackButton = false;

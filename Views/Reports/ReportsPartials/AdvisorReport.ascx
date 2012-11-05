@@ -16,6 +16,7 @@
         ReportParameter[] parameters = new ReportParameter[2] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
         ReportViewer1.LocalReport.SetParameters(parameters);
             ReportViewer1.Visible = true;
+            ReportViewer1.ShowPageNavigationControls = false;
             ReportViewer1.ShowFindControls = false;
             ReportViewer1.ShowRefreshButton = false;
             ReportViewer1.ShowBackButton = false;
