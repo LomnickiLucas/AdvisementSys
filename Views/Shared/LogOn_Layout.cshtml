@@ -13,34 +13,29 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/cuf_run.js")"></script>
     <!-- CuFon ends -->
 </head>
-
 <body>
-  <div class="header">
-    <div class="header_resize">
-      <div class="menu_nav">
-        <div class="clr"></div>
-      </div>
-      <div class="clr"></div>
-      <div class="logo" style="Position:relative;top:3%;"><img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></div>
+    <div class="header">
+        <div class="header_resize">
+            <div class="menu_nav">
+                <div class="clr">
+                </div>
+            </div>
+            <div class="clr">
+            </div>
+            <div class="logo" style="position: relative; top: 3%;">
+                <img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></div>
+        </div>
     </div>
-  </div>
-
-  <div class="content">
-    <div class="content_resize">
-    @RenderBody()
+    <div class="content">
+        <div class="content_resize">
+            @RenderBody()
+        </div>
     </div>
-  <div class="footer">
-    <div class="footer_resize">
-      <!--<ul class="fmenu">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contacts</a></li>
-      </ul>-->
-      <div class="clr"></div>
+    <div class="footer">
+        <div class="footer_resize">
+            <text style="color: #FFFFFF;">Created by: PrimeTech Experts©</text>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 </body>
 </html>
