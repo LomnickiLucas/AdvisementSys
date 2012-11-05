@@ -1,0 +1,14 @@
+﻿@model AdvisementSys.Models.AdvisorReportModel
+@{
+    ViewBag.Title = "Advisor Issue Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Advisor Issue Report</h2>
+@using (Html.BeginForm())
+    {
+        @Html.TextBoxFor(model => model.EmpID)
+        <input type="submit" value="Generate Report" class="Button" />
+    }
+
+@Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.EmpID }, { "User", User.Identity.Name} }) 

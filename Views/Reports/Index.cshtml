@@ -1,0 +1,14 @@
+﻿@model AdvisementSys.Models.CampusReportModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+    {
+        @Html.DropDownListFor(model => model.Program, new SelectList(Model.ProgList, Model.ProgList), new { @class = "DDL" })
+        <input type="submit" value="Select a Program" class="Button" />
+    }
+
+@Html.Partial("ReportsPartials/CampusReport", null, new ViewDataDictionary() { { "Program", Model.Program } }) 

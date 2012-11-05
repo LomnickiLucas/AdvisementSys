@@ -1,0 +1,16 @@
+﻿@model AdvisementSys.Models.CampusReportModel
+@{
+    ViewBag.Title = "Campus Issue Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Campus Issue Report</h2>
+@using (Html.BeginForm())
+    {
+        @Html.DropDownListFor(model => model.Program, new SelectList(Model.ProgList, Model.ProgList), new { @class = "DDL" })
+        @Html.TextBoxFor(model => model.StartDate, new { @Value = Model.StartDate.ToShortDateString() })
+        @Html.TextBoxFor(model => model.EndDate, new { @Value = Model.EndDate.ToShortDateString() })
+        <input type="submit" value="Generate Report" class="Button" />
+    }
+
+@Html.Partial("ReportsPartials/CampusReport", null, new ViewDataDictionary() { { "Program", Model.Program }, { "StartDate", Model.StartDate.ToShortDateString()}, {"EndDate", Model.EndDate.ToShortDateString()}, {"User", User.Identity.Name} }) 

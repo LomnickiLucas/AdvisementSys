@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\AdvisorReportModel.cs" />
     <Compile Include="Controllers\CourseRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
@@ -72,7 +73,9 @@
     <Compile Include="Controllers\ProbationaryContractController.cs" />
     <Compile Include="Controllers\ProgramWithdrawalController.cs" />
     <Compile Include="Controllers\ReadmissionController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Models\StudentReportModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -125,6 +128,7 @@
     <Compile Include="Models\campu.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CampusReportModel.cs" />
     <Compile Include="Models\catagory.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -706,6 +710,9 @@
     <Content Include="Scripts\kendo\2012.2.710\kendo.window.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Views\Reports\ReportsPartials\AdvisorReport.ascx" />
+    <Content Include="Views\Reports\ReportsPartials\CampusReport.ascx" />
+    <Content Include="Views\Reports\ReportsPartials\StudentReport.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -792,12 +799,21 @@
     <Content Include="Views\Issue\EditNote.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\CampusIssueReport.cshtml" />
+    <Content Include="Views\Reports\AdvisorIssueReport.cshtml" />
+    <Content Include="Views\Reports\StudentIssueReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Reports\ReportsPartials\AdvisorReport.rdlc" />
+    <EmbeddedResource Include="Views\Reports\ReportsPartials\CampusReport.rdlc" />
+    <EmbeddedResource Include="Views\Reports\ReportsPartials\StudentIssueReport.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
