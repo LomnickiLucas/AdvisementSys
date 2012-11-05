@@ -18,106 +18,69 @@
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
-
         <table >
             <tr>
                 <td>
-                    
-                        @Html.LabelFor(model => model._student.First().StudentID, "Student ID:")
-                   
+                    @Html.LabelFor(model => model._student.First().StudentID, "Student ID:")
                 </td>
                 <td>
-                   
-                        @Html.TextBox("studentid", value: Model.studentID)
-                    
+                    @Html.TextBox("studentid", value: Model.studentID)
                 </td>
                 <td>
-                    
-                        @Html.LabelFor(model => model._student.First().Email, "Email:")
-                    
+                    @Html.LabelFor(model => model._student.First().Email, "Email:")
                 </td>
                 <td>
-                   
-                        @Html.TextBox("email", value: Model.email)
-                   
+                    @Html.TextBox("email", value: Model.email)
                 </td>
             </tr>
             <tr>
                 <td>
-                   
-                        @Html.LabelFor(model => model._student.First().FName, "First Name:")
-                    
+                    @Html.LabelFor(model => model._student.First().FName, "First Name:")
                 </td>
                 <td>
-                    
-                        @Html.TextBox("fname", value: Model.fName)
-                    
+                    @Html.TextBox("fname", value: Model.fName)
                 </td>
                 <td>
-                   
-                        @Html.LabelFor(model => model._student.First().LName, "Last Name:")
-                  
+                    @Html.LabelFor(model => model._student.First().LName, "Last Name:")
                 </td>
                 <td>
-                   
-                        @Html.TextBox("lname", value: Model.lName)
-                  
+                    @Html.TextBox("lname", value: Model.lName)
                 </td>
             </tr>
             <tr>
                 <td>
-                    
-                        @Html.LabelFor(model => model._student.First().Prog, "Program:")
-                  
+                    @Html.LabelFor(model => model._student.First().Prog, "Program:")
                 </td>
                 <td>
-                    
-                        @Html.DropDownList("programcode", "Please Select a Program")
-                    
+                    @Html.DropDownList("programcode", "Please Select a Program")
                 </td>
                 <td>
-                    
-                        @Html.LabelFor(model => model._student.First().Campus, "Campus:")
-                 
+                    @Html.LabelFor(model => model._student.First().Campus, "Campus:")
                 </td>
                 <td>
-                    
-                        @Html.DropDownList("campus", "Please Select a Campus")
-                   
+                    @Html.DropDownList("campus", "Please Select a Campus")
                 </td>
             </tr>
             <tr>
                 <td>
-             
-                        @Html.LabelFor(model => model._student.First().FT, "Full-Time:")
-                  
+                    @Html.LabelFor(model => model._student.First().FT, "Full-Time:")
                 </td>
                 <td>
-                    
-                        @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
-                   
+                    @Html.CheckBox("fulltimestatus", Model.fulltimestatus)
                 </td>
                 <td>
-                   
-                        @Html.LabelFor(model => model._student.First().Prob, "Probation:")
-                    
+                    @Html.LabelFor(model => model._student.First().Prob, "Probation:")
                 </td>
                 <td>
-                    
-                        @Html.CheckBox("acadprobation", Model.acadprobation)
-                   
+                    @Html.CheckBox("acadprobation", Model.acadprobation)
                 </td>
             </tr>
             <tr>
                 <td>
-                   
-                        @Html.LabelFor(model => model._student.First().Enr, "Enrolled:")
-                   
+                    @Html.LabelFor(model => model._student.First().Enr, "Enrolled:")
                 </td>
                 <td>
-                   
-                        @Html.CheckBox("enrolled", Model.enrolled)
-                  
+                    @Html.CheckBox("enrolled", Model.enrolled)
                 </td>
             </tr>
             <tr>

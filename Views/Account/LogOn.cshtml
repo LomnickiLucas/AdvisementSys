@@ -10,43 +10,50 @@
 <h2>
     User Sign In</h2>
 <div class="contentDiv" style="height: 329px;">
-    @using (Html.BeginForm())
-    {
-        <table>
-            <tr>
-                <td style="width:100px;">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.UserName, "User Name:")
-                    </div>
-                </td>
-                <td style="width:100px;">
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.UserName)</div>
-                </td>
-                <td style="width:100px;">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Password, "Password:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.PasswordFor(model => model.Password)</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.RememberMe, "Remember Me?:")</div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.CheckBoxFor(model => model.RememberMe)</div>
-                </td>
-            </tr>
-        </table>
+    @using (Html.BeginForm()) {
+    <table>
+        <tr>
+            <td style="width:100px;">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.UserName, "User Name:")
+                </div>
+            </td>
+            <td style="width:100px;">
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.UserName)</div>
+            </td>
+            <td style="width:100px;">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Password, "Password:")
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.PasswordFor(model => model.Password)</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.RememberMe, "Remember Me?:")</div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.CheckBoxFor(model => model.RememberMe)</div>
+            </td>
+        </tr>
+    </table>
     
-        @Html.ValidationSummary();
-        <br /> 
-        <input type="submit" value="Sign In" class="Button" style="position: relative; left: 10px;" /> 
+    @Html.ValidationSummary();
+    <table style="width:200px;">
+        <tr>
+            <td style="width:100px;">
+                <input type="submit" value="Sign In" class="Button" style="position: relative; left: 10px;" /> 
+            </td>
+            <td style="width:100px;">
+                @Html.ActionLink("Register", "Register")
+            </td>
+        </tr>
+    </table>
     }
 </div>
