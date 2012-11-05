@@ -17,7 +17,7 @@
         ul.drop, ul.drop li, ul.drop ul { list-style: none; margin: 0; background: #444243; padding:0px;}
         ul.drop { position: relative; z-index: 1; float: left; }
         ul.drop li { float: left; line-height: 1.3em;  zoom: 1;}
-        #subTest { visibility:hidden; position: absolute; top: 100%; left: 500px; z-index: 2; width: 175px;}
+        #subTest { visibility:hidden; position: absolute; top: 100%; left: 500px; z-index: 2; width: 177px;}
         ul.drop ul li { float: none; }
         ul.drop ul ul { top: -2px; left: 100%; }
     </style>
@@ -47,7 +47,7 @@
                                 <li>@Html.ActionLink("Campus Issue Reports", "CampusIssueReport", "Reports")</li>
                                 <li>@Html.ActionLink("Student Issue Reports", "StudentIssueReport", "Reports")</li>
                             </ul>
-                     <li> @Html.ActionLink("About", "Index", "Student") </li>                                      
+                     <li> @Html.ActionLink("About", "Index", "About") </li>                                      
                 </ul>
                 <div class="clr">
                 </div>
@@ -64,9 +64,8 @@
             @RenderBody()
         </div>
         <div class="footer">
-            <div class="footer_resize">
-                <div class="clr">
-                </div>
+            <div class="footer_resize" style="text-align:center;">
+                <text style="color:#FFFFFF">Created by: PrimeTech Experts©</text>
             </div>
         </div>
     </div>

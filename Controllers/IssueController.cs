@@ -328,7 +328,7 @@ namespace AdvisementSys.Controllers
             IEnumerable<catagory> catagory = db.catagories;
             IEnumerable<employee> employee = db.employees;
             List<String> employees = new List<String>();
-            employees.Add("Please Select a Employee");
+            employees.Add("Please Select an Employee");
             foreach (employee emp in employee)
             {
                 employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
@@ -380,7 +380,7 @@ namespace AdvisementSys.Controllers
             IEnumerable<catagory> catagory = db.catagories;
             IEnumerable<employee> employee = db.employees;
             List<String> employees = new List<String>();
-            employees.Add("Please Select a Employee");
+            employees.Add("Please Select an Employee");
             foreach (employee emp in employee)
             {
                 employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
