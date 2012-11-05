@@ -126,7 +126,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.position, new { @class = "required" })
+                        @Html.DropDownListFor(model => model.position, new SelectList(new[] { "Student Advisor", "Receptionist" }))
                         @Html.ValidationMessageFor(model => model.position)
                     </div>
                 </td>

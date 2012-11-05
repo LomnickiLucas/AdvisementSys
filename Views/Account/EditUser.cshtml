@@ -64,7 +64,7 @@
                 Role:
             </td>
             <td>
-                @Html.EditorFor(model => model.role)
+                @Html.DropDownListFor(model => model.role, new SelectList(new[] { "Student Advisor", "Receptionist" }))
                 @Html.ValidationMessageFor(model => model.role)
             </td>
         </tr>

@@ -83,7 +83,7 @@
             @Html.LabelFor(model => model._issue.status, "Status:")
         </div></td>
         <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }))
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete", "Pending" }))
             @Html.ValidationMessageFor(model => model._issue.status)
         </div></td>
         <td><div class="editor-label">
