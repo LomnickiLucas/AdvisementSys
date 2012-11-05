@@ -148,7 +148,7 @@ namespace AdvisementSys.Controllers
 
                 if (changePasswordSucceeded)
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    return RedirectToAction("Index", "Student");
                 }
                 else
                 {
