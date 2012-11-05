@@ -45,7 +45,13 @@ namespace AdvisementSys.Controllers
 
         public ActionResult StudentIssueReport()
         {
-            StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date };
+            IEnumerable<student> students = db.students;
+            List<String> studentID = new List<String>();
+            foreach (student stud in students)
+            {
+                studentID.Add(stud.studentid);
+            }
+            StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID };
             return View(model);
         }
 
@@ -55,6 +61,13 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult StudentIssueReport(StudentReportModel model)
         {
+                IEnumerable<student> students = db.students;
+                List<String> studentID = new List<String>();
+                foreach (student stud in students)
+                {
+                    studentID.Add(stud.studentid);
+                }
+                model.StudID = studentID;
                 return View(model);
         }
 
@@ -63,7 +76,13 @@ namespace AdvisementSys.Controllers
 
         public ActionResult AdvisorIssueReport()
         {
-            AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name };
+            IEnumerable<employee> employees = db.employees;
+            List<String> employeeID = new List<String>();
+            foreach (employee emp in employees)
+            {
+                employeeID.Add(emp.employeeid);
+            }
+            AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID };
             return View(model);
         }
 
@@ -73,6 +92,13 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult AdvisorIssueReport(AdvisorReportModel model)
         {
+            IEnumerable<employee> employees = db.employees;
+            List<String> employeeID = new List<String>();
+            foreach (employee emp in employees)
+            {
+                employeeID.Add(emp.employeeid);
+            }
+            model.EmployeeID = employeeID;
             return View(model);
         }
 

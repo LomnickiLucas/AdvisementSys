@@ -21,5 +21,7 @@ namespace AdvisementSys.Models
         [DataType(DataType.DateTime)]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
+
+        public IEnumerable<String> StudID { get; set; }
     }
 }

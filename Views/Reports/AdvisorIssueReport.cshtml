@@ -4,11 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+
 <h2>Advisor Issue Report</h2>
 @using (Html.BeginForm())
     {
-        @Html.TextBoxFor(model => model.EmpID)
+        @Html.TextBoxFor(model => model.EmpID, new { @id = "txtEmpID" })
         <input type="submit" value="Generate Report" class="Button" />
     }
 
 @Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.EmpID }, { "User", User.Identity.Name} }) 
+
+<script type="text/javascript">
+var model = @Html.Raw(Json.Encode(Model.EmployeeID));
+
+    $("#txtEmpID").autocomplete({
+        source: model
+    });
+</script>

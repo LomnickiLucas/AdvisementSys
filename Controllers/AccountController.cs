@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using AdvisementSys.Models;
+using System.Data;
 
 namespace AdvisementSys.Controllers
 {
     public class AccountController : Controller
     {
+        private Entities db = new Entities();
 
         //
         // GET: /Account/LogOn
@@ -157,6 +159,25 @@ namespace AdvisementSys.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        public ActionResult EditUser(String id)
+        {
+            employee model = db.employees.Single(e => e.employeeid == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(employee model, String id)
+        {
+            if (ModelState.IsValid)
+            {
+                db.employees.Attach(model);
+                db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
+                db.SaveChanges();
+                return RedirectToAction("editUser/" + model.employeeid);
+            }
+            return View(model);
         }
 
         #region Status Codes

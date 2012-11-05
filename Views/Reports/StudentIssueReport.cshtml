@@ -4,13 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+
 <h2>StudentIssueReport</h2>
 @using (Html.BeginForm())
     {
-        @Html.TextBoxFor(model => model.StudentID)
-        @Html.TextBoxFor(model => model.StartDate, new { @Value = Model.StartDate.ToShortDateString() })
-        @Html.TextBoxFor(model => model.EndDate, new { @Value = Model.EndDate.ToShortDateString() })
+        @Html.TextBoxFor(model => model.StudentID, new { @id = "txtStudID" })
+        @Html.TextBoxFor(model => model.StartDate, new { @id = "datepicker", @Value = Model.StartDate.ToShortDateString() })
+        @Html.TextBoxFor(model => model.EndDate, new { @id = "datepicker1", Value = Model.EndDate.ToShortDateString() })
         <input type="submit" value="Generate Report" class="Button" />
     }
 
 @Html.Partial("ReportsPartials/StudentReport", null, new ViewDataDictionary() { { "StudentID", Model.StudentID }, { "StartDate", Model.StartDate.ToShortDateString()}, {"EndDate", Model.EndDate.ToShortDateString()}, {"User", User.Identity.Name} }) 
+
+<script type="text/javascript">
+    $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+    $("#datepicker1").datepicker({ dateFormat: "dd/mm/yy" });
+
+    var model = @Html.Raw(Json.Encode(Model.StudID));
+
+    $("#txtStudID").autocomplete({
+        source: model
+    });
+</script>

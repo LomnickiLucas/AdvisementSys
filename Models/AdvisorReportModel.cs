@@ -11,5 +11,7 @@ namespace AdvisementSys.Models
         [Required]
         [Display(Name = "Employee ID")]
         public String EmpID { get; set; }
+
+        public IEnumerable<String> EmployeeID { get; set; }
     }
 }
