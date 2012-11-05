@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using AdvisementSys.Models;
 using System.Data;
+using AdvisementSys.Models.Request;
 
 namespace AdvisementSys.Controllers
 {
@@ -69,7 +70,14 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            IEnumerable<faculty> faculty = db.faculties;
+            List<String> data = new List<string>();
+            foreach(faculty fac in faculty)
+            {
+                data.Add(fac.fname);
+            }
+            RegisterModel model = new RegisterModel() { facultyList = data };
+            return View(model);
         }
 
         //
@@ -163,19 +171,25 @@ namespace AdvisementSys.Controllers
         [Authorize]
         public ActionResult EditUser(String id)
         {
-            employee model = db.employees.Single(e => e.employeeid == id);
+            IEnumerable<faculty> faculty = db.faculties;
+            List<String> data = new List<string>();
+            foreach (faculty fac in faculty)
+            {
+                data.Add(fac.fname);
+            }
+            EditUserModel model = new EditUserModel() { _employee = db.employees.Single(e => e.employeeid == id), faculty = data };
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult EditUser(employee model, String id)
+        public ActionResult EditUser(EditUserModel model, String id)
         {
             if (ModelState.IsValid)
             {
-                db.employees.Attach(model);
-                db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
+                db.employees.Attach(model._employee);
+                db.ObjectStateManager.ChangeObjectState(model._employee, EntityState.Modified);
                 db.SaveChanges();
-                return RedirectToAction("editUser/" + model.employeeid);
+                return RedirectToAction("editUser/" + model._employee.employeeid);
             }
             return View(model);
         }

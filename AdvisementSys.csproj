@@ -75,6 +75,7 @@
     <Compile Include="Controllers\ReadmissionController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Models\Request\EditUserModel.cs" />
     <Compile Include="Models\StudentReportModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

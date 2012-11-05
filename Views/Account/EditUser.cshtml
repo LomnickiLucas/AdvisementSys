@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.employee
+﻿@model AdvisementSys.Models.Request.EditUserModel
 
 @{
     ViewBag.Title = "EditUser";
@@ -12,15 +12,15 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.employeeid)
+    @Html.HiddenFor(model => model._employee.employeeid)
     <table>
         <tr>
             <td>
                 First Name:
             </td>
             <td>
-                @Html.EditorFor(model => model.fname)
-                @Html.ValidationMessageFor(model => model.fname)
+                @Html.EditorFor(model => model._employee.fname)
+                @Html.ValidationMessageFor(model => model._employee.fname)
             </td>
         </tr>
         <tr>
@@ -28,8 +28,8 @@
                 Last Name:
             </td>
             <td>
-                @Html.EditorFor(model => model.lname)
-                @Html.ValidationMessageFor(model => model.lname)
+                @Html.EditorFor(model => model._employee.lname)
+                @Html.ValidationMessageFor(model => model._employee.lname)
             </td>
         </tr>
         <tr>
@@ -37,8 +37,8 @@
                 Phone Number:
             </td>
             <td>
-                @Html.EditorFor(model => model.phonenum)
-                @Html.ValidationMessageFor(model => model.phonenum)
+                @Html.EditorFor(model => model._employee.phonenum)
+                @Html.ValidationMessageFor(model => model._employee.phonenum)
             </td>
         </tr>
         <tr>
@@ -46,8 +46,8 @@
                 Email:
             </td>
             <td>
-                @Html.EditorFor(model => model.email)
-                @Html.ValidationMessageFor(model => model.email)
+                @Html.EditorFor(model => model._employee.email)
+                @Html.ValidationMessageFor(model => model._employee.email)
             </td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
                 Faculty:
             </td>
             <td>
-                @Html.EditorFor(model => model.faculty)
+                @Html.DropDownListFor(model => model._employee.faculty, new SelectList(Model.faculty, Model.faculty), new { @class = "DDL" })
                 @Html.ValidationMessageFor(model => model.faculty)
             </td>
         </tr>
@@ -64,8 +64,8 @@
                 Role:
             </td>
             <td>
-                @Html.DropDownListFor(model => model.role, new SelectList(new[] { "Student Advisor", "Receptionist" }))
-                @Html.ValidationMessageFor(model => model.role)
+                @Html.DropDownListFor(model => model._employee.role, new SelectList(new[] { "Student Advisor", "Receptionist" }))
+                @Html.ValidationMessageFor(model => model._employee.role)
             </td>
         </tr>
 

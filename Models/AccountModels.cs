@@ -88,5 +88,8 @@ namespace AdvisementSys.Models
         [StringLength(20)]
         [Display(Name = "Position")]
         public string position { get; set; }
+
+        
+        public IEnumerable<String> facultyList { get; set; }
     }
 }
