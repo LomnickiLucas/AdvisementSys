@@ -131,11 +131,11 @@
                             } , {
                                 field: "Prog",
                                 title: "Program",
-                                width: "150px"                             
+                                width: "250px"                             
                             } , {
                                 field: "Campus",
                                 title: "Campus",
-                                width: "120px"
+                                width: "160px"
                             } , {
                                 field: "PhoneNum",
                                 title: "Phone Number",
@@ -147,17 +147,26 @@
                                 field: "Prob",
                                 title: "Academic <br> Probation",
                                 width: "80px",
-                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Prob == true){ # checked #} # />"
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Prob == true){ # checked #} # />",
+                                attributes: {
+                                style: "text-align: center"
+                                }
                             } , {
                                 field: "FT",
                                 title: "Full-Time",
                                 width: "80px",
-                                template: "<input disabled=\"True\" type=\"checkbox\" # if(FT == true){ # checked #} # />"
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(FT == true){ # checked #} # />",
+                                attributes: {
+                                style: "text-align: center"
+                                }
                             } , {
                                 field: "Enr",
                                 title: "Enrollemnt",
                                 width: "80px",
-                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Enr == true){ # checked #} # />"
+                                template: "<input disabled=\"True\" type=\"checkbox\" # if(Enr == true){ # checked #} # />",
+                                attributes: {
+                                style: "text-align: center"
+                                }
                             }
                         ]
         });
