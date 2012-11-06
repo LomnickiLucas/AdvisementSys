@@ -7,6 +7,11 @@
 <script src="@Url.Content("~/Scripts/jquery.blockUI.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<style>
+    a:link {text-decoration:none;}
+    .ButtonRegister{color:#000040; display:block; padding: 5px; background-color:#e6e6e6; border:1px solid #dedede; border-top:1px solid #eee; border-left:1px solid #eee; font:normal Arial, Helvetica, sans-serif; text-align:center; height:17px;}
+    .ButtonRegister:hover{ background-color:#dff4ff; border:1px solid #c2e1ef; color:#336699; font: Arial, Helvetica, sans-serif; }
+</style>
 <h2>
     User Sign In</h2>
 <div class="contentDiv" style="height: 329px;">
@@ -51,7 +56,7 @@
                 <input type="submit" value="Sign In" class="Button" style="position: relative; left: 10px;" /> 
             </td>
             <td style="width:100px;">
-                @Html.ActionLink("Register", "Register")
+                @Html.ActionLink("Register", "Register", null, null, new { @class="ButtonRegister" })
             </td>
         </tr>
     </table>

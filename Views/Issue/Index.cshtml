@@ -35,13 +35,13 @@
         </tr>
         <tr>
             <td>
-                @Html.LabelFor(model => model._status, "Please Select Status:")
+                @Html.LabelFor(model => model._status, "Please Select a Status:")
             </td>
             <td>
                 @Html.DropDownListFor(model => model._status, new SelectList(new[] { "Any", "In Progress", "On Hold", "Complete" }))
             </td>
             <td>
-                @Html.LabelFor(model => model._urgency, "Please Select a Urgency:")
+                @Html.LabelFor(model => model._urgency, "Please Select an Urgency:")
             </td>
             <td>
                 @Html.DropDownListFor(model => model._urgency, new SelectList(new[] { "Any", "High", "Medium", "Low" }))
