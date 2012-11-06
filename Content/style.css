@@ -17,7 +17,7 @@ a { color:#00b2e8; text-decoration:underline;}
 .header { background:url(themes/base/images/header_bg1920.jpg) repeat-x center top;}
 
 .header_resize { margin:0 auto; padding-left:5%; height:180px; }
-.header .logo { padding:10px 0 0 25px; position: relative; top: -40px; float:left; width:auto;}
+.header .logo { padding:10px 0 0 25px; position: relative; top: -45px; float:left; width:auto;}
 
 
 /* menu */

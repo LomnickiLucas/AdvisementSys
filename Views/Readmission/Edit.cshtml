@@ -187,7 +187,8 @@
             <td>
                 
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.approved)
-                The student request is acceptable as indicated above.
+               
+                The student request is acceptable as indicated above. <span style="visibility:hidden"> @Html.CheckBoxFor(model => model._applicationForReadmission.approved, new { @id = "approvedTest", @disabled="disabled" })</span>
             </td>
         </tr>
         <tr>
@@ -195,7 +196,7 @@
                 <input type="radio" name="mainRadio" value="semesterCheck" />
             </td>
             <td>
-                The student may enter the program in the following semester/year
+                The student may enter the program in the following semester/year: @Html.DisplayFor(model => model._applicationForReadmission.term) <span style="visibility:hidden"> @Html.TextBoxFor(model => model._applicationForReadmission.term, new { @id = "termTest", @disabled = "disabled" })</span>
             </td>
         </tr>
         <tr>
@@ -298,7 +299,7 @@
             </td>
             <td>
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.special)
-                A special timetable has been given to the student and is attached
+                A special timetable has been given to the student and is attached <span style="visibility:hidden;"> @Html.CheckBoxFor(model => model._applicationForReadmission.special, new { @id = "specialTest", @disabled="disabled" })</span>
             </td>
         </tr>
         <tr>
@@ -419,45 +420,42 @@
                 return true;
             }
         }, 'Please Select required fields');
-        
-        /*$(function () {
+/*------------------------------------ Initial Value Check --------------------------------------- */
+        $(function () {
+           
 
-            if ($('#approved').val() == "0") {
+            if ($('#approvedTest').attr('checked')) {
                 $('input:radio[name=mainRadio]:nth(0)').attr('checked', true);
             }
-
-            if ($('#term').val() != "0") {
-                $('input:radio[name=mainRadio]:nth(1)').attr('checked', true);
-                $('#term').removeAttr('disabled');
-            }
-
-            if ($('#recommendedProgram').val() != "") {
-                $('input:radio[name=mainRadio]:nth(2)').attr('checked', true);
-                $('#recommendedProgram').removeAttr('disabled');
-            }
-
-            if ($('#acceptableConditional').val() != "") {
-                $('input:radio[name=mainRadio]:nth(3)').attr('checked', true);
-                $('#acceptableConditional').removeAttr('disabled');
-            }
-
-            if ($('#probation').val() != "") {
-                $('input:radio[name=mainRadio]:nth(4)').attr('checked', true);
-                $('#probation').removeAttr('disabled');
-            }
-
-            if ($('#special').val() != "0") {
+             if ($("#termTest").val().length > 0) {
+                 $('input:radio[name=mainRadio]:nth(1)').attr('checked', true);
+                 $('#term').removeAttr('disabled');
+             }
+             if ($("#recommendedProgram").val().length > 0) {
+                 $('input:radio[name=mainRadio]:nth(2)').attr('checked', true);
+                 $('#recommendedProgram').removeAttr('disabled');
+                 $('#recommendedCampus').removeAttr('disabled');
+                 $('#recommendedFullTime').removeAttr('disabled');
+                 $('#recommendedYear').removeAttr('disabled');
+             }
+             if ($("#acceptableConditional").val().length > 0) {
+                 $('input:radio[name=mainRadio]:nth(3)').attr('checked', true);
+                 $('#acceptableConditional').removeAttr('disabled');
+             }
+             if ($("#probation").val().length > 0) {
+                 $('input:radio[name=mainRadio]:nth(4)').attr('checked', true);
+                 $('#probation').removeAttr('disabled');
+             }
+            if ($('#specialTest').attr('checked')) {
                 $('input:radio[name=mainRadio]:nth(5)').attr('checked', true);
-                $('#special').removeAttr('disabled');
             }
-
-            if ($('#comments').val() != "") {
+            if ($("#comments").val().length > 0) {
                 $('input:radio[name=mainRadio]:nth(6)').attr('checked', true);
                 $('#comments').removeAttr('disabled');
             }
-        });*/
+        });
     });
-
+/*------------------------------------ Initial Value Check Ends--------------------------------------- */
     /*If Approved Check is selected*/
     $('input[type="radio"]').change(function () {
         if ($('input[type="radio"]:checked').val() == 'approvedCheck') {
