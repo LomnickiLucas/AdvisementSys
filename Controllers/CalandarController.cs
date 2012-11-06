@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace AdvisementSys.Controllers
 {
-    public class CalandarController : Controller
+    public class CalendarController : Controller
     {
         //
         // GET: /Calandar/

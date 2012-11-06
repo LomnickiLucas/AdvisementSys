@@ -808,7 +808,7 @@
     <Content Include="Views\Reports\StudentIssueReport.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
-    <Content Include="Views\Calandar\Index.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
