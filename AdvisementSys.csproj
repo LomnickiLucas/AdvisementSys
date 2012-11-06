@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalandarController.cs" />
     <Compile Include="Models\AdvisorReportModel.cs" />
     <Compile Include="Controllers\CourseRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -807,6 +808,7 @@
     <Content Include="Views\Reports\StudentIssueReport.cshtml" />
     <Content Include="Views\Account\EditUser.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Calandar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
