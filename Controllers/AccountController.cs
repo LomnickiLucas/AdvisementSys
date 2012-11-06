@@ -235,7 +235,7 @@ namespace AdvisementSys.Controllers
                     db.employees.Attach(model._employee);
                     db.ObjectStateManager.ChangeObjectState(model._employee, EntityState.Modified);
                     db.SaveChanges();
-                    return RedirectToAction("editUser/" + model._employee.employeeid);
+                    return RedirectToAction("Index", "Student");
                 }
             }
             catch (Exception ex)
