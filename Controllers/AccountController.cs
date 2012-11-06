@@ -24,31 +24,42 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Account/LogOn
-
+        /// <summary>
+        /// Defualt Logon 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+            try{
+                if (ModelState.IsValid)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-
-
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    if (Membership.ValidateUser(model.UserName, model.Password))
                     {
-                        return Redirect(returnUrl);
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+
+
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Student");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Student");
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+            }
+            }
+            catch (Exception ex)
+            {
+                return View(model);
             }
 
             // If we got this far, something failed, redisplay form
@@ -57,7 +68,10 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Account/LogOff
-
+        /// <summary>
+        /// just logs user off
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -82,34 +96,44 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Account/Register
-
+        /// <summary>
+        /// Creates a new user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Entities db = new Entities();
-
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-                employee employee_model = new employee() { employeeid = model.UserName, fname = model.fname, lname = model.lname, phonenum = model.phonenum, email = model.Email, faculty = model.faculty, role = model.position };
-
-                db.employees.AddObject(employee_model);
-                db.SaveChanges();
-
-                if (createStatus == MembershipCreateStatus.Success)
+                if (ModelState.IsValid)
                 {
-                    //Roles.
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "issue");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    Entities db = new Entities();
+
+                    // Attempt to register the user
+                    MembershipCreateStatus createStatus;
+                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                    employee employee_model = new employee() { employeeid = model.UserName, fname = model.fname, lname = model.lname, phonenum = model.phonenum, email = model.Email, faculty = model.faculty, role = model.position };
+
+                    db.employees.AddObject(employee_model);
+                    db.SaveChanges();
+
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        //Roles.
+                        FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                        return RedirectToAction("Index", "issue");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                return View(model);
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -125,37 +149,47 @@ namespace AdvisementSys.Controllers
 
         //
         // POST: /Account/ChangePassword
-
+        /// <summary>
+        /// Changes password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (ModelState.IsValid)
+                {
 
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
+                    // ChangePassword will throw an exception rather
+                    // than return false in certain failure scenarios.
+                    bool changePasswordSucceeded;
+                    try
+                    {
+                        MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+                        changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    }
+                    catch (Exception)
+                    {
+                        changePasswordSucceeded = false;
+                    }
 
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("Index", "Student");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    if (changePasswordSucceeded)
+                    {
+                        return RedirectToAction("Index", "Student");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                return View(model);
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -168,6 +202,11 @@ namespace AdvisementSys.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Populates the model with the appropriate fields 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public ActionResult EditUser(String id)
         {
@@ -180,16 +219,28 @@ namespace AdvisementSys.Controllers
             EditUserModel model = new EditUserModel() { _employee = db.employees.Single(e => e.employeeid == id), faculty = data };
             return View(model);
         }
-
+        /// <summary>
+        /// Submits an edit user request to the database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult EditUser(EditUserModel model, String id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.employees.Attach(model._employee);
-                db.ObjectStateManager.ChangeObjectState(model._employee, EntityState.Modified);
-                db.SaveChanges();
-                return RedirectToAction("editUser/" + model._employee.employeeid);
+                if (ModelState.IsValid)
+                {
+                    db.employees.Attach(model._employee);
+                    db.ObjectStateManager.ChangeObjectState(model._employee, EntityState.Modified);
+                    db.SaveChanges();
+                    return RedirectToAction("editUser/" + model._employee.employeeid);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(model);
             }
             return View(model);
         }

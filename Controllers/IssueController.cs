@@ -348,18 +348,25 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Create(CreateIssueRequestModel model, String id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
-                sb.Remove(9, sb.Length - 9);
-                model._issue.employeeid = sb.ToString();
-                model._issue.issueid = Guid.NewGuid();
-                model._issue.studentid = id;
-                db.issues.AddObject(model._issue);
-                db.SaveChanges();
-                return RedirectToAction("Details/" + id, "Student");
+                if (ModelState.IsValid)
+                {
+                    StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
+                    sb.Remove(9, sb.Length - 9);
+                    model._issue.employeeid = sb.ToString();
+                    model._issue.issueid = Guid.NewGuid();
+                    model._issue.studentid = id;
+                    db.issues.AddObject(model._issue);
+                    db.SaveChanges();
+                    return RedirectToAction("Details/" + id, "Student");
+                }
             }
-
+            catch (Exception ex)
+            {
+                ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
+                return View(model);
+            }
             ViewBag.studentid = new SelectList(db.students, "studentid", "fname", model._issue.studentid);
             return View(model);
         }
@@ -399,15 +406,22 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Edit(EditIssueRequestModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
-                sb.Remove(9, sb.Length - 9);
-                model._issue.employeeid = sb.ToString();
-                db.issues.Attach(model._issue);
-                db.ObjectStateManager.ChangeObjectState(model._issue, EntityState.Modified);
-                db.SaveChanges();
-                return RedirectToAction("Details/" + model._issue.issueid);
+                if (ModelState.IsValid)
+                {
+                    StringBuilder sb = new StringBuilder(model._issue.employeeid.Trim().ToUpper());
+                    sb.Remove(9, sb.Length - 9);
+                    model._issue.employeeid = sb.ToString();
+                    db.issues.Attach(model._issue);
+                    db.ObjectStateManager.ChangeObjectState(model._issue, EntityState.Modified);
+                    db.SaveChanges();
+                    return RedirectToAction("Details/" + model._issue.issueid);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(model);
             }
             return View(model);
         }
@@ -466,12 +480,19 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult EditNote(note model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.notes.Attach(model);
-                db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
-                db.SaveChanges();
-                return RedirectToAction("Details/" + model.issueid);
+                if (ModelState.IsValid)
+                {
+                    db.notes.Attach(model);
+                    db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
+                    db.SaveChanges();
+                    return RedirectToAction("Details/" + model.issueid);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(model);
             }
             return View(model);
         }
