@@ -67,6 +67,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalandarController.cs" />
+    <Compile Include="Models\Request\IndexHomeModel.cs" />
     <Compile Include="Models\AdvisorReportModel.cs" />
     <Compile Include="Controllers\CourseRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -903,6 +904,7 @@
     <Content Include="Views\Calendar\Details.cshtml" />
     <Content Include="Views\Calendar\Create.cshtml" />
     <Content Include="Views\Calendar\Edit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

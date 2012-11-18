@@ -1,0 +1,156 @@
+﻿@model AdvisementSys.Controllers.IndexHomeModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.common.min.css")" rel="stylesheet"
+    type="text/css" />
+<link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.metro.min.css")" rel="stylesheet"
+        type="text/css" />
+<script src="@Url.Content("~/Scripts/kendo/2012.2.710/kendo.web.min.js")" type="text/javascript"></script>
+
+<link href="@Url.Content("~/Scripts/FullCalandar/fullcalendar.css")" rel="stylesheet"
+type="text/css" />
+<link href="@Url.Content("~/Scripts/FullCalandar/fullcalendar.print.css")" rel="stylesheet"
+type="text/css" media="print" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/FullCalandar/jquery-ui-1.8.23.custom.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/FullCalandar/fullcalendar.min.js")" type="text/javascript"></script>
+<style type='text/css'>
+
+	#calendar {
+		width: 450px;
+		margin: 0 auto;
+		}
+
+</style>
+
+<table>
+    <tr>
+        <td width="650px">
+            <h3>This Weeks Appointments</h3>
+            <div id="dategrid" style="height: 380px; width: 90%;">
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink("Create a Appointment", "Create", "Calendar", null, new { @id="cmdCreate" })
+            <div id='calendar'></div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h3>Outstanding Appoinments</h3>
+            <div id="grid" style="height: 380px; width: 100%;">
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script type='text/javascript'>
+
+    $(document).ready(function () {
+
+    var model = @Html.Raw(Json.Encode(Model._Events));
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: '',
+                center: 'title',
+                right: ''
+            },
+            defaultView: 'agendaDay',
+            editable: false,
+            events: model
+        });
+
+        function customUnixParser(data) {
+            var timeStampValue = parseInt(data);
+            return new Date(timeStampValue*1000);
+        }
+
+        var gridDateModel = @Html.Raw(Json.Encode(Model._Events));
+
+        $("#dategrid").kendoGrid({
+                        dataSource: {
+                            data: gridDateModel,
+                            pageSize: 15,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        start: { type: "date", parse: customUnixParser },
+                                        end: { type: "date", parse: customUnixParser },
+                                    }
+                                }           
+                            }
+                        },
+                        groupable: true,
+                        sortable: true,
+                        selectable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        columns: [  {
+                                field: "title",
+                                title: "Appointment Name",
+                                template: '<a href="/Calendar/Details/#=id#">#=title#</a>'
+                            } , {
+                                field: "start",
+                                title: "Appointment Start Date",
+                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                            } , {
+                                field: "end",
+                                title: "Appointment End Date",
+                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                            } 
+                        ]
+        });
+
+        var gridModel = @Html.Raw(Json.Encode(Model._Issues));
+        
+        function customParser(data) {
+            return new Date(data);
+        }
+
+       $("#grid").kendoGrid({
+                        dataSource: {
+                            data: gridModel,
+                            pageSize: 15,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        Date: { type: "date", parse: customParser }
+                                    }
+                                }           
+                            }
+                        },
+                        groupable: true,
+                        sortable: true,
+                        selectable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        columns: [  {
+                                field: "Name",
+                                title: "Issue Name",
+                                template: '<a href="/Issue/Details/#=IssueID#">#=Name#</a>'
+                            } , {
+                                field: "Date",
+                                title: "Issue Date",
+                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                            } , {
+                                field: "Status",
+                                title: "Issue Status"
+                            } , {
+                                field: "Urgency",
+                                title: "Issue Urgency"
+                            }
+                        ]
+        });
+
+    });
+
+</script>
