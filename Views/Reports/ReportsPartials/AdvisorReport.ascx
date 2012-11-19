@@ -7,17 +7,20 @@
     <script language="c#" runat="server">
     public void Page_Load(object sender, EventArgs e)
     {
+        DateTime start = DateTime.Parse(ViewData["StartDate"].ToString());
+        DateTime end = DateTime.Parse(ViewData["EndDate"].ToString());
+        
         SqlDataSource1.SelectParameters["employeeID"].DefaultValue = ViewData["EmpID"].ToString();
-        SqlDataSource1.SelectParameters["start"].DefaultValue = ViewData["StartDate"].ToString();
-        SqlDataSource1.SelectParameters["end"].DefaultValue = ViewData["EndDate"].ToString();
+        SqlDataSource1.SelectParameters["start"].DefaultValue = start.ToString("MM/dd/yyyy"); 
+        SqlDataSource1.SelectParameters["end"].DefaultValue = end.ToString("MM/dd/yyyy"); 
 
         SqlDataSource2.SelectParameters["empID"].DefaultValue = ViewData["EmpID"].ToString();
 
         SqlDataSource3.SelectParameters["empID"].DefaultValue = ViewData["EmpID"].ToString();
-        SqlDataSource3.SelectParameters["start"].DefaultValue = ViewData["StartDate"].ToString();
-        SqlDataSource3.SelectParameters["end"].DefaultValue = ViewData["EndDate"].ToString();
+        SqlDataSource3.SelectParameters["start"].DefaultValue = start.ToString("MM/dd/yyyy"); 
+        SqlDataSource3.SelectParameters["end"].DefaultValue = end.ToString("MM/dd/yyyy");
 
-        ReportParameter[] parameters = new ReportParameter[4] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("start", ViewData["StartDate"].ToString()), new ReportParameter("end", ViewData["EndDate"].ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
+        ReportParameter[] parameters = new ReportParameter[4] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("start", start.ToShortDateString()), new ReportParameter("end", end.ToShortDateString()), new ReportParameter("User", ViewData["User"].ToString()) };
         ReportViewer1.LocalReport.SetParameters(parameters);
             ReportViewer1.Visible = true;
             ReportViewer1.ShowPageNavigationControls = false;
