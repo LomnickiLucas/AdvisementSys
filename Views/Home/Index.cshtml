@@ -66,8 +66,7 @@ type="text/css" media="print" />
         });
 
         function customUnixParser(data) {
-            var timeStampValue = parseInt(data);
-            return new Date(timeStampValue*1000);
+            return new Date(data * 1000);
         }
 
         var gridDateModel = @Html.Raw(Json.Encode(Model._Events));
@@ -99,11 +98,11 @@ type="text/css" media="print" />
                             } , {
                                 field: "start",
                                 title: "Appointment Start Date",
-                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                                template: '#= kendo.toString(start,"dd MMMM yyyy") #'
                             } , {
                                 field: "end",
                                 title: "Appointment End Date",
-                                template: '#= kendo.toString(Date,"dd MMMM yyyy") #'
+                                template: '#= kendo.toString(end,"dd MMMM yyyy") #'
                             } 
                         ]
         });
