@@ -24,10 +24,17 @@ namespace AdvisementSys.Controllers
 
         public ActionResult CampusIssueReport()
         {
-            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-            String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
-            CampusReportModel model = new CampusReportModel() { Program = "All", ProgList = Programs, StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
-            return View(model);
+            try
+            {
+                employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
+                CampusReportModel model = new CampusReportModel() { Program = "All", ProgList = Programs, StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //
@@ -36,11 +43,21 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult CampusIssueReport(CampusReportModel model)
         {
-            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-            String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
-            model.ProgList = Programs;
-            model.User = employee.fname + " " + employee.lname;
-            return View(model);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                    String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
+                    model.ProgList = Programs;
+                    model.User = employee.fname + " " + employee.lname;
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View(model);
+            }
         }
 
         //
@@ -48,15 +65,22 @@ namespace AdvisementSys.Controllers
 
         public ActionResult StudentIssueReport()
         {
-            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-            IEnumerable<student> students = db.students;
-            List<String> studentID = new List<String>();
-            foreach (student stud in students)
+            try
             {
-                studentID.Add(stud.studentid);
+                employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                IEnumerable<student> students = db.students;
+                List<String> studentID = new List<String>();
+                foreach (student stud in students)
+                {
+                    studentID.Add(stud.studentid);
+                }
+                StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID, User = employee.fname + " " + employee.lname };
+                return View(model);
             }
-            StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID, User = employee.fname + " " + employee.lname };
-            return View(model);
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //
@@ -65,16 +89,27 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult StudentIssueReport(StudentReportModel model)
         {
-                employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-                IEnumerable<student> students = db.students;
-                List<String> studentID = new List<String>();
-                foreach (student stud in students)
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    studentID.Add(stud.studentid);
+                    employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                    IEnumerable<student> students = db.students;
+                    List<String> studentID = new List<String>();
+                    foreach (student stud in students)
+                    {
+                        studentID.Add(stud.studentid);
+                    }
+                    model.StudID = studentID;
+                    model.User = employee.fname + " " + employee.lname;
+                    return View(model);
                 }
-                model.StudID = studentID;
-                model.User = employee.fname + " " + employee.lname;
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View(model);
+            }
         }
 
         //
@@ -82,15 +117,22 @@ namespace AdvisementSys.Controllers
 
         public ActionResult AdvisorIssueReport()
         {
-            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-            IEnumerable<employee> employees = db.employees;
-            List<String> employeeID = new List<String>();
-            foreach (employee emp in employees)
+            try
             {
-                employeeID.Add(emp.employeeid);
+                employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                IEnumerable<employee> employees = db.employees;
+                List<String> employeeID = new List<String>();
+                foreach (employee emp in employees)
+                {
+                    employeeID.Add(emp.employeeid);
+                }
+                AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID, startDate = db.issues.OrderBy(i => i.date).First().date, endDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
+                return View(model);
             }
-            AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID, startDate = db.issues.OrderBy(i => i.date).First().date, endDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
-            return View(model);
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //
@@ -99,16 +141,27 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult AdvisorIssueReport(AdvisorReportModel model)
         {
-            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-            IEnumerable<employee> employees = db.employees;
-            List<String> employeeID = new List<String>();
-            foreach (employee emp in employees)
+            try
             {
-                employeeID.Add(emp.employeeid);
+                if (ModelState.IsValid)
+                {
+                    employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
+                    IEnumerable<employee> employees = db.employees;
+                    List<String> employeeID = new List<String>();
+                    foreach (employee emp in employees)
+                    {
+                        employeeID.Add(emp.employeeid);
+                    }
+                    model.EmployeeID = employeeID;
+                    model.User = employee.fname + " " + employee.lname;
+                    return View(model);
+                }
+                return View(model);
             }
-            model.EmployeeID = employeeID;
-            model.User = employee.fname + " " + employee.lname;
-            return View(model);
+            catch (Exception ex)
+            {
+                return View(model);
+            }
         }
 
         //
@@ -125,7 +178,7 @@ namespace AdvisementSys.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Reports/Create
@@ -144,10 +197,10 @@ namespace AdvisementSys.Controllers
                 return View();
             }
         }
-        
+
         //
         // GET: /Reports/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -162,7 +215,7 @@ namespace AdvisementSys.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -173,7 +226,7 @@ namespace AdvisementSys.Controllers
 
         //
         // GET: /Reports/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -188,7 +241,7 @@ namespace AdvisementSys.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch

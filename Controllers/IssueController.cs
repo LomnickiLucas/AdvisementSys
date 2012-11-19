@@ -23,39 +23,46 @@ namespace AdvisementSys.Controllers
         /// <returns></returns>
         public ViewResult Index()
         {
-            var issues = db.issues.Include("student");
-            List<IssuesPOCO> _issues = new List<IssuesPOCO>();
-            foreach (issue i in issues.OrderByDescending(e => e.date))
+            try
             {
-                IssuesPOCO temp = new IssuesPOCO();
-                temp.IssueID = i.issueid;
-                temp.Name = i.issuename;
-                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
-                temp.Status = i.status;
-                temp.Urgency = i.urgency;
+                var issues = db.issues.Include("student");
+                List<IssuesPOCO> _issues = new List<IssuesPOCO>();
+                foreach (issue i in issues.OrderByDescending(e => e.date))
+                {
+                    IssuesPOCO temp = new IssuesPOCO();
+                    temp.IssueID = i.issueid;
+                    temp.Name = i.issuename;
+                    temp.Date = ConvertToUnixTimestamp(i.date).ToString();
+                    temp.Status = i.status;
+                    temp.Urgency = i.urgency;
 
-                _issues.Add(temp);
+                    _issues.Add(temp);
+                }
+                var program = db.programs;
+                var employee = db.employees;
+                List<String> employees = new List<String>();
+                employees.Add("Any");
+                foreach (employee emp in employee)
+                {
+                    employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+                }
+                List<catagory> catagories = new List<catagory>();
+                catagory cat = new catagory() { catagory1 = "Any" };
+                catagories.Add(cat);
+                catagories.AddRange(db.catagories);
+                List<String> collection = new List<String>();
+                collection.Add("Any");
+                foreach (program prog in program)
+                {
+                    collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
+                }
+                IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = _issues.OrderByDescending(i => i.Status), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
+                return View(Model);
             }
-            var program = db.programs;
-            var employee = db.employees;
-            List<String> employees = new List<String>();
-            employees.Add("Any");
-            foreach (employee emp in employee)
+            catch (Exception ex)
             {
-                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+                return View();
             }
-            List<catagory> catagories = new List<catagory>();
-            catagory cat = new catagory() { catagory1 = "Any"};
-            catagories.Add(cat);
-            catagories.AddRange(db.catagories);
-            List<String> collection = new List<String>();
-            collection.Add("Any");
-            foreach (program prog in program)
-            {
-                collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
-            }
-            IndexIssueRequestModel Model = new IndexIssueRequestModel() { _issue = _issues.OrderByDescending(i => i.Status), _employee = employees, _catagories = catagories, _date1 = issues.OrderByDescending(i => i.date).First().date, _date2 = issues.OrderBy(i => i.date).First().date, _programcode = collection };
-            return View(Model);
         }
         /// <summary>
         /// goes the througgh the search paramaters and returns just the results that fullfil the criteria
@@ -65,80 +72,91 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Index(IndexIssueRequestModel Model)
         {
-            var issues = db.issues.Include("student");
-            var program = db.programs;
-            var employee = db.employees;
-            List<String> employees = new List<String>();
-            employees.Add("Any");
-            foreach (employee emp in employee)
+            try
             {
-                employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
-            }
-            List<catagory> catagories = new List<catagory>();
-            catagory cat = new catagory() { catagory1 = "Any" };
-            catagories.Add(cat);
-            catagories.AddRange(db.catagories);
-            List<String> collection = new List<String>();
-            collection.Add("Any");
-            foreach (program prog in program)
-            {
-                collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
-            }
-            IEnumerable<issue> _issues = issues;
-            if (Model._name != null)
-                _issues = _issues.Where(i => i.issuename.Trim().ToUpper().Contains(Model._name.Trim().ToUpper()));
-            if (Model._employeeid != "Any")
-            {
-                StringBuilder sb = new StringBuilder(Model._employeeid.Trim().ToUpper());
-                sb.Remove(9, sb.Length - 9);
-                _issues = _issues.Where(i => i.employeeid.Trim().ToUpper().Contains(sb.ToString()));
-            }
-            if (Model._status != "Any")
-                _issues = _issues.Where(i => i.status.Trim().ToUpper().Contains(Model._status.Trim().ToUpper()));
-            if (Model._urgency != "Any")
-                _issues = _issues.Where(i => i.urgency.Trim().ToUpper().Contains(Model._urgency.Trim().ToUpper()));
-            if (Model._category != "Any")
-                _issues = _issues.Where(i => i.catagory.Trim().ToUpper().Contains(Model._category.Trim().ToUpper()));
-            if (Model._selectedpcode != "Any")
-            {
-                StringBuilder sb = new StringBuilder(Model._selectedpcode.Trim().ToUpper());
-                sb.Remove(5, sb.Length - 5);
-                _issues = _issues.Where(i => i.student.programcode.Trim().ToUpper().Contains(sb.ToString()));
-            }
-            if ((Model._date1 != null) && (Model._date2 != null))
-            {
-                if (Model._date1 > Model._date2)
+                if (ModelState.IsValid)
                 {
-                    _issues = _issues.Where(i => i.date >= Model._date2 && i.date <= Model._date1);
+                    var issues = db.issues.Include("student");
+                    var program = db.programs;
+                    var employee = db.employees;
+                    List<String> employees = new List<String>();
+                    employees.Add("Any");
+                    foreach (employee emp in employee)
+                    {
+                        employees.Add(emp.employeeid.Trim() + " - " + emp.fname.Trim() + " " + emp.lname.Trim());
+                    }
+                    List<catagory> catagories = new List<catagory>();
+                    catagory cat = new catagory() { catagory1 = "Any" };
+                    catagories.Add(cat);
+                    catagories.AddRange(db.catagories);
+                    List<String> collection = new List<String>();
+                    collection.Add("Any");
+                    foreach (program prog in program)
+                    {
+                        collection.Add(prog.programcode.ToString().Trim() + " - " + prog.programname.ToString().Trim());
+                    }
+                    IEnumerable<issue> _issues = issues;
+                    if (Model._name != null)
+                        _issues = _issues.Where(i => i.issuename.Trim().ToUpper().Contains(Model._name.Trim().ToUpper()));
+                    if (Model._employeeid != "Any")
+                    {
+                        StringBuilder sb = new StringBuilder(Model._employeeid.Trim().ToUpper());
+                        sb.Remove(9, sb.Length - 9);
+                        _issues = _issues.Where(i => i.employeeid.Trim().ToUpper().Contains(sb.ToString()));
+                    }
+                    if (Model._status != "Any")
+                        _issues = _issues.Where(i => i.status.Trim().ToUpper().Contains(Model._status.Trim().ToUpper()));
+                    if (Model._urgency != "Any")
+                        _issues = _issues.Where(i => i.urgency.Trim().ToUpper().Contains(Model._urgency.Trim().ToUpper()));
+                    if (Model._category != "Any")
+                        _issues = _issues.Where(i => i.catagory.Trim().ToUpper().Contains(Model._category.Trim().ToUpper()));
+                    if (Model._selectedpcode != "Any")
+                    {
+                        StringBuilder sb = new StringBuilder(Model._selectedpcode.Trim().ToUpper());
+                        sb.Remove(5, sb.Length - 5);
+                        _issues = _issues.Where(i => i.student.programcode.Trim().ToUpper().Contains(sb.ToString()));
+                    }
+                    if ((Model._date1 != null) && (Model._date2 != null))
+                    {
+                        if (Model._date1 > Model._date2)
+                        {
+                            _issues = _issues.Where(i => i.date >= Model._date2 && i.date <= Model._date1);
+                        }
+                        else if (Model._date2 > Model._date1)
+                        {
+                            _issues = _issues.Where(i => i.date <= Model._date2 && i.date >= Model._date1);
+                        }
+                        else
+                        {
+                            _issues = _issues.Where(i => i.date == Model._date1);
+                        }
+                    }
+                    List<IssuesPOCO> _issue = new List<IssuesPOCO>();
+                    foreach (issue i in _issues.OrderByDescending(e => e.date))
+                    {
+                        IssuesPOCO temp = new IssuesPOCO();
+                        temp.IssueID = i.issueid;
+                        temp.Name = i.issuename;
+                        temp.Date = ConvertToUnixTimestamp(i.date).ToString();
+                        temp.Status = i.status;
+                        temp.Urgency = i.urgency;
+
+                        _issue.Add(temp);
+                    }
+                    Model._issue = _issue;
+                    Model._employee = employees;
+                    Model._catagories = catagories;
+                    Model._programcode = collection;
+
+
+                    return View(Model);
                 }
-                else if (Model._date2 > Model._date1)
-                {
-                    _issues = _issues.Where(i => i.date <= Model._date2 && i.date >= Model._date1);
-                }
-                else
-                {
-                    _issues = _issues.Where(i => i.date == Model._date1);
-                }
+                return View(Model);
             }
-            List<IssuesPOCO> _issue = new List<IssuesPOCO>();
-            foreach (issue i in _issues.OrderByDescending(e => e.date))
+            catch (Exception ex)
             {
-                IssuesPOCO temp = new IssuesPOCO();
-                temp.IssueID = i.issueid;
-                temp.Name = i.issuename;
-                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
-                temp.Status = i.status;
-                temp.Urgency = i.urgency;
-
-                _issue.Add(temp);
+                return View(Model);
             }
-            Model._issue = _issue;
-            Model._employee = employees;
-            Model._catagories = catagories;
-            Model._programcode = collection;
-
-
-            return View(Model);
         }
 
         //
@@ -229,88 +247,95 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Details(DetailsIssueRequestModel _model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Guid? id = _model._newNote.issueid;
-                _model._newNote.noteid = Guid.NewGuid();
-                _model._newNote.employeeid = User.Identity.Name;
-                _model._newNote.dates = DateTime.Now;
-                db.notes.AddObject(_model._newNote);
-                db.SaveChanges();
-
-                issue issue = db.issues.Include("employee").Single(i => i.issueid == id);
-                student student = db.students.Single(i => i.studentid == issue.studentid);
-                program program = db.programs.Single(i => i.programcode == issue.student.programcode);
-                String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
-                DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
-                List<FormsPOCO> Forms = new List<FormsPOCO>();
-                IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
-                foreach (applicationForReadmission form in applicationForReadmission)
+                if (ModelState.IsValid)
                 {
-                    FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                    _Forms.FormType = "Application For Readmission";
-                    _Forms.Status = form.status;
-                    _Forms.Controller = "Readmission";
-                    _Forms.FormID = form.readmissionid;
+                    Guid? id = _model._newNote.issueid;
+                    _model._newNote.noteid = Guid.NewGuid();
+                    _model._newNote.employeeid = User.Identity.Name;
+                    _model._newNote.dates = DateTime.Now;
+                    db.notes.AddObject(_model._newNote);
+                    db.SaveChanges();
 
-                    Forms.Add(_Forms);
+                    issue issue = db.issues.Include("employee").Single(i => i.issueid == id);
+                    student student = db.students.Single(i => i.studentid == issue.studentid);
+                    program program = db.programs.Single(i => i.programcode == issue.student.programcode);
+                    String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
+                    DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
+                    List<FormsPOCO> Forms = new List<FormsPOCO>();
+                    IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
+                    foreach (applicationForReadmission form in applicationForReadmission)
+                    {
+                        FormsPOCO _Forms = new FormsPOCO();
+                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
+                        _Forms.FormType = "Application For Readmission";
+                        _Forms.Status = form.status;
+                        _Forms.Controller = "Readmission";
+                        _Forms.FormID = form.readmissionid;
+
+                        Forms.Add(_Forms);
+                    }
+                    IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
+                    foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
+                    {
+                        FormsPOCO _Forms = new FormsPOCO();
+                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
+                        _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
+                        _Forms.Status = form.status;
+                        _Forms.Controller = "ProgramWithdrawal";
+                        _Forms.FormID = form.withdrawid;
+
+                        Forms.Add(_Forms);
+                    }
+                    IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
+                    foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
+                    {
+                        FormsPOCO _Forms = new FormsPOCO();
+                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
+                        _Forms.FormType = "Part Time And/or Additional Course Registration Form";
+                        _Forms.Status = form.status;
+                        _Forms.Controller = "CourseRegistration";
+                        _Forms.FormID = form.registrationid;
+
+                        Forms.Add(_Forms);
+                    }
+                    IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
+                    foreach (probationaryContractPlan form in probationaryContractPlan)
+                    {
+                        FormsPOCO _Forms = new FormsPOCO();
+                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
+                        _Forms.FormType = "Probationary Contract Plan";
+                        _Forms.Status = form.status;
+                        _Forms.Controller = "ProbationaryContract";
+                        _Forms.FormID = form.advisementid;
+
+                        Forms.Add(_Forms);
+                    }
+                    IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
+                    foreach (requestForLateEnrolment form in requestForLateEnrolment)
+                    {
+                        FormsPOCO _Forms = new FormsPOCO();
+                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
+                        _Forms.FormType = "Request For Late Enrollment Form";
+                        _Forms.Status = form.status;
+                        _Forms.Controller = "LateEnrollment";
+                        _Forms.FormID = form.enrolementid;
+
+                        Forms.Add(_Forms);
+                    }
+
+                    model._Forms = Forms.OrderByDescending(f => f.Status);
+
+                    return View(model);
                 }
-                IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
-                foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
-                {
-                    FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                    _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
-                    _Forms.Status = form.status;
-                    _Forms.Controller = "ProgramWithdrawal";
-                    _Forms.FormID = form.withdrawid;
 
-                    Forms.Add(_Forms);
-                }
-                IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
-                foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
-                {
-                    FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                    _Forms.FormType = "Part Time And/or Additional Course Registration Form";
-                    _Forms.Status = form.status;
-                    _Forms.Controller = "CourseRegistration";
-                    _Forms.FormID = form.registrationid;
-
-                    Forms.Add(_Forms);
-                }
-                IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
-                foreach (probationaryContractPlan form in probationaryContractPlan)
-                {
-                    FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                    _Forms.FormType = "Probationary Contract Plan";
-                    _Forms.Status = form.status;
-                    _Forms.Controller = "ProbationaryContract";
-                    _Forms.FormID = form.advisementid;
-
-                    Forms.Add(_Forms);
-                }
-                IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
-                foreach (requestForLateEnrolment form in requestForLateEnrolment)
-                {
-                    FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                    _Forms.FormType = "Request For Late Enrollment Form";
-                    _Forms.Status = form.status;
-                    _Forms.Controller = "LateEnrollment";
-                    _Forms.FormID = form.enrolementid;
-
-                    Forms.Add(_Forms);
-                }
-
-                model._Forms = Forms.OrderByDescending(f => f.Status);
-
-                return View(model);
+                return View(_model);
             }
-
-            return View(_model);
+            catch (Exception ex)
+            {
+                return View(_model);
+            }
         }
 
         //

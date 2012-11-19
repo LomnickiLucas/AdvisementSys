@@ -51,13 +51,13 @@ namespace AdvisementSys.Controllers
             }
             IEnumerable<student> students = db.students;
             List<String> StudentID = new List<string>();
-            foreach(student stud in students)
+            foreach (student stud in students)
             {
                 StudentID.Add(stud.studentid);
             }
             IEnumerable<employee> employees = db.employees;
             List<String> EmployeeID = new List<string>();
-            foreach(employee emp in employees)
+            foreach (employee emp in employees)
             {
                 EmployeeID.Add(emp.employeeid);
             }

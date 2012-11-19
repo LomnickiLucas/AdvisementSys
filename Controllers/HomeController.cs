@@ -16,40 +16,47 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Index()
         {
-            DateTime date = DateTime.Today.AddDays(7);
-            DateTime date2 = DateTime.Now.AddMonths(-1);
-            IEnumerable<appointment> appointments = db.appointments.Where(i => i.employeeid == User.Identity.Name && i.starttime >= DateTime.Today && i.starttime <= date);
-            IEnumerable<issue> issues = db.issues.Where(i => i.date <= date2 && i.status != "Complete");
-            List<Events> Events = new List<Events>();
-            foreach (appointment appointment in appointments)
+            try
             {
-                Events Event = new Events();
-                Event.id = appointment.appointmentid;
-                Event.title = appointment.subject;
-                Event.allDay = false;
-                Event.start = ConvertToUnixTimestamp(appointment.starttime).ToString();
-                Event.end = ConvertToUnixTimestamp(appointment.endtime).ToString();
-                Event.url = Url.Action("Details/" + appointment.appointmentid.ToString(), "Calendar");
-                
-                Events.Add(Event);
-            }
+                DateTime date = DateTime.Today.AddDays(7);
+                DateTime date2 = DateTime.Now.AddMonths(-1);
+                IEnumerable<appointment> appointments = db.appointments.Where(i => i.employeeid == User.Identity.Name && i.starttime >= DateTime.Today && i.starttime <= date);
+                IEnumerable<issue> issues = db.issues.Where(i => i.date <= date2 && i.status != "Complete");
+                List<Events> Events = new List<Events>();
+                foreach (appointment appointment in appointments)
+                {
+                    Events Event = new Events();
+                    Event.id = appointment.appointmentid;
+                    Event.title = appointment.subject;
+                    Event.allDay = false;
+                    Event.start = ConvertToUnixTimestamp(appointment.starttime).ToString();
+                    Event.end = ConvertToUnixTimestamp(appointment.endtime).ToString();
+                    Event.url = Url.Action("Details/" + appointment.appointmentid.ToString(), "Calendar");
 
-            List<IssuesPOCO> _issues = new List<IssuesPOCO>();
-            foreach (issue i in issues.OrderByDescending(e => e.date))
+                    Events.Add(Event);
+                }
+
+                List<IssuesPOCO> _issues = new List<IssuesPOCO>();
+                foreach (issue i in issues.OrderByDescending(e => e.date))
+                {
+                    IssuesPOCO temp = new IssuesPOCO();
+                    temp.IssueID = i.issueid;
+                    temp.Name = i.issuename;
+                    temp.Date = ConvertToUnixTimestamp(i.date).ToString();
+                    temp.Status = i.status;
+                    temp.Urgency = i.urgency;
+
+                    _issues.Add(temp);
+                }
+
+                IndexHomeModel model = new IndexHomeModel() { _Events = Events, _Issues = _issues };
+
+                return View(model);
+            }
+            catch (Exception ex)
             {
-                IssuesPOCO temp = new IssuesPOCO();
-                temp.IssueID = i.issueid;
-                temp.Name = i.issuename;
-                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
-                temp.Status = i.status;
-                temp.Urgency = i.urgency;
-
-                _issues.Add(temp);
+                return View();
             }
-
-            IndexHomeModel model = new IndexHomeModel() { _Events = Events, _Issues = _issues };
-
-            return View(model);
         }
 
         private double ConvertToUnixTimestamp(DateTime value)
