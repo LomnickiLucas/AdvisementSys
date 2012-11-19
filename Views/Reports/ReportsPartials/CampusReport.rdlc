@@ -2442,9 +2442,9 @@ FROM            issue INNER JOIN
           </Paragraphs>
           <rd:DefaultName>Textbox6</rd:DefaultName>
           <Top>0.41889in</Top>
-          <Left>4.23897in</Left>
+          <Left>2.6348in</Left>
           <Height>0.25in</Height>
-          <Width>1.73958in</Width>
+          <Width>3.34375in</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>

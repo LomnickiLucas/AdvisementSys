@@ -25,5 +25,9 @@ namespace AdvisementSys.Models
         [Required]
         [Display(Name = "Program List")]
         public IEnumerable<String> ProgList { get; set; }
+
+        [Required]
+        [Display(Name = "User")]
+        public String User { get; set; }
     }
 }

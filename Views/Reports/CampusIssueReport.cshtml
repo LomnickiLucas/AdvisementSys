@@ -20,7 +20,7 @@
          <input type="submit" value="Generate Report" class="Button" />
     }
 
-@Html.Partial("ReportsPartials/CampusReport", null, new ViewDataDictionary() { { "Program", Model.Program }, { "StartDate", Model.StartDate.ToShortDateString()}, {"EndDate", Model.EndDate.ToShortDateString()}, {"User", User.Identity.Name} }) 
+@Html.Partial("ReportsPartials/CampusReport", null, new ViewDataDictionary() { { "Program", Model.Program }, { "StartDate", Model.StartDate.ToShortDateString()}, {"EndDate", Model.EndDate.ToShortDateString()}, {"User", Model.User + " (" + User.Identity.Name + ")"} }) 
 
 <script type="text/javascript">
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });

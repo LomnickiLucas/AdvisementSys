@@ -24,8 +24,9 @@ namespace AdvisementSys.Controllers
 
         public ActionResult CampusIssueReport()
         {
+            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
-            CampusReportModel model = new CampusReportModel() { Program = "All", ProgList = Programs, StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date };
+            CampusReportModel model = new CampusReportModel() { Program = "All", ProgList = Programs, StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
             return View(model);
         }
 
@@ -35,8 +36,10 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult CampusIssueReport(CampusReportModel model)
         {
+            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
             model.ProgList = Programs;
+            model.User = employee.fname + " " + employee.lname;
             return View(model);
         }
 
@@ -45,13 +48,14 @@ namespace AdvisementSys.Controllers
 
         public ActionResult StudentIssueReport()
         {
+            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             IEnumerable<student> students = db.students;
             List<String> studentID = new List<String>();
             foreach (student stud in students)
             {
                 studentID.Add(stud.studentid);
             }
-            StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID };
+            StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID, User = employee.fname + " " + employee.lname };
             return View(model);
         }
 
@@ -61,6 +65,7 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult StudentIssueReport(StudentReportModel model)
         {
+                employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
                 IEnumerable<student> students = db.students;
                 List<String> studentID = new List<String>();
                 foreach (student stud in students)
@@ -68,6 +73,7 @@ namespace AdvisementSys.Controllers
                     studentID.Add(stud.studentid);
                 }
                 model.StudID = studentID;
+                model.User = employee.fname + " " + employee.lname;
                 return View(model);
         }
 

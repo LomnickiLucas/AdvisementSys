@@ -9,6 +9,10 @@ namespace AdvisementSys.Models
     public class StudentReportModel
     {
         [Required]
+        [Display(Name = "User")]
+        public String User { get; set; }
+
+        [Required]
         [Display(Name = "StudentID")]
         public String StudentID { get; set; }
 
