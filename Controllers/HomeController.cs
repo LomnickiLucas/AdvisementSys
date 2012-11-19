@@ -40,7 +40,7 @@ namespace AdvisementSys.Controllers
                 IssuesPOCO temp = new IssuesPOCO();
                 temp.IssueID = i.issueid;
                 temp.Name = i.issuename;
-                temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
+                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
                 temp.Status = i.status;
                 temp.Urgency = i.urgency;
 

@@ -30,7 +30,7 @@ namespace AdvisementSys.Controllers
                 IssuesPOCO temp = new IssuesPOCO();
                 temp.IssueID = i.issueid;
                 temp.Name = i.issuename;
-                temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
+                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
                 temp.Status = i.status;
                 temp.Urgency = i.urgency;
 
@@ -126,7 +126,7 @@ namespace AdvisementSys.Controllers
                 IssuesPOCO temp = new IssuesPOCO();
                 temp.IssueID = i.issueid;
                 temp.Name = i.issuename;
-                temp.Date = "\"date\":\"" + i.date.Year + "-" + i.date.Month + "-" + i.date.Day + "\"";
+                temp.Date = ConvertToUnixTimestamp(i.date).ToString();
                 temp.Status = i.status;
                 temp.Urgency = i.urgency;
 
@@ -160,7 +160,7 @@ namespace AdvisementSys.Controllers
             foreach (applicationForReadmission form in applicationForReadmission)
             {
                 FormsPOCO _Forms = new FormsPOCO();
-                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                 _Forms.FormType = "Application For Readmission";
                 _Forms.Status = form.status;
                 _Forms.Controller = "Readmission";
@@ -172,7 +172,7 @@ namespace AdvisementSys.Controllers
             foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
             {
                 FormsPOCO _Forms = new FormsPOCO();
-                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                 _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProgramWithdrawal";
@@ -184,7 +184,7 @@ namespace AdvisementSys.Controllers
             foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
             {
                 FormsPOCO _Forms = new FormsPOCO();
-                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                 _Forms.FormType = "Part Time And/or Additional Course Registration Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "CourseRegistration";
@@ -196,7 +196,7 @@ namespace AdvisementSys.Controllers
             foreach (probationaryContractPlan form in probationaryContractPlan)
             {
                 FormsPOCO _Forms = new FormsPOCO();
-                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                 _Forms.FormType = "Probationary Contract Plan";
                 _Forms.Status = form.status;
                 _Forms.Controller = "ProbationaryContract";
@@ -208,7 +208,7 @@ namespace AdvisementSys.Controllers
             foreach (requestForLateEnrolment form in requestForLateEnrolment)
             {
                 FormsPOCO _Forms = new FormsPOCO();
-                _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                 _Forms.FormType = "Request For Late Enrollment Form";
                 _Forms.Status = form.status;
                 _Forms.Controller = "LateEnrollment";
@@ -248,7 +248,7 @@ namespace AdvisementSys.Controllers
                 foreach (applicationForReadmission form in applicationForReadmission)
                 {
                     FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                     _Forms.FormType = "Application For Readmission";
                     _Forms.Status = form.status;
                     _Forms.Controller = "Readmission";
@@ -260,7 +260,7 @@ namespace AdvisementSys.Controllers
                 foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
                 {
                     FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                     _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
                     _Forms.Status = form.status;
                     _Forms.Controller = "ProgramWithdrawal";
@@ -272,7 +272,7 @@ namespace AdvisementSys.Controllers
                 foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
                 {
                     FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                     _Forms.FormType = "Part Time And/or Additional Course Registration Form";
                     _Forms.Status = form.status;
                     _Forms.Controller = "CourseRegistration";
@@ -284,7 +284,7 @@ namespace AdvisementSys.Controllers
                 foreach (probationaryContractPlan form in probationaryContractPlan)
                 {
                     FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                     _Forms.FormType = "Probationary Contract Plan";
                     _Forms.Status = form.status;
                     _Forms.Controller = "ProbationaryContract";
@@ -296,7 +296,7 @@ namespace AdvisementSys.Controllers
                 foreach (requestForLateEnrolment form in requestForLateEnrolment)
                 {
                     FormsPOCO _Forms = new FormsPOCO();
-                    _Forms.Date = "\"date\":\"" + form.date.Year + "-" + form.date.Month + "-" + form.date.Day + "\"";
+                    _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
                     _Forms.FormType = "Request For Late Enrollment Form";
                     _Forms.Status = form.status;
                     _Forms.Controller = "LateEnrollment";
@@ -495,6 +495,16 @@ namespace AdvisementSys.Controllers
                 return View(model);
             }
             return View(model);
+        }
+
+        private double ConvertToUnixTimestamp(DateTime value)
+        {
+            //create Timespan by subtracting the value provided from
+            //the Unix Epoch
+            TimeSpan span = (value - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
+
+            //return the total seconds (which is a UNIX timestamp)
+            return (double)span.TotalSeconds;
         }
     }
 }

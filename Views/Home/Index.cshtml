@@ -30,7 +30,7 @@ type="text/css" media="print" />
 <table>
     <tr>
         <td width="650px">
-            <h3>This Weeks Appointments</h3>
+            <h2>This Weeks Appointments</h2>
             <div id="dategrid" style="height: 380px; width: 90%;">
             </div>
         </td>
@@ -41,7 +41,7 @@ type="text/css" media="print" />
     </tr>
     <tr>
         <td colspan="2">
-            <h3>Outstanding Appoinments</h3>
+            <h2>Outstanding Appoinments</h2>
             <div id="grid" style="height: 380px; width: 100%;">
             </div>
         </td>
@@ -65,7 +65,7 @@ type="text/css" media="print" />
             events: model
         });
 
-        function customUnixParser(data) {
+        function customParser(data) {
             return new Date(data * 1000);
         }
 
@@ -78,8 +78,8 @@ type="text/css" media="print" />
                             schema: {
                                 model: {
                                     fields: {
-                                        start: { type: "date", parse: customUnixParser },
-                                        end: { type: "date", parse: customUnixParser },
+                                        start: { type: "date", parse: customParser },
+                                        end: { type: "date", parse: customParser },
                                     }
                                 }           
                             }
@@ -108,10 +108,6 @@ type="text/css" media="print" />
         });
 
         var gridModel = @Html.Raw(Json.Encode(Model._Issues));
-        
-        function customParser(data) {
-            return new Date(data);
-        }
 
        $("#grid").kendoGrid({
                         dataSource: {

@@ -227,7 +227,7 @@
     $(document).ready(function() {
 
         function customParser(data) {
-            return new Date(data);
+            return new Date(data * 1000);
         }
 
         var model = @Html.Raw(Json.Encode(Model._issue));

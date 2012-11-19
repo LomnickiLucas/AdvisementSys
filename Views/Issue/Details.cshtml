@@ -313,7 +313,7 @@
         $("#accordion").accordion({ collapsible: true, active: 2 });
 
         function customParser(data) {
-            return new Date(data);
+            return new Date(data * 1000);
         }
 
         var model = @Html.Raw(Json.Encode(Model._Forms));
