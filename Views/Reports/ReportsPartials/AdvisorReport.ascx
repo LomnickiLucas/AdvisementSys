@@ -8,10 +8,14 @@
     public void Page_Load(object sender, EventArgs e)
     {
         SqlDataSource1.SelectParameters["employeeID"].DefaultValue = ViewData["EmpID"].ToString();
+        SqlDataSource1.SelectParameters["start"].DefaultValue = ViewData["StartDate"].ToString();
+        SqlDataSource1.SelectParameters["end"].DefaultValue = ViewData["EndDate"].ToString();
 
         SqlDataSource2.SelectParameters["empID"].DefaultValue = ViewData["EmpID"].ToString();
 
         SqlDataSource3.SelectParameters["empID"].DefaultValue = ViewData["EmpID"].ToString();
+        SqlDataSource3.SelectParameters["start"].DefaultValue = ViewData["StartDate"].ToString();
+        SqlDataSource3.SelectParameters["end"].DefaultValue = ViewData["EndDate"].ToString();
 
         ReportParameter[] parameters = new ReportParameter[4] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("start", ViewData["StartDate"].ToString()), new ReportParameter("end", ViewData["EndDate"].ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
         ReportViewer1.LocalReport.SetParameters(parameters);
@@ -21,6 +25,11 @@
             ReportViewer1.ShowRefreshButton = false;
             ReportViewer1.ShowBackButton = false;
             ReportViewer1.LocalReport.Refresh();
+    }
+
+    protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+    {
+
     }
 </script>
 </asp:ScriptManager>
@@ -43,10 +52,12 @@
         ConnectionString="<%$ ConnectionStrings:ApplicationServices %>" SelectCommand="SELECT        issuename, date, status, urgency, employeeid, catagory, description, studentid
 FROM            issue
 WHERE        (employeeid = @empID) AND (DATEADD(month, 1, date) &lt; { fn NOW() }) AND (status = N'In Progress' OR
-                         status = N'Pending')
+                         status = N'Pending') AND (date &gt;= @start) AND (date &lt;= @end)
 ORDER BY date">
         <SelectParameters>
             <asp:Parameter Name="empID" />
+            <asp:Parameter Name="start" />
+            <asp:Parameter Name="end" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
@@ -62,9 +73,12 @@ WHERE        (employeeid = @empID)">
                          issue.issueid, issue.issuename, issue.date, issue.status, issue.urgency
 FROM            employee INNER JOIN
                          issue ON employee.employeeid = issue.employeeid
-WHERE        (employee.employeeid = @employeeID)">
+WHERE        (employee.employeeid = @employeeID) AND (issue.date &gt;= @start) AND (issue.date &lt;= @end)" 
+        onselecting="SqlDataSource1_Selecting">
         <SelectParameters>
             <asp:Parameter Name="employeeID" />
+            <asp:Parameter Name="start" />
+            <asp:Parameter Name="end" />
         </SelectParameters>
     </asp:SqlDataSource>
 
