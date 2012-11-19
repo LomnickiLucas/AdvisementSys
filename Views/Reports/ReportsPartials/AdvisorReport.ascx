@@ -13,7 +13,7 @@
 
         SqlDataSource3.SelectParameters["empID"].DefaultValue = ViewData["EmpID"].ToString();
 
-        ReportParameter[] parameters = new ReportParameter[2] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
+        ReportParameter[] parameters = new ReportParameter[4] { new ReportParameter("EmpID", ViewData["EmpID"].ToString()), new ReportParameter("start", ViewData["StartDate"].ToString()), new ReportParameter("end", ViewData["EndDate"].ToString()), new ReportParameter("User", ViewData["User"].ToString()) };
         ReportViewer1.LocalReport.SetParameters(parameters);
             ReportViewer1.Visible = true;
             ReportViewer1.ShowPageNavigationControls = false;

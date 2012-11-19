@@ -14,13 +14,21 @@
     {
         <span>Employee ID:</span>
         @Html.TextBoxFor(model => model.EmpID, new { @id = "txtEmpID",  @class = "required" })
+        <br />
+        <span>Start Date:</span>
+        @Html.TextBoxFor(model => model.startDate, new { @id = "datepicker", @Value = Model.startDate.ToShortDateString() })
+        <span>End Date:</span>
+        @Html.TextBoxFor(model => model.endDate, new { @id = "datepicker1", Value = Model.endDate.ToShortDateString() })
         <input type="submit" value="Generate Report" class="Button" />
     }
 
-@Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.EmpID }, { "User", User.Identity.Name} }) 
+@Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.EmpID }, { "StartDate", Model.startDate }, { "EndDate", Model.endDate }, { "User", Model.User + " (" + User.Identity.Name + ")" } }) 
 
 <script type="text/javascript">
-var model = @Html.Raw(Json.Encode(Model.EmployeeID));
+    $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+    $("#datepicker1").datepicker({ dateFormat: "dd/mm/yy" });
+
+    var model = @Html.Raw(Json.Encode(Model.EmployeeID));
 
     $("#txtEmpID").autocomplete({
         source: model

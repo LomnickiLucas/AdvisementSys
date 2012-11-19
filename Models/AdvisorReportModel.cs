@@ -12,6 +12,18 @@ namespace AdvisementSys.Models
         [Display(Name = "Employee ID")]
         public String EmpID { get; set; }
 
+        [Required]
+        [Display(Name = "User")]
+        public String User { get; set; }
+
+        [Required]
+        [Display(Name = "Start Date")]
+        public DateTime startDate { get; set; }
+
+        [Required]
+        [Display(Name = "End Date")]
+        public DateTime endDate { get; set; }
+
         public IEnumerable<String> EmployeeID { get; set; }
     }
 }

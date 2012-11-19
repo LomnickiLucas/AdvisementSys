@@ -82,13 +82,14 @@ namespace AdvisementSys.Controllers
 
         public ActionResult AdvisorIssueReport()
         {
+            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             IEnumerable<employee> employees = db.employees;
             List<String> employeeID = new List<String>();
             foreach (employee emp in employees)
             {
                 employeeID.Add(emp.employeeid);
             }
-            AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID };
+            AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID, startDate = db.issues.OrderBy(i => i.date).First().date, endDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
             return View(model);
         }
 
@@ -98,6 +99,7 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult AdvisorIssueReport(AdvisorReportModel model)
         {
+            employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             IEnumerable<employee> employees = db.employees;
             List<String> employeeID = new List<String>();
             foreach (employee emp in employees)
@@ -105,6 +107,7 @@ namespace AdvisementSys.Controllers
                 employeeID.Add(emp.employeeid);
             }
             model.EmployeeID = employeeID;
+            model.User = employee.fname + " " + employee.lname;
             return View(model);
         }
 
