@@ -116,12 +116,13 @@
         </tr>   
         <tr>
             <td>
-                Description:
+                <span style="position:absolute; top:380px;">Description:</span>
             </td>
-            <td>
-                <div class="display-field">
-                    @Html.TextAreaFor(model => model._issue.description)
-                </div>
+           
+            <td colspan="3">
+               
+                    @Html.TextAreaFor(model => model._issue.description, new { @style = "width:750px; height:80px; resize:none;" })
+              
             </td>   
         </tr>
      </table> 

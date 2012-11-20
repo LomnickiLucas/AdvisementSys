@@ -19,9 +19,15 @@ type="text/css" media="print" />
 		padding-top: 50px;
 		}
 
+    /*.createCalStyle {
+        background: #F4F4F4;
+        }*/
+    
 </style>
 
-@Html.ActionLink("Create a Appointment", "Create", "Calendar", new { @id="cmdCreate" })
+<!--<span style="z-index:1; position:absolute; top:58px; left:330px;" class="createCalStyle">-->
+@Html.ActionLink("New Appointment", "Create", "Calendar", new { @id = "cmdCreate" })
+<!--</span>-->
 <div id='calendar'></div>
 
 <script type="text/javascript">

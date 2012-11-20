@@ -17,7 +17,7 @@
         ul.drop, ul.drop li, ul.drop ul { list-style: none; margin: 0; background: #444243; padding:0px;}
         ul.drop { position: relative; z-index: 1; float: left; }
         ul.drop li { float: left; line-height: 1.3em;  zoom: 1;}
-        #subTest { visibility:hidden; position: absolute; top: 100%; left: 500px; z-index: 2; width: 177px;}
+        #subTest { visibility:hidden; position: absolute; top: 100%; left: 390px; z-index: 2; width: 177px;}
         ul.drop ul li { float: none; }
         ul.drop ul ul { top: -2px; left: 100%; }
     </style>
@@ -39,8 +39,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home") </li>
                     <li>@Html.ActionLink("Students", "Index", "Student") </li>
                     <li>@Html.ActionLink("Issues", "Index", "Issue") </li>
-                    <li>@Html.ActionLink("Appointments", "Index", "Calendar") </li>
-                    <li>@Html.ActionLink("Time Blocks", "Index", "Calendar") </li>
+                    <li>@Html.ActionLink("Appointments", "Index", "Calendar") </li>                    
                     <li><a href="#" onmouseover="show()">Reports</a> </li>                     
                             <ul id="subTest" onmouseover="show()" onmouseout="this.style.visibility='hidden'">
                                 <li>@Html.ActionLink("Advisor Issue Reports", "AdvisorIssueReport", "Reports")</li>
@@ -55,7 +54,7 @@
             <div class="clr">
             </div>
             <div class="logo">
-                <a href="@Url.Action("Index", "Student")"><img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></a>
+                <a href="@Url.Action("Index", "Home")"><img src="@Url.Content("~/Content/themes/base/images/sheridan_logo.png")" alt=""/></a>
             </div>
         </div>
     </div>
