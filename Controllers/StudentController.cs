@@ -27,14 +27,14 @@ namespace AdvisementSys.Controllers
             {
                 IEnumerable<campu> campus = db.campus;
                 List<String> campusNames = new List<string>();
-                campusNames.Add("Please Select a Campus");
+                campusNames.Add("Any");
                 foreach (campu camp in campus)
                 {
                     campusNames.Add(camp.cname);
                 }
                 var program = db.programs;
                 List<String> collection = new List<String>();
-                collection.Add("Please Select a Program");
+                collection.Add("Any");
                 foreach (program pcode in program)
                 {
                     collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
@@ -91,7 +91,7 @@ namespace AdvisementSys.Controllers
                 {
                     IEnumerable<campu> campus = db.campus;
                     List<String> campusNames = new List<string>();
-                    campusNames.Add("Please Select a Campus");
+                    campusNames.Add("Any");
                     foreach (campu camp in campus)
                     {
                         campusNames.Add(camp.cname);
@@ -99,7 +99,7 @@ namespace AdvisementSys.Controllers
                     model._campus = campusNames;
                     var program = db.programs;
                     List<String> collection = new List<String>();
-                    collection.Add("Please Select a Program");
+                    collection.Add("Any");
                     foreach (program pcode in program)
                     {
                         collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
@@ -112,13 +112,13 @@ namespace AdvisementSys.Controllers
                         studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(model.fName.Trim().ToUpper()));
                     if (model.lName != null)
                         studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(model.lName.Trim().ToUpper()));
-                    if (!model.programCode.Equals("Please Select a Program"))
+                    if (!model.programCode.Equals("Any"))
                     {
                         StringBuilder sb = new StringBuilder(model.programCode.Trim().ToUpper());
                         sb.Remove(5, sb.Length - 5);
                         studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
                     }
-                    if (!model.campus.Equals("Please Select a Campus"))
+                    if (!model.campus.Equals("Any"))
                     {
                         studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(model.campus.Trim().ToUpper()));
                     }

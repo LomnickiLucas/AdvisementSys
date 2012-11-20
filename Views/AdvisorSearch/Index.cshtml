@@ -1,0 +1,144 @@
+﻿@model AdvisementSys.Controllers.IndexAdvisorSearchModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.common.min.css")" rel="stylesheet"
+    type="text/css" />
+<link href="@Url.Content("~/Content/kendo/2012.2.710/kendo.metro.min.css")" rel="stylesheet"
+        type="text/css" />
+<script src="@Url.Content("~/Scripts/kendo/2012.2.710/kendo.web.min.js")" type="text/javascript"></script>
+ <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
+
+<h2>Search Advisor</h2>
+
+@using (Html.BeginForm("Index", "AdvisorSearch", FormMethod.Post, new { id = "searchForm", name = "searchForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <table >
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.EmployeeID, "Employee ID:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.EmployeeID, new { @id = "txtEmpID", @Value = Model.EmployeeID })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.email, "Email:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.email, new { @Value = Model.email })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.fname, "First Name:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.fname, new { @Value = Model.fname })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.lname, "Last Name:")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.lname, new { @Value = Model.lname })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.faculty, "Faculty:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.faculty, new SelectList(Model._faculty, Model._faculty), new { @class = "DDL" })
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.role, "Role:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.role, new SelectList(Model._role, Model._role), new { @class = "DDL" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Search" class="Button" />
+                </td>
+                <td>
+                    <input type="reset" value="Reset" class="Button" />
+                </td>
+            </tr>
+        </table>
+    <br />
+    }
+
+<div id="grid" style="height: 380px; width:95%;">
+
+<script type='text/javascript'>
+
+    $(document).ready(function () {
+
+    var txtModel = @Html.Raw(Json.Encode(Model._EmployeeID));
+
+        $("#txtEmpID").autocomplete({
+            source: txtModel
+        });
+
+    var model = @Html.Raw(Json.Encode(Model._employee));
+
+    function customParser(data) {
+            return new Date(data * 1000);
+        }
+
+       $("#grid").kendoGrid({
+                        dataSource: {
+                            data: model,
+                            pageSize: 15,
+                            schema: {          
+                            }
+                        },
+                        groupable: true,
+                        sortable: true,
+                        selectable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        columns: [  {
+                                field: "EmployeeID",
+                                title: "Employee ID",
+                                width: "80px",
+                                template: '<a href="/AdvisorSearch/Details/#=EmployeeID#">#=EmployeeID#</a>'
+                            } , {
+                                field: "fName",
+                                title: "First Name",
+                                width: "80px"
+                            } , {
+                                field: "lName",
+                                title: "Last Name",
+                                width: "80px"
+                            } , {
+                                field: "PhoneNum",
+                                title: "Phone Number",
+                                width: "80px"
+                            } , {
+                                field: "Email",
+                                title: "Email",
+                                width: "80px"
+                            } , {
+                                field: "Faculty",
+                                title: "Faculty",
+                                width: "80px"
+                            } , {
+                                field: "Role",
+                                title: "Role",
+                                width: "80px"
+                            }
+                        ]
+        });
+
+    });
+
+</script>
