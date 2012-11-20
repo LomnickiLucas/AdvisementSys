@@ -58,7 +58,15 @@ namespace AdvisementSys.Controllers
 
                     student.Add(temp);
                 }
-                IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = student, enrolled = true, programs = collection, _campus = campusNames };
+
+                IEnumerable<student> studentz = db.students.Include("campu").Include("program");
+                List<String> StudID = new List<string>();
+                foreach (student stud in studentz)
+                {
+                    StudID.Add(stud.studentid);
+                }
+
+                IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = student, enrolled = true, programs = collection, _campus = campusNames, StudID = StudID };
                 return View(model);
             }
             catch (Exception ex)
@@ -77,79 +85,89 @@ namespace AdvisementSys.Controllers
         [HttpPost]
         public ActionResult Index(IndexStudentRequestModel model)
         {
-            IEnumerable<campu> campus = db.campus;
-            List<String> campusNames = new List<string>();
-            campusNames.Add("Please Select a Campus");
-            foreach (campu camp in campus)
+            try
             {
-                campusNames.Add(camp.cname);
-            }
-            model._campus = campusNames;
-            var program = db.programs;
-            List<String> collection = new List<String>();
-            collection.Add("Please Select a Program");
-            foreach (program pcode in program)
-            {
-                collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
-            }
-            model.programs = collection;
-            IEnumerable<student> studentz = db.students.Include("campu").Include("program");
-            if (model.studentID != null)
-                studentz = studentz.Where(stud => stud.studentid.Trim().ToUpper().Contains(model.studentID.Trim().ToUpper()));
-            if (model.fName != null)
-                studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(model.fName.Trim().ToUpper()));
-            if (model.lName != null)
-                studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(model.lName.Trim().ToUpper()));
-            if (!model.programCode.Equals("Please Select a Program"))
-            {
-                StringBuilder sb = new StringBuilder(model.programCode.Trim().ToUpper());
-                sb.Remove(5, sb.Length - 5);
-                studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
-            }
-            if (!model.campus.Equals("Please Select a Campus"))
-            {
-                studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(model.campus.Trim().ToUpper()));
-            }
-            if (model.email != null)
-                studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(model.email.Trim().ToUpper()));
-            if (model.acadprobation == true)
-            {
-                studentz = studentz.Where(stud => stud.acadprobation.Equals(true));
-            }
-            if (model.fulltimestatus == true)
-            {
-                studentz = studentz.Where(stud => stud.fulltimestatus.Equals(true));
-            }
-            if (model.enrolled == true)
-            {
-                studentz = studentz.Where(stud => stud.enrolled.Equals(true));
-            }
-            List<StudentPOCO> student = new List<StudentPOCO>();
-            foreach (student s in studentz)
-            {
-                StudentPOCO temp = new StudentPOCO();
-                temp.StudentID = s.studentid;
-                temp.FName = s.fname;
-                temp.LName = s.lname;
-                temp.PhoneNum = s.phonenum;
-                temp.Prob = s.acadprobation;
-                temp.Prog = s.programcode + "-" + s.program.programname;
-                temp.FT = s.fulltimestatus;
-                temp.Campus = s.campus;
-                temp.Email = s.email;
-                temp.Enr = s.enrolled;
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<campu> campus = db.campus;
+                    List<String> campusNames = new List<string>();
+                    campusNames.Add("Please Select a Campus");
+                    foreach (campu camp in campus)
+                    {
+                        campusNames.Add(camp.cname);
+                    }
+                    model._campus = campusNames;
+                    var program = db.programs;
+                    List<String> collection = new List<String>();
+                    collection.Add("Please Select a Program");
+                    foreach (program pcode in program)
+                    {
+                        collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
+                    }
+                    model.programs = collection;
+                    IEnumerable<student> studentz = db.students.Include("campu").Include("program");
+                    if (model.studentID != null)
+                        studentz = studentz.Where(stud => stud.studentid.Trim().ToUpper().Contains(model.studentID.Trim().ToUpper()));
+                    if (model.fName != null)
+                        studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(model.fName.Trim().ToUpper()));
+                    if (model.lName != null)
+                        studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(model.lName.Trim().ToUpper()));
+                    if (!model.programCode.Equals("Please Select a Program"))
+                    {
+                        StringBuilder sb = new StringBuilder(model.programCode.Trim().ToUpper());
+                        sb.Remove(5, sb.Length - 5);
+                        studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
+                    }
+                    if (!model.campus.Equals("Please Select a Campus"))
+                    {
+                        studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(model.campus.Trim().ToUpper()));
+                    }
+                    if (model.email != null)
+                        studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(model.email.Trim().ToUpper()));
+                    if (model.acadprobation == true)
+                    {
+                        studentz = studentz.Where(stud => stud.acadprobation.Equals(true));
+                    }
+                    if (model.fulltimestatus == true)
+                    {
+                        studentz = studentz.Where(stud => stud.fulltimestatus.Equals(true));
+                    }
+                    if (model.enrolled == true)
+                    {
+                        studentz = studentz.Where(stud => stud.enrolled.Equals(true));
+                    }
+                    List<StudentPOCO> student = new List<StudentPOCO>();
+                    foreach (student s in studentz)
+                    {
+                        StudentPOCO temp = new StudentPOCO();
+                        temp.StudentID = s.studentid;
+                        temp.FName = s.fname;
+                        temp.LName = s.lname;
+                        temp.PhoneNum = s.phonenum;
+                        temp.Prob = s.acadprobation;
+                        temp.Prog = s.programcode + "-" + s.program.programname;
+                        temp.FT = s.fulltimestatus;
+                        temp.Campus = s.campus;
+                        temp.Email = s.email;
+                        temp.Enr = s.enrolled;
 
-                student.Add(temp);
+                        student.Add(temp);
+                    }
+                    model._student = student;
+                    IEnumerable<student> students = db.students.Include("campu").Include("program");
+                    List<String> StudID = new List<string>();
+                    foreach (student stud in students)
+                    {
+                        StudID.Add(stud.studentid);
+                    }
+                    model.StudID = StudID;  
+                }
+                return View(model);
             }
-            model._student = student;
-            IEnumerable<student> students = db.students.Include("campu").Include("program");
-            List<String> StudID = new List<string>();
-            foreach (student stud in students)
+            catch (Exception ex)
             {
-                StudID.Add(stud.studentid);
+                return View(model);
             }
-            model.StudID = StudID;
-            return View(model);
         }
 
         //
