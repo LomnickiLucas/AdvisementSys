@@ -11,7 +11,7 @@ namespace AdvisementSys.Models.Request
 
         public IEnumerable<program> _program { get; set; }
 
-        public IEnumerable<campu> _campus { get; set; }
+        public IEnumerable<String> _campus { get; set; }
 
         public String studentID { get; set; }
 
@@ -31,7 +31,7 @@ namespace AdvisementSys.Models.Request
 
         public Boolean enrolled { get; set; }
 
-        public IEnumerable<String> _collection { get; set; }
+        public IEnumerable<String> programs { get; set; }
 
         public IEnumerable<String> StudID { get; set; }
     }

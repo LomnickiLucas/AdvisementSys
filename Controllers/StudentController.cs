@@ -10,7 +10,7 @@ using AdvisementSys.Models.Request;
 using System.Text;
 
 namespace AdvisementSys.Controllers
-{ 
+{
     public class StudentController : Controller
     {
         private Entities db = new Entities();
@@ -23,34 +23,48 @@ namespace AdvisementSys.Controllers
         /// <returns></returns>
         public ViewResult Index()
         {
-            ViewBag.campus = new SelectList(db.campus, "cname", "cname");
-            var program = db.programs;
-            List<String> collection = new List<String>();
-            foreach (program pcode in program)
+            try
             {
-                collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
-            }
-            ViewBag.programcode = new SelectList(collection);
-            var students = db.students.Include("campu").Include("program");
-            List<StudentPOCO> student = new List<StudentPOCO>();
-            foreach (student s in students)
-            {
-                StudentPOCO temp = new StudentPOCO();
-                temp.StudentID = s.studentid;
-                temp.FName = s.fname;
-                temp.LName = s.lname;
-                temp.PhoneNum = s.phonenum;
-                temp.Prob = s.acadprobation;
-                temp.Prog = s.programcode + "-" + s.program.programname; ;
-                temp.FT = s.fulltimestatus;
-                temp.Campus = s.campus;
-                temp.Email = s.email;
-                temp.Enr = s.enrolled;
+                IEnumerable<campu> campus = db.campus;
+                List<String> campusNames = new List<string>();
+                campusNames.Add("Please Select a Campus");
+                foreach (campu camp in campus)
+                {
+                    campusNames.Add(camp.cname);
+                }
+                var program = db.programs;
+                List<String> collection = new List<String>();
+                collection.Add("Please Select a Program");
+                foreach (program pcode in program)
+                {
+                    collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
+                }
+                IEnumerable<student> students = db.students.Include("campu").Include("program");
+                students = students.Where(stud => stud.enrolled.Equals(true));
+                List<StudentPOCO> student = new List<StudentPOCO>();
+                foreach (student s in students)
+                {
+                    StudentPOCO temp = new StudentPOCO();
+                    temp.StudentID = s.studentid;
+                    temp.FName = s.fname;
+                    temp.LName = s.lname;
+                    temp.PhoneNum = s.phonenum;
+                    temp.Prob = s.acadprobation;
+                    temp.Prog = s.programcode + "-" + s.program.programname; ;
+                    temp.FT = s.fulltimestatus;
+                    temp.Campus = s.campus;
+                    temp.Email = s.email;
+                    temp.Enr = s.enrolled;
 
-                student.Add(temp);
+                    student.Add(temp);
+                }
+                IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = student, enrolled = true, programs = collection, _campus = campusNames };
+                return View(model);
             }
-            IndexStudentRequestModel model = new IndexStudentRequestModel() { _student = student, programCode = "Please Select a Program", campus = "Please Select a Campus", enrolled = true };
-            return View(model);
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //
@@ -61,52 +75,53 @@ namespace AdvisementSys.Controllers
         /// <param name="collection"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Index(IndexStudentRequestModel model)
         {
-            ViewBag.campus = new SelectList(db.campus, "cname", "cname", collection.Get(5));
+            IEnumerable<campu> campus = db.campus;
+            List<String> campusNames = new List<string>();
+            campusNames.Add("Please Select a Campus");
+            foreach (campu camp in campus)
+            {
+                campusNames.Add(camp.cname);
+            }
+            model._campus = campusNames;
             var program = db.programs;
-            List<String> collections = new List<String>();
+            List<String> collection = new List<String>();
+            collection.Add("Please Select a Program");
             foreach (program pcode in program)
             {
-                collections.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
+                collection.Add(pcode.programcode.ToString().Trim() + " - " + pcode.programname.ToString().Trim());
             }
-            ViewBag.programcode = new SelectList(collections, collection.Get(4));
-            IndexStudentRequestModel model = new IndexStudentRequestModel() { studentID = collection.Get(0).Trim(), fName = collection.Get(2).Trim(), lName = collection.Get(3).Trim(), programCode = "Please Select a Program", campus = "Please Select a Campus", email = collection.Get(1).Trim() };
-            var students = db.students.Include("campu").Include("program");
-            IEnumerable<student> studentz = students;
-            if (!collection.Get(0).Equals(""))
-                studentz = studentz.Where(stud => stud.studentid.Trim().ToUpper().Contains(collection.Get(0).Trim().ToUpper()));
-            if (!collection.Get(2).Equals(""))
-                studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(collection.Get(2).Trim().ToUpper()));
-            if (!collection.Get(3).Equals(""))
-                studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(collection.Get(3).Trim().ToUpper()));
-            if (!collection.Get(4).Equals(""))
+            model.programs = collection;
+            IEnumerable<student> studentz = db.students.Include("campu").Include("program");
+            if (model.studentID != null)
+                studentz = studentz.Where(stud => stud.studentid.Trim().ToUpper().Contains(model.studentID.Trim().ToUpper()));
+            if (model.fName != null)
+                studentz = studentz.Where(stud => stud.fname.Trim().ToUpper().Contains(model.fName.Trim().ToUpper()));
+            if (model.lName != null)
+                studentz = studentz.Where(stud => stud.lname.Trim().ToUpper().Contains(model.lName.Trim().ToUpper()));
+            if (!model.programCode.Equals("Please Select a Program"))
             {
-                StringBuilder sb = new StringBuilder(collection.Get(4).Trim().ToUpper());
+                StringBuilder sb = new StringBuilder(model.programCode.Trim().ToUpper());
                 sb.Remove(5, sb.Length - 5);
-                model.programCode = collection.Get(4).Trim();
                 studentz = studentz.Where(stud => stud.programcode.Trim().ToUpper().Contains(sb.ToString()));
             }
-            if (!collection.Get(5).Equals(""))
+            if (!model.campus.Equals("Please Select a Campus"))
             {
-                model.campus = collection.Get(5).Trim();
-                studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(collection.Get(5).Trim().ToUpper()));
+                studentz = studentz.Where(stud => stud.campus.Trim().ToUpper().Contains(model.campus.Trim().ToUpper()));
             }
-            if (!collection.Get(1).Equals(""))
-                studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(collection.Get(1).Trim().ToUpper()));
-            if (collection.Get(7).Equals("true,false"))
+            if (model.email != null)
+                studentz = studentz.Where(stud => stud.email.Trim().ToUpper().Contains(model.email.Trim().ToUpper()));
+            if (model.acadprobation == true)
             {
-                model.acadprobation = true;
                 studentz = studentz.Where(stud => stud.acadprobation.Equals(true));
             }
-            if (collection.Get(6).Equals("true,false"))
+            if (model.fulltimestatus == true)
             {
-                model.fulltimestatus = true;
                 studentz = studentz.Where(stud => stud.fulltimestatus.Equals(true));
             }
-            if (collection.Get(8).Equals("true,false"))
+            if (model.enrolled == true)
             {
-                model.enrolled = true;
                 studentz = studentz.Where(stud => stud.enrolled.Equals(true));
             }
             List<StudentPOCO> student = new List<StudentPOCO>();
@@ -127,6 +142,7 @@ namespace AdvisementSys.Controllers
                 student.Add(temp);
             }
             model._student = student;
+            IEnumerable<student> students = db.students.Include("campu").Include("program");
             List<String> StudID = new List<string>();
             foreach (student stud in students)
             {
@@ -198,7 +214,7 @@ namespace AdvisementSys.Controllers
             //ViewBag.programcode = new SelectList(collection);
             student student = new student() { enrolled = true, fulltimestatus = true };
             return View(student);
-        } 
+        }
 
         //
         // POST: /Student/Create
@@ -228,7 +244,7 @@ namespace AdvisementSys.Controllers
                 return RedirectToAction("Create", "Student");
             }
         }
-        
+
         //
         // GET: /Student/Edit/5
         /// <summary>
