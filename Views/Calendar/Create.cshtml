@@ -64,7 +64,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.starttime, new { @id = "datepicker", @class = "required", @Value = Model._appointment.starttime.ToShortDateString() })
+                        @Html.TextBoxFor(model => model._appointment.starttime, new { @id = "datepicker", @class = "required", @Value = Model._appointment.starttime.ToShortDateString(), @onchange = "datepickerOnChange()" })
                         @Html.ValidationMessageFor(model => model._appointment.starttime)
                     </div>
                 </td>
@@ -112,7 +112,17 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.CheckBoxFor(model => model._appointment.allday, new { @id = "allDay" })
+                        @Html.CheckBoxFor(model => model._appointment.allday, new { @id = "allDay", @onclick = "formatDates()" })
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.allday, "Repeating Event:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.repeating, new SelectList(Model.repeatingType, Model.repeatingType), new { @id = "ddlRepeating", @onchange = "repeatingDateRange()" })
                     </div>
                 </td>
             </tr>
@@ -137,7 +147,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @class = "required" })
+                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID" })
                         @Html.ValidationMessageFor(model => model.Attendees)
                     </div>
                 </td>
@@ -178,7 +188,7 @@
         </table>
         <br />
         <div>
-            <input type="submit" value="Create" class="Button" style="position: relative; left: 10px;" />
+            <input type="submit" value="Create" class="Button" style="position: relative; left: 10px;" onclick="enableTime()"/>
         </div>
     }
 </div>
@@ -186,6 +196,58 @@
     @Html.ActionLink("Back to Calendar", "Index")
 </div>
 <script type="text/javascript">
+    function formatDates()
+    {
+      if(document.getElementById('allDay').checked)
+      {
+         document.getElementById('timepicker1').value = '12:00 AM';
+         document.getElementById('timepicker2').value = '12:00 AM';
+         document.getElementById('timepicker1').disabled=true;
+         document.getElementById('timepicker2').disabled=true;
+         if(document.getElementById('ddlRepeating').selectedIndex == 0)
+            {
+                document.getElementById('datepicker1').value = document.getElementById('datepicker').value;
+                document.getElementById('datepicker1').disabled=true;
+            }
+       }
+      else
+      {
+        document.getElementById('timepicker1').disabled=false;
+        document.getElementById('timepicker2').disabled=false;
+        document.getElementById('datepicker1').disabled=false;
+      }
+    }
+
+    function repeatingDateRange()
+    {
+    if(document.getElementById('allDay').checked)
+        {
+               if(document.getElementById('ddlRepeating').selectedIndex != 0)
+               {
+                    document.getElementById('datepicker1').disabled=false;
+               }
+               else
+               {
+                    document.getElementById('datepicker1').disabled=true;
+               }
+        }
+    }
+
+    function datepickerOnChange()
+    {
+        if(document.getElementById('allDay').checked)
+        {
+            document.getElementById('datepicker1').value = document.getElementById('datepicker').value;
+        }
+    }
+
+    function enableTime()
+    {
+        document.getElementById('timepicker1').disabled=false;
+        document.getElementById('timepicker2').disabled=false;
+        document.getElementById('datepicker1').disabled=false;
+    }
+
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
     $("#datepicker1").datepicker({ dateFormat: "dd/mm/yy" });
 

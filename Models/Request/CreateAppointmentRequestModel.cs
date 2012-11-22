@@ -19,6 +19,10 @@ namespace AdvisementSys.Models.Request
 
         public IEnumerable<String> appoingmentType { get; set; }
 
+        public IEnumerable<String> repeatingType { get; set; }
+
+        public String repeating { get; set; }
+
         public String startTime { get; set; }
 
         public String endTime { get; set; }

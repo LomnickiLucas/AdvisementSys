@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="applicationForReadmission" EntityType="Model.Store.applicationForReadmission" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="applicationForTermOrCompleteProgramWithdrawal" EntityType="Model.Store.applicationForTermOrCompleteProgramWithdrawal" store:Type="Tables" Schema="dbo" />
@@ -274,6 +274,7 @@
           <Property Name="cname" Type="nvarchar" Nullable="false" MaxLength="30" />
           <Property Name="appointmenttype" Type="nchar" Nullable="false" MaxLength="30" />
           <Property Name="allday" Type="bit" Nullable="false" />
+          <Property Name="repeating" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="aspnet_Applications">
           <Key>
@@ -1177,8 +1178,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -1436,6 +1436,7 @@
           <NavigationProperty Name="campu" Relationship="Model.FK_appointment_campus" FromRole="appointment" ToRole="campus" />
           <NavigationProperty Name="employee" Relationship="Model.FK_appointment_employee" FromRole="appointment" ToRole="employee" />
           <NavigationProperty Name="Attendees" Relationship="Model.FK_Attendees_appointment" FromRole="appointment" ToRole="Attendee" />
+          <Property Type="Guid" Name="repeating" />
         </EntityType>
         <EntityType Name="aspnet_Applications">
           <Key>
@@ -2345,7 +2346,8 @@
             <ScalarProperty Name="status" ColumnName="status" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="appointments"><EntityTypeMapping TypeName="Model.appointment"><MappingFragment StoreEntitySet="appointment">
-            <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
+            <ScalarProperty Name="repeating" ColumnName="repeating" />
+                <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
             <ScalarProperty Name="starttime" ColumnName="starttime" />
             <ScalarProperty Name="endtime" ColumnName="endtime" />
             <ScalarProperty Name="subject" ColumnName="subject" />

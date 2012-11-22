@@ -179,6 +179,21 @@ namespace AdvisementSys.Models
             }
         }
         private bool _allday;
+    
+        [DataMember]
+        public Nullable<System.Guid> repeating
+        {
+            get { return _repeating; }
+            set
+            {
+                if (_repeating != value)
+                {
+                    _repeating = value;
+                    OnPropertyChanged("repeating");
+                }
+            }
+        }
+        private Nullable<System.Guid> _repeating;
 
         #endregion
         #region Navigation Properties

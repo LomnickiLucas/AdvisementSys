@@ -45,7 +45,7 @@ namespace AdvisementSys.Controllers
                 switch (appointment.appointmenttype.Trim())
                 {
                     case "Personal":
-                        Events.color = "#00AF00";
+                        Events.color = "#009B00";
                         break;
 
                     case "Advisement":
@@ -53,7 +53,7 @@ namespace AdvisementSys.Controllers
                         break;
 
                     case "Office":
-                        Events.color = "#E18700";
+                        Events.color = "#800080";
                         break;
                 }
 
@@ -97,7 +97,7 @@ namespace AdvisementSys.Controllers
             appointment appointment = new appointment() { starttime = DateTime.Now, endtime = DateTime.Now.AddHours(.5) };
             employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
             appointment.employeeid = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")";
-            if(subject != null)
+            if (subject != null)
                 appointment.subject = subject;
             IEnumerable<campu> campus = db.campus;
             List<String> list = new List<String>();
@@ -133,7 +133,13 @@ namespace AdvisementSys.Controllers
                 EmployeeID.Add(poco);
             }
             String[] AppointmentType = new String[3] { "Personal", "Advisement", "Office" };
-            CreateAppointmentRequestModel model = new CreateAppointmentRequestModel() { _appointment = appointment, _campus = list, AttendeesAutoComplete = AutoCompleteID, EmployeeID = EmployeeID, startTime = DateTime.Now.ToShortTimeString(), endTime = DateTime.Now.AddHours(.5).ToShortTimeString(), appoingmentType = AppointmentType, emailAll = true };
+
+            CreateAppointmentRequestModel model = new CreateAppointmentRequestModel() { _appointment = appointment, _campus = list, AttendeesAutoComplete = AutoCompleteID, EmployeeID = EmployeeID, startTime = DateTime.Now.ToShortTimeString(), endTime = DateTime.Now.AddHours(.5).ToShortTimeString(), appoingmentType = AppointmentType, emailAll = true, repeatingType = new String[] { "Not Repeating", "Daily (Business Days)", "Weekly", "Bi-Weekly", "Monthly", "Yearly" } };
+            if (id != null)
+            {
+                student student = db.students.Single(s => s.studentid == id);
+                model.Attendees = student.fname + " " + student.lname + " (" + student.studentid + "), ";
+            }
             return View(model);
         }
 
@@ -144,25 +150,30 @@ namespace AdvisementSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    String EmployeeID = model.Attendees;
-                    String[] attendees = EmployeeID.Split(',');
                     List<String> attendeesID = new List<string>();
-                    for (int i = 0; i < attendees.Count() - 1; i++)
+                    if (model.Attendees != null)
                     {
-                        if (i != 0)
+                        String EmployeeID = model.Attendees;
+                        String[] attendees = EmployeeID.Split(',');
+
+                        for (int i = 0; i < attendees.Count() - 1; i++)
                         {
-                            String id = attendees[i].Remove(0, attendees[i].Length - 10);
-                            attendeesID.Add(id.Remove(id.Length - 1));
-                        }
-                        else
-                        {
-                            String id = attendees[i].Remove(0, attendees[i].Length - 10);
-                            attendeesID.Add(id.Remove(id.Length - 1));
+                            if (i != 0)
+                            {
+                                String id = attendees[i].Remove(0, attendees[i].Length - 10);
+                                attendeesID.Add(id.Remove(id.Length - 1));
+                            }
+                            else
+                            {
+                                String id = attendees[i].Remove(0, attendees[i].Length - 10);
+                                attendeesID.Add(id.Remove(id.Length - 1));
+                            }
                         }
                     }
                     model._appointment.employeeid = model._appointment.employeeid.Remove(0, model._appointment.employeeid.Length - 10);
                     model._appointment.employeeid = model._appointment.employeeid.Remove(model._appointment.employeeid.Length - 1);
 
+                    model.repeatingType = new String[] { "Not Repeating", "Daily (Business Days)", "Weekly", "Bi-Weekly", "Monthly", "Yearly" };
                     IEnumerable<campu> campus = db.campus;
                     List<String> list = new List<String>();
                     foreach (campu camp in campus)
@@ -201,32 +212,309 @@ namespace AdvisementSys.Controllers
                     String[] AppointmentType = new String[3] { "Personal", "Advisement", "Office" };
                     model._campus = list;
                     model.appoingmentType = AppointmentType;
-                    model._appointment.appointmentid = Guid.NewGuid();
+
                     DateTime date1 = DateTime.Parse(model.startTime);
                     TimeSpan time1 = new TimeSpan(date1.Hour, date1.Minute, date1.Second);
                     DateTime date2 = DateTime.Parse(model.endTime);
                     TimeSpan time2 = new TimeSpan(date2.Hour, date2.Minute, date2.Second);
                     model._appointment.starttime = model._appointment.starttime.Add(time1);
                     model._appointment.endtime = model._appointment.endtime.Add(time2);
-                    db.appointments.AddObject(model._appointment);
-                    db.SaveChanges();
-                    List<Attendee> Attendee = new List<Models.Attendee>();
-                    foreach (String id in attendeesID)
-                    {
-                        Attendee attendee = new Attendee()
-                        {
-                            id = Guid.NewGuid(),
-                            appointmentid = model._appointment.appointmentid,
-                            attendee1 = id
-                        };
 
-                        if(!attendee.attendee1.Equals(model.EmployeeID))
-                            Attendee.Add(attendee);
-                    }
-                    foreach (Attendee attend in Attendee)
+                    if (model.repeating.Trim().Equals("Not Repeating"))
                     {
-                        db.Attendees.AddObject(attend);
+                        model._appointment.appointmentid = Guid.NewGuid();
+                        db.appointments.AddObject(model._appointment);
                         db.SaveChanges();
+
+                        if (attendeesID.Count > 0)
+                        {
+                            List<Attendee> Attendee = new List<Models.Attendee>();
+                            foreach (String id in attendeesID)
+                            {
+                                Attendee attendee = new Attendee()
+                                {
+                                    id = Guid.NewGuid(),
+                                    appointmentid = model._appointment.appointmentid,
+                                    attendee1 = id
+                                };
+
+                                if (!attendee.attendee1.Equals(model.EmployeeID))
+                                    Attendee.Add(attendee);
+                            }
+                            foreach (Attendee attend in Attendee)
+                            {
+                                db.Attendees.AddObject(attend);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (model.repeating.Trim().Equals("Daily (Business Days)"))
+                    {
+                        DateTime endRepeatingDate = model._appointment.endtime;
+                        model._appointment.endtime = model._appointment.starttime;
+                        model._appointment.endtime = model._appointment.endtime.Add(-time1);
+                        model._appointment.endtime = model._appointment.endtime.Add(time2);
+                        model._appointment.repeating = Guid.NewGuid();
+
+                        while (model._appointment.starttime.Date <= endRepeatingDate.Date)
+                        {
+                            if ((model._appointment.starttime.DayOfWeek != DayOfWeek.Saturday) && (model._appointment.starttime.DayOfWeek != DayOfWeek.Sunday))
+                            {
+                                appointment appointment = new appointment()
+                                    {
+                                        allday = model._appointment.allday,
+                                        appointmenttype = model._appointment.appointmenttype,
+                                        cname = model._appointment.cname,
+                                        description = model._appointment.description,
+                                        employeeid = model._appointment.employeeid,
+                                        endtime = model._appointment.endtime,
+                                        repeating = model._appointment.repeating,
+                                        starttime = model._appointment.starttime,
+                                        subject = model._appointment.subject
+                                    };
+                                appointment.appointmentid = Guid.NewGuid();
+                                model._appointment.appointmentid = appointment.appointmentid;
+                                db.appointments.AddObject(appointment);
+                                db.SaveChanges();
+
+                                if (attendeesID.Count > 0)
+                                {
+                                    List<Attendee> Attendee = new List<Models.Attendee>();
+                                    foreach (String id in attendeesID)
+                                    {
+                                        Attendee attendee = new Attendee()
+                                        {
+                                            id = Guid.NewGuid(),
+                                            appointmentid = appointment.appointmentid,
+                                            attendee1 = id
+                                        };
+
+                                        if (!attendee.attendee1.Equals(model.EmployeeID))
+                                            Attendee.Add(attendee);
+                                    }
+                                    foreach (Attendee attend in Attendee)
+                                    {
+                                        db.Attendees.AddObject(attend);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
+                            model._appointment.starttime = model._appointment.starttime.AddDays(1);
+                            model._appointment.endtime = model._appointment.endtime.AddDays(1);
+                        }
+
+                    }
+                    else if (model.repeating.Trim().Equals("Weekly"))
+                    {
+                        DateTime endRepeatingDate = model._appointment.endtime;
+                        model._appointment.endtime = model._appointment.starttime;
+                        model._appointment.endtime = model._appointment.endtime.Add(-time1);
+                        model._appointment.endtime = model._appointment.endtime.Add(time2);
+                        model._appointment.repeating = Guid.NewGuid();
+
+                        while (model._appointment.starttime.Date <= endRepeatingDate.Date)
+                        {
+                                appointment appointment = new appointment()
+                                {
+                                    allday = model._appointment.allday,
+                                    appointmenttype = model._appointment.appointmenttype,
+                                    cname = model._appointment.cname,
+                                    description = model._appointment.description,
+                                    employeeid = model._appointment.employeeid,
+                                    endtime = model._appointment.endtime,
+                                    repeating = model._appointment.repeating,
+                                    starttime = model._appointment.starttime,
+                                    subject = model._appointment.subject
+                                };
+                                appointment.appointmentid = Guid.NewGuid();
+                                model._appointment.appointmentid = appointment.appointmentid;
+                                db.appointments.AddObject(appointment);
+                                db.SaveChanges();
+
+                                if (attendeesID.Count > 0)
+                                {
+                                    List<Attendee> Attendee = new List<Models.Attendee>();
+                                    foreach (String id in attendeesID)
+                                    {
+                                        Attendee attendee = new Attendee()
+                                        {
+                                            id = Guid.NewGuid(),
+                                            appointmentid = appointment.appointmentid,
+                                            attendee1 = id
+                                        };
+
+                                        if (!attendee.attendee1.Equals(model.EmployeeID))
+                                            Attendee.Add(attendee);
+                                    }
+                                    foreach (Attendee attend in Attendee)
+                                    {
+                                        db.Attendees.AddObject(attend);
+                                        db.SaveChanges();
+                                    }
+                            }
+                            model._appointment.starttime = model._appointment.starttime.AddDays(7);
+                            model._appointment.endtime = model._appointment.endtime.AddDays(7);
+                        }
+
+                    }
+                    else if (model.repeating.Trim().Equals("Bi-Weekly"))
+                    {
+                        DateTime endRepeatingDate = model._appointment.endtime;
+                        model._appointment.endtime = model._appointment.starttime;
+                        model._appointment.endtime = model._appointment.endtime.Add(-time1);
+                        model._appointment.endtime = model._appointment.endtime.Add(time2);
+                        model._appointment.repeating = Guid.NewGuid();
+
+                        while (model._appointment.starttime.Date <= endRepeatingDate.Date)
+                        {
+                            appointment appointment = new appointment()
+                            {
+                                allday = model._appointment.allday,
+                                appointmenttype = model._appointment.appointmenttype,
+                                cname = model._appointment.cname,
+                                description = model._appointment.description,
+                                employeeid = model._appointment.employeeid,
+                                endtime = model._appointment.endtime,
+                                repeating = model._appointment.repeating,
+                                starttime = model._appointment.starttime,
+                                subject = model._appointment.subject
+                            };
+                            appointment.appointmentid = Guid.NewGuid();
+                            model._appointment.appointmentid = appointment.appointmentid;
+                            db.appointments.AddObject(appointment);
+                            db.SaveChanges();
+
+                            if (attendeesID.Count > 0)
+                            {
+                                List<Attendee> Attendee = new List<Models.Attendee>();
+                                foreach (String id in attendeesID)
+                                {
+                                    Attendee attendee = new Attendee()
+                                    {
+                                        id = Guid.NewGuid(),
+                                        appointmentid = appointment.appointmentid,
+                                        attendee1 = id
+                                    };
+
+                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                        Attendee.Add(attendee);
+                                }
+                                foreach (Attendee attend in Attendee)
+                                {
+                                    db.Attendees.AddObject(attend);
+                                    db.SaveChanges();
+                                }
+                            }
+                            model._appointment.starttime = model._appointment.starttime.AddDays(14);
+                            model._appointment.endtime = model._appointment.endtime.AddDays(14);
+                        }
+
+                    }
+                    else if (model.repeating.Trim().Equals("Monthly"))
+                    {
+                        DateTime endRepeatingDate = model._appointment.endtime;
+                        model._appointment.endtime = model._appointment.starttime;
+                        model._appointment.endtime = model._appointment.endtime.Add(-time1);
+                        model._appointment.endtime = model._appointment.endtime.Add(time2);
+                        model._appointment.repeating = Guid.NewGuid();
+
+                        while (model._appointment.starttime.Date <= endRepeatingDate.Date)
+                        {
+                            appointment appointment = new appointment()
+                            {
+                                allday = model._appointment.allday,
+                                appointmenttype = model._appointment.appointmenttype,
+                                cname = model._appointment.cname,
+                                description = model._appointment.description,
+                                employeeid = model._appointment.employeeid,
+                                endtime = model._appointment.endtime,
+                                repeating = model._appointment.repeating,
+                                starttime = model._appointment.starttime,
+                                subject = model._appointment.subject
+                            };
+                            appointment.appointmentid = Guid.NewGuid();
+                            model._appointment.appointmentid = appointment.appointmentid;
+                            db.appointments.AddObject(appointment);
+                            db.SaveChanges();
+
+                            if (attendeesID.Count > 0)
+                            {
+                                List<Attendee> Attendee = new List<Models.Attendee>();
+                                foreach (String id in attendeesID)
+                                {
+                                    Attendee attendee = new Attendee()
+                                    {
+                                        id = Guid.NewGuid(),
+                                        appointmentid = appointment.appointmentid,
+                                        attendee1 = id
+                                    };
+
+                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                        Attendee.Add(attendee);
+                                }
+                                foreach (Attendee attend in Attendee)
+                                {
+                                    db.Attendees.AddObject(attend);
+                                    db.SaveChanges();
+                                }
+                            }
+                            model._appointment.starttime = model._appointment.starttime.AddMonths(1);
+                            model._appointment.endtime = model._appointment.endtime.AddMonths(1);
+                        }
+
+                    }
+                    else if (model.repeating.Trim().Equals("Yearly"))
+                    {
+                        DateTime endRepeatingDate = model._appointment.endtime;
+                        model._appointment.endtime = model._appointment.starttime;
+                        model._appointment.endtime = model._appointment.endtime.Add(-time1);
+                        model._appointment.endtime = model._appointment.endtime.Add(time2);
+                        model._appointment.repeating = Guid.NewGuid();
+
+                        while (model._appointment.starttime.Date <= endRepeatingDate.Date)
+                        {
+                            appointment appointment = new appointment()
+                            {
+                                allday = model._appointment.allday,
+                                appointmenttype = model._appointment.appointmenttype,
+                                cname = model._appointment.cname,
+                                description = model._appointment.description,
+                                employeeid = model._appointment.employeeid,
+                                endtime = model._appointment.endtime,
+                                repeating = model._appointment.repeating,
+                                starttime = model._appointment.starttime,
+                                subject = model._appointment.subject
+                            };
+                            appointment.appointmentid = Guid.NewGuid();
+                            model._appointment.appointmentid = appointment.appointmentid;
+                            db.appointments.AddObject(appointment);
+                            db.SaveChanges();
+
+                            if (attendeesID.Count > 0)
+                            {
+                                List<Attendee> Attendee = new List<Models.Attendee>();
+                                foreach (String id in attendeesID)
+                                {
+                                    Attendee attendee = new Attendee()
+                                    {
+                                        id = Guid.NewGuid(),
+                                        appointmentid = appointment.appointmentid,
+                                        attendee1 = id
+                                    };
+
+                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                        Attendee.Add(attendee);
+                                }
+                                foreach (Attendee attend in Attendee)
+                                {
+                                    db.Attendees.AddObject(attend);
+                                    db.SaveChanges();
+                                }
+                            }
+                            model._appointment.starttime = model._appointment.starttime.AddYears(1);
+                            model._appointment.endtime = model._appointment.endtime.AddYears(1);
+                        }
+
                     }
 
                     employee creator = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
@@ -363,6 +651,7 @@ namespace AdvisementSys.Controllers
             mail.Subject = "Appointment Confirmation for " + employee.fname + " " + employee.lname;
             mail.Body = "You have successfully created an " + appointment.appointmenttype + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " and the appointment will take place at " + appointment.cname + ".";
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
@@ -394,17 +683,20 @@ namespace AdvisementSys.Controllers
 
                     EmailTo += ", " + employee.email;
                 }
-        }
+            }
 
             mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
             mail.Body = "You have been requested to attend an " + appointment.appointmenttype + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
-                + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details.";
+                + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
             if (appointment.description != null)
             {
                 mail.Body += "\n\nDescription Included: \n" + appointment.description;
             }
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
