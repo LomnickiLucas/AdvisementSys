@@ -13,7 +13,16 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
+            
         }
 
     }

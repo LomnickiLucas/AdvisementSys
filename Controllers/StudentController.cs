@@ -248,9 +248,17 @@ namespace AdvisementSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.students.AddObject(student);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    employee employee = db.employees.SingleOrDefault(emp => emp.employeeid == student.studentid);
+                    if (employee != null)
+                    {
+                        ModelState.AddModelError("studentid", "Student ID is already in ues.");
+                    }
+                    else
+                    {
+                        db.students.AddObject(student);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 ViewBag.campus = new SelectList(db.campus, "cname", "cname", student.campus);

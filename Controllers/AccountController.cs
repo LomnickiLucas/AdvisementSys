@@ -109,24 +109,39 @@ namespace AdvisementSys.Controllers
                 if (ModelState.IsValid)
                 {
                     Entities db = new Entities();
+                    IEnumerable<faculty> faculty = db.faculties;
+                    List<String> data = new List<string>();
+                    foreach (faculty fac in faculty)
+                    {
+                        data.Add(fac.fname);
+                    }
+                    model.facultyList = data;
 
                     // Attempt to register the user
                     MembershipCreateStatus createStatus;
                     Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
                     employee employee_model = new employee() { employeeid = model.UserName, fname = model.fname, lname = model.lname, phonenum = model.phonenum, email = model.Email, faculty = model.faculty, role = model.position };
+                    student student = db.students.SingleOrDefault(stud => stud.studentid ==  employee_model.employeeid);
 
-                    db.employees.AddObject(employee_model);
-                    db.SaveChanges();
-
-                    if (createStatus == MembershipCreateStatus.Success)
+                    if (student == null)
                     {
-                        //Roles.
-                        FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                        return RedirectToAction("Index", "issue");
+                        db.employees.AddObject(employee_model);
+                        db.SaveChanges();
+
+                        if (createStatus == MembershipCreateStatus.Success)
+                        {
+                            //Roles.
+                            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                            return RedirectToAction("Index", "issue");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                        ModelState.AddModelError("UserName", "Employee ID is already in ues.");
                     }
                 }
             }

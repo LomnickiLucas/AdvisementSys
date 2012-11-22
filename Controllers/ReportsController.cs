@@ -45,13 +45,10 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
                     employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
                     String[] Programs = { "All", "Information Systems Security", "Telecommunications Technology", "Computer Programmer", "Systems Analyst", "Network Engineering", "Software Engineering" };
                     model.ProgList = Programs;
                     model.User = employee.fname + " " + employee.lname;
-                }
                 return View(model);
             }
             catch (Exception ex)

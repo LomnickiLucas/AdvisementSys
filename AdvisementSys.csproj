@@ -68,28 +68,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvisorSearchController.cs" />
     <Compile Include="Controllers\CalandarController.cs" />
-    <Compile Include="Models\EmployeePOCO.cs" />
-    <Compile Include="Models\Request\IndexAdvisorSearchModel.cs" />
-    <Compile Include="Models\Request\IndexHomeModel.cs" />
-    <Compile Include="Models\AdvisorReportModel.cs" />
-    <Compile Include="Controllers\CourseRegistrationController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IssueController.cs" />
-    <Compile Include="Controllers\LateEnrollmentController.cs" />
-    <Compile Include="Controllers\ProbationaryContractController.cs" />
-    <Compile Include="Controllers\ProgramWithdrawalController.cs" />
-    <Compile Include="Controllers\ReadmissionController.cs" />
-    <Compile Include="Controllers\ReportsController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Models\Events.cs" />
-    <Compile Include="Models\Request\CreateAppointmentRequestModel.cs" />
-    <Compile Include="Models\Request\EditUserModel.cs" />
-    <Compile Include="Models\StudentReportModel.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="LogonAuthorize .cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CalendarDetailsAttendees.cs" />
+    <Compile Include="Models\Request\DetailsCalendarModel.cs" />
     <Compile Include="Models\AdvisementDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,10 +114,13 @@
     <Compile Include="Models\aspnet_WebEvent_Events.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attendee.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AutoCompletePOCO.cs" />
     <Compile Include="Models\campu.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CampusReportModel.cs" />
     <Compile Include="Models\catagory.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -153,6 +136,7 @@
     <Compile Include="Models\employee.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeePOCO.cs" />
     <Compile Include="Models\Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,7 +153,6 @@
     <Compile Include="Models\faculty.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Forms.cs" />
     <Compile Include="Models\issue.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
@@ -194,6 +177,35 @@
     <Compile Include="Models\requestForLateEnrolment.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request\IndexAdvisorSearchModel.cs" />
+    <Compile Include="Models\Request\IndexHomeModel.cs" />
+    <Compile Include="Models\AdvisorReportModel.cs" />
+    <Compile Include="Controllers\CourseRegistrationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\LateEnrollmentController.cs" />
+    <Compile Include="Controllers\ProbationaryContractController.cs" />
+    <Compile Include="Controllers\ProgramWithdrawalController.cs" />
+    <Compile Include="Controllers\ReadmissionController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Models\Events.cs" />
+    <Compile Include="Models\Request\CreateAppointmentRequestModel.cs" />
+    <Compile Include="Models\Request\EditUserModel.cs" />
+    <Compile Include="Models\requiredcourse.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\student.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentReportModel.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LogonAuthorize .cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CampusReportModel.cs" />
+    <Compile Include="Models\Forms.cs" />
     <Compile Include="Models\Request\CreateCourseRegistrationModel.cs" />
     <Compile Include="Models\Request\CreateIssueRequestModel.cs" />
     <Compile Include="Models\Request\CreateLateEnrollementModel.cs" />
@@ -216,13 +228,7 @@
     <Compile Include="Models\Request\IndexIssueRequestModel.cs" />
     <Compile Include="Models\Request\IndexStudentRequestModel.cs" />
     <Compile Include="Models\Request\DetailsStudentRequestModel.cs" />
-    <Compile Include="Models\requiredcourse.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StudDetailsIssues.cs" />
-    <Compile Include="Models\student.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StudentPOCO.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Entities.tt</DependentUpon>

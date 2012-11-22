@@ -25,5 +25,8 @@ namespace AdvisementSys.Models
 
         [Display(Name = "url")]
         public String url { get; set; }
+
+        [Display(Name = "color")]
+        public String color { get; set; }
     }
 }

@@ -18,7 +18,6 @@ using System.Runtime.Serialization;
 namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(appointment))]
     [KnownType(typeof(campu))]
     [KnownType(typeof(issue))]
     [KnownType(typeof(program))]
@@ -305,41 +304,6 @@ namespace AdvisementSys.Models
         #region Navigation Properties
     
         [DataMember]
-        public TrackableCollection<appointment> appointments
-        {
-            get
-            {
-                if (_appointments == null)
-                {
-                    _appointments = new TrackableCollection<appointment>();
-                    _appointments.CollectionChanged += Fixupappointments;
-                }
-                return _appointments;
-            }
-            set
-            {
-                if (!ReferenceEquals(_appointments, value))
-                {
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
-                    }
-                    if (_appointments != null)
-                    {
-                        _appointments.CollectionChanged -= Fixupappointments;
-                    }
-                    _appointments = value;
-                    if (_appointments != null)
-                    {
-                        _appointments.CollectionChanged += Fixupappointments;
-                    }
-                    OnNavigationPropertyChanged("appointments");
-                }
-            }
-        }
-        private TrackableCollection<appointment> _appointments;
-    
-        [DataMember]
         public campu campu
         {
             get { return _campu; }
@@ -486,7 +450,6 @@ namespace AdvisementSys.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            appointments.Clear();
             campu = null;
             issues.Clear();
             program = null;
@@ -569,45 +532,6 @@ namespace AdvisementSys.Models
                 if (program != null && !program.ChangeTracker.ChangeTrackingEnabled)
                 {
                     program.StartTracking();
-                }
-            }
-        }
-    
-        private void Fixupappointments(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (e.NewItems != null)
-            {
-                foreach (appointment item in e.NewItems)
-                {
-                    item.student = this;
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        if (!item.ChangeTracker.ChangeTrackingEnabled)
-                        {
-                            item.StartTracking();
-                        }
-                        ChangeTracker.RecordAdditionToCollectionProperties("appointments", item);
-                    }
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (appointment item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.student, this))
-                    {
-                        item.student = null;
-                    }
-                    if (ChangeTracker.ChangeTrackingEnabled)
-                    {
-                        ChangeTracker.RecordRemovalFromCollectionProperties("appointments", item);
-                    }
                 }
             }
         }

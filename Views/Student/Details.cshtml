@@ -218,7 +218,8 @@
 <p>
     @Html.ActionLink("Create New Issue", "Create", "Issue", new { id = Model._student.studentid }, null) |
     @Html.ActionLink("Edit", "Edit", new { id = Model._student.studentid }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Create an appointment", "Create", "Calendar" , new { id = Model._student.studentid }, null)
 </p>
 
 <div id="grid" style="height: 380px; width:65.5%;"></div>

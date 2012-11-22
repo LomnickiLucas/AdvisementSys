@@ -1,4 +1,4 @@
-﻿@model AdvisementSys.Models.appointment
+﻿@model AdvisementSys.Models.Request.DetailsCalendarModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,11 +12,42 @@
         <tr>
             <td>
                 <div class="display-label">
+                    Subject:</div>
+            </td>
+            <td colspan="3">
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.appointment.subject)
+                </div>
+            </td>
+        <tr>
+        </tr>
+            <td>
+                <div class="display-label">
+                    Location:</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.appointment.cname)
+                </div>
+            </td>
+            <td>
+                <div class="display-label">
+                    Appointment Type:</div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.appointment.appointmenttype)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="display-label">
                     Start Time:</div>
             </td>
             <td>
                 <div class="display-field">
-                    @Html.DisplayFor(model => model.starttime)
+                    @Html.DisplayFor(model => model.appointment.starttime)
                 </div>
             </td>
             <td>
@@ -25,78 +56,105 @@
             </td>
             <td>
                 <div class="display-field">
-                    @Html.DisplayFor(model => model.endtime)
+                    @Html.DisplayFor(model => model.appointment.endtime)
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="display-label">
-                    Student ID:</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.studentid)
-                </div>
-            </td>
-            <td>
-                <div class="display-label">
-                    Employee ID:</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.employeeid)
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="display-label">
-                    Subject</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.subject)
-                </div>
-            </td>
-            <td>
-                <div class="display-label">
-                    Campus</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.cname)
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="display-label">
-                    Confirmed:</div>
+                    Chair:</div>
             </td>
             <td colspan="3">
                 <div class="display-field">
-                    @Html.DisplayFor(model => model.confirmed)
+                    @Html.DisplayFor(model => model.appointment.employeeid)
                 </div>
             </td>
         </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="3">
                 <div class="display-label">
-                    Reason for Cancellation:</div>
+                    Attendees:</div>
+            </td>
+        </tr>
+        @foreach (var item in Model.Attendees)
+        {
+        <tr>
+            @if (item.Student != null)
+            {
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.fname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.lname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Student
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.phonenum)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            @Html.DisplayFor(modelItem => item.Attendees.confirmed)
+                        </td>
+                    </tr>
+                </table>
+            }
+            
+            @if (item.Student == null)
+            {
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emplployee.fname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emplployee.lname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emplployee.email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emplployee.faculty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emplployee.phonenum)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            @Html.DisplayFor(modelItem => item.Attendees.confirmed)
+                        </td>
+                    </tr>
+                </table>
+            }
+        </tr>
+        }
+        <tr>
+            <td>
+                Description:
             </td>
         </tr>
         <tr>
-            <td colspan="4">
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.reasonForCancelation)
-                </div>
+            <td colspan="3">
+                @Html.DisplayFor(model => model.appointment.description)
             </td>
         </tr>
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.appointmentid }) | <a href="#" id="DeleteAppointemnt">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.appointmentid }) | <a href="#" id="DeleteAppointemnt">
         Delete</a> |
     @Html.ActionLink("Back to Calendar", "Index")
 </p>
@@ -119,7 +177,7 @@
         </span>You have successfully deleted the appointment!
     </p>
 </div>
-@Html.HiddenFor(model => model.appointmentid, new { @id = "appointmentid" })
+@Html.HiddenFor(model => model.appointment.appointmentid, new { @id = "appointmentid" })
 <script>
     $(function () {
 

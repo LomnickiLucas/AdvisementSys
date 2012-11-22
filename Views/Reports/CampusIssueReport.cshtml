@@ -8,7 +8,7 @@
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 
 <h2>Campus Issue Report</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("CampusIssueReport", "Reports", FormMethod.Post, new { id = "searchForm", name = "searchForm" }))
     {
         <span>Program:</span>
         @Html.DropDownListFor(model => model.Program, new SelectList(Model.ProgList, Model.ProgList), new { @class = "DDL" })

@@ -183,7 +183,8 @@
     </table>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model._issue.issueid }) |
-        @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student")
+        @Html.ActionLink("Back to Student Details", "Details/" + Model._issue.studentid, "Student") | 
+        @Html.ActionLink("Create an appointment", "Create", "Calendar" , new { id = Model._student.studentid, subject = Model._issue.issuename }, null)
     </p>
     <div id="accordion" style="width: 65.5%;">
         <h3 style="color: #C7FFFF;">

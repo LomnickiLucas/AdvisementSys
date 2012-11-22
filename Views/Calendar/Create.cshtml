@@ -21,6 +21,44 @@
             <tr>
                 <td>
                     <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.subject, "Subject:")
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required" })
+                        @Html.ValidationMessageFor(model => model._appointment.subject)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.cname, "Campus:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model._appointment.cname, new SelectList(Model._campus, Model._campus))
+                        @Html.ValidationMessageFor(model => model._appointment.cname)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.appointmenttype, "Appointment Type:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model._appointment.appointmenttype, new SelectList(Model.appoingmentType, Model.appoingmentType))
+                        @Html.ValidationMessageFor(model => model._appointment.appointmenttype)
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="editor-label">
                         @Html.LabelFor(model => model._appointment.starttime, "Start Date:")
                     </div>
                 </td>
@@ -32,19 +70,6 @@
                 </td>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.endtime, "End Date:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.endtime, new { @id = "datepicker1", @class="required", @Value = Model._appointment.endtime.ToShortDateString() })
-                        @Html.ValidationMessageFor(model => model._appointment.endtime)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
                         @Html.LabelFor(model => model.startTime, "Start Time:")
                     </div>
                 </td>
@@ -54,6 +79,19 @@
                         @Html.ValidationMessageFor(model => model.startTime)
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.endtime, "End Date:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model._appointment.endtime, new { @id = "datepicker1", @class="required", @Value = Model._appointment.endtime.ToShortDateString() })
+                        @Html.ValidationMessageFor(model => model._appointment.endtime)
+                    </div>
+                </td>                
                 <td>
                     <div class="editor-label">
                         @Html.LabelFor(model => model.endTime, "End Time:")
@@ -69,21 +107,22 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.studentid, "Student ID:")
+                        @Html.LabelFor(model => model._appointment.allday, "Create an appointment for the whole day:")
                     </div>
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.studentid, new { @id = "txtStudID", @class = "required stud" })
-                        @Html.ValidationMessageFor(model => model._appointment.studentid)
+                        @Html.CheckBoxFor(model => model._appointment.allday, new { @id = "allDay" })
                     </div>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.employeeid, "Employee ID:")
+                        @Html.LabelFor(model => model._appointment.employeeid, "Chairman:")
                     </div>
                 </td>
-                <td>
+                <td colspan="2">
                     <div class="editor-field">
                         @Html.TextBoxFor(model => model._appointment.employeeid, new { @id = "txtEmpID", @class="required" })
                         @Html.ValidationMessageFor(model => model._appointment.employeeid)
@@ -93,53 +132,47 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.subject, "Subject:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.subject, new { @class="required"})
-                        @Html.ValidationMessageFor(model => model._appointment.subject)
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.cname, "Campus:")
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model._appointment.cname, new SelectList(Model._campus, Model._campus))
-                        @Html.ValidationMessageFor(model => model._appointment.cname)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.confirmed, "Confirmed:")
+                        @Html.LabelFor(model => model.Attendees, "Attendees:")
                     </div>
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.EditorFor(model => model._appointment.confirmed)
-                        @Html.ValidationMessageFor(model => model._appointment.confirmed)
+                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @class = "required" })
+                        @Html.ValidationMessageFor(model => model.Attendees)
                     </div>
                 </td>
             </tr>
             <tr>
-                <td colspan="4">
+                <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.reasonForCancelation, "Reason for Cancellation:")
+                        @Html.LabelFor(model => model.emailAll, "Send all Attendees an email notification:")
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.CheckBoxFor(model => model.emailAll)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model._appointment.description, "Description:")
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model._appointment.description)
+                        @Html.ValidationMessageFor(model => model._appointment.description)
                     </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="4">
-                    <div class="editor-field">
-                        @Html.TextAreaFor(model => model._appointment.reasonForCancelation, new { @style = "width:650px; height:80px; resize:none;" })
-                        @Html.ValidationMessageFor(model => model._appointment.reasonForCancelation)
-                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
                 </td>
             </tr>
         </table>
@@ -156,17 +189,71 @@
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
     $("#datepicker1").datepicker({ dateFormat: "dd/mm/yy" });
 
-    var model = @Html.Raw(Json.Encode(Model.StudID));
+    var model = @Html.Raw(Json.Encode(Model.AttendeesAutoComplete));
 
-    $("#txtStudID").autocomplete({
-        source: model
-    });
+    function split( val ) {
+            return val.split( /,\s*/ );
+        }
+        function extractLast( term ) {
+            return split( term ).pop();
+        }
+
+    $("#txtID").bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                        $( this ).data( "autocomplete" ).menu.active ) {
+                    event.preventDefault();
+                }
+            }) .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                        model, extractLast( request.term ) ) );
+                },
+                focus: function( event, ui ) {
+                    $( "#txtID" ).val($("#txtID").val() + ui.item.Label);
+                    return false;
+                },
+                select: function( event, ui ) {
+                    $( "#txtID" ).val($("#txtID").val() + ui.item.Label);
+
+                    var terms = split( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.Label );
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push( "" );
+                    this.value = terms.join( ", " );
+                    return false;
+                }
+            }).data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };;
 
     var model1 = @Html.Raw(Json.Encode(Model.EmployeeID));
 
     $("#txtEmpID").autocomplete({
-        source: model1
-    });
+            minLength: 0,
+            source: model1,
+            focus: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            }
+        })
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };
 
     $('#timepicker1').timepicker({
     showPeriod: true,

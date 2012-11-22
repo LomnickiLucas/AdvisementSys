@@ -18,9 +18,9 @@ using System.Runtime.Serialization;
 namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
-    [KnownType(typeof(employee))]
-    [KnownType(typeof(student))]
     [KnownType(typeof(campu))]
+    [KnownType(typeof(employee))]
+    [KnownType(typeof(Attendee))]
     public partial class appointment: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -90,34 +90,19 @@ namespace AdvisementSys.Models
         private string _subject;
     
         [DataMember]
-        public bool confirmed
+        public string description
         {
-            get { return _confirmed; }
+            get { return _description; }
             set
             {
-                if (_confirmed != value)
+                if (_description != value)
                 {
-                    _confirmed = value;
-                    OnPropertyChanged("confirmed");
+                    _description = value;
+                    OnPropertyChanged("description");
                 }
             }
         }
-        private bool _confirmed;
-    
-        [DataMember]
-        public string reasonForCancelation
-        {
-            get { return _reasonForCancelation; }
-            set
-            {
-                if (_reasonForCancelation != value)
-                {
-                    _reasonForCancelation = value;
-                    OnPropertyChanged("reasonForCancelation");
-                }
-            }
-        }
-        private string _reasonForCancelation;
+        private string _description;
     
         [DataMember]
         public string employeeid
@@ -143,29 +128,6 @@ namespace AdvisementSys.Models
         private string _employeeid;
     
         [DataMember]
-        public string studentid
-        {
-            get { return _studentid; }
-            set
-            {
-                if (_studentid != value)
-                {
-                    ChangeTracker.RecordOriginalValue("studentid", _studentid);
-                    if (!IsDeserializing)
-                    {
-                        if (student != null && student.studentid != value)
-                        {
-                            student = null;
-                        }
-                    }
-                    _studentid = value;
-                    OnPropertyChanged("studentid");
-                }
-            }
-        }
-        private string _studentid;
-    
-        [DataMember]
         public string cname
         {
             get { return _cname; }
@@ -187,9 +149,56 @@ namespace AdvisementSys.Models
             }
         }
         private string _cname;
+    
+        [DataMember]
+        public string appointmenttype
+        {
+            get { return _appointmenttype; }
+            set
+            {
+                if (_appointmenttype != value)
+                {
+                    _appointmenttype = value;
+                    OnPropertyChanged("appointmenttype");
+                }
+            }
+        }
+        private string _appointmenttype;
+    
+        [DataMember]
+        public bool allday
+        {
+            get { return _allday; }
+            set
+            {
+                if (_allday != value)
+                {
+                    _allday = value;
+                    OnPropertyChanged("allday");
+                }
+            }
+        }
+        private bool _allday;
 
         #endregion
         #region Navigation Properties
+    
+        [DataMember]
+        public campu campu
+        {
+            get { return _campu; }
+            set
+            {
+                if (!ReferenceEquals(_campu, value))
+                {
+                    var previousValue = _campu;
+                    _campu = value;
+                    Fixupcampu(previousValue);
+                    OnNavigationPropertyChanged("campu");
+                }
+            }
+        }
+        private campu _campu;
     
         [DataMember]
         public employee employee
@@ -209,38 +218,39 @@ namespace AdvisementSys.Models
         private employee _employee;
     
         [DataMember]
-        public student student
+        public TrackableCollection<Attendee> Attendees
         {
-            get { return _student; }
+            get
+            {
+                if (_attendees == null)
+                {
+                    _attendees = new TrackableCollection<Attendee>();
+                    _attendees.CollectionChanged += FixupAttendees;
+                }
+                return _attendees;
+            }
             set
             {
-                if (!ReferenceEquals(_student, value))
+                if (!ReferenceEquals(_attendees, value))
                 {
-                    var previousValue = _student;
-                    _student = value;
-                    Fixupstudent(previousValue);
-                    OnNavigationPropertyChanged("student");
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_attendees != null)
+                    {
+                        _attendees.CollectionChanged -= FixupAttendees;
+                    }
+                    _attendees = value;
+                    if (_attendees != null)
+                    {
+                        _attendees.CollectionChanged += FixupAttendees;
+                    }
+                    OnNavigationPropertyChanged("Attendees");
                 }
             }
         }
-        private student _student;
-    
-        [DataMember]
-        public campu campu
-        {
-            get { return _campu; }
-            set
-            {
-                if (!ReferenceEquals(_campu, value))
-                {
-                    var previousValue = _campu;
-                    _campu = value;
-                    Fixupcampu(previousValue);
-                    OnNavigationPropertyChanged("campu");
-                }
-            }
-        }
-        private campu _campu;
+        private TrackableCollection<Attendee> _attendees;
 
         #endregion
         #region ChangeTracking
@@ -320,13 +330,52 @@ namespace AdvisementSys.Models
     
         protected virtual void ClearNavigationProperties()
         {
-            employee = null;
-            student = null;
             campu = null;
+            employee = null;
+            Attendees.Clear();
         }
 
         #endregion
         #region Association Fixup
+    
+        private void Fixupcampu(campu previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.appointments.Contains(this))
+            {
+                previousValue.appointments.Remove(this);
+            }
+    
+            if (campu != null)
+            {
+                if (!campu.appointments.Contains(this))
+                {
+                    campu.appointments.Add(this);
+                }
+    
+                cname = campu.cname;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("campu")
+                    && (ChangeTracker.OriginalValues["campu"] == campu))
+                {
+                    ChangeTracker.OriginalValues.Remove("campu");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("campu", previousValue);
+                }
+                if (campu != null && !campu.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    campu.StartTracking();
+                }
+            }
+        }
     
         private void Fixupemployee(employee previousValue)
         {
@@ -367,80 +416,41 @@ namespace AdvisementSys.Models
             }
         }
     
-        private void Fixupstudent(student previousValue)
+        private void FixupAttendees(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsDeserializing)
             {
                 return;
             }
     
-            if (previousValue != null && previousValue.appointments.Contains(this))
+            if (e.NewItems != null)
             {
-                previousValue.appointments.Remove(this);
-            }
-    
-            if (student != null)
-            {
-                if (!student.appointments.Contains(this))
+                foreach (Attendee item in e.NewItems)
                 {
-                    student.appointments.Add(this);
-                }
-    
-                studentid = student.studentid;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("student")
-                    && (ChangeTracker.OriginalValues["student"] == student))
-                {
-                    ChangeTracker.OriginalValues.Remove("student");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("student", previousValue);
-                }
-                if (student != null && !student.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    student.StartTracking();
+                    item.appointment = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("Attendees", item);
+                    }
                 }
             }
-        }
     
-        private void Fixupcampu(campu previousValue)
-        {
-            if (IsDeserializing)
+            if (e.OldItems != null)
             {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.appointments.Contains(this))
-            {
-                previousValue.appointments.Remove(this);
-            }
-    
-            if (campu != null)
-            {
-                if (!campu.appointments.Contains(this))
+                foreach (Attendee item in e.OldItems)
                 {
-                    campu.appointments.Add(this);
-                }
-    
-                cname = campu.cname;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("campu")
-                    && (ChangeTracker.OriginalValues["campu"] == campu))
-                {
-                    ChangeTracker.OriginalValues.Remove("campu");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("campu", previousValue);
-                }
-                if (campu != null && !campu.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    campu.StartTracking();
+                    if (ReferenceEquals(item.appointment, this))
+                    {
+                        item.appointment = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("Attendees", item);
+                    }
                 }
             }
         }
