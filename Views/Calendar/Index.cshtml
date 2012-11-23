@@ -9,6 +9,7 @@ type="text/css" />
 type="text/css" media="print" />
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/FullCalandar/jquery-ui-1.8.23.custom.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/FullCalandar/fullcalendar.min.js")" type="text/javascript"></script>
 <style type='text/css'>
 	#calendar {
@@ -29,15 +30,72 @@ type="text/css" media="print" />
 @Html.ActionLink("New Appointment", "Create", "Calendar", new { @id = "cmdCreate" })
 @using (Html.BeginForm("Index", "Calendar", FormMethod.Post, new { id = "calendarForm", name = "calendarForm" }))
 {
-    @Html.DropDownListFor(model => model.cName, new SelectList(Model.cNames, Model.cNames), new { @id = "myDDL", @style = "position:absolute;right:200px;top:5px;" })
+    <table style="position:absolute;right:10%;top:5px;z-index:1000000;">
+    <tr>
+    @if (User.IsInRole("Receptionist"))
+    {
+    <td>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.advisorID, "Student Advisor ID:")
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.advisorID, new { @id = "txtEmpID" })
+            @Html.ValidationMessageFor(model => model.advisorID)
+        </div>
+    </td>
+    }
+    <td>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.cName, "Campus:")
+        </div>
+    </td>
+    <td>
+    <div class="editor-field">
+    @Html.DropDownListFor(model => model.cName, new SelectList(Model.cNames, Model.cNames), new { @id = "myDDL" })
+    </div>
+    </td>
+    </tr>
+    </table>
 }
 <!--</span>-->
 <div id='calendar'></div>
+@if (User.IsInRole("Receptionist"))
+    {
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var model = @Html.Raw(Json.Encode(Model.AutoCom));
 
+    $("#txtEmpID").autocomplete({
+            minLength: 0,
+            source: model,
+            focus: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            }
+        })
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };
+        });
+        </script>
+    }
 <script type="text/javascript">
     $(document).ready(function () {
 
     $('#myDDL').change(function(){
+        $('#calendarForm').submit();
+    })
+
+    $('#txtEmpID').change(function(){
         $('#calendarForm').submit();
     })
 

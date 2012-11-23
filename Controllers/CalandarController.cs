@@ -73,7 +73,21 @@ namespace AdvisementSys.Controllers
                 list.Add(camp.cname);
             }
 
-            IndexCalendarModel model = new IndexCalendarModel() { Events = events, cNames = list };
+            IEnumerable<employee> employees = db.employees;
+            List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
+            foreach (employee emp in employees)
+            {
+                AutoCompletePOCO poco = new AutoCompletePOCO()
+                {
+                    value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Email = emp.email,
+                    Role = emp.role
+                };
+                EmployeeID.Add(poco);
+            }
+
+            IndexCalendarModel model = new IndexCalendarModel() { Events = events, cNames = list, AutoCom = EmployeeID };
 
             return View(model);
         }
@@ -105,7 +119,33 @@ namespace AdvisementSys.Controllers
                     appoint = db.appointments.Where(i => i.employeeid == User.Identity.Name && i.cname == model.cName);
                 }
             }
-            appointments = appoint.ToList();
+
+            if (model.advisorID != null)
+            {
+                model.advisorID = model.advisorID.Remove(0, model.advisorID.Length - 10);
+                model.advisorID = model.advisorID.Remove(model.advisorID.Length - 1);
+
+                appoint = appoint.Where(a => a.employeeid == model.advisorID);
+                appointments = appoint.ToList();
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == model.advisorID);
+                foreach (Attendee Attend in Attendee)
+                {
+                    if (model.cName.Equals("All"))
+                    {
+                        appointments.Add(db.appointments.Single(i => i.appointmentid == Attend.appointmentid));
+                    }
+                    else
+                    {
+                        appointment app = db.appointments.Single(i => i.appointmentid == Attend.appointmentid);
+                        if (app.cname == model.cName)
+                            appointments.Add(app);
+                    }
+                }
+            }
+            else
+            {
+                appointments = appoint.ToList();
+            }
             if (!User.IsInRole("Receptionist"))
             {
                 IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
@@ -160,8 +200,23 @@ namespace AdvisementSys.Controllers
                 list.Add(camp.cname);
             }
 
+            IEnumerable<employee> employees = db.employees;
+            List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
+            foreach (employee emp in employees)
+            {
+                AutoCompletePOCO poco = new AutoCompletePOCO()
+                {
+                    value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Email = emp.email,
+                    Role = emp.role
+                };
+                EmployeeID.Add(poco);
+            }
+
             model.cNames = list;
             model.Events = events;
+            model.AutoCom = EmployeeID;
             return View(model);
         }
 
@@ -855,7 +910,7 @@ namespace AdvisementSys.Controllers
             mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Deleted By " + chair.fname + " " + chair.lname;
-            mail.Body = "Your " + appointment.appointmenttype + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+            mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " that was to take place at " + appointment.cname + " has been deleted. If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
 
@@ -876,7 +931,7 @@ namespace AdvisementSys.Controllers
             mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
             mail.To.Add(employee.email);
             mail.Subject = "Appointment Confirmation for " + employee.fname + " " + employee.lname;
-            mail.Body = "You have successfully created an " + appointment.appointmenttype + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+            mail.Body = "You have successfully created an " + appointment.appointmenttype.Trim() + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " and the appointment will take place at " + appointment.cname + ".";
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
@@ -915,7 +970,7 @@ namespace AdvisementSys.Controllers
             mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
-            mail.Body = "You have been requested to attend an " + appointment.appointmenttype + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+            mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
             if (appointment.description != null)

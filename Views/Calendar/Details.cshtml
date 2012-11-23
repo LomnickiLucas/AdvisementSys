@@ -158,8 +158,12 @@
     @if (Model.appointment.employeeid == User.Identity.Name)
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.appointmentid }) <span>| <a href="#" id="DeleteAppointemnt">
-        Delete</a> | <a href="#" id="DeleteAppointemntseries">
-        Delete Series</a> |</span>
+        Delete</a> |</span> 
+        if (Model.appointment.repeating != null)
+        {
+            <span> <a href="#" id="DeleteAppointemntseries">
+            Delete Series</a> |</span>
+        }
     }
     @Html.ActionLink("Back to Calendar", "Index")
 </p>
