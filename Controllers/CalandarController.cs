@@ -803,7 +803,7 @@ namespace AdvisementSys.Controllers
 
                 foreach (appointment appointment in appointments)
                 {
-                    IEnumerable<Attendee> Attendees = db.Attendees.Where(a => a.appointmentid == id);
+                    IEnumerable<Attendee> Attendees = db.Attendees.Where(a => a.appointmentid == appointment.appointmentid);
 
                     foreach (Attendee attend in Attendees)
                     {
