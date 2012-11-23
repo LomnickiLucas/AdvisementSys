@@ -8,6 +8,7 @@ using AdvisementSys.Models.Request;
 using System.Data;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Security;
 
 namespace AdvisementSys.Controllers
 {
@@ -19,20 +20,24 @@ namespace AdvisementSys.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<appointment> appointments = db.appointments.Where(i => i.employeeid == User.Identity.Name);
-            IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
-            List<Guid> AppointmentIDs = new List<Guid>();
-            foreach (Attendee Attend in Attendee)
+            IEnumerable<appointment> appoint;
+            List<appointment> appointments;
+            if (User.IsInRole("Receptionist"))
             {
-                AppointmentIDs.Add(Attend.appointmentid);
+                appoint = db.appointments;
+                appointments = appoint.ToList();
             }
-
-            foreach (Guid id in AppointmentIDs)
+            else
             {
-                appointments.Concat(db.appointments.Where(i => i.appointmentid == id));
+                appoint = db.appointments.Where(i => i.employeeid == User.Identity.Name);
+                appointments = appoint.ToList();
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
+                foreach (Attendee Attend in Attendee)
+                {
+                    appointments.Add(db.appointments.Single(i => i.appointmentid == Attend.appointmentid));
+                }
             }
-
-            List<Events> model = new List<Events>();
+            List<Events> events = new List<Events>();
             foreach (appointment appointment in appointments)
             {
                 Events Events = new Events();
@@ -57,8 +62,106 @@ namespace AdvisementSys.Controllers
                         break;
                 }
 
-                model.Add(Events);
+                events.Add(Events);
             }
+
+            IEnumerable<campu> campus = db.campus;
+            List<String> list = new List<String>();
+            list.Add("All");
+            foreach (campu camp in campus)
+            {
+                list.Add(camp.cname);
+            }
+
+            IndexCalendarModel model = new IndexCalendarModel() { Events = events, cNames = list };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Index(IndexCalendarModel model)
+        {
+            IEnumerable<appointment> appoint;
+            List<appointment> appointments;
+            if (model.cName.Equals("All"))
+            {
+                if (User.IsInRole("Receptionist"))
+                {
+                    appoint = db.appointments;
+                }
+                else
+                {
+                    appoint = db.appointments.Where(i => i.employeeid == User.Identity.Name);
+                }
+            }
+            else
+            {
+                if (User.IsInRole("Receptionist"))
+                {
+                    appoint = db.appointments.Where(i => i.cname == model.cName);
+                }
+                else
+                {
+                    appoint = db.appointments.Where(i => i.employeeid == User.Identity.Name && i.cname == model.cName);
+                }
+            }
+            appointments = appoint.ToList();
+            if (!User.IsInRole("Receptionist"))
+            {
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
+                foreach (Attendee Attend in Attendee)
+                {
+                    if (model.cName.Equals("All"))
+                    {
+                        appointments.Add(db.appointments.Single(i => i.appointmentid == Attend.appointmentid));
+                    }
+                    else
+                    {
+                        appointment app = db.appointments.Single(i => i.appointmentid == Attend.appointmentid);
+                        if (app.cname == model.cName)
+                            appointments.Add(app);
+                    }
+                }
+            }
+
+            List<Events> events = new List<Events>();
+            foreach (appointment appointment in appointments)
+            {
+                Events Events = new Events();
+                Events.id = appointment.appointmentid;
+                Events.title = appointment.subject;
+                Events.allDay = appointment.allday;
+                Events.start = ConvertToUnixTimestamp(appointment.starttime).ToString();
+                Events.end = ConvertToUnixTimestamp(appointment.endtime).ToString();
+                Events.url = Url.Action("Details/" + appointment.appointmentid.ToString());
+                switch (appointment.appointmenttype.Trim())
+                {
+                    case "Personal":
+                        Events.color = "#009B00";
+                        break;
+
+                    case "Advisement":
+                        Events.color = "#36C";
+                        break;
+
+                    case "Office":
+                        Events.color = "#800080";
+                        break;
+                }
+
+                events.Add(Events);
+            }
+
+            IEnumerable<campu> campus = db.campus;
+            List<String> list = new List<String>();
+            list.Add("All");
+            foreach (campu camp in campus)
+            {
+                list.Add(camp.cname);
+            }
+
+            model.cNames = list;
+            model.Events = events;
             return View(model);
         }
 
@@ -620,14 +723,52 @@ namespace AdvisementSys.Controllers
                     db.Attendees.DeleteObject(attend);
                 }
 
+                DeleteEmail(appointment);
+
                 db.appointments.DeleteObject(appointment);
-                db.SaveChanges();
 
                 return Json("200");
             }
             catch (Exception ex)
             {
                 return View();
+            }
+            finally 
+            {
+                db.SaveChanges();
+            }
+        }
+
+        [HttpPost, ActionName("DeleteSeries")]
+        public ActionResult DeleteSeriesConfirmed(Guid id)
+        {
+            try
+            {
+                IEnumerable<appointment> appointments = db.appointments.Where(i => i.repeating == id);
+
+                foreach (appointment appointment in appointments)
+                {
+                    IEnumerable<Attendee> Attendees = db.Attendees.Where(a => a.appointmentid == id);
+
+                    foreach (Attendee attend in Attendees)
+                    {
+                        db.Attendees.DeleteObject(attend);
+                    }
+
+                    db.appointments.DeleteObject(appointment);
+                }
+
+                DeleteSeriesEmail(appointments);
+
+                return Json("200");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            finally
+            {
+                db.SaveChanges();
             }
         }
 
@@ -639,6 +780,92 @@ namespace AdvisementSys.Controllers
 
             //return the total seconds (which is a UNIX timestamp)
             return (double)span.TotalSeconds;
+        }
+
+        private void DeleteSeriesEmail(IEnumerable<appointment> appointments)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            employee chair = db.employees.Single(e => e.employeeid == appointments.FirstOrDefault().employeeid);
+            String EmailTo = chair.email;
+
+            foreach (appointment appointment in appointments)
+            {
+                IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+                
+                foreach (Attendee Attendee in Attendees)
+                {
+                    student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                    if (student != null)
+                    {
+                        EmailTo += ", " + student.email;
+                    }
+                    else
+                    {
+                        employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                        EmailTo += ", " + employee.email;
+                    }
+                }
+            }
+
+            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.To.Add(EmailTo);
+            mail.Subject = "Appointment Series Deleted By " + chair.fname + " " + chair.lname;
+            mail.Body = "Your " + appointments.First().appointmenttype + " appointment series regarding " + appointments.First().subject + " at " + appointments.First().starttime.ToString() + " to " + appointments.First().endtime.ToString()
+                + " that was to take place at " + appointments.First().cname + " has been deleted. If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        private void DeleteEmail(appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.To.Add(EmailTo);
+            mail.Subject = "Appointment Deleted By " + chair.fname + " " + chair.lname;
+            mail.Body = "Your " + appointment.appointmenttype + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " that was to take place at " + appointment.cname + " has been deleted. If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
 
         private void ConfirmationEmail(employee employee, appointment appointment)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdvisementSys.Models.Events>
+﻿@model AdvisementSys.Models.Request.IndexCalendarModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,13 +27,21 @@ type="text/css" media="print" />
 
 <!--<span style="z-index:1; position:absolute; top:58px; left:330px;" class="createCalStyle">-->
 @Html.ActionLink("New Appointment", "Create", "Calendar", new { @id = "cmdCreate" })
+@using (Html.BeginForm("Index", "Calendar", FormMethod.Post, new { id = "calendarForm", name = "calendarForm" }))
+{
+    @Html.DropDownListFor(model => model.cName, new SelectList(Model.cNames, Model.cNames), new { @id = "myDDL", @style = "position:absolute;right:200px;top:5px;" })
+}
 <!--</span>-->
 <div id='calendar'></div>
 
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var model = @Html.Raw(Json.Encode(Model));
+    $('#myDDL').change(function(){
+        $('#calendarForm').submit();
+    })
+
+        var model = @Html.Raw(Json.Encode(Model.Events));
 
         $('#calendar').fullCalendar({
             header: {

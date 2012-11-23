@@ -131,6 +131,7 @@ namespace AdvisementSys.Controllers
                         if (createStatus == MembershipCreateStatus.Success)
                         {
                             //Roles.
+                            Roles.AddUserToRole(model.UserName, model.position);
                             FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                             return RedirectToAction("Index", "issue");
                         }
