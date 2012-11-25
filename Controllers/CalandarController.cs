@@ -14,6 +14,10 @@ namespace AdvisementSys.Controllers
 {
     public class CalendarController : Controller
     {
+        private readonly String MAIL_ADDRESS = "SheridanAdvisementSys@gmail.com";
+        private readonly String MAIL_SMTP = "smtp.gmail.com";
+        private readonly String MAIL_PASS = "Sheridan123";
+
         private Entities db = new Entities();
         //
         // GET: /Calandar/
@@ -899,12 +903,12 @@ namespace AdvisementSys.Controllers
         private void DeleteSeriesEmail(IEnumerable<appointment> appointments)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
-            IEnumerable<appointment> appoint = db.appointments.Where(a => a.repeating == appointments.First().repeating).OrderBy(a => a.starttime);
+            IEnumerable<appointment> appoint = db.appointments.Where(a => a.repeating == appointments.FirstOrDefault().repeating).OrderBy(a => a.starttime);
 
-            DateTime start = appoint.First().starttime;
-            DateTime end = appoint.OrderByDescending(a => a.starttime).First().starttime;
+            DateTime start = appoint.FirstOrDefault().starttime;
+            DateTime end = appoint.OrderByDescending(a => a.starttime).FirstOrDefault().starttime;
 
             employee chair = db.employees.Single(e => e.employeeid == appointments.FirstOrDefault().employeeid);
             String EmailTo = chair.email;
@@ -930,7 +934,7 @@ namespace AdvisementSys.Controllers
                 }
             }
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Series Deleted By " + chair.fname + " " + chair.lname;
             mail.Body = "Your " + appointments.First().appointmenttype.Trim() + " appointment series regarding " + appointments.First().subject + " at " + start + " to " + end
@@ -940,7 +944,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
@@ -949,7 +953,7 @@ namespace AdvisementSys.Controllers
         private void DeleteEmail(appointment appointment)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
             employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
             IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
@@ -971,7 +975,7 @@ namespace AdvisementSys.Controllers
                 }
             }
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Deleted By " + chair.fname + " " + chair.lname;
             mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
@@ -981,7 +985,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
@@ -990,9 +994,9 @@ namespace AdvisementSys.Controllers
         private void ConfirmationEmail(employee employee, appointment appointment)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(employee.email);
             mail.Subject = "Appointment Confirmation for " + employee.fname + " " + employee.lname;
             mail.Body = "You have successfully created an " + appointment.appointmenttype.Trim() + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
@@ -1000,7 +1004,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
@@ -1009,14 +1013,14 @@ namespace AdvisementSys.Controllers
         private void ConfirmationEmailSeries(employee employee, appointment appointment)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
             IEnumerable<appointment> appointments = db.appointments.Where(a => a.repeating == appointment.repeating).OrderBy(a => a.starttime);
 
             DateTime start = appointments.First().starttime;
             DateTime end = appointments.OrderByDescending(a => a.starttime).First().starttime;
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(employee.email);
             mail.Subject = "Appointment Confirmation for " + employee.fname + " " + employee.lname;
             mail.Body = "You have successfully created an series of " + appointment.appointmenttype.Trim() + " appointments starting on " + start + " to " + end
@@ -1024,7 +1028,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
@@ -1033,7 +1037,7 @@ namespace AdvisementSys.Controllers
         private void EmailAttendees(employee emp, appointment appointment)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
             employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
             IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
@@ -1055,7 +1059,7 @@ namespace AdvisementSys.Controllers
                 }
             }
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
             mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
@@ -1069,7 +1073,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);
@@ -1078,7 +1082,7 @@ namespace AdvisementSys.Controllers
         private void EmailAttendeesSeries(employee emp, appointment appointment)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
             IEnumerable<appointment> appointments = db.appointments.Where(a => a.repeating == appointment.repeating).OrderBy(a => a.starttime);
 
@@ -1105,7 +1109,7 @@ namespace AdvisementSys.Controllers
                 }
             }
 
-            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
             mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " starting on " + start + " to " + end
@@ -1119,7 +1123,7 @@ namespace AdvisementSys.Controllers
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
             SmtpServer.EnableSsl = true;
 
             SmtpServer.Send(mail);

@@ -9,6 +9,11 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Scripts/TimePicker/jquery.ui.timepicker.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/TimePicker/jquery.ui.timepicker.js")" type="text/javascript"></script>
+
+<style type="text/css">
+    .field { width: 180px; }
+</style>
+
 <div class="contentDiv">
     @using (Html.BeginForm("Create", "Calendar", FormMethod.Post, new { id = "calendarForm", name = "calendarForm" }))
     {
@@ -26,7 +31,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required" })
+                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 515px;" })
                         @Html.ValidationMessageFor(model => model._appointment.subject)
                     </div>
                 </td>
@@ -39,7 +44,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._appointment.cname, new SelectList(Model._campus, Model._campus))
+                        @Html.DropDownListFor(model => model._appointment.cname, new SelectList(Model._campus, Model._campus), new { @class = "field" })
                         @Html.ValidationMessageFor(model => model._appointment.cname)
                     </div>
                 </td>
@@ -50,7 +55,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model._appointment.appointmenttype, new SelectList(Model.appoingmentType, Model.appoingmentType))
+                        @Html.DropDownListFor(model => model._appointment.appointmenttype, new SelectList(Model.appoingmentType, Model.appoingmentType), new { @class = "field" })
                         @Html.ValidationMessageFor(model => model._appointment.appointmenttype)
                     </div>
                 </td>
@@ -64,7 +69,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.starttime, new { @id = "datepicker", @class = "required", @Value = Model._appointment.starttime.ToShortDateString(), @onchange = "datepickerOnChange()" })
+                        @Html.TextBoxFor(model => model._appointment.starttime, new { @id = "datepicker", @class = "field required", @Value = Model._appointment.starttime.ToShortDateString(), @onchange = "datepickerOnChange()" })
                         @Html.ValidationMessageFor(model => model._appointment.starttime)
                     </div>
                 </td>
@@ -75,7 +80,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.startTime, new { @id = "timepicker1", @class="required" })
+                        @Html.TextBoxFor(model => model.startTime, new { @id = "timepicker1", @class = " field required" })
                         @Html.ValidationMessageFor(model => model.startTime)
                     </div>
                 </td>
@@ -88,7 +93,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.endtime, new { @id = "datepicker1", @class="required", @Value = Model._appointment.endtime.ToShortDateString() })
+                        @Html.TextBoxFor(model => model._appointment.endtime, new { @id = "datepicker1", @class = "field required", @Value = Model._appointment.endtime.ToShortDateString() })
                         @Html.ValidationMessageFor(model => model._appointment.endtime)
                     </div>
                 </td>                
@@ -99,7 +104,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.endTime, new { @id = "timepicker2", @class="required" })
+                        @Html.TextBoxFor(model => model.endTime, new { @id = "timepicker2", @class = "field required" })
                         @Html.ValidationMessageFor(model => model.endTime)
                     </div>
                 </td>
@@ -122,7 +127,7 @@
                 </td>
                 <td>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.repeating, new SelectList(Model.repeatingType, Model.repeatingType), new { @id = "ddlRepeating", @onchange = "repeatingDateRange()" })
+                        @Html.DropDownListFor(model => model.repeating, new SelectList(Model.repeatingType, Model.repeatingType), new { @id = "ddlRepeating", @class = "field", @onchange = "repeatingDateRange()" })
                     </div>
                 </td>
             </tr>
@@ -134,7 +139,7 @@
                 </td>
                 <td colspan="2">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.employeeid, new { @id = "txtEmpID", @class="required" })
+                        @Html.TextBoxFor(model => model._appointment.employeeid, new { @id = "txtEmpID", @class = "field required" })
                         @Html.ValidationMessageFor(model => model._appointment.employeeid)
                     </div>
                 </td>
@@ -147,7 +152,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID" })
+                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @style = "width: 515px;" })
                         @Html.ValidationMessageFor(model => model.Attendees)
                     </div>
                 </td>
@@ -166,13 +171,13 @@
             </tr>
             <tr>
                 <td>
-                    <div class="editor-label">
+                    <div class="editor-label" style="text-align:left;vertical-align:top;height:200px;">
                         @Html.LabelFor(model => model._appointment.description, "Notes:")
                     </div>
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextAreaFor(model => model._appointment.description)
+                        @Html.TextAreaFor(model => model._appointment.description, new { @style = "width:515px; height:200px; resize:none;" })
                         @Html.ValidationMessageFor(model => model._appointment.description)
                     </div>
                 </td>
