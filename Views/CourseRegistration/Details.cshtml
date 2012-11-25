@@ -156,7 +156,7 @@
                     @Html.DisplayFor(modelItem => item.employee.faculty)
                 </td>
                 <td style="text-align: right;">
-                    <a href="mailto:" @item.employee.email>@Html.DisplayFor(modelItem => item.employee.email)
+                    <a href="mailto:@item.employee.email?subject=Part-Time and/or Additional Course Registration Form From @Model._part_timeAnd_orAdditionalCourseRegistrationForm.date">@Html.DisplayFor(modelItem => item.employee.email)
                     </a>
                 </td>
             </tr>
@@ -175,7 +175,7 @@
         <tbody style="background-color: #F5F5F5;">
             <tr>
                 <td colspan="2">
-                    @Html.DisplayFor(modelItem => item.notes)
+                    @Html.TextAreaFor(modelItem => item.notes, new { @style = "width:800px; height:100px;overflow: hidden; border: none;background:none", @readonly = "readonly" })
                 </td>
             </tr>
         </tbody>

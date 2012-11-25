@@ -77,11 +77,7 @@ namespace AdvisementSys.Controllers
                     db.notes.AddObject(_model._NewNote);
                     db.SaveChanges();
 
-                    applicationForTermOrCompleteProgramWithdrawal applicationfortermorcompleteprogramwithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Single(a => a.withdrawid == id);
-                    issue issue = db.issues.Single(i => i.issueid == applicationfortermorcompleteprogramwithdrawal.issueid);
-                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsProgramWithdrawalModel Model = new DetailsProgramWithdrawalModel() { _applicationForTermOrCompleteProgramWithdrawal = applicationfortermorcompleteprogramwithdrawal, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
-                    return View(Model);
+                    return RedirectToAction("Details", new { id = id });
 
                 }
                 catch (Exception)

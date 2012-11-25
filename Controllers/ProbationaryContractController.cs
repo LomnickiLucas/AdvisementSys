@@ -77,11 +77,7 @@ namespace AdvisementSys.Controllers
                     db.notes.AddObject(_model._NewNote);
                     db.SaveChanges();
 
-                    probationaryContractPlan probationarycontractplan = db.probationaryContractPlans.Single(p => p.advisementid == id);
-                    issue issue = db.issues.Single(i => i.issueid == probationarycontractplan.issueid);
-                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsProbationaryContractModel Model = new DetailsProbationaryContractModel() { _probationaryContractPlan = probationarycontractplan, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
-                    return View(Model);
+                    return RedirectToAction("Details", new { id = id });
 
                 }
                 catch (Exception)

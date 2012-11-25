@@ -66,12 +66,19 @@ namespace AdvisementSys.Controllers
             {
                 employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
                 IEnumerable<student> students = db.students;
-                List<String> studentID = new List<String>();
+                List<AutoCompletePOCO> StudentID = new List<AutoCompletePOCO>();
                 foreach (student stud in students)
                 {
-                    studentID.Add(stud.studentid);
+                    AutoCompletePOCO poco = new AutoCompletePOCO()
+                    {
+                        value = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                        Label = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                        Email = stud.email,
+                        Role = "Student"
+                    };
+                    StudentID.Add(poco);
                 }
-                StudentReportModel model = new StudentReportModel() { StudentID = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = studentID, User = employee.fname + " " + employee.lname };
+                StudentReportModel model = new StudentReportModel() { StudentID = "", Student = "", StartDate = db.issues.OrderBy(i => i.date).First().date, EndDate = db.issues.OrderByDescending(i => i.date).First().date, StudID = StudentID, User = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")" };
                 return View(model);
             }
             catch (Exception ex)
@@ -88,20 +95,27 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
                     employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
                     IEnumerable<student> students = db.students;
-                    List<String> studentID = new List<String>();
+                    List<AutoCompletePOCO> StudentID = new List<AutoCompletePOCO>();
                     foreach (student stud in students)
                     {
-                        studentID.Add(stud.studentid);
+                        AutoCompletePOCO poco = new AutoCompletePOCO()
+                        {
+                            value = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                            Label = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                            Email = stud.email,
+                            Role = "Student"
+                        };
+                        StudentID.Add(poco);
                     }
-                    model.StudID = studentID;
-                    model.User = employee.fname + " " + employee.lname;
+
+                    model.Student = model.StudentID.Remove(0, model.StudentID.Length - 10);
+                    model.Student = model.Student.Remove(model.Student.Length - 1);
+
+                    model.StudID = StudentID;
+                    model.User = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")";
                     return View(model);
-                }
-                return View(model);
             }
             catch (Exception ex)
             {
@@ -117,13 +131,22 @@ namespace AdvisementSys.Controllers
             try
             {
                 employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-                IEnumerable<employee> employees = db.employees;
-                List<String> employeeID = new List<String>();
+
+                IEnumerable<employee> employees = db.employees.Where(emp => emp.role == "Student Advisor");
+                List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
                 foreach (employee emp in employees)
                 {
-                    employeeID.Add(emp.employeeid);
+                    AutoCompletePOCO poco = new AutoCompletePOCO()
+                    {
+                        value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                        Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                        Email = emp.email,
+                        Role = emp.role
+                    };
+                    EmployeeID.Add(poco);
                 }
-                AdvisorReportModel model = new AdvisorReportModel() { EmpID = User.Identity.Name, EmployeeID = employeeID, startDate = db.issues.OrderBy(i => i.date).First().date, endDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname };
+
+                AdvisorReportModel model = new AdvisorReportModel() { EmpID = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")", Employee = employee.employeeid, EmployeeID = EmployeeID, startDate = db.issues.OrderBy(i => i.date).First().date, endDate = db.issues.OrderByDescending(i => i.date).First().date, User = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")" };
                 return View(model);
             }
             catch (Exception ex)
@@ -140,20 +163,27 @@ namespace AdvisementSys.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
                     employee employee = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-                    IEnumerable<employee> employees = db.employees;
-                    List<String> employeeID = new List<String>();
+                    IEnumerable<employee> employees = db.employees.Where(emp => emp.role == "Student Advisor");
+                    List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
                     foreach (employee emp in employees)
                     {
-                        employeeID.Add(emp.employeeid);
+                        AutoCompletePOCO poco = new AutoCompletePOCO()
+                        {
+                            value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                            Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                            Email = emp.email,
+                            Role = emp.role
+                        };
+                        EmployeeID.Add(poco);
                     }
-                    model.EmployeeID = employeeID;
-                    model.User = employee.fname + " " + employee.lname;
+
+                    model.Employee = model.EmpID.Remove(0, model.EmpID.Length - 10);
+                    model.Employee = model.Employee.Remove(model.Employee.Length - 1);
+
+                    model.EmployeeID = EmployeeID;
+                    model.User = employee.fname + " " + employee.lname + " (" + employee.employeeid + ")";
                     return View(model);
-                }
-                return View(model);
             }
             catch (Exception ex)
             {

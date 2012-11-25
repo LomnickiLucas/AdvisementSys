@@ -415,6 +415,7 @@
           <Property Name="appointmentid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="attendee" Type="nchar" Nullable="false" MaxLength="9" />
           <Property Name="confirmed" Type="bit" />
+          <Property Name="reason" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="campus">
           <Key>
@@ -1590,6 +1591,7 @@
           <Property Name="attendee1" Type="String" Nullable="false" MaxLength="9" Unicode="true" FixedLength="true" />
           <Property Name="confirmed" Type="Boolean" />
           <NavigationProperty Name="appointment" Relationship="Model.FK_Attendees_appointment" FromRole="Attendee" ToRole="appointment" />
+          <Property Type="String" Name="reason" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="campu">
           <Key>
@@ -2450,7 +2452,8 @@
             <ScalarProperty Name="Details" ColumnName="Details" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Attendees"><EntityTypeMapping TypeName="Model.Attendee"><MappingFragment StoreEntitySet="Attendee">
-            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="id" ColumnName="id" />
             <ScalarProperty Name="appointmentid" ColumnName="appointmentid" />
             <ScalarProperty Name="attendee1" ColumnName="attendee" />
             <ScalarProperty Name="confirmed" ColumnName="confirmed" />

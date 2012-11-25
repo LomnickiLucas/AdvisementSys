@@ -12,6 +12,8 @@ namespace AdvisementSys.Models
         [Display(Name = "User")]
         public String User { get; set; }
 
+        public String Student { get; set; }
+
         [Required]
         [Display(Name = "StudentID")]
         public String StudentID { get; set; }
@@ -26,6 +28,6 @@ namespace AdvisementSys.Models
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
-        public IEnumerable<String> StudID { get; set; }
+        public IEnumerable<AutoCompletePOCO> StudID { get; set; }
     }
 }

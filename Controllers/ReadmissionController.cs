@@ -78,11 +78,7 @@ namespace AdvisementSys.Controllers
                     db.notes.AddObject(_model._NewNote);
                     db.SaveChanges();
 
-                    applicationForReadmission applicationforreadmission = db.applicationForReadmissions.Single(a => a.readmissionid == id);
-                    issue issue = db.issues.Single(i => i.issueid == applicationforreadmission.issueid);
-                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsReadmissionForm Model = new DetailsReadmissionForm() { _applicationForReadmission = applicationforreadmission, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
-                    return View(Model);
+                    return RedirectToAction("Details", new { id = id });
 
                 }
                 catch (Exception)

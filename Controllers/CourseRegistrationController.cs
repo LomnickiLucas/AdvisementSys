@@ -77,11 +77,7 @@ namespace AdvisementSys.Controllers
                     db.notes.AddObject(_model._NewNote);
                     db.SaveChanges();
 
-                    part_timeAnd_orAdditionalCourseRegistrationForm part_timeand_oradditionalcourseregistrationform = db.part_timeAnd_orAdditionalCourseRegistrationForm.Single(p => p.registrationid == id);
-                    issue issue = db.issues.Single(i => i.issueid == part_timeand_oradditionalcourseregistrationform.issueid);
-                    student student = db.students.Include("program").Single(s => s.studentid == issue.studentid);
-                    DetailsCourseRegistrationModel Model = new DetailsCourseRegistrationModel() { _part_timeAnd_orAdditionalCourseRegistrationForm = part_timeand_oradditionalcourseregistrationform, _student = student, _note = db.notes.Include("employee").Where(note => note.formid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name), _date = DateTime.Now };
-                    return View(Model);
+                    return RedirectToAction("Details", new { id = id });
 
                 }
                 catch (Exception)

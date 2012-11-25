@@ -11,5 +11,7 @@ namespace AdvisementSys.Models.Request
         public appointment appointment { get; set; }
 
         public IEnumerable<CalendarDetailsAttendees> Attendees { get; set; }
+
+        public employee chair { get; set; }
     }
 }

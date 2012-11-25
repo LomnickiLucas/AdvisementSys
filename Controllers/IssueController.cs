@@ -258,76 +258,7 @@ namespace AdvisementSys.Controllers
                     db.notes.AddObject(_model._newNote);
                     db.SaveChanges();
 
-                    issue issue = db.issues.Include("employee").Single(i => i.issueid == id);
-                    student student = db.students.Single(i => i.studentid == issue.studentid);
-                    program program = db.programs.Single(i => i.programcode == issue.student.programcode);
-                    String emp = issue.employeeid.ToString() + " - " + issue.employee.fname.ToString() + " " + issue.employee.lname.ToString();
-                    DetailsIssueRequestModel model = new DetailsIssueRequestModel() { _issue = issue, _student = student, _program = program, _EmployeeID = emp, _date = DateTime.Now, _note = db.notes.Include("employee").Where(note => note.issueid == id).OrderByDescending(f => f.dates), _employee = db.employees.Single(e => e.employeeid == User.Identity.Name) };
-                    List<FormsPOCO> Forms = new List<FormsPOCO>();
-                    IEnumerable<applicationForReadmission> applicationForReadmission = db.applicationForReadmissions.Where(i => i.issueid == issue.issueid);
-                    foreach (applicationForReadmission form in applicationForReadmission)
-                    {
-                        FormsPOCO _Forms = new FormsPOCO();
-                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                        _Forms.FormType = "Application For Readmission";
-                        _Forms.Status = form.status;
-                        _Forms.Controller = "Readmission";
-                        _Forms.FormID = form.readmissionid;
-
-                        Forms.Add(_Forms);
-                    }
-                    IEnumerable<applicationForTermOrCompleteProgramWithdrawal> applicationForTermOrCompleteProgramWithdrawal = db.applicationForTermOrCompleteProgramWithdrawals.Where(i => i.issueid == issue.issueid);
-                    foreach (applicationForTermOrCompleteProgramWithdrawal form in applicationForTermOrCompleteProgramWithdrawal)
-                    {
-                        FormsPOCO _Forms = new FormsPOCO();
-                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                        _Forms.FormType = "Application For Term Or Complete Program Withdrawal";
-                        _Forms.Status = form.status;
-                        _Forms.Controller = "ProgramWithdrawal";
-                        _Forms.FormID = form.withdrawid;
-
-                        Forms.Add(_Forms);
-                    }
-                    IEnumerable<part_timeAnd_orAdditionalCourseRegistrationForm> part_timeAnd_orAdditionalCourseRegistrationForm = db.part_timeAnd_orAdditionalCourseRegistrationForm.Where(i => i.issueid == issue.issueid);
-                    foreach (part_timeAnd_orAdditionalCourseRegistrationForm form in part_timeAnd_orAdditionalCourseRegistrationForm)
-                    {
-                        FormsPOCO _Forms = new FormsPOCO();
-                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                        _Forms.FormType = "Part Time And/or Additional Course Registration Form";
-                        _Forms.Status = form.status;
-                        _Forms.Controller = "CourseRegistration";
-                        _Forms.FormID = form.registrationid;
-
-                        Forms.Add(_Forms);
-                    }
-                    IEnumerable<probationaryContractPlan> probationaryContractPlan = db.probationaryContractPlans.Where(i => i.issueid == issue.issueid);
-                    foreach (probationaryContractPlan form in probationaryContractPlan)
-                    {
-                        FormsPOCO _Forms = new FormsPOCO();
-                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                        _Forms.FormType = "Probationary Contract Plan";
-                        _Forms.Status = form.status;
-                        _Forms.Controller = "ProbationaryContract";
-                        _Forms.FormID = form.advisementid;
-
-                        Forms.Add(_Forms);
-                    }
-                    IEnumerable<requestForLateEnrolment> requestForLateEnrolment = db.requestForLateEnrolments.Where(i => i.issueid == issue.issueid);
-                    foreach (requestForLateEnrolment form in requestForLateEnrolment)
-                    {
-                        FormsPOCO _Forms = new FormsPOCO();
-                        _Forms.Date = ConvertToUnixTimestamp(form.date).ToString();
-                        _Forms.FormType = "Request For Late Enrollment Form";
-                        _Forms.Status = form.status;
-                        _Forms.Controller = "LateEnrollment";
-                        _Forms.FormID = form.enrolementid;
-
-                        Forms.Add(_Forms);
-                    }
-
-                    model._Forms = Forms.OrderByDescending(f => f.Status);
-
-                    return View(model);
+                    return RedirectToAction("Details", new { id = id });
                 }
 
                 return View(_model);

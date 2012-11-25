@@ -31,7 +31,7 @@ namespace AdvisementSys.Controllers
             {
                 appoint = db.appointments.Where(i => i.employeeid == User.Identity.Name);
                 appointments = appoint.ToList();
-                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name && (i.confirmed == true || i.confirmed == null));
                 foreach (Attendee Attend in Attendee)
                 {
                     appointments.Add(db.appointments.Single(i => i.appointmentid == Attend.appointmentid));
@@ -127,7 +127,7 @@ namespace AdvisementSys.Controllers
 
                 appoint = appoint.Where(a => a.employeeid == model.advisorID);
                 appointments = appoint.ToList();
-                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == model.advisorID);
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == model.advisorID && (i.confirmed == true || i.confirmed == null));
                 foreach (Attendee Attend in Attendee)
                 {
                     if (model.cName.Equals("All"))
@@ -148,7 +148,7 @@ namespace AdvisementSys.Controllers
             }
             if (!User.IsInRole("Receptionist"))
             {
-                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name);
+                IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.attendee1 == User.Identity.Name && (i.confirmed == true || i.confirmed == null));
                 foreach (Attendee Attend in Attendee)
                 {
                     if (model.cName.Equals("All"))
@@ -238,14 +238,17 @@ namespace AdvisementSys.Controllers
                     Emplployee = employee
                 };
 
+                if(student != null)
+                {
+                    program prog = db.programs.Single(p => p.programcode == student.programcode);
+
+                    DetailAttendees.StudFaculty = prog.faculty;
+                }
+
                 Attendees.Add(DetailAttendees);
             }
 
-            DetailsCalendarModel model = new DetailsCalendarModel()
-                {
-                    appointment = appointment,
-                    Attendees = Attendees
-                };
+            DetailsCalendarModel model = new DetailsCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid) };
 
             return View(model);
         }
@@ -396,7 +399,14 @@ namespace AdvisementSys.Controllers
                                     attendee1 = id
                                 };
 
-                                if (!attendee.attendee1.Equals(model.EmployeeID))
+                                student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                if (stud != null)
+                                {
+                                    attendee.confirmed = true;
+                                }
+
+                                if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                     Attendee.Add(attendee);
                             }
                             foreach (Attendee attend in Attendee)
@@ -447,7 +457,14 @@ namespace AdvisementSys.Controllers
                                             attendee1 = id
                                         };
 
-                                        if (!attendee.attendee1.Equals(model.EmployeeID))
+                                        student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                        if (stud != null)
+                                        {
+                                            attendee.confirmed = true;
+                                        }
+
+                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                             Attendee.Add(attendee);
                                     }
                                     foreach (Attendee attend in Attendee)
@@ -501,7 +518,14 @@ namespace AdvisementSys.Controllers
                                             attendee1 = id
                                         };
 
-                                        if (!attendee.attendee1.Equals(model.EmployeeID))
+                                        student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                        if (stud != null)
+                                        {
+                                            attendee.confirmed = true;
+                                        }
+
+                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                             Attendee.Add(attendee);
                                     }
                                     foreach (Attendee attend in Attendee)
@@ -554,7 +578,14 @@ namespace AdvisementSys.Controllers
                                         attendee1 = id
                                     };
 
-                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                    student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                    if (stud != null)
+                                    {
+                                        attendee.confirmed = true;
+                                    }
+
+                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                         Attendee.Add(attendee);
                                 }
                                 foreach (Attendee attend in Attendee)
@@ -607,7 +638,14 @@ namespace AdvisementSys.Controllers
                                         attendee1 = id
                                     };
 
-                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                    student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                    if (stud != null)
+                                    {
+                                        attendee.confirmed = true;
+                                    }
+
+                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                         Attendee.Add(attendee);
                                 }
                                 foreach (Attendee attend in Attendee)
@@ -660,7 +698,14 @@ namespace AdvisementSys.Controllers
                                         attendee1 = id
                                     };
 
-                                    if (!attendee.attendee1.Equals(model.EmployeeID))
+                                    student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                                    if (stud != null)
+                                    {
+                                        attendee.confirmed = true;
+                                    }
+
+                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
                                         Attendee.Add(attendee);
                                 }
                                 foreach (Attendee attend in Attendee)
@@ -676,11 +721,25 @@ namespace AdvisementSys.Controllers
                     }
 
                     employee creator = db.employees.Single(emp => emp.employeeid == User.Identity.Name);
-                    ConfirmationEmail(creator, model._appointment);
+                    if (model.repeating.Trim().Equals("Not Repeating"))
+                    {
+                        ConfirmationEmail(creator, model._appointment);
+                    }
+                    else
+                    {
+                        ConfirmationEmailSeries(creator, model._appointment);
+                    }
 
                     if (model.emailAll)
                     {
-                        EmailAttendees(creator, model._appointment);
+                        if (model.repeating.Trim().Equals("Not Repeating"))
+                        {
+                            EmailAttendees(creator, model._appointment);
+                        }
+                        else
+                        {
+                            EmailAttendeesSeries(creator, model._appointment);
+                        }
                     }
                     return RedirectToAction("Details/" + model._appointment.appointmentid, "Calendar");
                 }
@@ -842,6 +901,11 @@ namespace AdvisementSys.Controllers
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
+            IEnumerable<appointment> appoint = db.appointments.Where(a => a.repeating == appointments.First().repeating).OrderBy(a => a.starttime);
+
+            DateTime start = appoint.First().starttime;
+            DateTime end = appoint.OrderByDescending(a => a.starttime).First().starttime;
+
             employee chair = db.employees.Single(e => e.employeeid == appointments.FirstOrDefault().employeeid);
             String EmailTo = chair.email;
 
@@ -869,7 +933,7 @@ namespace AdvisementSys.Controllers
             mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
             mail.To.Add(EmailTo);
             mail.Subject = "Appointment Series Deleted By " + chair.fname + " " + chair.lname;
-            mail.Body = "Your " + appointments.First().appointmenttype + " appointment series regarding " + appointments.First().subject + " at " + appointments.First().starttime.ToString() + " to " + appointments.First().endtime.ToString()
+            mail.Body = "Your " + appointments.First().appointmenttype.Trim() + " appointment series regarding " + appointments.First().subject + " at " + start + " to " + end
                 + " that was to take place at " + appointments.First().cname + " has been deleted. If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
 
@@ -942,6 +1006,30 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        private void ConfirmationEmailSeries(employee employee, appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            IEnumerable<appointment> appointments = db.appointments.Where(a => a.repeating == appointment.repeating).OrderBy(a => a.starttime);
+
+            DateTime start = appointments.First().starttime;
+            DateTime end = appointments.OrderByDescending(a => a.starttime).First().starttime;
+
+            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.To.Add(employee.email);
+            mail.Subject = "Appointment Confirmation for " + employee.fname + " " + employee.lname;
+            mail.Body = "You have successfully created an series of " + appointment.appointmenttype.Trim() + " appointments starting on " + start + " to " + end
+                + " and the appointment will take place at " + appointment.cname + ".";
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
         private void EmailAttendees(employee emp, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -972,6 +1060,56 @@ namespace AdvisementSys.Controllers
             mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
             mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+            if (appointment.description != null)
+            {
+                mail.Body += "\n\nDescription Included: \n" + appointment.description;
+            }
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("SheridanAdvisementSys@gmail.com", "Sheridan123");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        private void EmailAttendeesSeries(employee emp, appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            IEnumerable<appointment> appointments = db.appointments.Where(a => a.repeating == appointment.repeating).OrderBy(a => a.starttime);
+
+            DateTime start = appointments.First().starttime;
+            DateTime end = appointments.OrderByDescending(a => a.starttime).First().starttime;
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress("SheridanAdvisementSys@gmail.com");
+            mail.To.Add(EmailTo);
+            mail.Subject = "Appointment Invitation From " + emp.fname + " " + emp.lname;
+            mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " starting on " + start + " to " + end
+                + " and the appointments will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
             if (appointment.description != null)
             {

@@ -5,6 +5,7 @@
 }
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/css/note.form.css")" rel="stylesheet" type="text/css" />
 <div class="contentDiv">
     <h2>
         Appointment Details</h2>
@@ -13,7 +14,7 @@
         <tr>
             <td>
                 <div class="display-label">
-                    Subject:</div>
+                    Description:</div>
             </td>
             <td colspan="3">
                 <div class="display-field">
@@ -41,121 +42,292 @@
                 </div>
             </td>
         </tr>
-        <tr>
-            <td>
-                <div class="display-label">
-                    Start Time:</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.appointment.starttime)
-                </div>
-            </td>
-            <td>
-                <div class="display-label">
-                    End Time:</div>
-            </td>
-            <td>
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.appointment.endtime)
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="display-label">
-                    Chair:</div>
-            </td>
-            <td colspan="3">
-                <div class="display-field">
-                    @Html.DisplayFor(model => model.appointment.employeeid)
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <div class="display-label">
-                    Attendees:</div>
-            </td>
-        </tr>
-        @foreach (var item in Model.Attendees)
+        @if (Model.appointment.starttime.Date != Model.appointment.endtime.Date)
         {
+            <tr>
+                <td>
+                    <div class="display-label">
+                        Start Date:</div>
+                </td>
+                <td>
+                    <div class="display-field">
+                        @Model.appointment.starttime.ToShortDateString()
+                    </div>
+                </td>
+                <td>
+                    <div class="display-label">
+                        Start Time:</div>
+                </td>
+                <td>
+                    <div class="display-field">
+                        @Model.appointment.starttime.ToShortTimeString()
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="display-label">
+                        End Date:</div>
+                </td>
+                <td>
+                    <div class="display-field">
+                        @Model.appointment.endtime.ToShortDateString()
+                    </div>
+                </td>
+                <td>
+                    <div class="display-label">
+                        End Time:</div>
+                </td>
+                <td>
+                    <div class="display-field">
+                        @Model.appointment.endtime.ToShortTimeString()
+                    </div>
+                </td>
+            </tr>
+        }
+        else 
+        {
+            <tr>
+                <td>
+                    <div class="display-label">
+                        Apointment Date:</div>
+                </td>
+                <td>
+                    <div class="display-field">
+                        @Model.appointment.starttime.ToShortDateString()
+                    </div>
+                </td>
+                @if (Model.appointment.allday)
+                {
+                    <td>
+                    <div class="display-label">
+                        Apointment Time:</div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            All Day
+                        </div>
+                    </td>
+                }
+            </tr>
+            if (!Model.appointment.allday)
+            { 
+                <tr>
+                    <td>
+                        <div class="display-label">
+                            Start Time:</div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Model.appointment.starttime.ToShortTimeString()
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-label">
+                            End Time:</div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Model.appointment.endtime.ToShortTimeString()
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        <tr>
+            <td>
+                <strong>Appointment Participants:</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong><div class="display-label" style="position:relative;left:10px;">
+                    Chair:</div></strong>
+            </td>
+        </tr>
+        <table class="noteThread" style="position:relative;left:20px;">
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(model => model.chair.fname) @Html.DisplayFor(model => model.chair.lname)</strong>
+                </td>
+                <td style="text-align: right;">
+                    <strong>@Html.DisplayFor(model => model.chair.faculty)</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.chair.role)
+                </td>
+                <td style="text-align: right;">
+                    <a href="mailto:@Model.chair.email?subject=@Model.appointment.subject Appointment on @Model.appointment.starttime.ToShortDateString() at @Model.appointment.starttime.ToShortTimeString()&body=@Request.Url.ToString()">
+                        @Html.DisplayFor(model => model.chair.email)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+            <td></td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(model => model.chair.phonenum)
+                </td>
+            </tr>
+        </table>
+        <br />
+        @if (Model.Attendees.Count() > 0)
+        {
+        <tr>
+            <td>
+                <strong><div class="display-label" style="position:relative;left:10px;">
+                    Attendees:</div></strong>
+            </td>
+        </tr>
+            foreach (var item in Model.Attendees)
+            {
         <tr>
             @if (item.Student != null)
             {
-                <table>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Student.fname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Student.lname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Student.email)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Student
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Student.phonenum)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            @Html.DisplayFor(modelItem => item.Attendees.confirmed)
-                        </td>
-                    </tr>
-                </table>
+                <table class="noteThread" style="position:relative;left:20px;">
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Student.fname) @Html.DisplayFor(modelItem => item.Student.lname)</strong>
+                </td>
+                <td style="text-align: right;">
+                    <strong>@Html.DisplayFor(momodelItemdel => item.StudFaculty)</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Student
+                </td>
+                <td style="text-align: right;">
+                    <a href="mailto:@item.Student.email?subject=@Model.appointment.subject Appointment on @Model.appointment.starttime.ToShortDateString() at @Model.appointment.starttime.ToShortTimeString()">
+                        @Html.DisplayFor(modelItem => item.Student.email)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if(item.Attendees.confirmed == true)
+                    {
+                        <span><Strong style="color:#0AB90A;">Confirmed</Strong> (<a href="#" id="decline" value="@item.Student.studentid">Decline</a> | <a href="#" id="declineseries" value="@item.Student.studentid">Decline Series</a>)</span>
+                        
+                        
+                    }
+                    else if (item.Attendees.confirmed == false)
+                    {
+                        <Strong style="color:#CD0000;">Declined</Strong>
+                    }
+                    </td>
+               <td style="text-align: right;">
+                @Html.DisplayFor(modelItem => item.Student.phonenum)
+                </td>
+            </tr>
+            @if (item.Attendees.confirmed == false)
+                {
+                <tr>
+                    <td colspan="2">
+                        <div style="background-color: #F5F5F5;">
+                            @Html.TextAreaFor(modelItem => item.Attendees.reason, new { @style = "width:800px; height:80px;overflow: hidden; border: none;background:none", @readonly = "readonly" })
+                        </div>
+                    </td>
+                </tr>
+                }
+        </table>
+                <br />
             }
             
             @if (item.Student == null)
             {
-                <table>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Emplployee.fname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Emplployee.lname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Emplployee.email)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Emplployee.faculty)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Emplployee.phonenum)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            @Html.DisplayFor(modelItem => item.Attendees.confirmed)
-                        </td>
-                    </tr>
-                </table>
+                <table class="noteThread" style="position:relative;left:20px;">
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Emplployee.fname) @Html.DisplayFor(modelItem => item.Emplployee.lname)</strong>
+                </td>
+                <td style="text-align: right;">
+                    <strong>@Html.DisplayFor(modelItem => item.Emplployee.faculty)</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emplployee.role)
+                </td>
+                <td style="text-align: right;">
+                    <a href="mailto:@item.Emplployee.email?subject=@Model.appointment.subject Appointment on @Model.appointment.starttime.ToShortDateString() at @Model.appointment.starttime.ToShortTimeString()&body=@Request.Url.ToString()">
+                        @Html.DisplayFor(modelItem => item.Emplployee.email)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if(item.Attendees.confirmed == true)
+                    {
+                        <Strong style="color:#0AB90A;">Confirmed</Strong>
+                        if(item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
+                        {
+                            <span> (<a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a></span>
+                        if(Model.appointment.repeating != null)
+                        {
+                            <span>| <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                        }
+                        <span>)</span>
+                        }
+                        
+                        
+                    }
+                    else if (item.Attendees.confirmed == false)
+                    {
+                        <Strong style="color:#CD0000;">Declined</Strong>
+                    }
+                    else if (item.Attendees.confirmed == null)
+                    {
+                        <Strong>Unconfirmed</Strong><br />
+                        if (item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
+                        {
+                            if (Model.appointment.repeating != null)
+                            {
+                                <span><a href="#" id="confirm" value="@item.Emplployee.employeeid">Confirm</a> | <a href="#" id="confirmseries" value="@item.Emplployee.employeeid">Confirm Series</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> | <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                            }
+                            else
+                            {
+                                <span><a href="#" id="confirm" value="@item.Emplployee.employeeid">Confirm</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> </span>
+                            }
+                        }
+                    }
+                </td>
+                <td style="text-align: right;">
+                    @Html.DisplayFor(modelItem => item.Emplployee.phonenum)
+                </td>
+            </tr>
+            @if (item.Attendees.confirmed == false)
+            {
+                <tr>
+                    <td colspan="2">
+                        <div style="background-color: #F5F5F5;">
+                            @Html.TextAreaFor(modelItem => item.Attendees.reason, new { @style = "width:800px; height:100px;overflow: hidden; border: none;background:none", @readonly = "readonly" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+                <br />
             }
         </tr>
+            }
         }
+        <table>
         <tr>
             <td>
-                Description:
+                Notes:
             </td>
         </tr>
         <tr>
-            <td colspan="3">
-                @Html.DisplayFor(model => model.appointment.description)
+            <td colspan="3" style="background-color: #F5F5F5;">
+                @Html.TextAreaFor(model => model.appointment.description, new { @style = "width:820px; height:100px;overflow: hidden; border: none;background:none", @readonly = "readonly" })
             </td>
         </tr>
     </table>
 </div>
 <p>
-    @if (Model.appointment.employeeid == User.Identity.Name)
+    @if (Model.appointment.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.appointmentid }) <span>| <a href="#" id="DeleteAppointemnt">
         Delete</a> |</span> 

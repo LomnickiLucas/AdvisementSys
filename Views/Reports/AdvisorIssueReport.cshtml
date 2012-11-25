@@ -11,7 +11,7 @@
 @using (Html.BeginForm("AdvisorIssueReport", "Reports", FormMethod.Post, new { id = "reportForm", name = "reportForm" }))
     {
         <span>Employee ID:</span>
-        @Html.TextBoxFor(model => model.EmpID, new { @id = "txtEmpID",  @class = "required" })
+        @Html.TextBoxFor(model => model.EmpID, new { @id = "txtEmpID", @class = "required" })
         <br />
         <span>Start Date:</span>
         @Html.TextBoxFor(model => model.startDate, new { @id = "datepicker", @Value = Model.startDate.ToShortDateString() })
@@ -20,7 +20,7 @@
         <input type="submit" value="Generate Report" class="Button" />
     }
 
-@Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.EmpID }, { "StartDate", Model.startDate.ToShortDateString() }, { "EndDate", Model.endDate.ToShortDateString() }, { "User", Model.User + " (" + User.Identity.Name + ")" } }) 
+@Html.Partial("ReportsPartials/AdvisorReport", null, new ViewDataDictionary() { { "EmpID", Model.Employee }, { "StartDate", Model.startDate.ToShortDateString() }, { "EndDate", Model.endDate.ToShortDateString() }, { "User", Model.User } }) 
 
 <script type="text/javascript">
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
@@ -29,8 +29,23 @@
     var model = @Html.Raw(Json.Encode(Model.EmployeeID));
 
     $("#txtEmpID").autocomplete({
-        source: model
-    });
+            minLength: 0,
+            source: model,
+            focus: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#txtEmpID" ).val( ui.item.Label );
+                return false;
+            }
+        })
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };
 
     $("#reportForm").validate();
 </script>

@@ -22,7 +22,7 @@
         <input type="submit" value="Generate Report" class="Button" />
 }
 
-@Html.Partial("ReportsPartials/StudentReport", null, new ViewDataDictionary() { { "StudentID", Model.StudentID }, { "StartDate", Model.StartDate.ToShortDateString() }, { "EndDate", Model.EndDate.ToShortDateString() }, { "User", Model.User + " (" + User.Identity.Name + ")" } }) 
+@Html.Partial("ReportsPartials/StudentReport", null, new ViewDataDictionary() { { "StudentID", Model.Student }, { "StartDate", Model.StartDate.ToShortDateString() }, { "EndDate", Model.EndDate.ToShortDateString() }, { "User", Model.User } }) 
 
 <script type="text/javascript">
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
@@ -31,8 +31,23 @@
     var model = @Html.Raw(Json.Encode(Model.StudID));
 
     $("#txtStudID").autocomplete({
-        source: model
-    });
+            minLength: 0,
+            source: model,
+            focus: function( event, ui ) {
+                $( "#txtStudID" ).val( ui.item.Label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#txtStudID" ).val( ui.item.Label );
+                return false;
+            }
+        })
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };
 
     $("#reportForm").validate();
 </script>

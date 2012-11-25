@@ -94,6 +94,21 @@ namespace AdvisementSys.Models
             }
         }
         private Nullable<bool> _confirmed;
+    
+        [DataMember]
+        public string reason
+        {
+            get { return _reason; }
+            set
+            {
+                if (_reason != value)
+                {
+                    _reason = value;
+                    OnPropertyChanged("reason");
+                }
+            }
+        }
+        private string _reason;
 
         #endregion
         #region Navigation Properties

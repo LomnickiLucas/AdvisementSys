@@ -12,5 +12,7 @@ namespace AdvisementSys.Models
         public employee Emplployee { get; set; }
 
         public student Student { get; set; }
+
+        public String StudFaculty { get; set; }
     }
 }

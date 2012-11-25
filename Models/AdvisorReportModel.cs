@@ -24,6 +24,8 @@ namespace AdvisementSys.Models
         [Display(Name = "End Date")]
         public DateTime endDate { get; set; }
 
-        public IEnumerable<String> EmployeeID { get; set; }
+        public String Employee { get; set; }
+
+        public IEnumerable<AutoCompletePOCO> EmployeeID { get; set; }
     }
 }

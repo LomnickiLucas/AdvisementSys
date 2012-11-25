@@ -237,7 +237,10 @@
                         &nbsp;
                         @if (item.formid != null)
                         {
+                            if ((item.formid != null) && (User.Identity.Name == item.employeeid))
+                            {
                             <span>| &nbsp;</span>
+                            }
                             @Html.ActionLink("View related Form", "Details/" + item.formid, item.controller)             
                         }
                     </td>
@@ -249,7 +252,7 @@
             <tbody style="background-color: #F5F5F5;">
                 <tr>
                     <td colspan="2">
-                        @Html.DisplayFor(modelItem => item.notes)
+                        @Html.TextAreaFor(modelItem => item.notes, new { @style = "width:800px; height:100px;overflow: hidden; border: none;background:none", @readonly = "readonly" })
                     </td>
                 </tr>
             </tbody>
@@ -311,6 +314,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+
         $("#accordion").accordion({ collapsible: true, active: 2 });
 
         function customParser(data) {
