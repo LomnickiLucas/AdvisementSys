@@ -208,8 +208,11 @@
                 <td>
                     @if(item.Attendees.confirmed == true)
                     {
-                        <span><Strong style="color:#0AB90A;">Confirmed</Strong> (<a href="#" id="decline" value="@item.Student.studentid">Decline</a> | <a href="#" id="declineseries" value="@item.Student.studentid">Decline Series</a>)</span>
-                        
+                        <span><Strong style="color:#0AB90A;">Confirmed</Strong> </span>
+                        if(@Model.appointment.starttime > DateTime.Now)
+                        {
+                            <span>(<a href="#" id="decline" value="@item.Student.studentid">Decline</a> | <a href="#" id="declineseries" value="@item.Student.studentid">Decline Series</a>)</span>
+                        }
                         
                     }
                     else if (item.Attendees.confirmed == false)
@@ -261,14 +264,18 @@
                     @if(item.Attendees.confirmed == true)
                     {
                         <Strong style="color:#0AB90A;">Confirmed</Strong>
-                        if(item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
+                        if(@Model.appointment.starttime > DateTime.Now)
                         {
-                            <span> (<a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a></span>
-                        if(Model.appointment.repeating != null)
-                        {
-                            <span>| <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
-                        }
-                        <span>)</span>
+                            if(item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
+                            {
+                                <span> (<a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a></span>
+                            if(Model.appointment.repeating != null)
+                            {
+                                <span>| <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                            }
+                        
+                            <span>)</span>
+                            }
                         }
                         
                         
@@ -282,13 +289,17 @@
                         <Strong>Unconfirmed</Strong><br />
                         if (item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
                         {
-                            if (Model.appointment.repeating != null)
+                            if(@Model.appointment.starttime > DateTime.Now)
                             {
-                                <span><a href="#" id="confirm" value="@item.Emplployee.employeeid">Confirm</a> | <a href="#" id="confirmseries" value="@item.Emplployee.employeeid">Confirm Series</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> | <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
-                            }
-                            else
-                            {
-                                <span><a href="#" id="confirm" value="@item.Emplployee.employeeid">Confirm</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> </span>
+                                if (Model.appointment.repeating != null)
+                                {
+                                    <span><a href="#" id="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" id="confirmseries" value="@item.Emplployee.employeeid">Confirm Series</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> | <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                                }
+                                else
+                                {
+                                    <span><a href="#" id="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> </span>
+                                }
+                                @Html.HiddenFor(modelItem => item.Emplployee.employeeid, new { @id = "hdnAttendID"})
                             }
                         }
                     }
@@ -339,6 +350,16 @@
     }
     @Html.ActionLink("Back to Calendar", "Index")
 </p>
+<div id="dialog-confirmAppointment" title="Confirm Appointment?">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        You are about to confirm this Appointmnet, are you sure you want to do this?</p>
+</div>
+<div id="dialog-confirmAppointmentSeries" title="Confirm Appointment Series?">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        You are about to confirm this series of Appointmnets, are you sure you want to do this?</p>
+</div>
 <div id="dialog-confirm" title="Delete Appointment?">
     <p>
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
@@ -370,6 +391,18 @@
         </span>You have successfully deleted all the appointments part of this series!
     </p>
 </div>
+<div id="dialog-message-success-confirm" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully confirmed the appointments!
+    </p>
+</div>
+<div id="dialog-message-success-confirm-series" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully confirmed this series of appointments!
+    </p>
+</div>
 @Html.HiddenFor(model => model.appointment.appointmentid, new { @id = "appointmentid" })
 @Html.HiddenFor(model => model.appointment.repeating, new { @id = "hdnRepID" })
 <script>
@@ -383,6 +416,30 @@
                                 buttons: {
                                     Ok: function() {
                                         location = "@Url.Content("~/Calendar")";
+                                    }
+                                }
+                            });
+
+    $("#dialog-message-success-confirm").dialog({
+                                autoOpen: false,
+                                height: 200,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                    Ok: function() {
+                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
+                                    }
+                                }
+                            });
+
+    $("#dialog-message-success-confirm-series").dialog({
+                                autoOpen: false,
+                                height: 200,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                    Ok: function() {
+                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
                                     }
                                 }
                             });
@@ -455,7 +512,7 @@
                         data: { },
                         dataType: "json",
                         success: function (data) {
-                            $("#dialog-message-success-series").dialog("open");
+                            $("#dialog-message-success-confirm").dialog("open");
                         },
                         complete: function (jqXHR, textStatus) {
                             
@@ -470,6 +527,83 @@
                 }
             }
         });
+
+        $("#dialog-confirmAppointment").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 450,
+            modal: true,
+            buttons: {
+                "Confirm this Appointment": function () {
+                    $.ajax({
+                        url: "/Calendar/Confirm",
+                        type: "POST",
+                        data: { 
+                                ID: document.getElementById("hdnAttendID").value,
+                                AppointmentID: document.getElementById("appointmentid").value
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#dialog-message-success-confirm").dialog("open");
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#dialog-message-error").dialog("open");
+                        }
+                    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#dialog-confirmAppointmentSeries").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 200,
+            width: 450,
+            modal: true,
+            buttons: {
+                "Confirm this series of Appointments": function () {
+                    $.ajax({
+                        url: "/Calendar/ConfirmSeries",
+                        type: "POST",
+                        data: { 
+                                ID: document.getElementById("hdnAttendID").value,
+                                AppointmentID: document.getElementById("appointmentid").value,
+                                repeatingID: document.getElementById("hdnRepID").value
+                         },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#dialog-message-success-confirm-series").dialog("open");
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#dialog-message-error").dialog("open");
+                        }
+                    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#confirm")
+            .click(function () {
+                $("#dialog-confirmAppointment").dialog("open");
+            });
+
+        $("#confirmseries")
+            .click(function () {
+                $("#dialog-confirmAppointmentSeries").dialog("open");
+            });
 
         $("#DeleteAppointemnt")
             .click(function () {

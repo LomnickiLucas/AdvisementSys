@@ -31,7 +31,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 515px;" })
+                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 570px;" })
                         @Html.ValidationMessageFor(model => model._appointment.subject)
                     </div>
                 </td>
@@ -112,7 +112,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model._appointment.allday, "Create an appointment for the whole day:")
+                        Create an appointment<br /> for the whole day:
                     </div>
                 </td>
                 <td>
@@ -152,7 +152,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @style = "width: 515px;" })
+                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @style = "width: 570px;" })
                         @Html.ValidationMessageFor(model => model.Attendees)
                     </div>
                 </td>
@@ -160,7 +160,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.emailAll, "Send all Attendees an email notification:")
+                        Send all Attendees an<br /> email notification:
                     </div>
                 </td>
                 <td>
@@ -177,7 +177,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextAreaFor(model => model._appointment.description, new { @style = "width:515px; height:200px; resize:none;" })
+                        @Html.TextAreaFor(model => model._appointment.description, new { @style = "width:570px; height:200px; resize:none;" })
                         @Html.ValidationMessageFor(model => model._appointment.description)
                     </div>
                 </td>

@@ -69,13 +69,13 @@
                     @Html.LabelFor(model => model._student.First().FT, "Full-Time:")
                 </td>
                 <td>
-                    @Html.CheckBoxFor(model => model.fulltimestatus, new { @Value = Model.fulltimestatus })
+                    @Html.CheckBoxFor(model => model.fulltimestatus)
                 </td>
                 <td>
                     @Html.LabelFor(model => model._student.First().Prob, "Probation:")
                 </td>
                 <td>
-                    @Html.CheckBoxFor(model => model.acadprobation, new { @Value = Model.acadprobation })
+                    @Html.CheckBoxFor(model => model.acadprobation)
                 </td>
             </tr>
             <tr>
@@ -83,7 +83,7 @@
                     @Html.LabelFor(model => model._student.First().Enr, "Enrolled:")
                 </td>
                 <td>
-                    @Html.CheckBoxFor(model => model.enrolled, new { @Value = Model.enrolled })
+                    @Html.CheckBoxFor(model => model.enrolled)
                 </td>
             </tr>
             <tr>
