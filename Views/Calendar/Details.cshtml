@@ -211,7 +211,7 @@
                         <span><Strong style="color:#0AB90A;">Confirmed</Strong> </span>
                         if(@Model.appointment.starttime > DateTime.Now)
                         {
-                            <span>(<a href="#" id="decline" value="@item.Student.studentid">Decline</a> | <a href="#" id="declineseries" value="@item.Student.studentid">Decline Series</a>)</span>
+                            <span>(<a href="#" class="decline" value="@item.Student.studentid">Decline</a> | <a href="#" class="declineseries" value="@item.Student.studentid">Decline Series</a>)</span>
                         }
                         
                     }
@@ -268,10 +268,10 @@
                         {
                             if(item.Emplployee.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
                             {
-                                <span> (<a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a></span>
+                                <span> (<a href="#" class="decline" value="@item.Emplployee.employeeid">Decline</a></span>
                             if(Model.appointment.repeating != null)
                             {
-                                <span>| <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                                <span>| <a href="#" class="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
                             }
                         
                             <span>)</span>
@@ -402,6 +402,34 @@
         </span>You have successfully confirmed this series of appointments!
     </p>
 </div>
+<div id="dialog-form-decline" title="Decline Appointment">
+    <p class="validateTips">Please supply a reason for declining the Appointment.</p>
+ 
+    <form>
+        <label for="reason">reason:</label>
+        <textarea type="text" name="reason" id="reason" class="text ui-widget-content ui-corner-all required" style="width:95%; height:100px; resize:none;"></textarea>
+    </form>
+</div>
+<div id="dialog-message-success-decline" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully Declined this appointment!
+    </p>
+</div>
+<div id="dialog-form-decline-series" title="Decline Appointment">
+    <p class="validateTips">Please supply a reason for declining this series of Appointments.</p>
+ 
+    <form>
+        <label for="reason">reason:</label>
+        <textarea type="text" name="reason" id="reason" class="text ui-widget-content ui-corner-all required" style="width:95%; height:100px; resize:none;"></textarea>
+    </form>
+</div>
+<div id="dialog-message-success-decline-series" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully Declined the series of appointments!
+    </p>
+</div>
 @Html.HiddenFor(model => model.appointment.appointmentid, new { @id = "appointmentid" })
 @Html.HiddenFor(model => model.appointment.repeating, new { @id = "hdnRepID" })
 <input type="hidden" id="hdnAttendID" />
@@ -416,6 +444,30 @@
                                 buttons: {
                                     Ok: function() {
                                         location = "@Url.Content("~/Calendar")";
+                                    }
+                                }
+                            });
+
+    $("#dialog-message-success-decline").dialog({
+                                autoOpen: false,
+                                height: 200,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                    Ok: function() {
+                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
+                                    }
+                                }
+                            });
+
+    $("#dialog-message-success-decline-series").dialog({
+                                autoOpen: false,
+                                height: 200,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                    Ok: function() {
+                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
                                     }
                                 }
                             });
@@ -594,6 +646,86 @@
                 }
             }
         });
+
+        $( "#dialog-form-decline" ).dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 400,
+            width: 450,
+            modal: true,
+            buttons: {
+                "Decline this Appointment": function () {
+                    $.ajax({
+                        url: "/Calendar/Decline",
+                        type: "POST",
+                        data: { 
+                                ID: document.getElementById("hdnAttendID").value,
+                                AppointmentID: document.getElementById("appointmentid").value,
+                                Reason: document.getElementById("reason").value
+                         },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#dialog-message-success-decline").dialog("open");
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#dialog-message-error").dialog("open");
+                        }
+                    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $( "#dialog-form-decline-series" ).dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 400,
+            width: 450,
+            modal: true,
+            buttons: {
+                "Decline this series of Appointments": function () {
+                    $.ajax({
+                        url: "/Calendar/DeclineSeries",
+                        type: "POST",
+                        data: { 
+                                ID: document.getElementById("hdnAttendID").value,
+                                AppointmentID: document.getElementById("appointmentid").value,
+                                Reason: document.getElementById("reason").value
+                         },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#dialog-message-success-decline-series").dialog("open");
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#dialog-message-error").dialog("open");
+                        }
+                    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".decline")
+            .click(function () {
+                document.getElementById("hdnAttendID").value = $(this).attr("value");
+                $("#dialog-form-decline").dialog("open");
+            });
+
+        $(".declineseries")
+            .click(function () {
+                document.getElementById("hdnAttendID").value = $(this).attr("value");
+                $("#dialog-form-decline-series").dialog("open");
+            });
 
         $(".confirm")
             .click(function () {

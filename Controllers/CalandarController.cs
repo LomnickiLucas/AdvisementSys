@@ -1302,5 +1302,182 @@ namespace AdvisementSys.Controllers
 
             SmtpServer.Send(mail);
         }
+
+        [HttpPost, ActionName("Decline")]
+        public ActionResult Decline(String id, Guid appointmentID, string reason)
+        {
+            Attendee model = db.Attendees.SingleOrDefault(a => a.attendee1 == id && a.appointmentid.Equals(appointmentID));
+
+            model.confirmed = false;
+            model.reason = reason;
+
+            db.Attendees.Attach(model);
+            db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
+            db.SaveChanges();
+
+            appointment appointment = db.appointments.SingleOrDefault(a => a.appointmentid.Equals(appointmentID));
+
+            EmailAttendeesDecline(id, appointment);
+
+            return Json("200");
+        }
+
+        private void EmailAttendeesDecline(String id, appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            String fname = "";
+            String lname = "";
+
+            employee i = db.employees.SingleOrDefault(e => e.employeeid == id);
+
+            if (i != null)
+            {
+                fname = i.fname;
+                lname = i.lname;
+            }
+            else
+            {
+                student s = db.students.SingleOrDefault(c => c.studentid == id);
+
+                fname = s.fname;
+                lname = s.lname;
+            }
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            mail.To.Add(EmailTo);
+            mail.Subject = fname + " " + lname + " has Declined an Appointment";
+            mail.Body = fname + " " + lname + " has declined the " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        [HttpPost, ActionName("DeclineSeries")]
+        public ActionResult DeclineSeries(String id, Guid appointmentID, string reason)
+        {
+            Attendee model;
+            appointment appointID = db.appointments.SingleOrDefault(a => a.appointmentid == appointmentID);
+            IEnumerable<appointment> appointments = db.appointments.Where(i => i.repeating == appointID.repeating);
+
+            foreach (appointment appointment in appointments)
+            {
+                IEnumerable<Attendee> Attendees = db.Attendees.Where(a => a.appointmentid == appointment.appointmentid);
+
+                foreach (Attendee attend in Attendees)
+                {
+                    if (attend.attendee1 == id)
+                    {
+                        model = attend;
+
+                        model.confirmed = false;
+                        model.reason = reason;
+
+                        db.Attendees.Attach(model);
+                        db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
+                    }
+                }
+            }
+
+            db.SaveChanges();
+
+            appointment appoint = db.appointments.SingleOrDefault(a => a.appointmentid.Equals(appointmentID));
+
+            EmailAttendeesDeclineSeries(id, appoint);
+
+            return Json("200");
+        }
+
+        private void EmailAttendeesDeclineSeries(String id, appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            String fname = "";
+            String lname = "";
+
+            employee i = db.employees.SingleOrDefault(e => e.employeeid == id);
+
+            if (i != null)
+            {
+                fname = i.fname;
+                lname = i.lname;
+            }
+            else
+            {
+                student s = db.students.SingleOrDefault(c => c.studentid == id);
+
+                fname = s.fname;
+                lname = s.lname;
+            }
+
+            IEnumerable<appointment> appointments = db.appointments.Where(a => a.repeating == appointment.repeating).OrderBy(a => a.starttime);
+
+            DateTime start = appointments.First().starttime;
+            DateTime end = appointments.OrderByDescending(a => a.starttime).First().starttime;
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            mail.To.Add(EmailTo);
+            mail.Subject = fname + " " + lname + " has Declined an Appointment";
+            mail.Body = fname + " " + lname + " has declined the " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + start + " to " + end
+                + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
     }
 }
