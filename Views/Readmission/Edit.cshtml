@@ -1,7 +1,7 @@
 ﻿@model AdvisementSys.Models.Request.EditReadmissionForm
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Update Application for Readmission";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,7 +18,7 @@
     @Html.HiddenFor(model => model._applicationForReadmission.approved, new { id = "approved" })
     @Html.HiddenFor(model => model._applicationForReadmission.special, new { id = "special" })
 
-    <h2>Edit Application for Readmission</h2>
+    <h2>Update Application for Readmission</h2>
     <table style="width: 800px;">
         <tr>
             <td colspan="4">
@@ -81,7 +81,7 @@
                 Status:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForReadmission.status), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForReadmission.status), new { @class = "required", @style="width:170px;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.status)
             </td>
         </tr>
@@ -95,7 +95,7 @@
                 Purpose:
             </td>
             <td colspan="3">
-                @Html.DropDownListFor(model => model._applicationForReadmission.purpose, new SelectList(new[] { "Readmission", "Campus Transfer", "Program Transfer" }, Model._applicationForReadmission.purpose), new { @class = "required" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.purpose, new SelectList(new[] { "Readmission", "Campus Transfer", "Program Transfer" }, Model._applicationForReadmission.purpose), new { @class = "required", @style = "width:170px;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.purpose)
             </td>
         </tr>
@@ -132,7 +132,7 @@
                 *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { id = "newsemyear", @class = "required newsemyearvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.newsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.newsemyear), new { id = "newsemyear", @class = "required newsemyearvalidate", @style = "width:175px;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.newsemyear)
             </td>
         </tr>
@@ -169,7 +169,7 @@
                 *Semester:
             </td>
             <td>
-                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { id = "oldsemyear", @class = "required oldsemyearvalidate" })
+                @Html.DropDownListFor(model => model._applicationForReadmission.oldsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.AddYears(-2).Year, "Fall " + DateTime.Now.AddYears(-2).Year, "Winter " + DateTime.Now.AddYears(-1).Year, "Spring " + DateTime.Now.AddYears(-1).Year, "Fall " + DateTime.Now.AddYears(-1).Year, "Winter " + DateTime.Now.Year, "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year }, Model._applicationForReadmission.oldsemyear), new { id = "oldsemyear", @class = "required oldsemyearvalidate", @style = "width:175px;" })
                 @Html.ValidationMessageFor(model => model._applicationForReadmission.oldsemyear)
             </td>
         </tr>
@@ -255,7 +255,7 @@
                             Semester:
                         </td>
                         <td>
-                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { id = "recommendedYear", @class = "required recommendedyearvalidate" })
+                            @Html.DropDownListFor(model => model._applicationForReadmission.recommendedsemyear, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForReadmission.recommendedsemyear), new { id = "recommendedYear", @class = "required recommendedyearvalidate", @style = "width:175px;" })
                             @Html.ValidationMessageFor(model => model._applicationForReadmission.recommendedsemyear)
                         </td>
                     </tr>

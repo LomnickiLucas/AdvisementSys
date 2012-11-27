@@ -48,7 +48,7 @@ namespace AdvisementSys.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Student");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                     else
@@ -133,7 +133,7 @@ namespace AdvisementSys.Controllers
                             //Roles.
                             Roles.AddUserToRole(model.UserName, model.position);
                             FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                            return RedirectToAction("Index", "issue");
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {

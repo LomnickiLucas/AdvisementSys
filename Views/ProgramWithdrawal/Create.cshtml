@@ -1,7 +1,7 @@
 ﻿@model AdvisementSys.Models.Request.CreateProgramWithdrawalModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New Application for Term or Complete Program Withdrawal Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -94,7 +94,7 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, "*Status:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForTermOrCompleteProgramWithdrawal.status), new {  @class = "required" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status, new SelectList(new[] { "In Progress", "On Hold", "Complete" }, Model._applicationForTermOrCompleteProgramWithdrawal.status), new {  @class = "required", @style="width:160px;" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.status)
                 </td>
             </tr>
@@ -103,14 +103,14 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, "*Will be withdrawn on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { id="withdrawalterm", @class = "select1Validation" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { id = "withdrawalterm", @class = "select1Validation", @style = "width:160px;" })
                     @Html.ValidationMessageFor(model => model._applicationForTermOrCompleteProgramWithdrawal.withdrawalterm)            
                 </td>
                 <td>
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { id="returmterm", @class = "select2Validation" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Summer " + DateTime.Now.AddYears(1).Year }), new { id="returmterm", @class = "select2Validation", @style="width:160px;" })
                 </td>
             </tr>
         

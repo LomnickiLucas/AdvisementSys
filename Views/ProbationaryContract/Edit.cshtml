@@ -1,7 +1,7 @@
 ﻿@model AdvisementSys.Models.Request.EditProbationaryContractModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Update Probationary Contract Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -52,7 +52,7 @@
                     *Incoming Term:
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._probationaryContractPlan.incomingterm, new SelectList(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, Model._probationaryContractPlan.incomingterm), new { @class = "required" })
+                    @Html.DropDownListFor(model => model._probationaryContractPlan.incomingterm, new SelectList(new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, Model._probationaryContractPlan.incomingterm), new { @class = "required", @style = "width:95px;" })
                     @Html.ValidationMessageFor(model => model._probationaryContractPlan.incomingterm)
                 </td>
             </tr>

@@ -1,7 +1,7 @@
 ﻿@model AdvisementSys.Models.Request.CreateIssueRequestModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New Issue";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,7 +17,7 @@
     <h2>New Issue for @Html.DisplayFor(model => model._student.fname) @Html.DisplayFor(model => model._student.lname)</h2>
     <p>Please complete the following fields in order to create a new issue in the database.</p>
     
-    <table>
+    <table style="width:900px;">
         <tr>
            <td><h3>Student Information</h3></td>
         </tr>
@@ -66,14 +66,14 @@
             @Html.LabelFor(model => model._issue.issuename, "*Issue Name:")
         </div></td>
             <td><div class="editor-field">
-            @Html.TextBoxFor(model => model._issue.issuename, new { @class = "required" })
+            @Html.TextBoxFor(model => model._issue.issuename, new { @class = "required", @style="width:240px;"})
             @Html.ValidationMessageFor(model => model._issue.issuename)
         </div></td>
             <td><div class="editor-label">
             @Html.LabelFor(model => model._issue.date, "Date:")
         </div></td>
             <td><div class="editor-field">
-            @Html.TextBoxFor(model => model._issue.date, new { @id = "datepicker", @Value = Model._issue.date.ToString("dd MMM yyyy") })
+            @Html.TextBoxFor(model => model._issue.date, new { @id = "datepicker", @Value = Model._issue.date.ToString("dd MMM yyyy"), @style="width:180px;" })
             @Html.ValidationMessageFor(model => model._issue.date)
         </div></td>
         </tr>
@@ -83,14 +83,14 @@
             @Html.LabelFor(model => model._issue.status, "Status:")
         </div></td>
         <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete", "Pending" }))
+            @Html.DropDownListFor(model => model._issue.status, new SelectList(new[] { "In Progress", "On Hold", "Complete", "Pending" }), new { @style="width:190px;"})
             @Html.ValidationMessageFor(model => model._issue.status)
         </div></td>
         <td><div class="editor-label">
             @Html.LabelFor(model => model._issue.urgency, "Urgency:")
         </div></td>
         <td><div class="editor-field">
-            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }))
+            @Html.DropDownListFor(model => model._issue.urgency, new SelectList(new[] { "High", "Medium", "Low" }), new { @style="width:190px;"})
             @Html.ValidationMessageFor(model => model._issue.urgency)
         </div></td>
         </tr> 
@@ -110,7 +110,7 @@
             </td>
             <td>
                 <div class="display-field">
-                    @Html.DropDownListFor(model => model._issue.catagory, new SelectList(Model._catagory, "catagory1", "catagory1"))
+                    @Html.DropDownListFor(model => model._issue.catagory, new SelectList(Model._catagory, "catagory1", "catagory1"), new { @style = "width:190px;" })
                 </div>
             </td>
         </tr>   
@@ -121,7 +121,7 @@
            
             <td colspan="3">
                
-                    @Html.TextAreaFor(model => model._issue.description, new { @style = "width:750px; height:80px; resize:none;" })
+                    @Html.TextAreaFor(model => model._issue.description, new { @style = "width:650px; height:80px; resize:none;" })
               
             </td>   
         </tr>

@@ -1,12 +1,12 @@
 ﻿@model AdvisementSys.Models.Request.DetailsLateEnrollementModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Request for Late Enrolment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/css/note.form.css")" rel="stylesheet" type="text/css" />
 <div id="topAnchor"></div>
-<h2>Request for Late Enrolment</h2>
+<h2>Details for Request for Late Enrolment</h2>
 
 @Html.HiddenFor(model => model._requestForLateEnrolment.enrolementid)
 @Html.HiddenFor(model => model._requestForLateEnrolment.issueid)

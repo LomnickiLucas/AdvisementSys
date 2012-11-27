@@ -1,50 +1,84 @@
 ﻿@model AdvisementSys.Models.employee
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "User Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-
-<fieldset>
-    <legend>employee</legend>
-
-    <div class="display-label">Employee ID</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.employeeid)
-    </div>
-
-    <div class="display-label">fname</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fname)
-    </div>
-
-    <div class="display-label">lname</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.lname)
-    </div>
-
-    <div class="display-label">phonenum</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.phonenum)
-    </div>
-
-    <div class="display-label">email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.email)
-    </div>
-
-    <div class="display-label">faculty</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.faculty)
-    </div>
-
-    <div class="display-label">role</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.role)
-    </div>
-</fieldset>
+<link href="@Url.Content("~/Content/css/web.form.css")" rel="stylesheet" type="text/css" />
+<h2 style="padding-left: 13px;">
+    User Details for @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h2>
+<table class="tableDetail">
+    <tr>
+        <td>
+            <div class="display-label">
+                Employee ID:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.employeeid)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Email:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.email)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                First Name:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.fname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Phone Number:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.phonenum)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Last Name:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.lname)
+            </div>
+        </td>
+        <td>
+            <div class="display-label">
+                Role:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.role)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                Faculty:</div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.faculty)
+            </div>
+        </td>
+    </tr>
+</table>
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>

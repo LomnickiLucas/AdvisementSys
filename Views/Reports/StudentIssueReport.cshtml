@@ -1,6 +1,6 @@
 ﻿@model AdvisementSys.Models.StudentReportModel
 @{
-    ViewBag.Title = "StudentIssueReport";
+    ViewBag.Title = "Student Issue Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -9,7 +9,7 @@
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
 
-<h2>StudentIssueReport</h2>
+<h2>Student Issue Report</h2>
 @using (Html.BeginForm("StudentIssueReport", "Reports", FormMethod.Post, new { id = "reportForm", name = "reportForm" }))
 {
         <span>Student ID:</span>

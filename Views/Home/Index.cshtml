@@ -1,7 +1,7 @@
 ﻿@model AdvisementSys.Controllers.IndexHomeModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
@@ -30,12 +30,12 @@ type="text/css" media="print" />
 <table>
     <tr>
         <td width="650px">
-            <h2>This Weeks Appointments</h2>
+            <h2>This Week's Appointments</h2>
             <div id="dategrid" style="height: 380px; width: 90%;">
             </div>
         </td>
         <td>
-            @Html.ActionLink("Create a Appointment", "Create", "Calendar", null, new { @id="cmdCreate" })
+            @Html.ActionLink("Create New Appointment", "Create", "Calendar", null, new { @id="cmdCreate" })
             <div id='calendar'></div>
         </td>
     </tr>

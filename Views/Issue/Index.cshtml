@@ -1,6 +1,6 @@
 ﻿@model AdvisementSys.Models.Request.IndexIssueRequestModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search Issues";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
@@ -18,7 +18,7 @@
 {
     @Html.ValidationSummary(true)
 
-    <table style="width:800px;">
+    <table style="width:1000px;">
         <tr>
             <td>
                 @Html.LabelFor(model => model._issue.First().Name, "Issue Name:")
