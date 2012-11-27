@@ -28,11 +28,24 @@ namespace AdvisementSys.Controllers
                     Events Event = new Events();
                     Event.id = appointment.appointmentid;
                     Event.title = appointment.subject;
-                    Event.allDay = false;
+                    Event.allDay = appointment.allday;
                     Event.start = ConvertToUnixTimestamp(appointment.starttime).ToString();
                     Event.end = ConvertToUnixTimestamp(appointment.endtime).ToString();
-                    Event.url = Url.Action("Details/" + appointment.appointmentid.ToString(), "Calendar");
+                    Event.url = Url.Action("Details/" + appointment.appointmentid.ToString());
+                    switch (appointment.appointmenttype.Trim())
+                    {
+                        case "Personal":
+                            Event.color = "#009B00";
+                            break;
 
+                        case "Advisement":
+                            Event.color = "#36C";
+                            break;
+
+                        case "Office":
+                            Event.color = "#800080";
+                            break;
+                    }
                     Events.Add(Event);
                 }
 
