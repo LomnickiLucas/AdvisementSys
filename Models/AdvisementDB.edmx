@@ -491,7 +491,7 @@
           <Property Name="fname" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="lname" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="phonenum" Type="char" Nullable="false" MaxLength="12" />
-          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="faculty" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="role" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="archived" Type="bit" Nullable="false" />
