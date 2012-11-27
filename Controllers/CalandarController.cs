@@ -22,6 +22,10 @@ namespace AdvisementSys.Controllers
         //
         // GET: /Calandar/
 
+        /// <summary>
+        /// populates Index view and includes all appointments for the receptionist.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             IEnumerable<appointment> appoint;
@@ -96,6 +100,11 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// peforms postback for Index filters in order to create a less chaotic look.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(IndexCalendarModel model)
         {
@@ -224,6 +233,11 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// populates the details page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid id)
         {
             appointment appointment = db.appointments.Single(i => i.appointmentid == id);
@@ -257,6 +271,12 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// populates the reate page
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="subject"></param>
+        /// <returns></returns>
         public ActionResult Create(String id, String subject)
         {
             appointment appointment = new appointment() { starttime = DateTime.Now, endtime = DateTime.Now.AddHours(.5) };
@@ -308,6 +328,11 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// creates appointments
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(CreateAppointmentRequestModel model)
         {
@@ -755,6 +780,11 @@ namespace AdvisementSys.Controllers
             }
         }
 
+        /// <summary>
+        /// not complete still needs to be re-written
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             appointment appointment = db.appointments.Single(i => i.appointmentid == id);
@@ -795,6 +825,11 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Still needs to be re written
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(CreateAppointmentRequestModel model)
         {
@@ -828,6 +863,11 @@ namespace AdvisementSys.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// gets invoked via AJAX for deletion of appointments
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -857,6 +897,11 @@ namespace AdvisementSys.Controllers
             }
         }
 
+        /// <summary>
+        /// AJAX invokes this and it deletes appointment series
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("DeleteSeries")]
         public ActionResult DeleteSeriesConfirmed(Guid id)
         {
@@ -890,6 +935,11 @@ namespace AdvisementSys.Controllers
             }
         }
 
+        /// <summary>
+        /// convert
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private double ConvertToUnixTimestamp(DateTime value)
         {
             //create Timespan by subtracting the value provided from
@@ -1466,8 +1516,8 @@ namespace AdvisementSys.Controllers
 
             mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
-            mail.Subject = fname + " " + lname + " has Declined an Appointment";
-            mail.Body = fname + " " + lname + " has declined the " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + start + " to " + end
+            mail.Subject = fname + " " + lname + " has Declined the Appointment Series";
+            mail.Body = fname + " " + lname + " has declined the " + appointment.appointmenttype.Trim() + " appointment series regarding " + appointment.subject + " at " + start + " to " + end
                 + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
 
