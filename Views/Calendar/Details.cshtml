@@ -293,11 +293,11 @@
                             {
                                 if (Model.appointment.repeating != null)
                                 {
-                                    <span><a href="#" id="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" id="confirmseries" value="@item.Emplployee.employeeid">Confirm Series</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> | <a href="#" id="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
+                                    <span><a href="#" class="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" class="confirmseries" value="@item.Emplployee.employeeid">Confirm Series</a> | <a href="#" class="decline" value="@item.Emplployee.employeeid">Decline</a> | <a href="#" class="declineseries" value="@item.Emplployee.employeeid">Decline Series</a></span>
                                 }
                                 else
                                 {
-                                    <span><a href="#" id="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" id="decline" value="@item.Emplployee.employeeid">Decline</a> </span>
+                                    <span><a href="#" class="confirm" value="@item.Emplployee.employeeid.ToString()">Confirm</a> | <a href="#" class="decline" value="@item.Emplployee.employeeid">Decline</a> </span>
                                 }
                             }
                         }
@@ -401,16 +401,6 @@
         <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
         </span>You have successfully confirmed this series of appointments!
     </p>
-</div>
-<div id="dialog-form" title="Decline Appoinment">
-    <p class="validateTips">Please give a reason for declining.</p>
- 
-    <form>
-    <fieldset>
-        <label for="name">Reason for Declining:</label>
-        <textarea name="reason" id="reason" class="text ui-widget-content ui-corner-all" />
-    </fieldset>
-    </form>
 </div>
 @Html.HiddenFor(model => model.appointment.appointmentid, new { @id = "appointmentid" })
 @Html.HiddenFor(model => model.appointment.repeating, new { @id = "hdnRepID" })
@@ -605,55 +595,13 @@
             }
         });
 
-        $( "#dialog-form" ).dialog({
-            autoOpen: false,
-            height: 300,
-            width: 350,
-            modal: true,
-            buttons: {
-                "Create an account": function() {
-                    var bValid = true;
-                    allFields.removeClass( "ui-state-error" );
- 
-                    bValid = bValid && checkLength( name, "username", 3, 16 );
-                    bValid = bValid && checkLength( email, "email", 6, 80 );
-                    bValid = bValid && checkLength( password, "password", 5, 16 );
- 
-                    bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-                    
-                    bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
- 
-                    if ( bValid ) {
-                        $( "#users tbody" ).append( "<tr>" +
-                            "<td>" + name.val() + "</td>" + 
-                            "<td>" + email.val() + "</td>" + 
-                            "<td>" + password.val() + "</td>" +
-                        "</tr>" ); 
-                        $( this ).dialog( "close" );
-                    }
-                },
-                Cancel: function() {
-                    $( this ).dialog( "close" );
-                }
-            },
-            close: function() {
-                allFields.val( "" ).removeClass( "ui-state-error" );
-            }
-        });
-
-        $("#decline")
-            .click(function () {
-                document.getElementById("hdnAttendID").value = $(this).attr("value");
-                $( "#dialog-form" ).dialog( "open" );
-            });
-
-        $("#confirm")
+        $(".confirm")
             .click(function () {
                 document.getElementById("hdnAttendID").value = $(this).attr("value");
                 $("#dialog-confirmAppointment").dialog("open");
             });
 
-        $("#confirmseries")
+        $(".confirmseries")
             .click(function () {
                 document.getElementById("hdnAttendID").value = $(this).attr("value");
                 $("#dialog-confirmAppointmentSeries").dialog("open");
