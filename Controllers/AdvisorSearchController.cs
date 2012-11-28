@@ -14,6 +14,10 @@ namespace AdvisementSys.Controllers
         //
         // GET: /AdvisorSearch/
 
+        /// <summary>
+        /// populates search advisor view
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
@@ -70,6 +74,11 @@ namespace AdvisementSys.Controllers
             }
         }
 
+        /// <summary>
+        /// post back for index just filters down the results based off of the search criteria
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(IndexAdvisorSearchModel model)
         {
@@ -152,6 +161,11 @@ namespace AdvisementSys.Controllers
             }
         }
 
+        /// <summary>
+        /// just pushes the advisor details up to a view so it may be viewed
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(String id)
         {
             try

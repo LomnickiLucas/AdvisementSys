@@ -340,6 +340,7 @@ namespace AdvisementSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //deconstructs the string down to a collection of student IDs
                     List<String> attendeesID = new List<string>();
                     if (model.Attendees != null)
                     {
@@ -409,7 +410,7 @@ namespace AdvisementSys.Controllers
                     TimeSpan time2 = new TimeSpan(date2.Hour, date2.Minute, date2.Second);
                     model._appointment.starttime = model._appointment.starttime.Add(time1);
                     model._appointment.endtime = model._appointment.endtime.Add(time2);
-
+                    //based on whether the appointment is repeating will use one fo the following sets of code to create the appoinment/series of appointments
                     if (model.repeating.Trim().Equals("Not Repeating"))
                     {
                         model._appointment.appointmentid = Guid.NewGuid();
@@ -936,7 +937,7 @@ namespace AdvisementSys.Controllers
         }
 
         /// <summary>
-        /// convert
+        /// convert to a unix time stammp
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -950,6 +951,11 @@ namespace AdvisementSys.Controllers
             return (double)span.TotalSeconds;
         }
 
+
+        /// <summary>
+        /// sends an email to all attendees to a series of appointments informing them that the appointments have been deleted
+        /// </summary>
+        /// <param name="appointments"></param>
         private void DeleteSeriesEmail(IEnumerable<appointment> appointments)
         {
             MailMessage mail = new MailMessage();
@@ -1000,6 +1006,10 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// Sends an Email notification informing that an appointmnet has been deleted to all attendees of the appointment
+        /// </summary>
+        /// <param name="appointment"></param>
         private void DeleteEmail(appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1041,6 +1051,11 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// Sends an email to the creator of the appointment confirming that the appointment has been created
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <param name="appointment"></param>
         private void ConfirmationEmail(employee employee, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1060,6 +1075,11 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// sends an email to the creater of the appointment confirming that the the series appointments have been created. 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <param name="appointment"></param>
         private void ConfirmationEmailSeries(employee employee, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1084,6 +1104,11 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// sends an email to the attendees informing that they have been invited to an appointment
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendees(employee emp, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1129,6 +1154,11 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// sends an email to the attendees informing that they have been invited to an series of appointments 
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendeesSeries(employee emp, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1179,6 +1209,12 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// Is called via AJAX an confirms an attendee
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointmentID"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Confirm")]
         public ActionResult Confirm(String id, Guid appointmentID)
         {
@@ -1197,6 +1233,11 @@ namespace AdvisementSys.Controllers
             return Json("200");
         }
 
+        /// <summary>
+        /// emails all attendees of an appointment informing them that an attendee has confirmed the appointment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendeesConfirmation(String id, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1256,6 +1297,13 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// Is called via AJAX to confirm an attendee of an appointment for a series of appoinhtments
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointmentID"></param>
+        /// <param name="repeatingID"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("ConfirmSeries")]
         public ActionResult ConfirmSeries(String id, Guid appointmentID, Guid repeatingID)
         {
@@ -1289,6 +1337,11 @@ namespace AdvisementSys.Controllers
             return Json("200");
         }
 
+        /// <summary>
+        /// emails all attendees informing them that an attendee has confirmed a series of appointments
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendeesConfirmationSeries(String id, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1353,6 +1406,13 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// Is called via AJAX to set an attendee as declinging an appointment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointmentID"></param>
+        /// <param name="reason"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Decline")]
         public ActionResult Decline(String id, Guid appointmentID, string reason)
         {
@@ -1372,6 +1432,11 @@ namespace AdvisementSys.Controllers
             return Json("200");
         }
 
+        /// <summary>
+        /// emails all attendees of an appointment infoirming them that an attendee has decling an appointment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendeesDecline(String id, appointment appointment)
         {
             MailMessage mail = new MailMessage();
@@ -1431,6 +1496,13 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        /// <summary>
+        /// is called VIA Ajax and declines an attendee from an appointment series
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointmentID"></param>
+        /// <param name="reason"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("DeclineSeries")]
         public ActionResult DeclineSeries(String id, Guid appointmentID, string reason)
         {
@@ -1466,6 +1538,11 @@ namespace AdvisementSys.Controllers
             return Json("200");
         }
 
+        /// <summary>
+        /// Emails all attenddees that an attendee has declined an a series of appointments
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="appointment"></param>
         private void EmailAttendeesDeclineSeries(String id, appointment appointment)
         {
             MailMessage mail = new MailMessage();
