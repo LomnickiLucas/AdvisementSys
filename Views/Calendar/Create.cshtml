@@ -31,7 +31,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 570px;" })
+                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 590px;" })
                         @Html.ValidationMessageFor(model => model._appointment.subject)
                     </div>
                 </td>
@@ -112,22 +112,22 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        Create an appointment<br /> for the whole day:
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-field">
-                        @Html.CheckBoxFor(model => model._appointment.allday, new { @id = "allDay", @onclick = "formatDates()" })
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
                         @Html.LabelFor(model => model._appointment.allday, "Repeating Event:")
                     </div>
                 </td>
                 <td>
                     <div class="editor-field">
                         @Html.DropDownListFor(model => model.repeating, new SelectList(Model.repeatingType, Model.repeatingType), new { @id = "ddlRepeating", @class = "field", @onchange = "repeatingDateRange()" })
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        Create an appointment<br /> for the whole day:
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.CheckBoxFor(model => model._appointment.allday, new { @id = "allDay", @onclick = "formatDates()" })
                     </div>
                 </td>
             </tr>
@@ -152,7 +152,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @style = "width: 570px;" })
+                        @Html.TextBoxFor(model => model.Attendees, new { @id = "txtID", @style = "width: 590px;" })
                         @Html.ValidationMessageFor(model => model.Attendees)
                     </div>
                 </td>
@@ -177,7 +177,7 @@
                 </td>
                 <td colspan="3">
                     <div class="editor-field">
-                        @Html.TextAreaFor(model => model._appointment.description, new { @style = "width:570px; height:200px; resize:none;" })
+                        @Html.TextAreaFor(model => model._appointment.description, new { @style = "width:590px; height:200px; resize:none;" })
                         @Html.ValidationMessageFor(model => model._appointment.description)
                     </div>
                 </td>
