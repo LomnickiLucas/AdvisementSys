@@ -236,8 +236,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\AdvisementSys.dll" />
-    <Content Include="bin\AdvisementSys.pdb" />
     <Content Include="Content\css\grid.form.css" />
     <Content Include="Content\css\web.form.css" />
     <Content Include="Content\kendo\2012.2.710\Black\editor.png" />
