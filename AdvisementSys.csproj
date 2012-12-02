@@ -242,6 +242,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\themes\base\images\sheridan_logo.png" />
     <Content Include="lib\Microsoft.ReportViewer.Common.dll" />
     <Content Include="lib\Microsoft.ReportViewer.WebForms.dll" />
     <Content Include="Content\css\grid.form.css" />
@@ -340,6 +341,7 @@
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.textarea-expander.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
