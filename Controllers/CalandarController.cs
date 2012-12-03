@@ -907,6 +907,59 @@ namespace AdvisementSys.Controllers
             SmtpServer.Send(mail);
         }
 
+        [HttpPost, ActionName("RemoveAttendee")]
+        public ActionResult RemoveAttendee(String id, Guid appointmentid)
+        {
+            try
+            {
+                Attendee Attendees = db.Attendees.SingleOrDefault(a => a.appointmentid == appointmentid && a.attendee1 == id);
+
+                if (Attendees != null)
+                {
+                    db.Attendees.DeleteObject(Attendees);
+
+                    RemoveAttendeeEmail(id, appointmentid);
+
+                    return Json("200");
+                }
+                return Json("503");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            finally
+            {
+                db.SaveChanges();
+            }
+        }
+
+        private void RemoveAttendeeEmail(String id, Guid appointmentid)
+        {
+            employee employee = db.employees.SingleOrDefault(emp => emp.employeeid == id);
+
+            appointment appointment = db.appointments.SingleOrDefault(a => a.appointmentid == appointmentid);
+
+            employee chair = db.employees.SingleOrDefault(emp => emp.employeeid == appointment.employeeid);
+
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            mail.To.Add(employee.email);
+            mail.Subject = "You Have Been Removed From an Appointment";
+            mail.Body = "You have been removed from an " + appointment.appointmenttype.Trim() + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " and the appointment will take place at " + appointment.cname + ".If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
         /// <summary>
         /// gets invoked via AJAX for deletion of appointments
         /// </summary>

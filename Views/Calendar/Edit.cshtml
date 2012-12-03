@@ -316,44 +316,15 @@
         </span>You have successfully deleted all the appointments part of this series!
     </p>
 </div>
-<div id="dialog-message-success-confirm" title="Success!">
+<div id="dialog-remove_attendee" title="Remove Attendee">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        You are about to remove an Attendee from this Appointmnet, are you sure you want to do this?</p>
+</div>
+<div id="dialog-message-success-remove_attendee" title="Success!">
     <p>
         <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully confirmed the appointments!
-    </p>
-</div>
-<div id="dialog-message-success-confirm-series" title="Success!">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully confirmed this series of appointments!
-    </p>
-</div>
-<div id="dialog-form-decline" title="Decline Appointment">
-    <p class="validateTips">Please supply a reason for declining the Appointment.</p>
- 
-    <form>
-        <label for="reason">Reason:</label>
-        <textarea type="text" name="reason" id="reason" class="text ui-widget-content ui-corner-all required expand" style="width:95%; height:100px; resize:none;"></textarea>
-    </form>
-</div>
-<div id="dialog-message-success-decline" title="Success!">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully Declined this appointment!
-    </p>
-</div>
-<div id="dialog-form-decline-series" title="Decline Appointment">
-    <p class="validateTips">Please supply a reason for declining this series of Appointments.</p>
- 
-    <form>
-        <label for="reasonseries">Reason:</label>
-        <textarea type="text" name="reasonseries" id="reasonseries" class="text ui-widget-content ui-corner-all required expand" style="width:95%; height:100px; resize:none;"></textarea>
-    </form>
-</div>
-<div id="dialog-message-success-decline-series" title="Success!">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully Declined the series of appointments!
+        </span>You have successfully removed an Attendee from this appointment!
     </p>
 </div>
 <input type="hidden" id="hdnAttendID" />
@@ -407,7 +378,7 @@ $('#timepicker2').timepicker({
                                 }
                             });
 
-    $("#dialog-message-success-decline").dialog({
+    $("#dialog-message-success-remove_attendee").dialog({
                                 autoOpen: false,
                                 height: 200,
                                 width: 450,
@@ -419,41 +390,6 @@ $('#timepicker2').timepicker({
                                 }
                             });
 
-    $("#dialog-message-success-decline-series").dialog({
-                                autoOpen: false,
-                                height: 200,
-                                width: 450,
-                                modal: true,
-                                buttons: {
-                                    Ok: function() {
-                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
-                                    }
-                                }
-                            });
-
-    $("#dialog-message-success-confirm").dialog({
-                                autoOpen: false,
-                                height: 200,
-                                width: 450,
-                                modal: true,
-                                buttons: {
-                                    Ok: function() {
-                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
-                                    }
-                                }
-                            });
-
-    $("#dialog-message-success-confirm-series").dialog({
-                                autoOpen: false,
-                                height: 200,
-                                width: 450,
-                                modal: true,
-                                buttons: {
-                                    Ok: function() {
-                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
-                                    }
-                                }
-                            });
 
     $("#dialog-message-success-series").dialog({
                                 autoOpen: false,
@@ -606,25 +542,24 @@ $('#timepicker2').timepicker({
             }
         });
 
-        $( "#dialog-form-decline" ).dialog({
+        $( "#dialog-remove_attendee" ).dialog({
             autoOpen: false,
             resizable: true,
-            height: 400,
+            height: 200,
             width: 450,
             modal: true,
             buttons: {
-                "Decline this Appointment": function () {
+                "Remove Attendee": function () {
                     $.ajax({
-                        url: "/Calendar/Decline",
+                        url: "/Calendar/RemoveAttendee",
                         type: "POST",
                         data: { 
                                 ID: document.getElementById("hdnAttendID").value,
-                                AppointmentID: document.getElementById("appointmentid").value,
-                                Reason: document.getElementById("reason").value
+                                AppointmentID: document.getElementById("appointmentid").value
                          },
                         dataType: "json",
                         success: function (data) {
-                            $("#dialog-message-success-decline").dialog("open");
+                            $("#dialog-message-success-remove_attendee").dialog("open");
                         },
                         complete: function (jqXHR, textStatus) {
                             
@@ -640,50 +575,10 @@ $('#timepicker2').timepicker({
             }
         });
 
-        $( "#dialog-form-decline-series" ).dialog({
-            autoOpen: false,
-            resizable: true,
-            height: 400,
-            width: 450,
-            modal: true,
-            buttons: {
-                "Decline this series of Appointments": function () {
-                    $.ajax({
-                        url: "/Calendar/DeclineSeries",
-                        type: "POST",
-                        data: { 
-                                ID: document.getElementById("hdnAttendID").value,
-                                AppointmentID: document.getElementById("appointmentid").value,
-                                Reason: document.getElementById("reasonseries").value
-                         },
-                        dataType: "json",
-                        success: function (data) {
-                            $("#dialog-message-success-decline-series").dialog("open");
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $("#dialog-message-error").dialog("open");
-                        }
-                    });
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $(".decline")
+        $(".remove_attendee")
             .click(function () {
                 document.getElementById("hdnAttendID").value = $(this).attr("value");
-                $("#dialog-form-decline").dialog("open");
-            });
-
-        $(".declineseries")
-            .click(function () {
-                document.getElementById("hdnAttendID").value = $(this).attr("value");
-                $("#dialog-form-decline-series").dialog("open");
+                $("#dialog-remove_attendee").dialog("open");
             });
 
         $(".confirm")
