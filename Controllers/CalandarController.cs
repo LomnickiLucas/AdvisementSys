@@ -821,9 +821,23 @@ namespace AdvisementSys.Controllers
                 list.Add(camp.cname);
             }
 
+            IEnumerable<employee> employees = db.employees;
+            List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
+            foreach (employee emp in employees)
+            {
+                AutoCompletePOCO poco = new AutoCompletePOCO()
+                {
+                    value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                    Email = emp.email,
+                    Role = emp.role
+                };
+                EmployeeID.Add(poco);
+            }
+
             String[] AppointmentType = new String[3] { "Advisement", "Personal", "Office" };
 
-            EditCalendarModel model = new EditCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid), appoingmentType = AppointmentType, _campus = list, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString() };
+            EditCalendarModel model = new EditCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid), appoingmentType = AppointmentType, _campus = list, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString(), EmployeeID = EmployeeID };
 
             return View(model);
         }
@@ -838,6 +852,33 @@ namespace AdvisementSys.Controllers
         {
             try
             {
+                IEnumerable<campu> campus = db.campus;
+                List<String> list = new List<String>();
+                foreach (campu camp in campus)
+                {
+                    list.Add(camp.cname);
+                }
+
+                IEnumerable<employee> employees = db.employees;
+                List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
+                foreach (employee emp in employees)
+                {
+                    AutoCompletePOCO poco = new AutoCompletePOCO()
+                    {
+                        value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                        Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
+                        Email = emp.email,
+                        Role = emp.role
+                    };
+                    EmployeeID.Add(poco);
+                }
+
+                String[] AppointmentType = new String[3] { "Advisement", "Personal", "Office" };
+
+                model.EmployeeID = EmployeeID;
+                model.appoingmentType = AppointmentType;
+                model._campus = list;
+
                 if (ModelState.IsValid)
                 {
                     DateTime date1 = DateTime.Parse(model.startTime);
@@ -863,6 +904,7 @@ namespace AdvisementSys.Controllers
             {
                 return View(model);
             }
+
             return View(model);
         }
 
@@ -893,9 +935,83 @@ namespace AdvisementSys.Controllers
 
             mail.From = new MailAddress(MAIL_ADDRESS);
             mail.To.Add(EmailTo);
-            mail.Subject = "Your Appointment Has Been Edited";
+            mail.Subject = "Your Appointment Has Been Changed";
             mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " that is to take place at " + appointment.cname + " has been edited. If you would like to inquire further please view the changes within the system or contact " + chair.fname + " " + chair.lname + " regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        [HttpPost, ActionName("ChangeChair")]
+        public ActionResult ChangeChair(Guid appointmentid, String id)
+        {
+            try
+            {
+                appointment appointment = db.appointments.SingleOrDefault(a => a.appointmentid == appointmentid);
+
+                id = id.Remove(0, id.Length - 10);
+                id = id.Remove(id.Length - 1);
+
+                if (appointment != null)
+                {
+                    appointment.employeeid = id;
+
+                    db.appointments.Attach(appointment);
+                    db.ObjectStateManager.ChangeObjectState(appointment, EntityState.Modified);
+
+                    ChangeChairEmail(appointment);
+
+                    return Json("200");
+                }
+                return Json("503");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            finally
+            {
+                db.SaveChanges();
+            }
+        }
+
+        private void ChangeChairEmail(appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            mail.To.Add(EmailTo);
+            mail.Subject = "Your Appointment Chairman Has Been Changed";
+            mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " that is to take place at " + appointment.cname + " has been assigned a new chairman. If you would like to inquire further please view the changes within the system or contact " + chair.fname + " " + chair.lname + " regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
 
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";

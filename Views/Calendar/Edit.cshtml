@@ -9,6 +9,7 @@
 <link href="@Url.Content("~/Content/css/note.form.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/TimePicker/jquery.ui.timepicker.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/TimePicker/jquery.ui.timepicker.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.textarea-expander.js")" type="text/javascript"></script>
 <div class="contentDiv">
     <h2>
         Update Appointment</h2>
@@ -104,7 +105,7 @@
                 <table class="noteThread" style="position: relative; left: 20px;">
                     <tr>
                         <td>
-                            <strong>@Html.DisplayFor(model => model.chair.fname) @Html.DisplayFor(model => model.chair.lname)</strong>
+                            <strong>@Html.DisplayFor(model => model.chair.fname) @Html.DisplayFor(model => model.chair.lname)</strong> ( <a href="#" class="change_Chair">Change Chair</a> )
                         </td>
                         <td style="text-align: right;">
                             <strong>@Html.DisplayFor(model => model.chair.faculty)</strong>
@@ -122,7 +123,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <a href="#" class="change_Chair">Change Chair</a>
                         </td>
                         <td style="text-align: right;">
                             @Html.DisplayFor(model => model.chair.phonenum)
@@ -275,45 +275,11 @@
 <p>
     @Html.ActionLink("Back to Calendar", "Index")
 </p>
-<div id="dialog-confirmAppointment" title="Confirm Appointment?">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        You are about to confirm this Appointmnet, are you sure you want to do this?</p>
-</div>
-<div id="dialog-confirmAppointmentSeries" title="Confirm Appointment Series?">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        You are about to confirm this series of Appointmnets, are you sure you want to do this?</p>
-</div>
-<div id="dialog-confirm" title="Delete Appointment?">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        This Appointment will be permanently deleted and cannot be recovered. Are you sure
-        you want to delete this?</p>
-</div>
-<div id="dialog-confirm-series" title="Delete Appointment Series?">
-    <p>
-        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        This Appointment and all the appointments part of this series will be permanently deleted and cannot be recovered. Are you sure
-        you want to delete this?</p>
-</div>
 <div id="dialog-message-error" title="Error">
     <p>
         <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
         </span>An Error has occcured please check to confirm that this appointment exists.
         If you still would like to perform an action on this appointment please try again.
-    </p>
-</div>
-<div id="dialog-message-success" title="Success!">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully deleted the appointment!
-    </p>
-</div>
-<div id="dialog-message-success-series" title="Success!">
-    <p>
-        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
-        </span>You have successfully deleted all the appointments part of this series!
     </p>
 </div>
 <div id="dialog-remove_attendee" title="Remove Attendee">
@@ -325,6 +291,20 @@
     <p>
         <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
         </span>You have successfully removed an Attendee from this appointment!
+    </p>
+</div>
+<div id="dialog-form-change-chair" title="Change Chair">
+    <p class="validateTips">Please supply a new chair for this Appointment.</p>
+ 
+    <form>
+        <label for="newChair">Employee:</label>
+        <textarea type="text" name="newChair" id="newChair" class="text ui-widget-content ui-corner-all required expand" style="width:95%; height:100px; resize:none;"></textarea>
+    </form>
+</div>
+<div id="dialog-message-success-change-chair" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully changed the chair of this appointment!
     </p>
 </div>
 <input type="hidden" id="hdnAttendID" />
@@ -354,6 +334,27 @@
     $(function () {
     formatDates();
 
+    var model1 = @Html.Raw(Json.Encode(Model.EmployeeID));
+
+    $("#newChair").autocomplete({
+            minLength: 0,
+            source: model1,
+            focus: function( event, ui ) {
+                $( "#newChair" ).val( ui.item.Label );
+                return false;
+            },
+            select: function( event, ui ) {
+                $( "#newChair" ).val( ui.item.Label );
+                return false;
+            }
+        })
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };
+
     $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
 
     $('#timepicker1').timepicker({
@@ -365,18 +366,6 @@ $('#timepicker2').timepicker({
     showPeriod: true,
     showLeadingZero: true
 });
-
-    $("#dialog-message-success").dialog({
-                                autoOpen: false,
-                                height: 200,
-                                width: 450,
-                                modal: true,
-                                buttons: {
-                                    Ok: function() {
-                                        location = "@Url.Content("~/Calendar")";
-                                    }
-                                }
-                            });
 
     $("#dialog-message-success-remove_attendee").dialog({
                                 autoOpen: false,
@@ -390,8 +379,7 @@ $('#timepicker2').timepicker({
                                 }
                             });
 
-
-    $("#dialog-message-success-series").dialog({
+    $("#dialog-message-success-change-chair").dialog({
                                 autoOpen: false,
                                 height: 200,
                                 width: 450,
@@ -414,119 +402,24 @@ $('#timepicker2').timepicker({
                                     }
                                 }
                             });
-
-        $("#dialog-confirm").dialog({
+        $( "#dialog-form-change-chair" ).dialog({
             autoOpen: false,
-            resizable: false,
+            resizable: true,
             height: 200,
-            width: 450,
+            width: 375,
             modal: true,
             buttons: {
-                "Delete this item": function () {
+                "Change Chair": function () {
                     $.ajax({
-                        url: "/Calendar/Delete/" + document.getElementById("appointmentid").value,
-                        type: "POST",
-                        data: { },
-                        dataType: "json",
-                        success: function (data) {
-                            $("#dialog-message-success").dialog("open");
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $("#dialog-message-error").dialog("open");
-                        }
-                    });
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#dialog-confirm-series").dialog({
-            autoOpen: false,
-            resizable: false,
-            height: 200,
-            width: 450,
-            modal: true,
-            buttons: {
-                "Delete this item": function () {
-                    $.ajax({
-                        url: "/Calendar/DeleteSeries/" + document.getElementById("hdnRepID").value,
-                        type: "POST",
-                        data: { },
-                        dataType: "json",
-                        success: function (data) {
-                            $("#dialog-message-success-confirm").dialog("open");
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $("#dialog-message-error").dialog("open");
-                        }
-                    });
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#dialog-confirmAppointment").dialog({
-            autoOpen: false,
-            resizable: false,
-            height: 200,
-            width: 450,
-            modal: true,
-            buttons: {
-                "Confirm this Appointment": function () {
-                    $.ajax({
-                        url: "/Calendar/Confirm",
+                        url: "/Calendar/ChangeChair",
                         type: "POST",
                         data: { 
-                                ID: document.getElementById("hdnAttendID").value,
-                                AppointmentID: document.getElementById("appointmentid").value
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            $("#dialog-message-success-confirm").dialog("open");
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $("#dialog-message-error").dialog("open");
-                        }
-                    });
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#dialog-confirmAppointmentSeries").dialog({
-            autoOpen: false,
-            resizable: false,
-            height: 200,
-            width: 450,
-            modal: true,
-            buttons: {
-                "Confirm this series of Appointments": function () {
-                    $.ajax({
-                        url: "/Calendar/ConfirmSeries",
-                        type: "POST",
-                        data: { 
-                                ID: document.getElementById("hdnAttendID").value,
                                 AppointmentID: document.getElementById("appointmentid").value,
-                                repeatingID: document.getElementById("hdnRepID").value
+                                id: document.getElementById("newChair").value
                          },
                         dataType: "json",
                         success: function (data) {
-                            $("#dialog-message-success-confirm-series").dialog("open");
+                            $("#dialog-message-success-change-chair").dialog("open");
                         },
                         complete: function (jqXHR, textStatus) {
                             
@@ -581,26 +474,9 @@ $('#timepicker2').timepicker({
                 $("#dialog-remove_attendee").dialog("open");
             });
 
-        $(".confirm")
+        $(".change_Chair")
             .click(function () {
-                document.getElementById("hdnAttendID").value = $(this).attr("value");
-                $("#dialog-confirmAppointment").dialog("open");
-            });
-
-        $(".confirmseries")
-            .click(function () {
-                document.getElementById("hdnAttendID").value = $(this).attr("value");
-                $("#dialog-confirmAppointmentSeries").dialog("open");
-            });
-
-        $("#DeleteAppointemnt")
-            .click(function () {
-                $("#dialog-confirm").dialog("open");
-            });
-
-        $("#DeleteAppointemntseries")
-            .click(function () {
-                $("#dialog-confirm-series").dialog("open");
+                $("#dialog-form-change-chair").dialog("open");
             });
 
     });
