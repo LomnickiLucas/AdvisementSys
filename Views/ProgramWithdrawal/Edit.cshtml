@@ -112,7 +112,7 @@
                     @Html.LabelFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, "Will return on the term of:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year }, Model._applicationForTermOrCompleteProgramWithdrawal.returnterm), new { id = "returmterm", @class = "select2Validation", @style = "width:160px;" })
+                    @Html.DropDownListFor(model => model._applicationForTermOrCompleteProgramWithdrawal.returnterm, new SelectList(new[] { "Please Select", "Spring " + DateTime.Now.Year, "Fall " + DateTime.Now.Year, "Winter " + DateTime.Now.AddYears(1).Year, "Spring " + DateTime.Now.AddYears(1).Year, "Will Not Return" }, Model._applicationForTermOrCompleteProgramWithdrawal.returnterm), new { id = "returmterm", @class = "select2Validation", @style = "width:160px;" })
                 </td>
             </tr>
 
