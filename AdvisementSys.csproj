@@ -182,6 +182,7 @@
     <Compile Include="Models\requestForLateEnrolment.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request\EditCalendarModel.cs" />
     <Compile Include="Models\Request\IndexAdvisorSearchModel.cs" />
     <Compile Include="Models\Request\IndexCalendarModel.cs" />
     <Compile Include="Models\Request\IndexHomeModel.cs" />

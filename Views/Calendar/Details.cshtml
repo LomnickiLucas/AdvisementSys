@@ -1,6 +1,6 @@
 ﻿@model AdvisementSys.Models.Request.DetailsCalendarModel
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Appointment Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
@@ -340,8 +340,11 @@
 <p>
     @if (Model.appointment.employeeid == User.Identity.Name || User.IsInRole("Receptionist"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.appointmentid }) <span>| <a href="#" id="DeleteAppointemnt">
-        Delete</a> |</span> 
+        if (@Model.appointment.starttime > DateTime.Now)
+        {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.appointmentid }) <span>| </span>
+        }
+        <span><a href="#" id="DeleteAppointemnt"> Delete</a> |</span> 
         if (Model.appointment.repeating != null)
         {
             <span> <a href="#" id="DeleteAppointemntseries">

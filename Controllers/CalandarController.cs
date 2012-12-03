@@ -789,40 +789,42 @@ namespace AdvisementSys.Controllers
         public ActionResult Edit(Guid id)
         {
             appointment appointment = db.appointments.Single(i => i.appointmentid == id);
+            IEnumerable<Attendee> Attendee = db.Attendees.Where(i => i.appointmentid == id);
+            List<CalendarDetailsAttendees> Attendees = new List<CalendarDetailsAttendees>();
+
+            foreach (Attendee attend in Attendee)
+            {
+                student student = db.students.SingleOrDefault(s => s.studentid == attend.attendee1);
+                employee employee = db.employees.SingleOrDefault(e => e.employeeid == attend.attendee1);
+
+                CalendarDetailsAttendees DetailAttendees = new CalendarDetailsAttendees()
+                {
+                    Attendees = attend,
+                    Student = student,
+                    Emplployee = employee
+                };
+
+                if (student != null)
+                {
+                    program prog = db.programs.Single(p => p.programcode == student.programcode);
+
+                    DetailAttendees.StudFaculty = prog.faculty;
+                }
+
+                Attendees.Add(DetailAttendees);
+            }
+
             IEnumerable<campu> campus = db.campus;
             List<String> list = new List<String>();
             foreach (campu camp in campus)
             {
                 list.Add(camp.cname);
             }
-            IEnumerable<student> students = db.students;
-            List<AutoCompletePOCO> AutoCompleteID = new List<AutoCompletePOCO>();
-            foreach (student stud in students)
-            {
-                AutoCompletePOCO poco = new AutoCompletePOCO()
-                {
-                    value = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
-                    Label = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
-                    Email = stud.email,
-                    Role = "Student"
-                };
-                AutoCompleteID.Add(poco);
-            }
-            IEnumerable<employee> employees = db.employees;
-            List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
-            foreach (employee emp in employees)
-            {
-                AutoCompletePOCO poco = new AutoCompletePOCO()
-                {
-                    value = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
-                    Label = emp.fname + " " + emp.lname + " (" + emp.employeeid + ")",
-                    Email = emp.email,
-                    Role = emp.role
-                };
-                AutoCompleteID.Add(poco);
-                EmployeeID.Add(poco);
-            }
-            CreateAppointmentRequestModel model = new CreateAppointmentRequestModel() { _appointment = appointment, _campus = list, AttendeesAutoComplete = AutoCompleteID, EmployeeID = EmployeeID, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString() };
+
+            String[] AppointmentType = new String[3] { "Advisement", "Personal", "Office" };
+
+            EditCalendarModel model = new EditCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid), appoingmentType = AppointmentType, _campus = list, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString() };
+
             return View(model);
         }
 
@@ -832,29 +834,29 @@ namespace AdvisementSys.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Edit(CreateAppointmentRequestModel model)
+        public ActionResult Edit(EditCalendarModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    IEnumerable<campu> campus = db.campus;
-                    List<String> list = new List<String>();
-                    foreach (campu camp in campus)
-                    {
-                        list.Add(camp.cname);
-                    }
-                    model._campus = list;
                     DateTime date1 = DateTime.Parse(model.startTime);
                     TimeSpan time1 = new TimeSpan(date1.Hour, date1.Minute, date1.Second);
                     DateTime date2 = DateTime.Parse(model.endTime);
                     TimeSpan time2 = new TimeSpan(date2.Hour, date2.Minute, date2.Second);
-                    model._appointment.starttime = model._appointment.starttime.Add(time1);
-                    model._appointment.endtime = model._appointment.endtime.Add(time2);
-                    db.appointments.Attach(model._appointment);
-                    db.ObjectStateManager.ChangeObjectState(model._appointment, EntityState.Modified);
+                    DateTime today1 = model.appointment.starttime;
+                    today1 = today1.Add(time1);
+                    DateTime today2 = model.appointment.endtime.Date;
+                    today2 = today2.Add(time2);
+                    model.appointment.starttime = today1;
+                    model.appointment.endtime = today2;
+                    db.appointments.Attach(model.appointment);
+                    db.ObjectStateManager.ChangeObjectState(model.appointment, EntityState.Modified);
                     db.SaveChanges();
-                    return RedirectToAction("Details/" + model._appointment.appointmentid, "Calendar");
+
+                    EditEmail(model.appointment);
+
+                    return RedirectToAction("Details", "Calendar", new { id = model.appointment.appointmentid });
                 }
             }
             catch (Exception ex)
@@ -862,6 +864,47 @@ namespace AdvisementSys.Controllers
                 return View(model);
             }
             return View(model);
+        }
+
+        private void EditEmail(appointment appointment)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            employee chair = db.employees.Single(e => e.employeeid == appointment.employeeid);
+            IEnumerable<Attendee> Attendees = db.Attendees.Where(attend => attend.appointmentid == appointment.appointmentid);
+            String EmailTo = chair.email;
+
+            foreach (Attendee Attendee in Attendees)
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == Attendee.attendee1);
+
+                if (student != null)
+                {
+                    EmailTo += ", " + student.email;
+                }
+                else
+                {
+                    employee employee = db.employees.Single(e => e.employeeid == Attendee.attendee1);
+
+                    EmailTo += ", " + employee.email;
+                }
+            }
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            mail.To.Add(EmailTo);
+            mail.Subject = "Your Appointment Has Been Edited";
+            mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " that is to take place at " + appointment.cname + " has been edited. If you would like to inquire further please view the changes within the system or contact " + chair.fname + " " + chair.lname + " regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
         }
 
         /// <summary>
