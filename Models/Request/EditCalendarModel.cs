@@ -22,5 +22,7 @@ namespace AdvisementSys.Models.Request
         public String endTime { get; set; }
 
         public IEnumerable<AutoCompletePOCO> EmployeeID { get; set; }
+
+        public IEnumerable<AutoCompletePOCO> AttendeesAutoComplete { get; set; }
     }
 }

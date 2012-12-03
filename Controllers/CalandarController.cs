@@ -436,8 +436,12 @@ namespace AdvisementSys.Controllers
                                     attendee.confirmed = true;
                                 }
 
-                                if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                    Attendee.Add(attendee);
+                                Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                if (check == null)
+                                {
+                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                        Attendee.Add(attendee);
+                                }
                             }
                             foreach (Attendee attend in Attendee)
                             {
@@ -494,8 +498,12 @@ namespace AdvisementSys.Controllers
                                             attendee.confirmed = true;
                                         }
 
-                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                            Attendee.Add(attendee);
+                                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                        if (check == null)
+                                        {
+                                            if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                                Attendee.Add(attendee);
+                                        }
                                     }
                                     foreach (Attendee attend in Attendee)
                                     {
@@ -555,8 +563,12 @@ namespace AdvisementSys.Controllers
                                             attendee.confirmed = true;
                                         }
 
-                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                            Attendee.Add(attendee);
+                                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                        if (check == null)
+                                        {
+                                            if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                                Attendee.Add(attendee);
+                                        }
                                     }
                                     foreach (Attendee attend in Attendee)
                                     {
@@ -615,8 +627,12 @@ namespace AdvisementSys.Controllers
                                         attendee.confirmed = true;
                                     }
 
-                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                        Attendee.Add(attendee);
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                    if (check == null)
+                                    {
+                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                            Attendee.Add(attendee);
+                                    }
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
@@ -675,8 +691,12 @@ namespace AdvisementSys.Controllers
                                         attendee.confirmed = true;
                                     }
 
-                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                        Attendee.Add(attendee);
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                    if (check == null)
+                                    {
+                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                            Attendee.Add(attendee);
+                                    }
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
@@ -734,9 +754,12 @@ namespace AdvisementSys.Controllers
                                     {
                                         attendee.confirmed = true;
                                     }
-
-                                    if (!attendee.attendee1.Equals(model._appointment.employeeid))
-                                        Attendee.Add(attendee);
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                                    if (check == null)
+                                    {
+                                        if (!attendee.attendee1.Equals(model._appointment.employeeid))
+                                            Attendee.Add(attendee);
+                                    }
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
@@ -821,6 +844,20 @@ namespace AdvisementSys.Controllers
                 list.Add(camp.cname);
             }
 
+            IEnumerable<student> students = db.students;
+            List<AutoCompletePOCO> AutoCompleteID = new List<AutoCompletePOCO>();
+            foreach (student stud in students)
+            {
+                AutoCompletePOCO poco = new AutoCompletePOCO()
+                {
+                    value = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                    Label = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                    Email = stud.email,
+                    Role = "Student"
+                };
+                AutoCompleteID.Add(poco);
+            }
+
             IEnumerable<employee> employees = db.employees;
             List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
             foreach (employee emp in employees)
@@ -832,12 +869,13 @@ namespace AdvisementSys.Controllers
                     Email = emp.email,
                     Role = emp.role
                 };
+                AutoCompleteID.Add(poco);
                 EmployeeID.Add(poco);
             }
 
             String[] AppointmentType = new String[3] { "Advisement", "Personal", "Office" };
 
-            EditCalendarModel model = new EditCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid), appoingmentType = AppointmentType, _campus = list, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString(), EmployeeID = EmployeeID };
+            EditCalendarModel model = new EditCalendarModel() { appointment = appointment, Attendees = Attendees, chair = db.employees.Single(emp => emp.employeeid == appointment.employeeid), appoingmentType = AppointmentType, _campus = list, startTime = appointment.starttime.ToShortTimeString(), endTime = appointment.endtime.ToShortTimeString(), EmployeeID = EmployeeID, AttendeesAutoComplete = AutoCompleteID };
 
             return View(model);
         }
@@ -859,6 +897,20 @@ namespace AdvisementSys.Controllers
                     list.Add(camp.cname);
                 }
 
+                IEnumerable<student> students = db.students;
+                List<AutoCompletePOCO> AutoCompleteID = new List<AutoCompletePOCO>();
+                foreach (student stud in students)
+                {
+                    AutoCompletePOCO poco = new AutoCompletePOCO()
+                    {
+                        value = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                        Label = stud.fname + " " + stud.lname + " (" + stud.studentid + ")",
+                        Email = stud.email,
+                        Role = "Student"
+                    };
+                    AutoCompleteID.Add(poco);
+                }
+
                 IEnumerable<employee> employees = db.employees;
                 List<AutoCompletePOCO> EmployeeID = new List<AutoCompletePOCO>();
                 foreach (employee emp in employees)
@@ -870,11 +922,13 @@ namespace AdvisementSys.Controllers
                         Email = emp.email,
                         Role = emp.role
                     };
+                    AutoCompleteID.Add(poco);
                     EmployeeID.Add(poco);
                 }
 
                 String[] AppointmentType = new String[3] { "Advisement", "Personal", "Office" };
 
+                model.AttendeesAutoComplete = AutoCompleteID;
                 model.EmployeeID = EmployeeID;
                 model.appoingmentType = AppointmentType;
                 model._campus = list;
@@ -939,6 +993,120 @@ namespace AdvisementSys.Controllers
             mail.Body = "Your " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " that is to take place at " + appointment.cname + " has been edited. If you would like to inquire further please view the changes within the system or contact " + chair.fname + " " + chair.lname + " regarding any further details at "
                 + chair.email + " or " + chair.phonenum + ".";
+
+            mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(MAIL_ADDRESS, MAIL_PASS);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        [HttpPost, ActionName("NewAttendees")]
+        public ActionResult NewAttendees(Guid appointmentid, String Attendees)
+        {
+            try
+            {
+                appointment appointment = db.appointments.SingleOrDefault(a => a.appointmentid == appointmentid);
+
+                List<String> attendeesID = new List<string>();
+                if (Attendees != null)
+                {
+                    String EmployeeID = Attendees;
+                    String[] attendees = EmployeeID.Split(',');
+
+                    for (int i = 0; i < attendees.Count() - 1; i++)
+                    {
+                        if (i != 0)
+                        {
+                            String id = attendees[i].Remove(0, attendees[i].Length - 10);
+                            attendeesID.Add(id.Remove(id.Length - 1));
+                        }
+                        else
+                        {
+                            String id = attendees[i].Remove(0, attendees[i].Length - 10);
+                            attendeesID.Add(id.Remove(id.Length - 1));
+                        }
+                    }
+                }
+
+                if (attendeesID.Count > 0)
+                {
+                    List<Attendee> Attendee = new List<Models.Attendee>();
+                    foreach (String id in attendeesID)
+                    {
+                        Attendee attendee = new Attendee()
+                        {
+                            id = Guid.NewGuid(),
+                            appointmentid = appointment.appointmentid,
+                            attendee1 = id
+                        };
+
+                        student stud = db.students.SingleOrDefault(s => s.studentid == id);
+
+                        if (stud != null)
+                        {
+                            attendee.confirmed = true;
+                        }
+                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attendee.attendee1 && a.appointmentid == attendee.appointmentid);
+                        if (check == null)
+                        {
+                            if (!attendee.attendee1.Equals(appointment.employeeid))
+                                Attendee.Add(attendee);
+                        }
+                    }
+                    foreach (Attendee attend in Attendee)
+                    {
+                        db.Attendees.AddObject(attend);
+                        db.SaveChanges();
+                        NewAttendeesEmail(attend.attendee1, attend.appointmentid);
+                    }
+                }
+
+                    ChangeChairEmail(appointment);
+
+                    return Json("200");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            finally
+            {
+                db.SaveChanges();
+            }
+        }
+
+        private void NewAttendeesEmail(String id, Guid appointmentid)
+        {
+            employee employee = db.employees.SingleOrDefault(emp => emp.employeeid == id);
+
+            appointment appointment = db.appointments.SingleOrDefault(a => a.appointmentid == appointmentid);
+
+            employee chair = db.employees.SingleOrDefault(emp => emp.employeeid == appointment.employeeid);
+
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
+
+            mail.From = new MailAddress(MAIL_ADDRESS);
+            if (employee != null)
+            {
+                mail.To.Add(employee.email);
+            }
+            else
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == id);
+                mail.To.Add(student.email);
+            }
+            mail.Subject = "Appointment Invitation From " + chair.fname + " " + chair.lname;
+            mail.Body = "You have been requested to attend an " + appointment.appointmenttype.Trim() + " appointment regarding " + appointment.subject + " at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
+                + " and the appointment will take place at " + appointment.cname + ". The chair for the appointment will be " + chair.fname + " " + chair.lname + ", please contact him/her regarding any further details at "
+                + chair.email + " or " + chair.phonenum + ".";
+            if (appointment.description != null)
+            {
+                mail.Body += "\n\nDescription Included: \n" + appointment.description;
+            }
 
             mail.Body += "\n\nThis is an automated message please to do not respond to this email.";
 
@@ -1062,7 +1230,15 @@ namespace AdvisementSys.Controllers
             SmtpClient SmtpServer = new SmtpClient(MAIL_SMTP);
 
             mail.From = new MailAddress(MAIL_ADDRESS);
-            mail.To.Add(employee.email);
+            if (employee != null)
+            {
+                mail.To.Add(employee.email);
+            }
+            else
+            {
+                student student = db.students.SingleOrDefault(stud => stud.studentid == id);
+                mail.To.Add(student.email);
+            }
             mail.Subject = "You Have Been Removed From an Appointment";
             mail.Body = "You have been removed from an " + appointment.appointmenttype.Trim() + " appointment at " + appointment.starttime.ToString() + " to " + appointment.endtime.ToString()
                 + " and the appointment will take place at " + appointment.cname + ".If you would like to inquire further please contact " + chair.fname + " " + chair.lname + " regarding any further details at "

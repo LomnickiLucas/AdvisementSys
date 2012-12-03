@@ -130,8 +130,6 @@
                     </tr>
                 </table>
                 <br />
-                if (Model.Attendees.Count() > 0)
-                {
                     <tr>
                         <td>
                             <div class="display-label" style="position: relative; left: 10px;">
@@ -140,8 +138,10 @@
                             </div>
                         </td>
                     </tr>
-                    foreach (var item in Model.Attendees)
-                    {
+            if (Model.Attendees.Count() > 0)
+            {
+                foreach (var item in Model.Attendees)
+                {
                     <tr>
                         @if (item.Student != null)
                         {
@@ -244,12 +244,13 @@
                                         </td>
                                     </tr>
                                 }
-                            </table>
-                            <br />
+                            </table>  
+                            <br /> 
                         }
                     </tr>
-                    }
                 }
+            }
+            <br />
                 <table>
                     <tr>
                         <td>
@@ -307,6 +308,20 @@
         </span>You have successfully changed the chair of this appointment!
     </p>
 </div>
+<div id="dialog-form-add-attendees" title="Add New Attendees">
+    <p class="validateTips">Please supply all the new attendees for this Appointment.</p>
+ 
+    <form>
+        <label for="newAttendees">Attendees:</label>
+        <textarea type="text" name="newAttendees" id="newAttendees" class="text ui-widget-content ui-corner-all required expand" style="width:95%; height:100px; resize:none;"></textarea>
+    </form>
+</div>
+<div id="dialog-message-success-new-attendees" title="Success!">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;">
+        </span>You have successfully added new attendees to this appointment!
+    </p>
+</div>
 <input type="hidden" id="hdnAttendID" />
 <script>
     function formatDates()
@@ -333,6 +348,51 @@
 
     $(function () {
     formatDates();
+
+    var model = @Html.Raw(Json.Encode(Model.AttendeesAutoComplete));
+
+    function split( val ) {
+            return val.split( /,\s*/ );
+        }
+        function extractLast( term ) {
+            return split( term ).pop();
+        }
+
+    $("#newAttendees").bind( "keydown", function( event ) {
+                if ( event.keyCode === $.ui.keyCode.TAB &&
+                        $( this ).data( "autocomplete" ).menu.active ) {
+                    event.preventDefault();
+                }
+            }) .autocomplete({
+                minLength: 0,
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                        model, extractLast( request.term ) ) );
+                },
+                focus: function( event, ui ) {
+                    $( "#newAttendees" ).val($("#newAttendees").val() + ui.item.Label);
+                    return false;
+                },
+                select: function( event, ui ) {
+                    $( "#newAttendees" ).val($("#newAttendees").val() + ui.item.Label);
+
+                    var terms = split( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.Label );
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push( "" );
+                    this.value = terms.join( ", " );
+                    return false;
+                }
+            }).data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Label + "<br>" + item.Email + "<br>" + item.Role + "</a>" )
+                .appendTo( ul );
+        };;
 
     var model1 = @Html.Raw(Json.Encode(Model.EmployeeID));
 
@@ -391,6 +451,18 @@ $('#timepicker2').timepicker({
                                 }
                             });
 
+    $("#dialog-message-success-new-attendees").dialog({
+                                autoOpen: false,
+                                height: 200,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                    Ok: function() {
+                                        location = "@Url.Content(Request.Url.AbsoluteUri)";
+                                    }
+                                }
+                            });
+
     $("#dialog-message-error").dialog({
                                 autoOpen: false,
                                 height: 200,
@@ -402,6 +474,40 @@ $('#timepicker2').timepicker({
                                     }
                                 }
                             });
+
+        $( "#dialog-form-add-attendees" ).dialog({
+            autoOpen: false,
+            resizable: true,
+            height: 250,
+            width: 450,
+            modal: true,
+            buttons: {
+                "Add Attendees": function () {
+                    $.ajax({
+                        url: "/Calendar/NewAttendees",
+                        type: "POST",
+                        data: { 
+                                AppointmentID: document.getElementById("appointmentid").value,
+                                Attendees: document.getElementById("newAttendees").value
+                         },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#dialog-message-success-new-attendees").dialog("open");
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#dialog-message-error").dialog("open");
+                        }
+                    });
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
         $( "#dialog-form-change-chair" ).dialog({
             autoOpen: false,
             resizable: true,
@@ -477,6 +583,11 @@ $('#timepicker2').timepicker({
         $(".change_Chair")
             .click(function () {
                 $("#dialog-form-change-chair").dialog("open");
+            });
+
+        $(".add_attendees")
+            .click(function () {
+                $("#dialog-form-add-attendees").dialog("open");
             });
 
     });
