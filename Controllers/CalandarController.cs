@@ -445,6 +445,8 @@ namespace AdvisementSys.Controllers
                             }
                             foreach (Attendee attend in Attendee)
                             {
+                                Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                if (check == null)
                                 db.Attendees.AddObject(attend);
                                 db.SaveChanges();
                             }
@@ -507,6 +509,8 @@ namespace AdvisementSys.Controllers
                                     }
                                     foreach (Attendee attend in Attendee)
                                     {
+                                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                        if (check == null)
                                         db.Attendees.AddObject(attend);
                                         db.SaveChanges();
                                     }
@@ -572,6 +576,8 @@ namespace AdvisementSys.Controllers
                                     }
                                     foreach (Attendee attend in Attendee)
                                     {
+                                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                        if (check == null)
                                         db.Attendees.AddObject(attend);
                                         db.SaveChanges();
                                     }
@@ -636,6 +642,8 @@ namespace AdvisementSys.Controllers
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                    if (check == null)
                                     db.Attendees.AddObject(attend);
                                     db.SaveChanges();
                                 }
@@ -700,6 +708,8 @@ namespace AdvisementSys.Controllers
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                    if (check == null)
                                     db.Attendees.AddObject(attend);
                                     db.SaveChanges();
                                 }
@@ -763,6 +773,8 @@ namespace AdvisementSys.Controllers
                                 }
                                 foreach (Attendee attend in Attendee)
                                 {
+                                    Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                                    if (check == null)
                                     db.Attendees.AddObject(attend);
                                     db.SaveChanges();
                                 }
@@ -1058,6 +1070,8 @@ namespace AdvisementSys.Controllers
                     }
                     foreach (Attendee attend in Attendee)
                     {
+                        Attendee check = db.Attendees.SingleOrDefault(a => a.attendee1 == attend.attendee1 && a.appointmentid == attend.appointmentid);
+                        if (check == null)
                         db.Attendees.AddObject(attend);
                         db.SaveChanges();
                         NewAttendeesEmail(attend.attendee1, attend.appointmentid);
