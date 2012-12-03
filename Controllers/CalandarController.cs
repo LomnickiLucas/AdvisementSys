@@ -1064,8 +1064,6 @@ namespace AdvisementSys.Controllers
                     }
                 }
 
-                    ChangeChairEmail(appointment);
-
                     return Json("200");
             }
             catch (Exception ex)
