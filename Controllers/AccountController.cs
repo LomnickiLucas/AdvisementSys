@@ -19,7 +19,6 @@ namespace AdvisementSys.Controllers
 
         public ActionResult LogOn()
         {
-            Roles.CreateRole("testy");
             return View();
         }
 
