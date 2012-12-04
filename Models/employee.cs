@@ -22,6 +22,7 @@ namespace AdvisementSys.Models
     [KnownType(typeof(faculty))]
     [KnownType(typeof(issue))]
     [KnownType(typeof(note))]
+    [KnownType(typeof(program))]
     public partial class employee: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -282,6 +283,41 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<note> _notes;
+    
+        [DataMember]
+        public TrackableCollection<program> programs
+        {
+            get
+            {
+                if (_programs == null)
+                {
+                    _programs = new TrackableCollection<program>();
+                    _programs.CollectionChanged += Fixupprograms;
+                }
+                return _programs;
+            }
+            set
+            {
+                if (!ReferenceEquals(_programs, value))
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        throw new InvalidOperationException("Cannot set the FixupChangeTrackingCollection when ChangeTracking is enabled");
+                    }
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged -= Fixupprograms;
+                    }
+                    _programs = value;
+                    if (_programs != null)
+                    {
+                        _programs.CollectionChanged += Fixupprograms;
+                    }
+                    OnNavigationPropertyChanged("programs");
+                }
+            }
+        }
+        private TrackableCollection<program> _programs;
 
         #endregion
         #region ChangeTracking
@@ -365,6 +401,7 @@ namespace AdvisementSys.Models
             faculty1 = null;
             issues.Clear();
             notes.Clear();
+            programs.Clear();
         }
 
         #endregion
@@ -521,6 +558,45 @@ namespace AdvisementSys.Models
                     if (ChangeTracker.ChangeTrackingEnabled)
                     {
                         ChangeTracker.RecordRemovalFromCollectionProperties("notes", item);
+                    }
+                }
+            }
+        }
+    
+        private void Fixupprograms(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (e.NewItems != null)
+            {
+                foreach (program item in e.NewItems)
+                {
+                    item.employee = this;
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        if (!item.ChangeTracker.ChangeTrackingEnabled)
+                        {
+                            item.StartTracking();
+                        }
+                        ChangeTracker.RecordAdditionToCollectionProperties("programs", item);
+                    }
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (program item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.employee, this))
+                    {
+                        item.employee = null;
+                    }
+                    if (ChangeTracker.ChangeTrackingEnabled)
+                    {
+                        ChangeTracker.RecordRemovalFromCollectionProperties("programs", item);
                     }
                 }
             }

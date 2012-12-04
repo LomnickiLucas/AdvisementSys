@@ -23,6 +23,7 @@ namespace AdvisementSys.Models
     [KnownType(typeof(location))]
     [KnownType(typeof(student))]
     [KnownType(typeof(course))]
+    [KnownType(typeof(employee))]
     public partial class program: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Primitive Properties
@@ -115,6 +116,14 @@ namespace AdvisementSys.Models
             {
                 if (_employeeid != value)
                 {
+                    ChangeTracker.RecordOriginalValue("employeeid", _employeeid);
+                    if (!IsDeserializing)
+                    {
+                        if (employee != null && employee.employeeid != value)
+                        {
+                            employee = null;
+                        }
+                    }
                     _employeeid = value;
                     OnPropertyChanged("employeeid");
                 }
@@ -293,6 +302,23 @@ namespace AdvisementSys.Models
             }
         }
         private TrackableCollection<course> _courses;
+    
+        [DataMember]
+        public employee employee
+        {
+            get { return _employee; }
+            set
+            {
+                if (!ReferenceEquals(_employee, value))
+                {
+                    var previousValue = _employee;
+                    _employee = value;
+                    Fixupemployee(previousValue);
+                    OnNavigationPropertyChanged("employee");
+                }
+            }
+        }
+        private employee _employee;
 
         #endregion
         #region ChangeTracking
@@ -377,6 +403,7 @@ namespace AdvisementSys.Models
             locations.Clear();
             students.Clear();
             courses.Clear();
+            employee = null;
         }
 
         #endregion
@@ -456,6 +483,45 @@ namespace AdvisementSys.Models
                 if (faculty1 != null && !faculty1.ChangeTracker.ChangeTrackingEnabled)
                 {
                     faculty1.StartTracking();
+                }
+            }
+        }
+    
+        private void Fixupemployee(employee previousValue)
+        {
+            if (IsDeserializing)
+            {
+                return;
+            }
+    
+            if (previousValue != null && previousValue.programs.Contains(this))
+            {
+                previousValue.programs.Remove(this);
+            }
+    
+            if (employee != null)
+            {
+                if (!employee.programs.Contains(this))
+                {
+                    employee.programs.Add(this);
+                }
+    
+                employeeid = employee.employeeid;
+            }
+            if (ChangeTracker.ChangeTrackingEnabled)
+            {
+                if (ChangeTracker.OriginalValues.ContainsKey("employee")
+                    && (ChangeTracker.OriginalValues["employee"] == employee))
+                {
+                    ChangeTracker.OriginalValues.Remove("employee");
+                }
+                else
+                {
+                    ChangeTracker.RecordOriginalValue("employee", previousValue);
+                }
+                if (employee != null && !employee.ChangeTracker.ChangeTrackingEnabled)
+                {
+                    employee.StartTracking();
                 }
             }
         }
