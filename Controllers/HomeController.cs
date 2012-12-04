@@ -21,6 +21,7 @@ namespace AdvisementSys.Controllers
                 DateTime date = DateTime.Today.AddDays(7);
                 DateTime date2 = DateTime.Now.AddMonths(-1);
                 IEnumerable<appointment> appointments = db.appointments.Where(i => i.employeeid == User.Identity.Name && i.starttime >= DateTime.Today && i.starttime <= date);
+                appointments = appointments.OrderBy(a => a.starttime);
                 IEnumerable<issue> issues = db.issues.Where(i => i.date <= date2 && i.status != "Complete");
                 List<Events> Events = new List<Events>();
                 foreach (appointment appointment in appointments)
