@@ -19,6 +19,8 @@ namespace AdvisementSys.Controllers
 
         public ActionResult LogOn()
         {
+            Roles.CreateRole("Receptionist");
+            Roles.CreateRole("Student Advisor");
             return View();
         }
 
