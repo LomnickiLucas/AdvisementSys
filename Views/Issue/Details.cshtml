@@ -226,7 +226,7 @@
                         @Html.DisplayFor(modelItem => item.employee.faculty)
                     </td>
                     <td style="text-align: right;">
-                        <a href="mailto:@item.employee.email?subject=@Model._issue.issuename, Category: @Model._issue.catagory, Urgency: @Model._issue.urgency &body=@Request.Url.ToString()">
+                        <a href="mailto:@item.employee.email?subject=@Model._issue.issuename, Category: @Model._issue.catagory, Urgency: @Model._issue.urgency.Trim(), Student: @Model._student.fname @Model._student.lname, In regards to the Student Acvisement System. &body=@Request.Url.ToString()">
                             @Html.DisplayFor(modelItem => item.employee.email) </a>
                     </td>
                 </tr>

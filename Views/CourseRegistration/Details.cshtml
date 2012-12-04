@@ -156,7 +156,7 @@
                     @Html.DisplayFor(modelItem => item.employee.faculty)
                 </td>
                 <td style="text-align: right;">
-                    <a href="mailto:@item.employee.email?subject=Part-Time and/or Additional Course Registration Form From @Model._part_timeAnd_orAdditionalCourseRegistrationForm.date">@Html.DisplayFor(modelItem => item.employee.email)
+                    <a href="mailto:@item.employee.email?subject=Part-Time and/or Additional Course Registration Form From @Model._part_timeAnd_orAdditionalCourseRegistrationForm.date, Student: @Model._student.fname @Model._student.lname, In regards to the Student Advisement System. ">@Html.DisplayFor(modelItem => item.employee.email)
                     </a>
                 </td>
             </tr>
