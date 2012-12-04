@@ -19,7 +19,6 @@ namespace AdvisementSys.Models
 {
     [DataContract(IsReference = true)]
     [KnownType(typeof(designation))]
-    [KnownType(typeof(employee))]
     [KnownType(typeof(faculty))]
     [KnownType(typeof(location))]
     [KnownType(typeof(student))]
@@ -116,14 +115,6 @@ namespace AdvisementSys.Models
             {
                 if (_employeeid != value)
                 {
-                    ChangeTracker.RecordOriginalValue("employeeid", _employeeid);
-                    if (!IsDeserializing)
-                    {
-                        if (employee != null && employee.employeeid != value)
-                        {
-                            employee = null;
-                        }
-                    }
                     _employeeid = value;
                     OnPropertyChanged("employeeid");
                 }
@@ -180,23 +171,6 @@ namespace AdvisementSys.Models
             }
         }
         private designation _designation1;
-    
-        [DataMember]
-        public employee employee
-        {
-            get { return _employee; }
-            set
-            {
-                if (!ReferenceEquals(_employee, value))
-                {
-                    var previousValue = _employee;
-                    _employee = value;
-                    Fixupemployee(previousValue);
-                    OnNavigationPropertyChanged("employee");
-                }
-            }
-        }
-        private employee _employee;
     
         [DataMember]
         public faculty faculty1
@@ -399,7 +373,6 @@ namespace AdvisementSys.Models
         protected virtual void ClearNavigationProperties()
         {
             designation1 = null;
-            employee = null;
             faculty1 = null;
             locations.Clear();
             students.Clear();
@@ -444,45 +417,6 @@ namespace AdvisementSys.Models
                 if (designation1 != null && !designation1.ChangeTracker.ChangeTrackingEnabled)
                 {
                     designation1.StartTracking();
-                }
-            }
-        }
-    
-        private void Fixupemployee(employee previousValue)
-        {
-            if (IsDeserializing)
-            {
-                return;
-            }
-    
-            if (previousValue != null && previousValue.programs.Contains(this))
-            {
-                previousValue.programs.Remove(this);
-            }
-    
-            if (employee != null)
-            {
-                if (!employee.programs.Contains(this))
-                {
-                    employee.programs.Add(this);
-                }
-    
-                employeeid = employee.employeeid;
-            }
-            if (ChangeTracker.ChangeTrackingEnabled)
-            {
-                if (ChangeTracker.OriginalValues.ContainsKey("employee")
-                    && (ChangeTracker.OriginalValues["employee"] == employee))
-                {
-                    ChangeTracker.OriginalValues.Remove("employee");
-                }
-                else
-                {
-                    ChangeTracker.RecordOriginalValue("employee", previousValue);
-                }
-                if (employee != null && !employee.ChangeTracker.ChangeTrackingEnabled)
-                {
-                    employee.StartTracking();
                 }
             }
         }
