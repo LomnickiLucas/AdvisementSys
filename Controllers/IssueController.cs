@@ -315,7 +315,7 @@ namespace AdvisementSys.Controllers
                     model._issue.studentid = id;
                     db.issues.AddObject(model._issue);
                     db.SaveChanges();
-                    return RedirectToAction("Details/" + id, "Student");
+                    return RedirectToAction("Details", new { id = model._issue.issueid });
                 }
             }
             catch (Exception ex)

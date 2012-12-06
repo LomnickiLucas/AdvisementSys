@@ -1470,7 +1470,7 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(IIf(Fields!catagory.Value="Dropping Course",1,0))</Value>
+                              <Value>=Sum(IIf(Fields!catagory.Value="Adding a Course",1,0))</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1505,14 +1505,129 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(IIf(Fields!catagory.Value="Etc...",1,0))</Value>
-                              <Style />
+                              <Value>=Sum(IIf(Fields!catagory.Value="Dropping Course",1,0))</Value>
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontWeight>Normal</FontWeight>
+                                <TextDecoration>None</TextDecoration>
+                                <Color>#000000</Color>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox185</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.25in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox7">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(IIf(Fields!catagory.Value="Late Enrollment",1,0))</Value>
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontWeight>Normal</FontWeight>
+                                <TextDecoration>None</TextDecoration>
+                                <Color>#000000</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox7</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.25in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox12">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(IIf(Fields!catagory.Value="Readmission",1,0))</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.25in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox10">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Sum(IIf(Fields!catagory.Value="Transferring a Program",1,0))</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1620,7 +1735,7 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Dropping Course</Value>
+                            <Value>Adding a Course</Value>
                             <Style />
                           </TextRun>
                         </TextRuns>
@@ -1653,8 +1768,13 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Etc...</Value>
-                            <Style />
+                            <Value>Dropping Course</Value>
+                            <Style>
+                              <FontStyle>Normal</FontStyle>
+                              <FontWeight>Normal</FontWeight>
+                              <TextDecoration>None</TextDecoration>
+                              <Color>#000000</Color>
+                            </Style>
                           </TextRun>
                         </TextRuns>
                         <Style />
@@ -1675,12 +1795,116 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
                 </CellContents>
               </TablixHeader>
             </TablixMember>
+            <TablixMember>
+              <TablixHeader>
+                <Size>1.73042in</Size>
+                <CellContents>
+                  <Textbox Name="Textbox5">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Late Enrollement</Value>
+                            <Style>
+                              <FontStyle>Normal</FontStyle>
+                              <FontWeight>Normal</FontWeight>
+                              <TextDecoration>None</TextDecoration>
+                              <Color>#000000</Color>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox5</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+            <TablixMember>
+              <TablixHeader>
+                <Size>1.73042in</Size>
+                <CellContents>
+                  <Textbox Name="Textbox11">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Readmission</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox11</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+            <TablixMember>
+              <TablixHeader>
+                <Size>1.73042in</Size>
+                <CellContents>
+                  <Textbox Name="Textbox9">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Transferring a Program</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox9</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>Issues</DataSetName>
         <Top>2.54166in</Top>
         <Left>0.23709in</Left>
-        <Height>1in</Height>
+        <Height>1.75in</Height>
         <Width>2.73042in</Width>
         <ZIndex>3</ZIndex>
         <Style>
@@ -1965,8 +2189,8 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ApplicationForReadmission</DataSetName>
-        <Top>3.73959in</Top>
-        <Left>0.23043in</Left>
+        <Top>4.36459in</Top>
+        <Left>0.33711in</Left>
         <Height>0.75in</Height>
         <Width>3.28915in</Width>
         <ZIndex>4</ZIndex>
@@ -2255,8 +2479,8 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>LateEnrollment</DataSetName>
-        <Top>4.71875in</Top>
-        <Left>0.23043in</Left>
+        <Top>5.34375in</Top>
+        <Left>0.33711in</Left>
         <Height>0.75in</Height>
         <Width>3.28915in</Width>
         <ZIndex>5</ZIndex>
@@ -2545,8 +2769,8 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ProbationaryContract</DataSetName>
-        <Top>5.6875in</Top>
-        <Left>0.22127in</Left>
+        <Top>6.3125in</Top>
+        <Left>0.32795in</Left>
         <Height>0.75in</Height>
         <Width>3.29831in</Width>
         <ZIndex>6</ZIndex>
@@ -2835,8 +3059,8 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>PartTime</DataSetName>
-        <Top>6.67709in</Top>
-        <Left>0.23959in</Left>
+        <Top>7.30209in</Top>
+        <Left>0.34627in</Left>
         <Height>0.75in</Height>
         <Width>3.27999in</Width>
         <ZIndex>7</ZIndex>
@@ -3125,8 +3349,8 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>Withdraw</DataSetName>
-        <Top>7.6875in</Top>
-        <Left>0.23043in</Left>
+        <Top>8.3125in</Top>
+        <Left>0.33711in</Left>
         <Height>0.75in</Height>
         <Width>3.28915in</Width>
         <ZIndex>8</ZIndex>
@@ -3140,7 +3364,7 @@ WHERE        (issue.studentid = @withdrawStudID) AND (applicationForTermOrComple
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>8.4375in</Height>
+    <Height>9.0625in</Height>
     <Style />
   </Body>
   <ReportParameters>

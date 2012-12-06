@@ -274,6 +274,8 @@
         }
 </div>
 <p>
+    @Html.ActionLink("Back to Appointment Details", "Details", new { id = Model.appointment.appointmentid })
+     | 
     @Html.ActionLink("Back to Calendar", "Index")
 </p>
 <div id="dialog-message-error" title="Error">

@@ -25,13 +25,13 @@
         <table style="width: 800px;">
             <tr>
                 <td>
-                    <div class="editor-label">
+                    <div>
                         @Html.LabelFor(model => model._appointment.subject, "Description:")
                     </div>
                 </td>
                 <td colspan="3">
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model._appointment.subject, new { @class = "required", @style = "width: 590px;" })
+                    <div class="display-field">
+                        @Html.TextBoxFor(model => model._appointment.subject, new { @class = "required", @style = "width: 590px;" })
                         @Html.ValidationMessageFor(model => model._appointment.subject)
                     </div>
                 </td>

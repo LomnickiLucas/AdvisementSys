@@ -257,7 +257,7 @@ namespace AdvisementSys.Controllers
                     {
                         db.students.AddObject(student);
                         db.SaveChanges();
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Details", new { id = student.studentid });
                     }
                 }
 
