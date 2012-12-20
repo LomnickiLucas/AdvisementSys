@@ -243,6 +243,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\note.form.css" />
     <Content Include="Content\themes\base\images\header_bg1920.jpg" />
     <Content Include="Content\themes\base\images\sheridan_logo.png" />
     <Content Include="lib\Microsoft.ReportViewer.Common.dll" />
