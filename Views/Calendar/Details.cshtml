@@ -146,6 +146,7 @@
                     Chair:</div></strong>
             </td>
         </tr>
+        </table>
         <table class="noteThread" style="position:relative;left:20px;">
             <tr>
                 <td>
@@ -175,16 +176,17 @@
         <br />
         @if (Model.Attendees.Count() > 0)
         {
+            <table>
         <tr>
             <td>
                 <strong><div class="display-label" style="position:relative;left:10px;">
                     Attendees:</div></strong>
             </td>
         </tr>
+            </table>
             foreach (var item in Model.Attendees)
             {
-        <tr>
-            @if (item.Student != null)
+            if (item.Student != null)
             {
                 <table class="noteThread" style="position:relative;left:20px;">
             <tr>
@@ -239,7 +241,7 @@
                 <br />
             }
             
-            @if (item.Student == null)
+            if (item.Student == null)
             {
                 <table class="noteThread" style="position:relative;left:20px;">
             <tr>
@@ -321,7 +323,6 @@
         </table>
                 <br />
             }
-        </tr>
             }
         }
         <table>
